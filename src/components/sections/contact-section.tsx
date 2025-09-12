@@ -108,7 +108,7 @@ const ContactPageContent = () => {
               <div className="space-y-6">
                 {contactDetails.map((detail, index) => {
                   const content = (
-                    <div key={index} className="flex items-center gap-4 group">
+                    <div className="flex items-center gap-4 group">
                       <div className="p-3 bg-primary/10 rounded-full group-hover:bg-primary transition-colors">
                         <detail.icon className="h-6 w-6 text-primary group-hover:text-primary-foreground transition-colors" />
                       </div>
@@ -116,9 +116,9 @@ const ContactPageContent = () => {
                     </div>
                   );
                   if (detail.href) {
-                    return <a href={detail.href} target="_blank" rel="noopener noreferrer" className="inline-block">{content}</a>
+                    return <a key={index} href={detail.href} target="_blank" rel="noopener noreferrer" className="inline-block">{content}</a>
                   }
-                  return content;
+                  return <div key={index}>{content}</div>;
                 })}
               </div>
                <div className="mt-8">
