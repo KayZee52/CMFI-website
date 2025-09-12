@@ -30,8 +30,8 @@ const NewsPreviewSection = () => {
                   <p className="text-muted-foreground">{item.summary}</p>
                 </CardContent>
                 <CardFooter>
-                  <Button asChild variant="link" className="px-0 group-hover:text-primary">
-                    <Link href="/contact">
+                  <Button asChild variant="link" className="px-0 group-hover:text-primary transition-colors">
+                    <Link href="/contact#news">
                       Read More <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
@@ -43,7 +43,7 @@ const NewsPreviewSection = () => {
 
         <AnimateOnScroll className="text-center mt-12">
             <Button asChild size="lg" variant="outline">
-                <Link href="/contact">View All News</Link>
+                <Link href="/contact#news">View All News</Link>
             </Button>
         </AnimateOnScroll>
       </div>

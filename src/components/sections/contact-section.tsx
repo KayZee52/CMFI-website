@@ -11,10 +11,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { submitContactForm, type ContactFormState } from '@/lib/actions';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Mail, Phone, MapPin } from 'lucide-react';
+import { Loader2, Mail, Phone, MapPin, Clock, Facebook, Instagram, Twitter } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 import NewsSection from './news-section';
 
 const contactFormSchema = z.object({
@@ -63,111 +65,158 @@ const ContactPageContent = () => {
     { icon: MapPin, text: 'Paynesville, Liberia' },
     { icon: Phone, text: '+231-XX-XXX-XXXX' },
     { icon: Mail, text: 'info@cmfibhs.edu.lr' },
+    { icon: Clock, text: 'Mon-Fri, 8:00 AM - 4:00 PM' },
+  ];
+
+  const socialLinks = [
+    { name: 'Facebook', icon: Facebook, href: '#' },
+    { name: 'Twitter', icon: Twitter, href: '#' },
+    { name: 'Instagram', icon: Instagram, href: '#' },
   ];
 
   return (
     <>
-    <section id="contact" className="bg-card">
-      <div className="container mx-auto px-6">
-        <AnimateOnScroll className="text-center">
-          <h1 className="font-headline text-4xl md:text-5xl font-bold">Get in Touch</h1>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            Have questions or want to learn more? We&apos;d love to hear from you.
-          </p>
-        </AnimateOnScroll>
-
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12">
-          <AnimateOnScroll>
-            <h3 className="font-headline text-2xl font-semibold mb-6">Contact Information</h3>
-            <div className="space-y-6">
-              {contactDetails.map((detail, index) => (
-                <div key={index} className="flex items-start gap-4">
-                  <detail.icon className="h-6 w-6 text-primary mt-1" />
-                  <span className="text-muted-foreground">{detail.text}</span>
-                </div>
-              ))}
-            </div>
-            <div className="mt-8">
-                 <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.794195191294!2d-10.70013698523725!3d6.291196895514691!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xf09f3e4f3f3f3f3%3A0xf09f3e4f3f3f3f3!2sPaynesville%2C%20Liberia!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus" 
-                    width="100%" 
-                    height="300" 
-                    style={{ border: 0 }} 
-                    allowFullScreen={false} 
-                    loading="lazy" 
-                    title="Google Map of Paynesville"
-                    className="rounded-lg"
-                 ></iframe>
-            </div>
-          </AnimateOnScroll>
-
-          <AnimateOnScroll delay={200}>
-            <Card>
-              <CardContent className="p-8">
-                <form action={formAction} className="space-y-6">
-                  <Form {...form}>
-                    <FormField
-                      control={form.control}
-                      name="name"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Full Name</FormLabel>
-                          <FormControl>
-                            <Input placeholder="John Doe" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Email Address</FormLabel>
-                          <FormControl>
-                            <Input placeholder="john.doe@example.com" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="subject"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Subject</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Admission Inquiry" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="message"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Message</FormLabel>
-                          <FormControl>
-                            <Textarea placeholder="Your message..." {...field} rows={5} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </Form>
-                  <SubmitButton />
-                </form>
-              </CardContent>
-            </Card>
-          </AnimateOnScroll>
+      <section className="relative h-[400px] flex items-center justify-center text-center text-white">
+        <Image
+            src="https://picsum.photos/seed/contact-hero/1920/1080"
+            alt="CMFI School Campus"
+            fill
+            priority
+            className="object-cover"
+            data-ai-hint="school campus"
+        />
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative z-10 container mx-auto px-6">
+            <AnimateOnScroll>
+                <h1 className="font-headline text-4xl md:text-6xl font-bold tracking-tight">
+                    Get in Touch
+                </h1>
+                <p className="mt-4 text-lg md:text-xl text-white/90">
+                    Stay connected with CMFI Bilingual High School.
+                </p>
+            </AnimateOnScroll>
         </div>
-      </div>
-    </section>
-    <NewsSection />
+      </section>
+
+      <section id="contact" className="bg-background">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            <AnimateOnScroll>
+              <h2 className="font-headline text-3xl font-bold mb-6">Contact Information</h2>
+              <div className="space-y-6">
+                {contactDetails.map((detail, index) => (
+                  <div key={index} className="flex items-center gap-4 group">
+                    <div className="p-3 bg-primary/10 rounded-full group-hover:bg-primary transition-colors">
+                      <detail.icon className="h-6 w-6 text-primary group-hover:text-primary-foreground transition-colors" />
+                    </div>
+                    <span className="text-lg text-muted-foreground">{detail.text}</span>
+                  </div>
+                ))}
+              </div>
+               <div className="mt-8">
+                 <h3 className="font-headline text-2xl font-bold mb-4">Find Us Here</h3>
+                 <div className="rounded-lg overflow-hidden border">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.794195191294!2d-10.70013698523725!3d6.291196895514691!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xf09f3e4f3f3f3f3%3A0xf09f3e4f3f3f3f3!2sPaynesville%2C%20Liberia!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus" 
+                        width="100%" 
+                        height="300" 
+                        style={{ border: 0 }} 
+                        allowFullScreen={false} 
+                        loading="lazy" 
+                        title="Google Map of Paynesville"
+                    ></iframe>
+                 </div>
+               </div>
+            </AnimateOnScroll>
+
+            <AnimateOnScroll delay={200}>
+              <Card className="bg-card">
+                 <CardHeader>
+                    <CardTitle className="font-headline text-3xl">Send Us a Message</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <form action={formAction} className="space-y-6">
+                    <Form {...form}>
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Full Name</FormLabel>
+                            <FormControl>
+                              <Input placeholder="John Doe" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Email Address</FormLabel>
+                            <FormControl>
+                              <Input placeholder="john.doe@example.com" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="subject"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Subject</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Admission Inquiry" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="message"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Message</FormLabel>
+                            <FormControl>
+                              <Textarea placeholder="Your message..." {...field} rows={5} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </Form>
+                    <SubmitButton />
+                  </form>
+                </CardContent>
+              </Card>
+              
+               <div className="mt-8">
+                <h3 className="font-headline text-2xl font-bold mb-4">Stay Connected Online</h3>
+                <div className="flex space-x-4">
+                  {socialLinks.map((social) => (
+                    <Link
+                      key={social.name}
+                      href={social.href}
+                      aria-label={social.name}
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      <social.icon className="h-7 w-7" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+            </AnimateOnScroll>
+          </div>
+        </div>
+      </section>
+      
+      <NewsSection />
     </>
   );
 };
