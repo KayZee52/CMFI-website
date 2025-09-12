@@ -1,7 +1,7 @@
 import { AnimateOnScroll } from '@/components/animate-on-scroll';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Languages, SquareRoot, FlaskConical, Globe, Palette, Presentation, PersonStanding } from 'lucide-react';
+import { Languages, SquareRoot, FlaskConical, Globe, Palette, Presentation, PersonStanding, Award } from 'lucide-react';
 import Image from 'next/image';
 
 const AcademicsPage = () => {

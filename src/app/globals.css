@@ -10,14 +10,14 @@
     --card-foreground: 224 71% 4%;
     --popover: 0 0% 100%;
     --popover-foreground: 224 71% 4%;
-    --primary: 217 91% 60%;
+    --primary: 217 91% 60%; /* Deep Blue */
     --primary-foreground: 0 0% 98%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 45 100% 51%;
-    --accent-foreground: 0 0% 0%;
+    --accent: 38 92% 50%; /* Gold */
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 89.8%;
@@ -46,13 +46,13 @@
     --card-foreground: 210 40% 98%;
     --popover: 224 71% 4%;
     --popover-foreground: 210 40% 98%;
-    --primary: 217 91% 60%;
+    --primary: 217 91% 60%; /* Deep Blue */
     --primary-foreground: 0 0% 98%;
     --secondary: 215 28% 17%;
     --secondary-foreground: 0 0% 98%;
     --muted: 215 28% 17%;
     --muted-foreground: 218 100% 95%;
-    --accent: 45 100% 51%;
+    --accent: 38 92% 50%; /* Gold */
     --accent-foreground: 0 0% 0%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
@@ -85,4 +85,8 @@
   section {
     @apply py-16 sm:py-24;
   }
+}
+
+html {
+  scroll-padding-top: 5rem; /* Adjust for sticky header height */
 }

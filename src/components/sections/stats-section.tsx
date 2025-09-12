@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimateOnScroll } from '../animate-on-scroll';
 import { stats } from '@/lib/data';
+import { Globe } from 'lucide-react';
 
 const Counter = ({ number, suffix }: { number: number; suffix: string }) => {
   const [count, setCount] = useState(0);
@@ -65,14 +66,22 @@ const StatsSection = () => {
     <section className="bg-primary/5">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          {stats.map((stat) => (
-            <AnimateOnScroll key={stat.label}>
+          {stats.map((stat, index) => (
+            <AnimateOnScroll key={stat.label} delay={index * 100}>
               <div className="flex flex-col items-center justify-center">
                 <Counter number={stat.number} suffix={stat.suffix} />
                 <p className="mt-2 text-muted-foreground font-medium">{stat.label}</p>
               </div>
             </AnimateOnScroll>
           ))}
+           <AnimateOnScroll delay={400}>
+              <div className="flex flex-col items-center justify-center">
+                <span className="font-headline text-5xl md:text-6xl font-bold text-accent flex items-center">
+                    <Globe className="h-12 w-12 mr-2" /> 2
+                </span>
+                <p className="mt-2 text-muted-foreground font-medium">Languages</p>
+              </div>
+            </AnimateOnScroll>
         </div>
       </div>
     </section>

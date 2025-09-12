@@ -21,7 +21,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-blue-950 text-white">
+    <footer className="bg-primary text-primary-foreground">
       <div className="container mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-sm">
           <div className="flex flex-col items-start">
@@ -29,7 +29,7 @@ const Footer = () => {
               <CMFILogo className="h-10 w-10 text-accent" />
               <span className="font-headline text-xl font-bold">CMFI BHS</span>
             </Link>
-            <p className="text-blue-200">
+            <p className="text-blue-100">
               Building leaders for the future.
             </p>
           </div>
@@ -41,21 +41,21 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-blue-200 hover:text-accent transition-colors"
+                    className="text-blue-100 hover:text-accent transition-colors"
                   >
                     {link.name}
                   </Link>
                 </li>
               ))}
                <li>
-                  <Link href="#" className="text-blue-200 hover:text-accent transition-colors">Access Portal</Link>
+                  <Link href="#" className="text-blue-100 hover:text-accent transition-colors">Access Portal</Link>
               </li>
             </ul>
           </div>
 
           <div>
             <h3 className="font-headline font-semibold text-lg mb-4 text-accent">Contact Us</h3>
-             <ul className="space-y-3 text-blue-200">
+             <ul className="space-y-3 text-blue-100">
                 <li className="flex items-start gap-3">
                   <MapPin className="h-5 w-5 text-accent mt-0.5 shrink-0" />
                   <span>Paynesville, Liberia</span>
@@ -79,7 +79,7 @@ const Footer = () => {
                   key={social.name}
                   href={social.href}
                   aria-label={social.name}
-                  className="text-blue-200 hover:text-accent transition-colors"
+                  className="text-blue-100 hover:text-accent transition-colors"
                 >
                   <social.icon className="h-6 w-6" />
                 </Link>
@@ -87,7 +87,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="mt-12 border-t border-blue-800 pt-8 text-center text-sm text-blue-300">
+        <div className="mt-12 border-t border-primary/50 pt-8 text-center text-sm text-blue-200">
           <p>&copy; {new Date().getFullYear()} CMFI Bilingual High School. All Rights Reserved.</p>
         </div>
       </div>

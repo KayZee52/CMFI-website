@@ -77,5 +77,4 @@ export const stats = [
     { number: 10, suffix: '+', label: 'Years of Excellence' },
     { number: 500, suffix: '+', label: 'Students Enrolled' },
     { number: 100, suffix: '+', label: 'Graduates' },
-    { number: 95, suffix: '%', label: 'Pass Rate' },
 ];
