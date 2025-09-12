@@ -61,8 +61,10 @@ const ContactPageContent = () => {
     }
   }, [state, toast, form]);
 
+  const googleMapsUrl = "https://www.google.com/maps/place/C+M+F+I+COMPUS/@6.2972144,-10.7048804,19z/data=!4m6!3m5!1s0xf09ff47e5c02a07:0x31b2da1a364f8544!8m2!3d6.2973117!4d-10.7046187!16s%2Fg%2F11y3g_w1_9?entry=ttu";
+
   const contactDetails = [
-    { icon: MapPin, text: 'Paynesville, Liberia' },
+    { icon: MapPin, text: 'Paynesville, Liberia', href: googleMapsUrl },
     { icon: Phone, text: '+231-XX-XXX-XXXX' },
     { icon: Mail, text: 'info@cmfibhs.edu.lr' },
     { icon: Clock, text: 'Mon-Fri, 8:00 AM - 4:00 PM' },
@@ -104,14 +106,20 @@ const ContactPageContent = () => {
             <AnimateOnScroll>
               <h2 className="font-headline text-3xl font-bold mb-6">Contact Information</h2>
               <div className="space-y-6">
-                {contactDetails.map((detail, index) => (
-                  <div key={index} className="flex items-center gap-4 group">
-                    <div className="p-3 bg-primary/10 rounded-full group-hover:bg-primary transition-colors">
-                      <detail.icon className="h-6 w-6 text-primary group-hover:text-primary-foreground transition-colors" />
+                {contactDetails.map((detail, index) => {
+                  const content = (
+                    <div key={index} className="flex items-center gap-4 group">
+                      <div className="p-3 bg-primary/10 rounded-full group-hover:bg-primary transition-colors">
+                        <detail.icon className="h-6 w-6 text-primary group-hover:text-primary-foreground transition-colors" />
+                      </div>
+                      <span className="text-lg text-muted-foreground">{detail.text}</span>
                     </div>
-                    <span className="text-lg text-muted-foreground">{detail.text}</span>
-                  </div>
-                ))}
+                  );
+                  if (detail.href) {
+                    return <a href={detail.href} target="_blank" rel="noopener noreferrer" className="inline-block">{content}</a>
+                  }
+                  return content;
+                })}
               </div>
                <div className="mt-8">
                  <h3 className="font-headline text-2xl font-bold mb-4">Find Us Here</h3>
