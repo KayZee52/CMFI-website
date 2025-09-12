@@ -12,7 +12,7 @@ const NewsPreviewSection = () => {
     <section id="news-preview" className="bg-card">
       <div className="container mx-auto px-6">
         <AnimateOnScroll className="text-center">
-          <h2 className="font-headline text-3xl md:text-4xl font-bold">News & Updates</h2>
+          <h2 className="font-headline text-3xl md:text-4xl font-bold">Latest News</h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
             Stay informed with the latest happenings at CMFI.
           </p>
@@ -43,7 +43,7 @@ const NewsPreviewSection = () => {
 
         <AnimateOnScroll className="text-center mt-12">
             <Button asChild size="lg" variant="outline">
-                <Link href="/contact#news">View All News</Link>
+                <Link href="/contact#news">See All Updates</Link>
             </Button>
         </AnimateOnScroll>
       </div>

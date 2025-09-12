@@ -64,7 +64,7 @@ export const testimonials = [
   {
     name: 'John Doe',
     role: 'Alumnus',
-    quote: 'CMFI provided me with a solid foundation not just in academics, but in character. The bilingual program was a huge advantage in my career.'
+    quote: 'CMFI gave me the foundation for success. The discipline and values here shape true leaders.'
   },
   {
     name: 'Jane Smith',
@@ -74,21 +74,21 @@ export const testimonials = [
     {
     name: 'Grace Williams',
     role: 'Parent',
-    quote: 'I trust CMFI with my child’s future because they balance strong academics with discipline and moral values. It’s a wonderful environment.'
+    quote: 'The discipline and values here shape true leaders. I trust CMFI with my child’s future because they balance academics and discipline.'
   },
   {
     name: 'Samuel Johnson',
-    role: 'Student, Grade 11',
-    quote: 'I love the friendly competition and the wide range of activities available. There is always something new to learn and do at CMFI.'
+    role: 'Student',
+    quote: 'At CMFI, I feel inspired and motivated every day. The friendly competition and the wide range of activities available is great.'
   },
   {
     name: 'Fatu Kamara',
-    role: 'Student, Grade 10',
+    role: 'Student',
     quote: 'At CMFI, I’ve grown both academically and socially. It feels like a family here, and the teachers really care about our success.'
   },
   {
     name: 'David Williams',
-    role: 'Student, Grade 12',
+    role: 'Student',
     quote: 'The sports program gave me confidence and taught me the value of teamwork. It\'s a great balance to our challenging academic schedule.'
   },
 ];

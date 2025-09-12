@@ -18,13 +18,13 @@ const CtaSection = () => {
             <div className="container mx-auto px-6 text-center relative z-10">
                 <AnimateOnScroll>
                     <h2 className="font-headline text-3xl md:text-4xl font-bold">
-                        Join CMFI Today
+                        Be Part of CMFI Today
                     </h2>
                     <p className="mt-4 text-lg max-w-2xl mx-auto">
                         Empowering the next generation of leaders. Learn more about our admission process and become part of our community.
                     </p>
                     <Button asChild size="lg" variant="secondary" className="mt-8">
-                        <Link href="/admissions">Learn About Admissions</Link>
+                        <Link href="/admissions">Start Admission</Link>
                     </Button>
                 </AnimateOnScroll>
             </div>

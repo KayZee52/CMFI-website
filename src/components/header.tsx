@@ -34,6 +34,7 @@ const Header = () => {
     { name: 'Academics', href: '/academics' },
     { name: 'Student Life', href: '/student-life' },
     { name: 'Parents', href: '/parents' },
+    { name: 'Gallery', href: '/gallery' },
     { name: 'Contact', href: '/contact' },
   ];
 

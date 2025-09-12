@@ -1,6 +1,6 @@
 import { AnimateOnScroll } from "../animate-on-scroll";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { BookOpen, Globe, Users } from "lucide-react";
+import { BookOpen, Globe, Users, Laptop } from "lucide-react";
 
 const IntroSection = () => {
 
@@ -11,14 +11,19 @@ const IntroSection = () => {
       description: "We are committed to providing a rigorous academic environment that challenges students to achieve their full potential."
     },
     {
-      icon: Globe,
-      title: "Bilingual Education",
-      description: "Our curriculum in English and French prepares students for success in a globalized world."
+      icon: Users,
+      title: "Respect & Discipline",
+      description: "We foster a supportive community that emphasizes discipline, integrity, and service to others."
     },
     {
-      icon: Users,
-      title: "Community & Character",
-      description: "We foster a supportive community that emphasizes discipline, integrity, and service to others."
+      icon: Laptop,
+      title: "ICT & Modern Facilities",
+      description: "We integrate modern technology and facilities to prepare students for the digital age."
+    },
+    {
+      icon: Globe,
+      title: "Bilingual & Global Outlook",
+      description: "Our curriculum in English and French prepares students for success in a globalized world."
     }
   ];
 
@@ -27,14 +32,14 @@ const IntroSection = () => {
       <div className="container mx-auto px-6">
         <AnimateOnScroll className="text-center max-w-3xl mx-auto">
           <h2 className="font-headline text-3xl md:text-4xl font-bold">
-            Building Future Leaders
+            Why Choose CMFI?
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
             CMFI Bilingual High School is committed to building future leaders through bilingual education, discipline, and academic excellence.
           </p>
         </AnimateOnScroll>
         
-        <div className="mt-16 grid md:grid-cols-3 gap-8">
+        <div className="mt-16 grid md:grid-cols-4 gap-8">
           {highlights.map((highlight, index) => (
             <AnimateOnScroll key={highlight.title} delay={100 * (index + 1)}>
               <Card className="text-center h-full hover:shadow-lg transition-shadow">

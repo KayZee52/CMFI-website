@@ -2,18 +2,27 @@
 import { Button } from "./ui/button";
 
 const WhatsAppButton = () => {
-    const whatsAppUrl = 'https://wa.me/1234567890'; // Replace with school's WhatsApp number
+    const whatsAppUrl = 'https://wa.me/231770578147'; // Replace with school's WhatsApp number
+
+    const WhatsAppIcon = () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16.75 13.96c.25.13.41.2.46.3.05.1.03.48-.18.69a1.69 1.69 0 0 1-1.12.52c-.37.02-.74.02-1.12-.04-.51-.08-1.02-.3-1.5-.58-.81-.46-1.53-1.1-2.14-1.85-.59-.72-1.06-1.53-1.39-2.4-.21-.56-.25-1.09-.17-1.58.12-.6.38-1.08.83-1.4.14-.1.28-.2.43-.28.15-.08.3-.13.46-.13.23 0 .46.06.66.15.2.09.39.18.57.29.23.14.44.29.62.47.21.2.35.43.43.69.07.25.07.51.02.76-.05.25-.13.49-.24.71-.11.23-.24.44-.39.63l-.11.12c-.1.11-.18.22-.25.33-.07.11-.12.22-.12.33 0 .1.04.2.11.3.07.1.18.19.3.29s.25.18.4.26c.15.08.3.13.46.16.16.03.32.03.48 0 .12-.01.24-.04.36-.08.12-.04.23-.09.33-.15s.19-.11.27-.15.15-.07.21-.07.12 0 .19.01c.07.01.13.02.19.04.06.02.12.04.18.06.06.02.12.05.17.08s.1.06.14.1c.04.03.08.07.12.11l.07.07c.02.03.04.06.06.09.02.03.03.06.05.1s.03.05.04.08.02.06.02.09c0 .03-.01.06-.02.09s-.02.06-.04.08-.03.05-.05.07-.05.04-.08.05c-.03.02-.06.03-.1.04l-.06.02h-.02a1.44 1.44 0 0 1-.29.07c-.1.01-.19.02-.29.02-.12 0-.24-.01-.36-.04a1.8 1.8 0 0 1-.51-.21A3.4 3.4 0 0 1 15.09 15c-.42.33-.89.6-1.4.81-.5.21-1.02.35-1.57.43-.54.08-1.09.1-1.63.05-.6-.05-1.18-.2-1.7-.48a4.95 4.95 0 0 1-1.4-1.03c-.4-.4-.73-.85-1-1.34s-.46-1-.6-1.54c-.13-.56-.2-1.12-.18-1.68.02-.56.12-1.1.28-1.6.17-.5.4-.98.7-1.4.15-.2.32-.4.5-.58.35-.35.78-.6 1.28-.72.5-.12 1.01-.12 1.5.02.49.14.95.38 1.35.7.1.08.18.17.25.26a.5.5 0 0 1 .1.13c.03.05.06.1.08.16.02.06.04.12.05.18.01.06.02.12.02.19z" />
+            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zM1.02 12a11 11 0 0 1 11-11 11 11 0 0 1 11 11 11 11 0 0 1-11 11A11 11 0 0 1 1.02 12z" />
+        </svg>
+    )
 
     return (
         <a 
             href={whatsAppUrl} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="fixed bottom-6 right-6 z-50"
+            aria-label="Chat on WhatsApp"
+            className="fixed bottom-6 right-6 z-50 group"
         >
-            <Button size="icon" className="bg-green-500 hover:bg-green-600 text-white rounded-full h-14 w-14 shadow-lg">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-message-circle"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+            <Button size="icon" className="bg-green-500 hover:bg-green-600 text-white rounded-full h-14 w-14 shadow-lg transition-transform group-hover:scale-110">
+                <WhatsAppIcon />
             </Button>
+            <span className="sr-only">Chat on WhatsApp</span>
         </a>
     );
 }

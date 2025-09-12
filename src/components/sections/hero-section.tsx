@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { AnimateOnScroll } from '../animate-on-scroll';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { ArrowRight } from 'lucide-react';
 
 const HeroSection = () => {
   const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-background');
@@ -29,19 +28,19 @@ const HeroSection = () => {
         </AnimateOnScroll>
         <AnimateOnScroll delay={200}>
           <p className="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-white/90">
-            Building leaders for the future.
+            Building Leaders for the Future.
           </p>
         </AnimateOnScroll>
         <AnimateOnScroll delay={400}>
           <div className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
-            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground w-full sm:w-auto">
-              <Link href="#">
-                Access Portal
+            <Button asChild size="lg" className="w-full sm:w-auto">
+              <Link href="/admissions">
+                Admissions
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="text-white border-white hover:bg-white hover:text-primary w-full sm:w-auto">
-              <Link href="/about">
-                Learn More <ArrowRight className="ml-2 h-5 w-5" />
+            <Button asChild size="lg" variant="secondary" className="w-full sm:w-auto">
+              <Link href="#">
+                Access Portal
               </Link>
             </Button>
           </div>

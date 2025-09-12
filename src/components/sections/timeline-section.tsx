@@ -7,7 +7,7 @@ const TimelineSection = () => {
     <section id="timeline" className="bg-background">
       <div className="container mx-auto px-6">
         <AnimateOnScroll className="text-center">
-          <h2 className="font-headline text-3xl md:text-4xl font-bold">Our Journey Through Time</h2>
+          <h2 className="font-headline text-3xl md:text-4xl font-bold">Our Journey</h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
             From our humble beginnings to becoming a beacon of education, discover the key milestones that have shaped CMFI.
           </p>

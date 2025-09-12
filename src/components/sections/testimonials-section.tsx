@@ -13,7 +13,7 @@ const TestimonialsSection = () => {
             <div className="container mx-auto px-6">
                 <AnimateOnScroll className="text-center">
                     <h2 className="font-headline text-3xl md:text-4xl font-bold">
-                        From Our Community
+                        Voices of Our Community
                     </h2>
                     <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
                         Hear what students, parents, and alumni have to say about their experience at CMFI.
