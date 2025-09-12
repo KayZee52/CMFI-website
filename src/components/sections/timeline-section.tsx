@@ -1,38 +1,10 @@
 'use client';
 
-import { useState } from 'react';
 import { timelineData } from '@/lib/data';
 import { AnimateOnScroll } from '../animate-on-scroll';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Button } from '../ui/button';
-import { generateSummary } from '@/lib/actions';
-import { Wand2, Loader2, AlertTriangle } from 'lucide-react';
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-
-type SummaryState = {
-  [key: string]: {
-    summary?: string | null;
-    isLoading: boolean;
-    error?: string | null;
-  };
-};
 
 const TimelineSection = () => {
-  const [summaries, setSummaries] = useState<SummaryState>({});
-
-  const handleSummarize = async (year: string, text: string) => {
-    setSummaries(prev => ({ ...prev, [year]: { isLoading: true } }));
-    const result = await generateSummary(text);
-    setSummaries(prev => ({
-      ...prev,
-      [year]: {
-        summary: result.summary,
-        isLoading: false,
-        error: result.error,
-      },
-    }));
-  };
-
   return (
     <section id="timeline" className="bg-background">
       <div className="container mx-auto px-6">
@@ -48,7 +20,6 @@ const TimelineSection = () => {
           
           {timelineData.map((item, index) => {
             const isLeft = index % 2 === 0;
-            const summaryState = summaries[item.year];
 
             return (
               <div key={item.year} className={`relative flex items-center md:justify-center mb-12`}>
@@ -61,40 +32,6 @@ const TimelineSection = () => {
                       </CardHeader>
                       <CardContent>
                         <p className="text-muted-foreground">{item.description}</p>
-                        {item.longDescription && (
-                          <div className="mt-4">
-                            {summaryState?.summary ? (
-                              <div className="p-4 bg-primary/5 rounded-md text-left">
-                                <h4 className="font-bold text-sm mb-2 flex items-center">
-                                  <Wand2 className="h-4 w-4 mr-2" /> AI Summary
-                                </h4>
-                                <p className="text-sm text-muted-foreground">{summaryState.summary}</p>
-                              </div>
-                            ) : (
-                              <Button 
-                                variant="outline" 
-                                size="sm" 
-                                className="mt-2"
-                                disabled={summaryState?.isLoading}
-                                onClick={() => handleSummarize(item.year, item.longDescription!)}
-                              >
-                                {summaryState?.isLoading ? (
-                                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                ) : (
-                                  <Wand2 className="mr-2 h-4 w-4" />
-                                )}
-                                Summarize with AI
-                              </Button>
-                            )}
-                            {summaryState?.error && (
-                              <Alert variant="destructive" className="mt-2 text-left">
-                                <AlertTriangle className="h-4 w-4" />
-                                <AlertTitle>Error</AlertTitle>
-                                <AlertDescription>{summaryState.error}</AlertDescription>
-                              </Alert>
-                            )}
-                          </div>
-                        )}
                       </CardContent>
                     </Card>
                   </AnimateOnScroll>

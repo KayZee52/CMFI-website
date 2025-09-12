@@ -2,7 +2,6 @@
 'use server';
 
 import { z } from 'zod';
-import { summarizeMilestone } from '@/ai/flows/summarize-timeline-milestones';
 
 const contactFormSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -44,15 +43,4 @@ export async function submitContactForm(prevState: ContactFormState, formData: F
   // For example: await sendEmail(validatedFields.data);
 
   return { message: 'success' };
-}
-
-
-export async function generateSummary(milestoneText: string) {
-  try {
-    const result = await summarizeMilestone({ milestoneText });
-    return { summary: result.summary, error: null };
-  } catch (error) {
-    console.error('AI summary failed:', error);
-    return { summary: null, error: 'Failed to generate summary. Please try again later.' };
-  }
 }
