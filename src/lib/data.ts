@@ -71,6 +71,11 @@ export const testimonials = [
     role: 'Parent',
     quote: 'The teachers are incredibly dedicated and the communication with parents is excellent. I always feel informed and involved in my child\'s education.'
   },
+    {
+    name: 'Grace Williams',
+    role: 'Parent',
+    quote: 'I trust CMFI with my child’s future because they balance strong academics with discipline and moral values. It’s a wonderful environment.'
+  },
   {
     name: 'Samuel Johnson',
     role: 'Student, Grade 11',
