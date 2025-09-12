@@ -62,7 +62,7 @@ const ContactPageContent = () => {
   }, [state, toast, form]);
 
   const googleMapsUrl = "https://www.google.com/maps/place/C+M+F+I+COMPUS/@6.2972144,-10.7048804,93m/data=!3m1!1e3!4m12!1m5!8m4!1e3!2s109661092954929372296!3m1!1e1!3m5!1s0xf09ff47e5c02a07:0x31b2da1a364f8544!8m2!3d6.2971472!4d-10.7048819!16s%2Fg%2F11rp0tf6_0?entry=ttu&g_ep=EgoyMDI1MDkwOS4wIKXMDSoASAFQAw%3D%3D";
-  const embedMapsUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d403.4164338365528!2d-10.7048803721997!3d6.297214372599682!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xf09ff47e5c02a07%3A0x31b2da1a364f8544!2sC%20M%20F%20I%20COMPUS!5e1!3m2!1sen!2s!4v1757676798465!5m2!1sen!2s";
+  const embedMapsUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3227.331855121172!2d-10.707456826099728!3d6.297152525754518!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xf09ff47e5c02a07%3A0x31b2da1a364f8544!2sC%20M%20F%20I%20COMPUS!5e1!3m2!1sen!2sus!4v1757677670381!5m2!1sen!2sus";
 
   const contactDetails = [
     { icon: MapPin, text: 'C M F I COMPUS, 72nd, Paynesville, Liberia', href: googleMapsUrl },
