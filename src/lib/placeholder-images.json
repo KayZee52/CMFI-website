@@ -1,3 +1,58 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-background",
+      "description": "Background image for the hero section showing a modern school building",
+      "imageUrl": "https://picsum.photos/seed/hero/1920/1080",
+      "imageHint": "school building"
+    },
+    {
+      "id": "gallery-1",
+      "description": "Students participating in a race on sports day.",
+      "imageUrl": "https://picsum.photos/seed/1/600/400",
+      "imageHint": "students running"
+    },
+    {
+      "id": "gallery-2",
+      "description": "A team celebrating a victory.",
+      "imageUrl": "https://picsum.photos/seed/2/600/400",
+      "imageHint": "team celebration"
+    },
+    {
+      "id": "gallery-3",
+      "description": "Students conducting an experiment at the science fair.",
+      "imageUrl": "https://picsum.photos/seed/3/600/400",
+      "imageHint": "students experiment"
+    },
+    {
+      "id": "gallery-4",
+      "description": "A student-built robot project on display.",
+      "imageUrl": "https://picsum.photos/seed/4/600/400",
+      "imageHint": "robot project"
+    },
+    {
+      "id": "gallery-5",
+      "description": "Students performing a traditional dance on cultural day.",
+      "imageUrl": "https://picsum.photos/seed/5/600/400",
+      "imageHint": "traditional dance"
+    },
+    {
+      "id": "gallery-6",
+      "description": "Students in colorful traditional costumes.",
+      "imageUrl": "https://picsum.photos/seed/6/600/400",
+      "imageHint": "colorful costumes"
+    },
+    {
+      "id": "gallery-7",
+      "description": "Students in graduation gowns during the ceremony.",
+      "imageUrl": "https://picsum.photos/seed/7/600/400",
+      "imageHint": "students graduation"
+    },
+    {
+      "id": "gallery-8",
+      "description": "Happy graduates tossing their caps in the air.",
+      "imageUrl": "https://picsum.photos/seed/8/600/400",
+      "imageHint": "happy graduates"
+    }
+  ]
 }
