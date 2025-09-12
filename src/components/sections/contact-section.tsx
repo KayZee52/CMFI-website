@@ -61,10 +61,11 @@ const ContactPageContent = () => {
     }
   }, [state, toast, form]);
 
-  const googleMapsUrl = "https://www.google.com/maps/place/C+M+F+I+COMPUS/@6.2972144,-10.7048804,19z/data=!4m6!3m5!1s0xf09ff47e5c02a07:0x31b2da1a364f8544!8m2!3d6.2973117!4d-10.7046187!16s%2Fg%2F11y3g_w1_9?entry=ttu";
+  const googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=6.297157719559182,-10.704869643363699";
+  const embedMapsUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d403.4164338365528!2d-10.7048803721997!3d6.297214372599682!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xf09ff47e5c02a07%3A0x31b2da1a364f8544!2sC%20M%20F%20I%20COMPUS!5e1!3m2!1sen!2s!4v1757676798465!5m2!1sen!2s";
 
   const contactDetails = [
-    { icon: MapPin, text: 'Paynesville, Liberia', href: googleMapsUrl },
+    { icon: MapPin, text: 'C M F I COMPUS, 72nd, Paynesville, Liberia', href: googleMapsUrl },
     { icon: Phone, text: '+231-XX-XXX-XXXX' },
     { icon: Mail, text: 'info@cmfibhs.edu.lr' },
     { icon: Clock, text: 'Mon-Fri, 8:00 AM - 4:00 PM' },
@@ -125,7 +126,7 @@ const ContactPageContent = () => {
                  <h3 className="font-headline text-2xl font-bold mb-4">Find Us Here</h3>
                  <div className="rounded-lg overflow-hidden border">
                     <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d403.4164338365528!2d-10.7048803721997!3d6.297214372599682!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xf09ff47e5c02a07%3A0x31b2da1a364f8544!2sC%20M%20F%20I%20COMPUS!5e1!3m2!1sen!2s!4v1757676798465!5m2!1sen!2s" 
+                        src={embedMapsUrl}
                         width="100%" 
                         height="300" 
                         style={{ border: 0 }} 
