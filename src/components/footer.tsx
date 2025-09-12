@@ -1,13 +1,19 @@
+'use client';
+
 import { CMFILogo } from './icons';
-import { Facebook, Twitter, Instagram, Linkedin, Youtube, Phone, Mail, MapPin, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 import Link from 'next/link';
 import { Input } from './ui/input';
+import { useRouter } from 'next/navigation';
+import type { FormEvent } from 'react';
 
 const Footer = () => {
+  const router = useRouter();
+
   const findUs = {
     address: 'CMFI Bilingual High School, 72nd, Paynesville, Liberia',
     phone: '+231-XX-XXX-XXXX',
-    mapHref: "https://www.google.com/maps/place/C+M+F+I+COMPUS/@6.2971525,-10.7074568,17z/data=!3m1!4b1!4m6!3m5!1s0xf09ff47e5c02a07:0x31b2da1a364f8544!8m2!3d6.2971472!4d-10.7048819!16s%2Fg%2F11rp0tf6_0?entry=ttu"
+    mapHref: "https://www.google.com/maps/place/C+M+F+I+COMPUS/@6.2972144,-10.7048804,93m/data=!3m1!1e3!4m12!1m5!8m4!1e3!2s109661092954929372296!3m1!1e1!3m5!1s0xf09ff47e5c02a07:0x31b2da1a364f8544!8m2!3d6.2971472!4d-10.7048819!16s%2Fg%2F11rp0tf6_0?entry=ttu&g_ep=EgoyMDI1MDkwOS4wIKXMDSoASAFQAw%3D%3D"
   };
 
   const followUsLinks = [
@@ -26,6 +32,15 @@ const Footer = () => {
     { name: 'Contact', href: '/contact' },
     { name: 'Portal', href: '#' }
   ];
+
+  const handleSearch = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const query = formData.get('q');
+    if (typeof query === 'string' && query.trim()) {
+      router.push(`/search?q=${encodeURIComponent(query.trim())}`);
+    }
+  };
 
   return (
     <footer className="bg-primary text-primary-foreground/80">
@@ -78,14 +93,17 @@ const Footer = () => {
             <p className="text-xs">
               CMFI Bilingual High School does not discriminate in its admissions or educational programs on the basis of race, color, religion, sex, or national origin.
             </p>
-            <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-primary-foreground/50" />
-                <Input 
-                    type="search" 
-                    placeholder="What are you looking for?"
-                    className="bg-primary-foreground/10 border-primary-foreground/30 text-primary-foreground placeholder:text-primary-foreground/50 pl-9"
-                />
-            </div>
+            <form onSubmit={handleSearch}>
+              <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-primary-foreground/50" />
+                  <Input 
+                      type="search"
+                      name="q"
+                      placeholder="What are you looking for?"
+                      className="bg-primary-foreground/10 border-primary-foreground/30 text-primary-foreground placeholder:text-primary-foreground/50 pl-9"
+                  />
+              </div>
+            </form>
           </div>
         </div>
 

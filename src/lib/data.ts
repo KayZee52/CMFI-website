@@ -98,3 +98,54 @@ export const stats = [
     { number: 500, suffix: '+', label: 'Students Enrolled' },
     { number: 100, suffix: '+', label: 'Graduates' },
 ];
+
+export const searchData = [
+    {
+        title: 'Home',
+        href: '/',
+        keywords: ['home', 'main', 'welcome', 'index'],
+        summary: 'The main landing page of the CMFI Bilingual High School website, featuring highlights and navigation to all other sections.'
+    },
+    {
+        title: 'About Us',
+        href: '/about',
+        keywords: ['about', 'mission', 'vision', 'principal', 'history', 'timeline'],
+        summary: 'Learn about CMFI\'s history, our mission and vision, and read a welcome message from our principal. Discover our journey through the years.'
+    },
+    {
+        title: 'Admissions',
+        href: '/admissions',
+        keywords: ['admissions', 'apply', 'enrollment', 'fees', 'requirements', 'application', 'process'],
+        summary: 'Find out how to apply to CMFI. This page details the admission process, required documents, and important deadlines.'
+    },
+    {
+        title: 'Academics',
+        href: '/academics',
+        keywords: ['academics', 'curriculum', 'departments', 'subjects', 'learning', 'science', 'math', 'languages', 'ict'],
+        summary: 'Explore our rigorous bilingual curriculum, academic departments, and learning facilities designed for student success.'
+    },
+    {
+        title: 'Student Life',
+        href: '/student-life',
+        keywords: ['student life', 'sports', 'clubs', 'events', 'activities', 'community', 'alumni'],
+        summary: 'Discover life beyond the classroom, from athletics and clubs to community involvement and special school events.'
+    },
+    {
+        title: 'Parents',
+        href: '/parents',
+        keywords: ['parents', 'resources', 'handbook', 'calendar', 'meetings', 'pta'],
+        summary: 'A resource hub for parents, providing access to the student handbook, school calendar, and information on parent-teacher involvement.'
+    },
+    {
+        title: 'Gallery',
+        href: '/gallery',
+        keywords: ['gallery', 'photos', 'images', 'events', 'sports day', 'graduation'],
+        summary: 'View photos from our school events, including sports days, cultural celebrations, and graduation ceremonies.'
+    },
+    {
+        title: 'Contact Us',
+        href: '/contact',
+        keywords: ['contact', 'address', 'phone', 'email', 'map', 'directions', 'news', 'updates'],
+        summary: 'Find our contact details, location map, and operating hours. You can also send us a message directly through the contact form.'
+    },
+];
