@@ -10,6 +10,7 @@ import {
   Sheet,
   SheetContent,
   SheetTrigger,
+  SheetTitle,
 } from "@/components/ui/sheet"
 import { usePathname } from 'next/navigation';
 
@@ -85,6 +86,7 @@ const Header = () => {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-full max-w-sm bg-background">
+                <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
                 <div className="p-6 h-full flex flex-col">
                   <div className="flex items-center justify-between mb-8">
                     <Link href="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2">
