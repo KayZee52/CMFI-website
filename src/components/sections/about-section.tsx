@@ -1,44 +1,57 @@
 import { AnimateOnScroll } from '../animate-on-scroll';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Target, BookOpen, Handshake, BrainCircuit, MessageSquareQuote } from 'lucide-react';
-import TimelineSection from './timeline-section';
+import { Target, Eye, Handshake } from 'lucide-react';
+import Image from 'next/image';
 
 const AboutPageContent = () => {
   const values = [
     {
       icon: Target,
       title: 'Our Mission',
-      description: 'To provide a holistic bilingual education that develops intellectual, moral, and spiritual growth in every student.',
+      description: 'To provide a holistic bilingual education that develops intellectual, moral, and spiritual growth in every student, preparing them for a globally competitive world.',
     },
     {
-      icon: BookOpen,
+      icon: Eye,
       title: 'Our Vision',
-      description: 'To be a leading center of academic excellence and character formation, producing globally competitive leaders.',
+      description: 'To be a leading center of academic excellence and character formation, recognized for producing disciplined, innovative, and responsible leaders.',
     },
     {
       icon: Handshake,
       title: 'Core Values',
-      description: 'Discipline, Integrity, Excellence, and Service.',
+      description: 'We are guided by Excellence, Integrity, Respect, Service, and Community. These values shape our culture and our students\' character.',
     },
   ];
 
   return (
     <>
+    <section className="relative h-[400px] flex items-center justify-center text-center text-white">
+        <Image
+            src="https://picsum.photos/seed/about-hero/1920/1080"
+            alt="CMFI Campus"
+            fill
+            priority
+            className="object-cover"
+            data-ai-hint="school campus"
+        />
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative z-10 container mx-auto px-6">
+            <AnimateOnScroll>
+                <h1 className="font-headline text-4xl md:text-6xl font-bold tracking-tight">
+                    About CMFI Bilingual High School
+                </h1>
+                <p className="mt-4 text-lg md:text-xl text-white/90">
+                    Building leaders for the future since 2010.
+                </p>
+            </AnimateOnScroll>
+        </div>
+    </section>
+
     <section id="about" className="bg-card">
       <div className="container mx-auto px-6">
-        <AnimateOnScroll className="text-center">
-          <h1 className="font-headline text-4xl md:text-5xl font-bold">
-            About CMFI Bilingual High School
-          </h1>
-          <p className="mt-4 max-w-3xl mx-auto text-lg text-muted-foreground">
-            Building leaders for the future.
-          </p>
-        </AnimateOnScroll>
-        
-        <AnimateOnScroll delay={200} className="mt-16">
-            <Card className="overflow-hidden md:flex">
-                <div className="md:w-1/3">
-                    <img src="https://picsum.photos/seed/principal/600/800" alt="Principal" data-ai-hint="portrait person" className="object-cover w-full h-full" />
+        <AnimateOnScroll className="mt-16">
+            <Card className="overflow-hidden md:flex shadow-lg">
+                <div className="md:w-1/3 relative min-h-[300px] md:min-h-0">
+                    <Image src="https://picsum.photos/seed/principal/600/800" alt="Principal Simeon E. Ojong" data-ai-hint="portrait person" layout="fill" objectFit="cover" />
                 </div>
                 <div className="md:w-2/3">
                     <CardHeader>
@@ -46,18 +59,22 @@ const AboutPageContent = () => {
                     </CardHeader>
                     <CardContent>
                         <p className="text-muted-foreground mb-4">
-                            "Welcome to CMFI Bilingual High School! We are a community dedicated to fostering academic excellence and nurturing well-rounded individuals. Our unique bilingual approach prepares students for a globalized world, while our commitment to strong moral values ensures they grow into responsible and compassionate leaders."
+                            "Welcome to CMFI Bilingual High School! We are a community dedicated to fostering academic excellence and nurturing well-rounded individuals. Our unique bilingual approach prepares students for a globalized world, while our commitment to strong moral values ensures they grow into responsible and compassionate leaders of tomorrow."
                         </p>
-                        <p className="font-semibold text-foreground"> - Principal's Name</p>
+                        <p className="font-semibold text-foreground">- Simeon E. Ojong, Principal</p>
                     </CardContent>
                 </div>
             </Card>
         </AnimateOnScroll>
 
-        <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <AnimateOnScroll delay={200} className="text-center mt-24">
+            <h2 className="font-headline text-3xl md:text-4xl font-bold">Our Guiding Principles</h2>
+        </AnimateOnScroll>
+
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
           {values.map((feature, index) => (
             <AnimateOnScroll key={feature.title} delay={index * 100}>
-              <Card className="text-center h-full hover:shadow-lg transition-shadow duration-300">
+              <Card className="text-center h-full hover:shadow-xl transition-shadow duration-300">
                 <CardHeader className="items-center">
                   <div className="p-4 bg-primary/10 text-primary rounded-full mb-4">
                     <feature.icon className="h-8 w-8" />
@@ -73,8 +90,6 @@ const AboutPageContent = () => {
         </div>
       </div>
     </section>
-    
-    <TimelineSection />
     </>
   );
 };
