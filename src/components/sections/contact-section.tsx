@@ -117,13 +117,14 @@ const ContactPageContent = () => {
                  <h3 className="font-headline text-2xl font-bold mb-4">Find Us Here</h3>
                  <div className="rounded-lg overflow-hidden border">
                     <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.794195191294!2d-10.70013698523725!3d6.291196895514691!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xf09f3e4f3f3f3f3%3A0xf09f3e4f3f3f3f3!2sPaynesville%2C%20Liberia!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus" 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d403.4164338365528!2d-10.7048803721997!3d6.297214372599682!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xf09ff47e5c02a07%3A0x31b2da1a364f8544!2sC%20M%20F%20I%20COMPUS!5e1!3m2!1sen!2s!4v1757676798465!5m2!1sen!2s" 
                         width="100%" 
                         height="300" 
                         style={{ border: 0 }} 
-                        allowFullScreen={false} 
+                        allowFullScreen={true}
                         loading="lazy" 
-                        title="Google Map of Paynesville"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        title="Google Map of CMFI Campus"
                     ></iframe>
                  </div>
                </div>
