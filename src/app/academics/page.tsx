@@ -1,14 +1,14 @@
 import { AnimateOnScroll } from '@/components/animate-on-scroll';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Languages, SquareRoot, FlaskConical, Globe, Palette, Presentation, PersonStanding, Award } from 'lucide-react';
+import { Languages, Calculator, FlaskConical, Globe, Palette, Presentation, PersonStanding, Award } from 'lucide-react';
 import Image from 'next/image';
 
 const AcademicsPage = () => {
 
     const departments = [
         { name: 'Languages', icon: Languages },
-        { name: 'Mathematics', icon: SquareRoot },
+        { name: 'Mathematics', icon: Calculator },
         { name: 'Sciences', icon: FlaskConical },
         { name: 'ICT', icon: Presentation },
         { name: 'Business', icon: Globe },
