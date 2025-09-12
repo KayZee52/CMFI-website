@@ -1,16 +1,16 @@
 export const timelineData = [
   {
-    year: '2010',
+    year: '2014',
     title: 'School Founded',
     description: 'CMFI Bilingual High School was founded to provide quality bilingual education in Paynesville.',
   },
   {
-    year: '2014',
+    year: '2016',
     title: 'First Junior High Classes',
     description: 'The school expanded to include its first cohort of junior high school students.',
   },
   {
-    year: '2018',
+    year: '2019',
     title: 'First Graduation & Campus Expansion',
     description: 'Celebrated its first graduation and inaugurated a new science and ICT block.',
   },
@@ -73,9 +73,19 @@ export const testimonials = [
   },
   {
     name: 'Samuel Johnson',
-    role: 'Student',
+    role: 'Student, Grade 11',
     quote: 'I love the friendly competition and the wide range of activities available. There is always something new to learn and do at CMFI.'
-  }
+  },
+  {
+    name: 'Fatu Kamara',
+    role: 'Student, Grade 10',
+    quote: 'At CMFI, I’ve grown both academically and socially. It feels like a family here, and the teachers really care about our success.'
+  },
+  {
+    name: 'David Williams',
+    role: 'Student, Grade 12',
+    quote: 'The sports program gave me confidence and taught me the value of teamwork. It\'s a great balance to our challenging academic schedule.'
+  },
 ];
 
 export const stats = [

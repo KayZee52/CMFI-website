@@ -1,66 +1,208 @@
 import { AnimateOnScroll } from '@/components/animate-on-scroll';
-import GallerySection from '@/components/sections/gallery-section';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Medal, Trophy, BrainCircuit, GraduationCap } from 'lucide-react';
+import { Medal, Trophy, BrainCircuit, GraduationCap, Users, HeartHandshake, School } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { testimonials } from '@/lib/data';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import Autoplay from "embla-carousel-autoplay"
 
 const StudentLifePage = () => {
     
-    const activities = [
-        { icon: Trophy, title: 'Sports', items: ['Football', 'Kickball', 'Basketball'] },
-        { icon: BrainCircuit, title: 'Activities', items: ['Quiz Competitions', 'Debate Club'] },
-        { icon: GraduationCap, title: 'Events', items: ['Graduation Ceremony', 'Cultural Day', 'School Programs'] },
-        { icon: Medal, title: 'Achievements', items: ['WAEC/WASSCE High Scores', 'Inter-School Competition Wins'] },
+    const sports = [
+        { icon: Trophy, title: 'Football', description: 'Team spirit, training, and inter-school matches.', imageUrl: 'https://picsum.photos/seed/football/800/600', hint: 'students playing football' },
+        { icon: Medal, title: 'Basketball', description: 'Encouraging discipline, teamwork, and fitness.', imageUrl: 'https://picsum.photos/seed/basketball/800/600', hint: 'students playing basketball' },
+        { icon: Trophy, title: 'Kickball', description: 'Fun, energy, and school-wide participation.', imageUrl: 'https://picsum.photos/seed/kickball/800/600', hint: 'students playing kickball' },
     ];
+
+    const events = [
+        { icon: BrainCircuit, title: 'Quiz Competitions', description: 'Showcasing academic excellence and sharp minds.' },
+        { icon: GraduationCap, title: 'Graduation & Recognition Day', description: 'Celebrating student milestones and achievements.' },
+    ];
+    
+    const community = [
+        { icon: Users, title: "Parents' Involvement" },
+        { icon: School, title: "School-wide Activities" },
+        { icon: HeartHandshake, title: "Community Service" },
+    ];
+
+    const studentTestimonials = testimonials.filter(t => t.role.includes('Student'));
     
     return (
         <>
-            <section className="bg-background">
-                <div className="container mx-auto px-6 py-16">
-                    <AnimateOnScroll className="text-center">
-                        <h1 className="font-headline text-4xl md:text-5xl font-bold">Student & Alumni Life</h1>
-                        <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                            A vibrant community of learners, leaders, and lifelong friends.
+            <section className="relative h-[400px] flex items-center justify-center text-center text-white">
+                <Image
+                    src="https://picsum.photos/seed/student-life-hero/1920/1080"
+                    alt="Students smiling"
+                    fill
+                    priority
+                    className="object-cover object-center"
+                    data-ai-hint="students smiling group"
+                />
+                <div className="absolute inset-0 bg-black/60" />
+                <div className="relative z-10 container mx-auto px-6">
+                    <AnimateOnScroll>
+                        <h1 className="font-headline text-4xl md:text-6xl font-bold tracking-tight">
+                            Student Life at CMFI
+                        </h1>
+                        <p className="mt-4 text-lg md:text-xl text-white/90">
+                           More than academics — a place to grow, connect, and thrive.
                         </p>
                     </AnimateOnScroll>
-                    
-                    <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {activities.map((activity, index) => (
-                            <AnimateOnScroll key={activity.title} delay={index * 100}>
-                                <Card className="h-full hover:shadow-lg transition-shadow">
-                                    <CardHeader className="items-center text-center">
-                                        <div className="p-4 bg-primary/10 text-primary rounded-full mb-4">
-                                            <activity.icon className="h-8 w-8" />
-                                        </div>
-                                        <CardTitle className="font-headline text-xl">{activity.title}</CardTitle>
+                </div>
+            </section>
+
+            <section id="sports" className="bg-background">
+                <div className="container mx-auto px-6">
+                    <AnimateOnScroll className="text-center">
+                        <h2 className="font-headline text-3xl md:text-4xl font-bold">Sports & Athletics</h2>
+                    </AnimateOnScroll>
+                    <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {sports.map((sport, index) => (
+                            <AnimateOnScroll key={sport.title} delay={index * 100}>
+                                <Card className="overflow-hidden group hover:shadow-xl transition-shadow">
+                                    <div className="relative aspect-video">
+                                        <Image src={sport.imageUrl} layout="fill" objectFit="cover" alt={sport.title} data-ai-hint={sport.hint} className="group-hover:scale-105 transition-transform duration-300" />
+                                    </div>
+                                    <CardHeader>
+                                        <CardTitle className="font-headline flex items-center gap-3"><sport.icon className="h-6 w-6 text-primary"/>{sport.title}</CardTitle>
                                     </CardHeader>
                                     <CardContent>
-                                        <ul className="list-disc list-inside text-muted-foreground text-center">
-                                            {activity.items.map(item => <li key={item}>{item}</li>)}
-                                        </ul>
+                                        <p className="text-muted-foreground">{sport.description}</p>
                                     </CardContent>
                                 </Card>
                             </AnimateOnScroll>
                         ))}
                     </div>
+                </div>
+            </section>
 
-                    <AnimateOnScroll delay={400} className="mt-24">
-                        <Card className="bg-primary/10 text-center">
-                            <CardContent className="p-8">
-                                <h2 className="font-headline text-2xl font-bold mb-4">Alumni Connections</h2>
-                                <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-                                    Our alumni are a vital part of our community. Connect with fellow graduates, share success stories, and stay involved with the future of CMFI.
-                                </p>
-                                <Button asChild className="bg-accent hover:bg-accent/90">
-                                    <Link href="#" target="_blank">Join Alumni WhatsApp Group</Link>
-                                </Button>
-                            </CardContent>
-                        </Card>
+            <section className="bg-card">
+                 <div className="container mx-auto px-6">
+                    <AnimateOnScroll className="text-center">
+                         <h2 className="font-headline text-3xl md:text-4xl font-bold mb-12">Competitions & School Events</h2>
+                    </AnimateOnScroll>
+                    <div className="grid md:grid-cols-2 gap-8">
+                        {events.map((event, index) => (
+                             <AnimateOnScroll key={event.title} delay={index * 200}>
+                                <Card className="p-6 text-center bg-primary/5 h-full">
+                                    <div className="p-4 bg-primary/10 text-primary rounded-full mb-4 inline-block">
+                                        <event.icon className="h-8 w-8" />
+                                    </div>
+                                    <h3 className="font-headline text-xl font-bold mb-2">{event.title}</h3>
+                                    <p className="text-muted-foreground">{event.description}</p>
+                                </Card>
+                            </AnimateOnScroll>
+                        ))}
+                    </div>
+                     <div className="text-center mt-12">
+                        <Button asChild variant="outline">
+                            <Link href="/contact">See Upcoming Events</Link>
+                        </Button>
+                    </div>
+                 </div>
+            </section>
+
+            <section className="bg-background">
+                <div className="container mx-auto px-6 text-center">
+                    <AnimateOnScroll>
+                         <h2 className="font-headline text-3xl md:text-4xl font-bold">What Our Students Say</h2>
+                    </AnimateOnScroll>
+                    <AnimateOnScroll delay={200} className="mt-12 max-w-4xl mx-auto">
+                        <Carousel 
+                            opts={{ align: "start", loop: true }}
+                            plugins={[Autoplay({ delay: 5000 })]}
+                            className="w-full"
+                        >
+                            <CarouselContent>
+                                {studentTestimonials.map((testimonial, index) => (
+                                    <CarouselItem key={index}>
+                                        <div className="p-4">
+                                            <div className="flex flex-col items-center text-center">
+                                                <Avatar className="w-20 h-20 mb-4">
+                                                    <AvatarImage src={`https://picsum.photos/seed/student-avatar${index}/100`} alt={testimonial.name} />
+                                                    <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
+                                                </Avatar>
+                                                <p className="text-lg text-muted-foreground mb-4 max-w-2xl">"{testimonial.quote}"</p>
+                                                <p className="font-bold font-headline text-lg">{testimonial.name}</p>
+                                                <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                                            </div>
+                                        </div>
+                                    </CarouselItem>
+                                ))}
+                            </CarouselContent>
+                        </Carousel>
                     </AnimateOnScroll>
                 </div>
             </section>
-            <GallerySection />
+
+            <section className="bg-card">
+                 <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+                    <AnimateOnScroll>
+                        <h2 className="font-headline text-3xl font-bold mb-4">Our Alumni</h2>
+                        <p className="text-muted-foreground mb-6">
+                            CMFI alumni are leaders in their communities, continuing to live by the values of excellence and discipline. We are proud of our graduates who make a positive impact across various fields.
+                        </p>
+                        <Button asChild className="bg-accent hover:bg-accent/90">
+                            <Link href="#" target="_blank">Join the Alumni Network</Link>
+                        </Button>
+                    </AnimateOnScroll>
+                    <AnimateOnScroll delay={200}>
+                        <div className="relative aspect-video rounded-lg overflow-hidden">
+                            <Image src="https://picsum.photos/seed/alumni-life/800/600" layout="fill" objectFit="cover" alt="Alumni group photo" data-ai-hint="graduates group photo" />
+                        </div>
+                    </AnimateOnScroll>
+                </div>
+            </section>
+
+            <section className="bg-background">
+                <div className="container mx-auto px-6 text-center">
+                    <AnimateOnScroll>
+                        <h2 className="font-headline text-3xl md:text-4xl font-bold">Together Beyond the Classroom</h2>
+                        <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+                            We believe that a strong community is the foundation of a great school. CMFI actively involves parents, alumni, and the local community in our mission to foster well-rounded individuals.
+                        </p>
+                    </AnimateOnScroll>
+                    <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {community.map((item, index) => (
+                            <AnimateOnScroll key={item.title} delay={index * 150}>
+                                <Card className="p-6 hover:shadow-lg transition-shadow group">
+                                    <div className="p-4 bg-primary/10 text-primary rounded-full mb-4 inline-block group-hover:animate-bounce">
+                                        <item.icon className="h-8 w-8" />
+                                    </div>
+                                    <h3 className="font-headline text-xl font-bold">{item.title}</h3>
+                                </Card>
+                            </AnimateOnScroll>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            <section className="relative bg-primary text-primary-foreground">
+                 <Image 
+                    src="https://picsum.photos/seed/cta-student-life/1920/1080"
+                    layout="fill"
+                    objectFit="cover"
+                    alt="Students cheering"
+                    data-ai-hint="students cheering"
+                    className="opacity-20"
+                />
+                <div className="absolute inset-0 bg-primary/80" />
+                <div className="container mx-auto px-6 text-center relative z-10">
+                    <AnimateOnScroll>
+                        <h2 className="font-headline text-3xl md:text-4xl font-bold">
+                           Life at CMFI is about more than school — it’s about building lasting memories.
+                        </h2>
+                        <div className="mt-8 flex justify-center">
+                            <Button asChild size="lg" variant="secondary">
+                                <Link href="/admissions">Apply to CMFI</Link>
+                            </Button>
+                        </div>
+                    </AnimateOnScroll>
+                </div>
+            </section>
         </>
     );
 };
