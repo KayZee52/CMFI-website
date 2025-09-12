@@ -61,7 +61,7 @@ const ContactPageContent = () => {
     }
   }, [state, toast, form]);
 
-  const googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=6.297157719559182,-10.704869643363699";
+  const googleMapsUrl = "https://www.google.com/maps?q=6.297157719559182,-10.704869643363699";
   const embedMapsUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d403.4164338365528!2d-10.7048803721997!3d6.297214372599682!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xf09ff47e5c02a07%3A0x31b2da1a364f8544!2sC%20M%20F%20I%20COMPUS!5e1!3m2!1sen!2s!4v1757676798465!5m2!1sen!2s";
 
   const contactDetails = [
