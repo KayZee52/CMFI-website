@@ -16,7 +16,7 @@
     --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 28 57% 40%; /* Brown */
+    --accent: 28 57% 40%; /* Ochre/Brown */
     --accent-foreground: 0 0% 98%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
@@ -52,7 +52,7 @@
     --secondary-foreground: 0 0% 98%;
     --muted: 215 28% 17%;
     --muted-foreground: 218 100% 95%;
-    --accent: 28 57% 50%; /* Brown */
+    --accent: 28 57% 50%; /* Ochre/Brown */
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
