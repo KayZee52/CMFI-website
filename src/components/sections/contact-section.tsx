@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useId } from 'react';
 import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
@@ -65,7 +65,7 @@ const ContactPageContent = () => {
   const embedMapsUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3227.331855121172!2d-10.707456826099728!3d6.297152525754518!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xf09ff47e5c02a07%3A0x31b2da1a364f8544!2sC%20M%20F%20I%20COMPUS!5e1!3m2!1sen!2sus!4v1757677670381!5m2!1sen!2sus";
 
   const contactDetails = [
-    { icon: MapPin, text: 'C M F I COMPUS, 72nd, Paynesville, Liberia', href: googleMapsUrl },
+    { icon: MapPin, text: 'CMFI Bilingual High School, 72nd, Paynesville, Liberia', href: googleMapsUrl },
     { icon: Phone, text: '+231-XX-XXX-XXXX' },
     { icon: Mail, text: 'info@cmfibhs.edu.lr' },
     { icon: Clock, text: 'Mon-Fri, 8:00 AM - 4:00 PM' },
@@ -76,6 +76,8 @@ const ContactPageContent = () => {
     { name: 'Twitter', icon: Twitter, href: '#' },
     { name: 'Instagram', icon: Instagram, href: '#' },
   ];
+  
+  const uniqueId = useId();
 
   return (
     <>
@@ -117,9 +119,9 @@ const ContactPageContent = () => {
                     </div>
                   );
                   if (detail.href) {
-                    return <a key={index} href={detail.href} target="_blank" rel="noopener noreferrer" className="inline-block">{content}</a>
+                    return <a key={`${uniqueId}-${index}`} href={detail.href} target="_blank" rel="noopener noreferrer" className="inline-block">{content}</a>
                   }
-                  return <div key={index}>{content}</div>;
+                  return <div key={`${uniqueId}-${index}`}>{content}</div>;
                 })}
               </div>
                <div className="mt-8">
