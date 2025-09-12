@@ -6,7 +6,7 @@ import { AnimateOnScroll } from '../animate-on-scroll';
 import { galleryData } from '@/lib/data';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Card, CardContent } from '../ui/card';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../ui/dialog';
+import { Dialog, DialogContent } from '../ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 const GallerySection = () => {
@@ -22,9 +22,9 @@ const GallerySection = () => {
     <section id="gallery" className="bg-card">
       <div className="container mx-auto px-6">
         <AnimateOnScroll className="text-center">
-          <h2 className="font-headline text-3xl md:text-4xl font-bold">Student Life at CMFI</h2>
+          <h2 className="font-headline text-3xl md:text-4xl font-bold">Gallery</h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            Explore the vibrant and enriching experiences that define our school community, from academic fairs to cultural celebrations.
+            Explore moments from our vibrant school life.
           </p>
         </AnimateOnScroll>
 

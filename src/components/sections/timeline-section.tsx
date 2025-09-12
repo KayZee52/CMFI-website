@@ -1,5 +1,3 @@
-'use client';
-
 import { timelineData } from '@/lib/data';
 import { AnimateOnScroll } from '../animate-on-scroll';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';

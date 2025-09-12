@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useActionState } from 'react';
+import { useEffect } from 'react';
+import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -14,6 +15,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { submitContactForm, type ContactFormState } from '@/lib/actions';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Mail, Phone, MapPin } from 'lucide-react';
+import NewsSection from './news-section';
 
 const contactFormSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -25,14 +27,14 @@ const contactFormSchema = z.object({
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" disabled={pending} className="w-full">
+    <Button type="submit" disabled={pending} className="w-full bg-accent hover:bg-accent/90">
       {pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
       Send Message
     </Button>
   );
 }
 
-const ContactSection = () => {
+const ContactPageContent = () => {
   const { toast } = useToast();
   const [state, formAction] = useActionState<ContactFormState, FormData>(submitContactForm, { message: '' });
 
@@ -55,20 +57,20 @@ const ContactSection = () => {
         description: state.message,
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state]);
+  }, [state, toast, form]);
 
   const contactDetails = [
-    { icon: MapPin, text: '123 Education Lane, Knowledge City, Nigeria' },
-    { icon: Phone, text: '+234 801 234 5678' },
-    { icon: Mail, text: 'info@cmfi.edu.ng' },
+    { icon: MapPin, text: 'Paynesville, Liberia' },
+    { icon: Phone, text: '+231-XX-XXX-XXXX' },
+    { icon: Mail, text: 'info@cmfibhs.edu.lr' },
   ];
 
   return (
+    <>
     <section id="contact" className="bg-card">
       <div className="container mx-auto px-6">
         <AnimateOnScroll className="text-center">
-          <h2 className="font-headline text-3xl md:text-4xl font-bold">Get in Touch</h2>
+          <h1 className="font-headline text-4xl md:text-5xl font-bold">Get in Touch</h1>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
             Have questions or want to learn more? We&apos;d love to hear from you.
           </p>
@@ -84,6 +86,18 @@ const ContactSection = () => {
                   <span className="text-muted-foreground">{detail.text}</span>
                 </div>
               ))}
+            </div>
+            <div className="mt-8">
+                 <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.794195191294!2d-10.70013698523725!3d6.291196895514691!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xf09f3e4f3f3f3f3%3A0xf09f3e4f3f3f3f3!2sPaynesville%2C%20Liberia!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus" 
+                    width="100%" 
+                    height="300" 
+                    style={{ border: 0 }} 
+                    allowFullScreen={false} 
+                    loading="lazy" 
+                    title="Google Map of Paynesville"
+                    className="rounded-lg"
+                 ></iframe>
             </div>
           </AnimateOnScroll>
 
@@ -153,7 +167,9 @@ const ContactSection = () => {
         </div>
       </div>
     </section>
+    <NewsSection />
+    </>
   );
 };
 
-export default ContactSection;
+export default ContactPageContent;

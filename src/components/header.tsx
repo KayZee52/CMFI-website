@@ -5,16 +5,18 @@ import Link from 'next/link';
 import { CMFILogo } from './icons';
 import { Button } from './ui/button';
 import { cn } from '@/lib/utils';
-import { Menu, X } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { usePathname } from 'next/navigation';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,11 +27,13 @@ const Header = () => {
   }, []);
 
   const navLinks = [
-    { name: 'About', href: '#about' },
-    { name: 'History', href: '#timeline' },
-    { name: 'Gallery', href: '#gallery' },
-    { name: 'News', href: '#news' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Admissions', href: '/admissions' },
+    { name: 'Academics', href: '/academics' },
+    { name: 'Student Life', href: '/student-life' },
+    { name: 'Parents', href: '/parents' },
+    { name: 'Contact', href: '/contact' },
   ];
 
   const NavItems = ({ onLinkClick }: { onLinkClick?: () => void }) => (
@@ -39,7 +43,10 @@ const Header = () => {
           key={link.name}
           href={link.href}
           onClick={onLinkClick}
-          className="font-medium text-foreground/80 transition-colors hover:text-primary"
+          className={cn(
+            "font-medium transition-colors hover:text-primary",
+            pathname === link.href ? "text-primary font-semibold" : "text-foreground/80"
+          )}
         >
           {link.name}
         </Link>
@@ -57,19 +64,19 @@ const Header = () => {
       <div className="container mx-auto px-6 h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <CMFILogo className="h-8 w-8 text-primary" />
-          <span className="font-headline text-2xl font-bold">CMFI</span>
+          <span className="font-headline text-2xl font-bold">CMFI BHS</span>
         </Link>
         
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-8">
           <NavItems />
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
           <Button asChild className="hidden sm:flex bg-accent hover:bg-accent/90 text-accent-foreground">
             <Link href="#">Access Portal</Link>
           </Button>
           
-          <div className="md:hidden">
+          <div className="lg:hidden">
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
@@ -80,9 +87,9 @@ const Header = () => {
               <SheetContent side="right" className="w-full max-w-sm bg-background">
                 <div className="p-6 h-full flex flex-col">
                   <div className="flex items-center justify-between mb-8">
-                    <Link href="/" className="flex items-center gap-2">
+                    <Link href="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2">
                       <CMFILogo className="h-8 w-8 text-primary" />
-                      <span className="font-headline text-2xl font-bold">CMFI</span>
+                      <span className="font-headline text-2xl font-bold">CMFI BHS</span>
                     </Link>
                   </div>
                   <nav className="flex flex-col gap-6 text-lg">

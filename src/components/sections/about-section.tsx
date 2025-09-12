@@ -1,40 +1,61 @@
 import { AnimateOnScroll } from '../animate-on-scroll';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Target, BookOpen, Award } from 'lucide-react';
+import { Target, BookOpen, Handshake, BrainCircuit, MessageSquareQuote } from 'lucide-react';
+import TimelineSection from './timeline-section';
 
-const AboutSection = () => {
-  const features = [
+const AboutPageContent = () => {
+  const values = [
     {
       icon: Target,
       title: 'Our Mission',
-      description: 'To provide a holistic education that develops intellectual, moral, and spiritual growth in every student.',
+      description: 'To provide a holistic bilingual education that develops intellectual, moral, and spiritual growth in every student.',
     },
     {
       icon: BookOpen,
-      title: 'Academic Excellence',
-      description: 'A rigorous curriculum designed to challenge students and foster a lifelong love for learning and discovery.',
+      title: 'Our Vision',
+      description: 'To be a leading center of academic excellence and character formation, producing globally competitive leaders.',
     },
     {
-      icon: Award,
-      title: 'WAEC/WASSCE Focus',
-      description: 'Specialized preparation programs and continuous assessment to ensure our students excel in national examinations.',
+      icon: Handshake,
+      title: 'Core Values',
+      description: 'Discipline, Integrity, Excellence, and Service.',
     },
   ];
 
   return (
+    <>
     <section id="about" className="bg-card">
       <div className="container mx-auto px-6">
         <AnimateOnScroll className="text-center">
-          <h2 className="font-headline text-3xl md:text-4xl font-bold">
-            Shaping Future Leaders
-          </h2>
+          <h1 className="font-headline text-4xl md:text-5xl font-bold">
+            About CMFI Bilingual High School
+          </h1>
           <p className="mt-4 max-w-3xl mx-auto text-lg text-muted-foreground">
-            At CMFI, we are dedicated to nurturing the next generation of leaders through academic excellence and strong character development. Our focused approach prepares students for success in the WAEC/WASSCE and beyond.
+            Building leaders for the future.
           </p>
         </AnimateOnScroll>
+        
+        <AnimateOnScroll delay={200} className="mt-16">
+            <Card className="overflow-hidden md:flex">
+                <div className="md:w-1/3">
+                    <img src="https://picsum.photos/seed/principal/600/800" alt="Principal" data-ai-hint="portrait person" className="object-cover w-full h-full" />
+                </div>
+                <div className="md:w-2/3">
+                    <CardHeader>
+                        <CardTitle className="font-headline text-3xl">Principal's Welcome</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-muted-foreground mb-4">
+                            "Welcome to CMFI Bilingual High School! We are a community dedicated to fostering academic excellence and nurturing well-rounded individuals. Our unique bilingual approach prepares students for a globalized world, while our commitment to strong moral values ensures they grow into responsible and compassionate leaders."
+                        </p>
+                        <p className="font-semibold text-foreground"> - Principal's Name</p>
+                    </CardContent>
+                </div>
+            </Card>
+        </AnimateOnScroll>
 
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
+        <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8">
+          {values.map((feature, index) => (
             <AnimateOnScroll key={feature.title} delay={index * 100}>
               <Card className="text-center h-full hover:shadow-lg transition-shadow duration-300">
                 <CardHeader className="items-center">
@@ -52,7 +73,10 @@ const AboutSection = () => {
         </div>
       </div>
     </section>
+    
+    <TimelineSection />
+    </>
   );
 };
 
-export default AboutSection;
+export default AboutPageContent;

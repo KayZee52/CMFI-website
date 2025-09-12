@@ -1,43 +1,40 @@
 export const timelineData = [
   {
-    year: '1995',
-    title: 'Foundation of CMFI',
-    description: 'Christ\'s Mandate Foundation International (CMFI) was founded with a mission to provide holistic education rooted in strong moral values.',
-    longDescription: 'In 1995, a group of dedicated educators and community leaders came together with a shared vision: to establish an institution that would not only excel in academics but also in character building. This led to the birth of Christ\'s Mandate Foundation International. The early days were challenging, with limited resources and a small campus, but the founders\' unwavering commitment laid the groundwork for decades of success.'
+    year: '2010',
+    title: 'Foundation of CMFI BHS',
+    description: 'CMFI Bilingual High School was founded to provide quality bilingual education in Paynesville.',
   },
   {
-    year: '2001',
+    year: '2014',
     title: 'First Graduating Class',
-    description: 'CMFI celebrated its first-ever graduating class, with students achieving excellent results in national examinations.',
+    description: 'Celebrated its first-ever graduating class, with students achieving excellent results in national examinations.',
   },
   {
-    year: '2008',
+    year: '2018',
     title: 'Campus Expansion',
-    description: 'A new science and technology block was inaugurated, featuring state-of-the-art laboratories and computer centers.',
-    longDescription: 'Recognizing the growing importance of STEM education, the school embarked on an ambitious expansion project. The new block, completed in 2008, housed advanced physics, chemistry, and biology labs, alongside two modern computer centers equipped with the latest technology. This development significantly enhanced the practical learning experience for students and positioned CMFI as a leader in science education in the region.'
+    description: 'Inaugurated a new science and technology block with modern laboratories and ICT centers.',
   },
   {
-    year: '2015',
-    title: '20th Anniversary',
-    description: 'The school celebrated two decades of educational excellence with a series of events involving alumni, students, and the community.',
+    year: '2020',
+    title: '10th Anniversary',
+    description: 'The school celebrated a decade of educational excellence and community impact.',
   },
   {
-    year: '2022',
+    year: '2023',
     title: 'Top WAEC/WASSCE Results',
-    description: 'CMFI students achieved the best results in the school\'s history in the WAEC/WASSCE exams, with a 98% pass rate.',
-    longDescription: 'The year 2022 marked a significant academic milestone. Through a combination of rigorous curriculum, dedicated teaching, and specialized exam preparation programs, our students excelled in the West African Senior School Certificate Examination. The 98% pass rate, with over 70% of students achieving distinctions in key subjects, was a testament to the school\'s commitment to academic excellence and its effective preparation strategies for these crucial examinations.'
+    description: 'CMFI students achieved the best results in the school\'s history, with a 98% pass rate.',
   },
 ];
 
 export const galleryData = [
-  { id: '1', event: 'Annual Sports Day', hint: 'students running' },
-  { id: '2', event: 'Annual Sports Day', hint: 'team celebration' },
-  { id: '3', event: 'Science Fair', hint: 'students experiment' },
-  { id: '4', event: 'Science Fair', hint: 'robot project' },
-  { id: '5', event: 'Cultural Day', hint: 'traditional dance' },
-  { id: '6', event: 'Cultural Day', hint: 'colorful costumes' },
-  { id: '7', event: 'Graduation Ceremony', hint: 'students graduation' },
-  { id: '8', event: 'Graduation Ceremony', hint: 'happy graduates' },
+  { id: '1', event: 'Sports Day', hint: 'students running' },
+  { id: '2', event: 'Sports Day', hint: 'team celebration' },
+  { id: '3', event: 'Labs', hint: 'students experiment' },
+  { id: '4', event: 'Labs', hint: 'robot project' },
+  { id: '5', event: 'Cultural Events', hint: 'traditional dance' },
+  { id: '6', event: 'Cultural Events', hint: 'colorful costumes' },
+  { id: '7', event: 'Graduation', hint: 'students graduation' },
+  { id: '8', event: 'Graduation', hint: 'happy graduates' },
 ];
 
 export const newsData = [
@@ -56,4 +53,29 @@ export const newsData = [
     title: 'Registration for 2024/2025 Academic Year Now Open',
     summary: 'Prospective parents and students are invited to apply for admission into JSS1 and SSS1 for the upcoming academic year.'
   },
+];
+
+export const testimonials = [
+  {
+    name: 'John Doe',
+    role: 'Alumnus',
+    quote: 'CMFI provided me with a solid foundation not just in academics, but in character. The bilingual program was a huge advantage in my career.'
+  },
+  {
+    name: 'Jane Smith',
+    role: 'Parent',
+    quote: 'The teachers are incredibly dedicated and the communication with parents is excellent. I always feel informed and involved in my child\'s education.'
+  },
+  {
+    name: 'Samuel Johnson',
+    role: 'Student',
+    quote: 'I love the friendly competition and the wide range of activities available. There is always something new to learn and do at CMFI.'
+  }
+];
+
+export const stats = [
+    { number: 10, suffix: '+', label: 'Years of Excellence' },
+    { number: 500, suffix: '+', label: 'Students Enrolled' },
+    { number: 100, suffix: '+', label: 'Graduates' },
+    { number: 95, suffix: '%', label: 'Pass Rate' },
 ];

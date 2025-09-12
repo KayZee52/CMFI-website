@@ -12,7 +12,7 @@ const NewsSection = () => {
         <AnimateOnScroll className="text-center">
           <h2 className="font-headline text-3xl md:text-4xl font-bold">News & Updates</h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            Stay informed with the latest happenings, announcements, and events from CMFI.
+            Stay informed with the latest happenings, announcements, and events.
           </p>
         </AnimateOnScroll>
 
