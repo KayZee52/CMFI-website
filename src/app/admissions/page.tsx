@@ -1,16 +1,21 @@
 import { AnimateOnScroll } from '@/components/animate-on-scroll';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { FileText, Award, UserCheck } from 'lucide-react';
+import { FileText, Award, UserCheck, ScrollText, BadgeCheck } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 const AdmissionsPage = () => {
     const admissionSteps = [
         {
+            icon: ScrollText,
+            title: 'Pick Up Form',
+            description: 'Admission forms are available at the school office.'
+        },
+        {
             icon: FileText,
             title: 'Submit Application',
-            description: 'Complete the application form available at our school office.'
+            description: 'Complete and return the form with all required documents.'
         },
         {
             icon: Award,
@@ -21,59 +26,152 @@ const AdmissionsPage = () => {
             icon: UserCheck,
             title: 'Interview & Review',
             description: 'Attend an interview with our admissions team for final review.'
+        },
+        {
+            icon: BadgeCheck,
+            title: 'Receive Confirmation',
+            description: 'Successful applicants will receive an official admission confirmation.'
         }
     ];
 
+    const requirements = [
+        { icon: FileText, title: 'Completed Form' },
+        { icon: ScrollText, title: 'Birth Certificate' },
+        { icon: Award, title: 'Previous Report Cards' },
+        { icon: UserCheck, title: 'Exam Participation' },
+    ];
+
     return (
-        <section className="bg-background">
-            <div className="container mx-auto px-6 py-16">
-                <AnimateOnScroll className="text-center">
-                    <h1 className="font-headline text-4xl md:text-5xl font-bold">Admissions</h1>
-                    <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                        Join our community of future leaders. Discover our simple and transparent admission process.
-                    </p>
-                </AnimateOnScroll>
-                
-                <AnimateOnScroll delay={200} className="mt-16">
-                     <div className="relative aspect-video rounded-lg overflow-hidden">
-                        <Image src="https://picsum.photos/seed/admissions-video/1280/720" layout="fill" objectFit="cover" alt="Admissions video placeholder" data-ai-hint="classroom students" />
-                         <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                            <Button size="lg" variant="outline" className="text-white border-white hover:bg-white hover:text-primary">Watch Video Intro</Button>
+        <>
+            <section className="relative h-[400px] flex items-center justify-center text-center text-white">
+                <Image
+                    src="https://picsum.photos/seed/admissions-hero/1920/1080"
+                    alt="Happy students"
+                    fill
+                    priority
+                    className="object-cover"
+                    data-ai-hint="students happy"
+                />
+                <div className="absolute inset-0 bg-black/60" />
+                <div className="relative z-10 container mx-auto px-6">
+                    <AnimateOnScroll>
+                        <h1 className="font-headline text-4xl md:text-6xl font-bold tracking-tight">
+                            Admissions at CMFI
+                        </h1>
+                        <p className="mt-4 text-lg md:text-xl text-white/90">
+                            Start your journey with us today.
+                        </p>
+                        <Button asChild size="lg" className="mt-8 bg-accent hover:bg-accent/90 text-accent-foreground">
+                            <Link href="#how-to-apply">Begin Admission Process</Link>
+                        </Button>
+                    </AnimateOnScroll>
+                </div>
+            </section>
+
+            <section id="how-to-apply" className="bg-background">
+                <div className="container mx-auto px-6">
+                    <AnimateOnScroll className="text-center">
+                        <h2 className="font-headline text-3xl md:text-4xl font-bold">How to Apply</h2>
+                        <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+                            Our admission process is simple and transparent. Follow these steps to join our community.
+                        </p>
+                    </AnimateOnScroll>
+
+                    <div className="mt-16 relative">
+                         <div className="absolute left-1/2 top-8 bottom-8 w-0.5 bg-border -translate-x-1/2 hidden md:block" />
+                        <div className="grid md:grid-cols-5 gap-8">
+                            {admissionSteps.map((step, index) => (
+                                <AnimateOnScroll key={index} delay={index * 150} className="text-center relative z-10">
+                                    <div className="flex flex-col items-center">
+                                        <div className="mb-4 bg-background p-2 rounded-full">
+                                            <div className="p-4 bg-primary/10 text-primary rounded-full">
+                                                <step.icon className="h-8 w-8" />
+                                            </div>
+                                        </div>
+                                        <h3 className="font-headline text-xl font-bold mb-2">{step.title}</h3>
+                                        <p className="text-muted-foreground">{step.description}</p>
+                                    </div>
+                                </AnimateOnScroll>
+                            ))}
                         </div>
                     </div>
-                </AnimateOnScroll>
+                </div>
+            </section>
 
-                <AnimateOnScroll delay={300} className="mt-24">
-                    <h2 className="font-headline text-3xl md:text-4xl font-bold text-center mb-12">Our Admission Process</h2>
-                    <div className="grid md:grid-cols-3 gap-8">
-                        {admissionSteps.map((step, index) => (
-                            <Card key={index} className="text-center hover:shadow-lg transition-shadow">
-                                <CardHeader className="items-center">
-                                    <div className="p-4 bg-primary/10 text-primary rounded-full mb-4">
-                                        <step.icon className="h-8 w-8" />
+            <section className="bg-card">
+                <div className="container mx-auto px-6">
+                    <AnimateOnScroll className="text-center">
+                        <h2 className="font-headline text-3xl md:text-4xl font-bold">What You'll Need</h2>
+                    </AnimateOnScroll>
+                    <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
+                        {requirements.map((req, index) => (
+                            <AnimateOnScroll key={index} delay={index * 100}>
+                                <Card className="text-center h-full hover:shadow-lg transition-shadow p-6">
+                                    <div className="p-4 bg-primary/10 text-primary rounded-full mb-4 inline-block">
+                                        <req.icon className="h-8 w-8" />
                                     </div>
-                                    <CardTitle className="font-headline text-xl">{step.title}</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <p className="text-muted-foreground">{step.description}</p>
-                                </CardContent>
-                            </Card>
+                                    <h3 className="font-headline text-lg font-semibold">{req.title}</h3>
+                                </Card>
+                            </AnimateOnScroll>
                         ))}
                     </div>
-                </AnimateOnScroll>
-                
-                <AnimateOnScroll delay={400} className="mt-24 text-center">
-                    <h2 className="font-headline text-3xl md:text-4xl font-bold mb-4">Requirements & Fees</h2>
-                    <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-                        For detailed information on admission requirements, documents needed, and our fee structure, please visit our school's administration office. Our team is ready to assist you.
-                    </p>
-                     <Button asChild size="lg" className="mt-8 bg-accent hover:bg-accent/90">
-                        <Link href="/contact">Join CMFI Today</Link>
-                    </Button>
-                </AnimateOnScroll>
+                </div>
+            </section>
+            
+            <section className="bg-background">
+                <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+                    <AnimateOnScroll>
+                        <Card className="bg-primary/10 border-primary/20 p-8">
+                            <h3 className="font-headline text-2xl font-bold mb-4 flex items-center gap-3">
+                                <Award className="h-8 w-8 text-primary" />
+                                <span>Entrance Exams</span>
+                            </h3>
+                            <p className="text-muted-foreground">
+                                Applicants are required to take an entrance exam as part of the admission process. This helps us place students at the right academic level and ensure they are prepared for our curriculum.
+                            </p>
+                        </Card>
+                    </AnimateOnScroll>
+                    <AnimateOnScroll delay={200}>
+                         <Card className="bg-accent/10 border-accent/20 p-8 text-center">
+                            <h3 className="font-headline text-2xl font-bold mb-4">School Fees</h3>
+                            <p className="text-muted-foreground mb-6">
+                                For detailed information on tuition and other fees, please visit our school's administration office.
+                            </p>
+                            <Button asChild className="bg-accent hover:bg-accent/90">
+                                <Link href="/contact">Contact Office for Fees</Link>
+                            </Button>
+                        </Card>
+                    </AnimateOnScroll>
+                </div>
+            </section>
 
-            </div>
-        </section>
+             <section className="relative bg-primary text-primary-foreground">
+                 <Image 
+                    src="https://picsum.photos/seed/cta-admissions/1920/1080"
+                    layout="fill"
+                    objectFit="cover"
+                    alt="Students studying"
+                    data-ai-hint="students studying"
+                    className="opacity-20"
+                />
+                <div className="absolute inset-0 bg-primary/80" />
+                <div className="container mx-auto px-6 text-center relative z-10">
+                    <AnimateOnScroll>
+                        <h2 className="font-headline text-3xl md:text-4xl font-bold">
+                            Ready to Begin Your Journey at CMFI?
+                        </h2>
+                        <div className="mt-8 flex justify-center gap-4">
+                            <Button asChild size="lg" variant="secondary">
+                                <Link href="#how-to-apply">Apply Now</Link>
+                            </Button>
+                             <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+                                <Link href="/contact">Contact Us</Link>
+                            </Button>
+                        </div>
+                    </AnimateOnScroll>
+                </div>
+            </section>
+        </>
     );
 };
 
