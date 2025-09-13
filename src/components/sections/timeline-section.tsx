@@ -11,11 +11,7 @@ const TimelineSection = () => {
 
   const journey = timelineData.map((item, index) => ({
     ...item,
-    // INSTRUCTIONS: To use your own images, place them in the `public/images/` directory.
-    // Ensure the filenames match the year (e.g., `2014.png`, `2016.png`).
-    // Then, uncomment the line below and remove the placeholder line.
-    // imageUrl: `/images/${item.year}.png`,
-    imageUrl: `https://picsum.photos/seed/timeline-${item.year}/600/600`,
+    imageUrl: `/images/${item.year}.png`,
     imageHint: item.title.toLowerCase().replace(/\s/g, ' '),
     align: index % 2 === 0 ? 'left' : 'right',
   }));
