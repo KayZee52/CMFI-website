@@ -1,11 +1,11 @@
-
 'use client';
 
+import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { CMFILogo } from '../icons';
 import { BookOpen, Users, Laptop } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel';
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from '../ui/carousel';
 import Autoplay from "embla-carousel-autoplay"
 
 const features = [
@@ -15,7 +15,6 @@ const features = [
         description: 'We are committed to providing a rigorous academic environment that challenges students to achieve their full potential.',
         imageUrl: 'https://picsum.photos/seed/learning-student/600/800',
         imageHint: 'student reading book',
-        color: 'bg-primary'
     },
     {
         icon: Users,
@@ -23,7 +22,6 @@ const features = [
         description: 'We foster a supportive community that emphasizes discipline, integrity, and service to others.',
         imageUrl: 'https://picsum.photos/seed/respect-student/600/800',
         imageHint: 'students helping community',
-        color: 'bg-primary'
     },
     {
         icon: Laptop,
@@ -31,11 +29,32 @@ const features = [
         description: 'We integrate modern technology and facilities to prepare students for the digital age.',
         imageUrl: 'https://picsum.photos/seed/ict-student/600/800',
         imageHint: 'student using computer',
-        color: 'bg-primary'
     },
 ];
 
 const WhyChooseUsSection = () => {
+    const [api, setApi] = useState<CarouselApi>()
+    const [current, setCurrent] = useState(0)
+
+    useEffect(() => {
+        if (!api) {
+            return
+        }
+
+        setCurrent(api.selectedScrollSnap())
+
+        const onSelect = (api: CarouselApi) => {
+            setCurrent(api.selectedScrollSnap())
+        }
+
+        api.on("select", onSelect)
+
+        return () => {
+            api.off("select", onSelect)
+        }
+    }, [api])
+
+
     return (
         <section id="why-choose-us" className="bg-card">
             <div className="container mx-auto px-6">
@@ -47,6 +66,7 @@ const WhyChooseUsSection = () => {
                 </div>
                 <div className="mt-16">
                     <Carousel
+                        setApi={setApi}
                         opts={{ align: "start", loop: true }}
                         plugins={[
                             Autoplay({
@@ -56,9 +76,11 @@ const WhyChooseUsSection = () => {
                         className="w-full max-w-sm mx-auto md:max-w-md"
                     >
                         <CarouselContent>
-                            {features.map((feature, index) => (
-                                <CarouselItem key={index} className="[perspective:1000px]">
-                                    <div className="group relative h-[600px] w-full overflow-hidden rounded-lg shadow-xl text-white p-8 flex flex-col justify-between mx-auto transition-transform duration-500 transform-style-3d data-[in-view=false]:rotate-y-15">
+                            {features.map((feature, index) => {
+                                const isActive = index === current;
+                                return (
+                                <CarouselItem key={index}>
+                                    <div className="group relative h-[600px] w-full overflow-hidden rounded-lg shadow-xl text-white p-8 flex flex-col justify-between mx-auto">
                                         <Image 
                                             src={feature.imageUrl} 
                                             alt={feature.title} 
@@ -68,27 +90,38 @@ const WhyChooseUsSection = () => {
                                         />
                                         <div className="absolute inset-0 bg-primary/80" />
 
-                                        <div className="relative z-10 flex flex-col h-full">
-                                            <div className="flex justify-center">
-                                                <div className="p-4 bg-white/20 rounded-full">
-                                                  <feature.icon className="h-8 w-8 text-white" />
-                                                </div>
+                                        <div className="relative z-10 flex flex-col h-full items-center">
+                                            <div className={cn("transition-all duration-700", isActive ? 'animate-flip-in-y' : 'opacity-0')}>
+                                                <CMFILogo className="h-20 w-20 text-white/80" />
                                             </div>
 
-                                            <div className="flex-grow flex items-center justify-center -mt-12">
-                                                <h3 className="font-headline text-4xl text-center font-semibold tracking-tight">{feature.title}</h3>
+                                            <div className="flex-grow flex items-center justify-center -mt-12 text-center">
+                                                <h3 className="font-headline text-4xl font-semibold tracking-tight">
+                                                    {feature.title.split(' ').map((word, i) => (
+                                                         <span
+                                                            key={i}
+                                                            className={cn("inline-block transition-all duration-500", isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}
+                                                            style={{ transitionDelay: `${isActive ? 200 + i * 100 : 0}ms` }}
+                                                        >
+                                                            {word}&nbsp;
+                                                        </span>
+                                                    ))}
+                                                </h3>
                                             </div>
                                             
                                             <div className="text-center">
-                                                 <p className="text-white/90">{feature.description}</p>
+                                                 <p 
+                                                    className={cn("text-white/90 transition-all duration-500", isActive ? 'animate-slide-in-from-right' : 'opacity-0')}
+                                                    style={{ animationDelay: `${isActive ? '600ms' : '0ms'}`}}
+                                                >
+                                                    {feature.description}
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
                                 </CarouselItem>
-                            ))}
+                            )})}
                         </CarouselContent>
-                        <CarouselPrevious className="hidden sm:flex left-[-50px]" />
-                        <CarouselNext className="hidden sm:flex right-[-50px]" />
                     </Carousel>
                 </div>
             </div>

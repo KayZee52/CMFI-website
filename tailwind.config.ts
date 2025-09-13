@@ -88,10 +88,32 @@ export default {
             height: '0',
           },
         },
+        'flip-in-y': {
+          from: {
+            transform: 'rotateY(90deg)',
+            opacity: '0',
+          },
+          to: {
+            transform: 'rotateY(0)',
+            opacity: '1',
+          },
+        },
+        'slide-in-from-right': {
+            from: {
+              transform: 'translateX(20px)',
+              opacity: '0',
+            },
+            to: {
+              transform: 'translateX(0)',
+              opacity: '1',
+            },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'flip-in-y': 'flip-in-y 0.6s ease-out both',
+        'slide-in-from-right': 'slide-in-from-right 0.5s ease-out both',
       },
     },
   },
