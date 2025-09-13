@@ -6,6 +6,8 @@ import { AnimateOnScroll } from '../animate-on-scroll';
 import { CMFILogo } from '../icons';
 import { BookOpen, Users, Laptop, Info } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel';
+import Autoplay from "embla-carousel-autoplay"
 
 const features = [
     {
@@ -44,43 +46,57 @@ const WhyChooseUsSection = () => {
                         We are committed to building future leaders through excellence, discipline, and modern innovation.
                     </p>
                 </AnimateOnScroll>
-                <div className="mt-16 grid md:grid-cols-3 gap-8">
-                    {features.map((feature, index) => (
-                        <AnimateOnScroll key={index} delay={index * 150}>
-                            <div className={cn("group relative h-[600px] w-full overflow-hidden rounded-lg shadow-xl text-white p-8 flex flex-col justify-between", feature.color)}>
-                                <div className="absolute inset-0 h-full w-full">
-                                    <Image 
-                                        src={feature.imageUrl} 
-                                        alt={feature.title} 
-                                        data-ai-hint={feature.imageHint}
-                                        fill 
-                                        className="object-cover object-top opacity-0 group-hover:opacity-20 transition-opacity duration-500" 
-                                    />
-                                </div>
+                <AnimateOnScroll className="mt-16" delay={200}>
+                    <Carousel
+                        opts={{ align: "start", loop: true }}
+                        plugins={[
+                            Autoplay({
+                              delay: 5000,
+                            }),
+                        ]}
+                        className="w-full max-w-sm mx-auto md:max-w-md"
+                    >
+                        <CarouselContent>
+                            {features.map((feature, index) => (
+                                <CarouselItem key={index}>
+                                    <div className={cn("group relative h-[600px] w-full overflow-hidden rounded-lg shadow-xl text-white p-8 flex flex-col justify-between mx-auto", feature.color)}>
+                                        <div className="absolute inset-0 h-full w-full">
+                                            <Image 
+                                                src={feature.imageUrl} 
+                                                alt={feature.title} 
+                                                data-ai-hint={feature.imageHint}
+                                                fill 
+                                                className="object-cover object-top opacity-0 group-hover:opacity-20 transition-opacity duration-500" 
+                                            />
+                                        </div>
 
-                                <div className="relative z-10 flex flex-col h-full">
-                                    <div className="flex justify-center">
-                                        <CMFILogo className="h-12 w-12 text-white/80" />
-                                    </div>
+                                        <div className="relative z-10 flex flex-col h-full">
+                                            <div className="flex justify-center">
+                                                <CMFILogo className="h-12 w-12 text-white/80" />
+                                            </div>
 
-                                    <div className="flex-grow flex items-center justify-center -mt-12">
-                                        <h3 className="font-headline text-4xl text-center font-semibold tracking-tight">{feature.title}</h3>
-                                    </div>
-                                    
-                                    <div className="absolute bottom-8 left-8 right-8 text-center transition-all duration-500 opacity-0 group-hover:opacity-100 transform group-hover:translate-y-0 translate-y-10">
-                                         <p className="text-white/90">{feature.description}</p>
-                                    </div>
-                                    
-                                    <div className="flex justify-center mb-4 transition-opacity duration-300 opacity-100 group-hover:opacity-0">
-                                        <div className="bg-white/30 rounded-full p-2">
-                                            <Info className="h-5 w-5 text-white" />
+                                            <div className="flex-grow flex items-center justify-center -mt-12">
+                                                <h3 className="font-headline text-4xl text-center font-semibold tracking-tight">{feature.title}</h3>
+                                            </div>
+                                            
+                                            <div className="absolute bottom-8 left-8 right-8 text-center transition-all duration-500 opacity-0 group-hover:opacity-100 transform group-hover:translate-y-0 translate-y-10">
+                                                 <p className="text-white/90">{feature.description}</p>
+                                            </div>
+                                            
+                                            <div className="flex justify-center mb-4 transition-opacity duration-300 opacity-100 group-hover:opacity-0">
+                                                <div className="bg-white/30 rounded-full p-2">
+                                                    <Info className="h-5 w-5 text-white" />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </AnimateOnScroll>
-                    ))}
-                </div>
+                                </CarouselItem>
+                            ))}
+                        </CarouselContent>
+                        <CarouselPrevious className="hidden sm:flex left-[-50px]" />
+                        <CarouselNext className="hidden sm:flex right-[-50px]" />
+                    </Carousel>
+                </AnimateOnScroll>
             </div>
         </section>
     );
