@@ -14,7 +14,7 @@ const HeroSection = () => {
         loop
         muted
         playsInline
-        className="absolute top-1/2 left-1/2 w-full h-full min-w-full min-h-full object-cover transform -translate-x-1/2 -translate-y-1/2 z-0"
+        className="absolute top-1/2 left-1/2 w-full h-full min-w-full min-h-full object-cover transform -translate-x-1/2 -translate-y-1/2 z-0 blur-sm"
       />
       <div className="absolute inset-0 bg-black/10 z-10" />
       <div className="relative z-20 container mx-auto px-6 w-full h-full flex flex-col justify-center">
