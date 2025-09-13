@@ -14,7 +14,7 @@ const features = [
         description: 'We are committed to providing a rigorous academic environment that challenges students to achieve their full potential.',
         imageUrl: 'https://picsum.photos/seed/learning-student/600/800',
         imageHint: 'student reading book',
-        color: 'bg-red-800'
+        color: 'bg-primary'
     },
     {
         icon: Users,
@@ -22,7 +22,7 @@ const features = [
         description: 'We foster a supportive community that emphasizes discipline, integrity, and service to others.',
         imageUrl: 'https://picsum.photos/seed/respect-student/600/800',
         imageHint: 'students helping community',
-        color: 'bg-red-800'
+        color: 'bg-primary'
     },
     {
         icon: Laptop,
@@ -30,7 +30,7 @@ const features = [
         description: 'We integrate modern technology and facilities to prepare students for the digital age.',
         imageUrl: 'https://picsum.photos/seed/ict-student/600/800',
         imageHint: 'student using computer',
-        color: 'bg-red-800'
+        color: 'bg-primary'
     },
 ];
 
