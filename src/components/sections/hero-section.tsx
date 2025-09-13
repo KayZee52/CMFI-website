@@ -1,3 +1,6 @@
+'use client';
+
+import { useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { AnimateOnScroll } from '../animate-on-scroll';
@@ -5,10 +8,18 @@ import { ChevronDown } from 'lucide-react';
 
 const HeroSection = () => {
   const videoUrl = "/videos/hero-video.mp4";
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.75;
+    }
+  }, []);
 
   return (
     <section id="home" className="relative h-screen min-h-[700px] flex items-center text-white overflow-hidden">
       <video
+        ref={videoRef}
         src={videoUrl}
         autoPlay
         loop
