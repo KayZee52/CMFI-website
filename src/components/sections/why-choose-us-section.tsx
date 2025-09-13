@@ -1,7 +1,8 @@
+
 'use client';
 
 import { AnimateOnScroll } from '../animate-on-scroll';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import { Card, CardHeader, CardContent, CardTitle } from '../ui/card';
 import { BookOpen, Users, Laptop } from 'lucide-react';
 
 const WhyChooseUsSection = () => {
@@ -9,17 +10,17 @@ const WhyChooseUsSection = () => {
         {
             icon: BookOpen,
             title: 'Excellence in Learning',
-            description: 'We are committed to providing a rigorous academic environment that challenges students to achieve their full potential.'
+            description: 'We are committed to providing a rigorous academic environment that challenges students to achieve their full potential.',
         },
         {
             icon: Users,
             title: 'Respect & Discipline',
-            description: 'We foster a supportive community that emphasizes discipline, integrity, and service to others.'
+            description: 'We foster a supportive community that emphasizes discipline, integrity, and service to others.',
         },
         {
             icon: Laptop,
             title: 'ICT & Modern Facilities',
-            description: 'We integrate modern technology and facilities to prepare students for the digital age.'
+            description: 'We integrate modern technology and facilities to prepare students for the digital age.',
         },
     ];
 
