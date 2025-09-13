@@ -18,6 +18,7 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const isHomePage = pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,18 +56,21 @@ const Header = () => {
       ))}
     </>
   );
+  
+  const showBackground = (isScrolled || !isHomePage || mobileMenuOpen);
+  const headerTextColor = isHomePage && !showBackground ? "text-white" : "text-foreground";
 
   return (
     <header
       className={cn(
         'sticky top-0 z-50 w-full transition-all duration-300',
-        isScrolled ? 'bg-background/80 backdrop-blur-sm border-b' : 'bg-transparent'
+        showBackground ? 'bg-background/80 backdrop-blur-sm border-b' : 'bg-transparent'
       )}
     >
       <div className="container mx-auto px-6 h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <CMFILogo className="h-10 w-10 text-primary" />
-          <span className={cn("font-headline text-2xl font-bold", isScrolled ? "text-foreground" : "text-white")}>CMFI BHS</span>
+          <span className={cn("font-headline text-2xl font-bold", headerTextColor)}>CMFI BHS</span>
         </Link>
         
         <div className="flex items-center gap-4">
@@ -74,14 +78,14 @@ const Header = () => {
             <Link href="/admissions">Access Portal</Link>
           </Button>
 
-          <Link href="/search" className={cn("hidden sm:flex items-center justify-center h-10 w-10 rounded-full", isScrolled ? "text-foreground" : "text-white")}>
+          <Link href="/search" className={cn("hidden sm:flex items-center justify-center h-10 w-10 rounded-full", headerTextColor)}>
              <Search className="h-6 w-6" />
              <span className="sr-only">Search</span>
           </Link>
           
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
-              <button className={cn("flex flex-col items-center gap-1.5 group", isScrolled ? "text-foreground" : "text-white")}>
+              <button className={cn("flex flex-col items-center gap-1.5 group", headerTextColor)}>
                   <Menu className="h-7 w-7" />
                   <span className="font-headline text-xs tracking-widest uppercase">Menu</span>
               </button>
