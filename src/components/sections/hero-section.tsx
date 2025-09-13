@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { AnimateOnScroll } from '../animate-on-scroll';
 import { ChevronDown } from 'lucide-react';
+import { Typewriter } from '../typewriter';
 
 const HeroSection = () => {
   const videoUrl = "/videos/hero-video.mp4";
@@ -15,6 +16,14 @@ const HeroSection = () => {
       videoRef.current.playbackRate = 0.75;
     }
   }, []);
+  
+  const typewriterPhrases = [
+    "A Leader",
+    "A Scholar",
+    "A Global Citizen",
+    "A Person of Integrity",
+    "A Champion",
+  ];
 
   return (
     <section id="home" className="relative h-screen min-h-[700px] flex items-center text-white overflow-hidden">
@@ -36,8 +45,8 @@ const HeroSection = () => {
             </h2>
           </AnimateOnScroll>
           <AnimateOnScroll delay={200}>
-            <h1 className="font-headline text-5xl md:text-8xl font-bold tracking-tight mt-4">
-              Be A Leader
+            <h1 className="font-headline text-5xl md:text-8xl font-bold tracking-tight mt-4 h-32 md:h-48">
+              Be <Typewriter phrases={typewriterPhrases} />
             </h1>
           </AnimateOnScroll>
           <AnimateOnScroll delay={400}>
