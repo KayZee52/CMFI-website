@@ -47,7 +47,7 @@ export const galleryData = [
 export const newsData = [
   {
     date: '2024-07-15',
-    title: 'CMFI Launches New Robotics Club',
+    title: 'CMFI Introduces New ICT Courses',
     summary: 'The new club aims to foster innovation and practical skills in STEM among students, preparing them for future technology careers.'
   },
   {
