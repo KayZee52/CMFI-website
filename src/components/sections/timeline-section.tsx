@@ -3,7 +3,7 @@
 import { timelineData } from '@/lib/data';
 import { AnimateOnScroll } from '../animate-on-scroll';
 import Image from 'next/image';
-import { CheckCircle } from 'lucide-react';
+import { CMFILogo } from '../icons';
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -31,8 +31,7 @@ const TimelineSection = () => {
       
       let progress = 0;
       if (timelineRect.top < window.innerHeight && timelineRect.bottom > 0) {
-        // Adjusting the denominator to make the animation last longer
-        progress = scrollYInTimeline / (timelineHeight + window.innerHeight * 0.8);
+        progress = scrollYInTimeline / (timelineHeight + window.innerHeight * 0.5);
       }
       
       const newTop = Math.min(
@@ -65,10 +64,10 @@ const TimelineSection = () => {
           
           <div
             ref={iconRef}
-            className="absolute left-1/2 -translate-x-1/2 h-8 w-8 rounded-full bg-accent border-4 border-primary hidden md:flex items-center justify-center z-10 transition-all duration-100 ease-linear"
+            className="absolute left-1/2 -translate-x-1/2 h-10 w-10 p-1 rounded-full bg-background hidden md:flex items-center justify-center z-10 transition-all duration-100 ease-linear shadow-lg"
             style={{ top: `${iconTop}px` }}
           >
-            <CheckCircle className="h-5 w-5 text-accent-foreground" />
+            <CMFILogo className="h-8 w-8" />
           </div>
 
           {journey.map((item, index) => (
