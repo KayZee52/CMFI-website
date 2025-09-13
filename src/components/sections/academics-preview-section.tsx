@@ -9,10 +9,10 @@ import { cn } from '@/lib/utils';
 const departments = [
     { name: 'Languages & Humanities', icon: Languages, position: 'top' },
     { name: 'Sciences', icon: FlaskConical, position: 'right' },
-    { name: 'Business & Social Studies', icon: Globe, position: 'bottom' },
     { name: 'Mathematics', icon: Calculator, position: 'left' },
     { name: 'ICT & Digital Learning', icon: Presentation, position: 'top-left' },
     { name: 'Creative Arts', icon: Palette, position: 'bottom-right' },
+    { name: 'Business & Social Studies', icon: Globe, position: 'bottom-left' },
 ];
 
 const positionClasses = {
@@ -21,7 +21,8 @@ const positionClasses = {
     'bottom': 'bottom-0 left-1/2 -translate-x-1/2 translate-y-full',
     'left': 'top-1/2 left-0 -translate-x-full -translate-y-1/2',
     'top-left': 'top-0 left-0 -translate-x-1/2 -translate-y-1/2',
-    'bottom-right': 'bottom-0 right-0 translate-x-1/2 translate-y-1/2'
+    'bottom-right': 'bottom-0 right-0 translate-x-1/2 translate-y-1/2',
+    'bottom-left': 'bottom-0 left-0 -translate-x-1/2 translate-y-1/2',
 };
 
 const lineClasses = {
@@ -30,7 +31,8 @@ const lineClasses = {
     'bottom': 'h-1/2 top-1/2 left-1/2 -translate-x-1/2',
     'left': 'w-1/2 top-1/2 right-1/2',
     'top-left': 'h-[70.7%] bottom-[50%] left-[50%] -translate-x-full origin-bottom-right -rotate-45',
-    'bottom-right': 'h-[70.7%] top-[50%] left-[50%] -translate-x-full origin-top-right rotate-45'
+    'bottom-right': 'h-[70.7%] top-[50%] left-[50%] -translate-x-full origin-top-right rotate-45',
+    'bottom-left': 'h-[70.7%] top-[50%] right-[50%] -translate-x-0 origin-top-left -rotate-45',
 }
 
 const AcademicsPreview = () => {
@@ -48,10 +50,10 @@ const AcademicsPreview = () => {
                 <AnimateOnScroll className="hidden md:block mt-32 mb-24">
                     <div className="relative w-48 h-48 mx-auto">
                         <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="w-48 h-48 bg-primary/10 rounded-full animate-pulse" />
+                            <div className="w-48 h-48 bg-primary/10 rounded-full animate-pulse-glow" />
                         </div>
                         <div className="absolute inset-5 flex items-center justify-center">
-                            <div className="w-36 h-36 bg-primary/20 rounded-full" />
+                            <div className="w-36 h-36 bg-primary/20 rounded-full animate-pulse-glow [animation-delay:-2s]" />
                         </div>
                         <div className="absolute inset-10 flex items-center justify-center">
                              <CMFILogo className="h-24 w-24" />
@@ -69,7 +71,7 @@ const AcademicsPreview = () => {
                                 <AnimateOnScroll 
                                     delay={index * 150}
                                     className={cn(
-                                        "absolute flex flex-col items-center text-center w-32",
+                                        "absolute flex flex-col items-center text-center w-40",
                                         positionClasses[dept.position as keyof typeof positionClasses]
                                     )}
                                 >
@@ -100,7 +102,7 @@ const AcademicsPreview = () => {
                 </div>
 
 
-                <AnimateOnScroll className="text-center mt-16">
+                <AnimateOnScroll className="text-center mt-16 md:mt-24">
                     <Button asChild size="lg" variant="outline">
                         <Link href="/academics">
                             Explore Academics <ArrowRight className="ml-2 h-5 w-5" />
