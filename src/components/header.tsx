@@ -64,7 +64,7 @@ const Header = () => {
     <header
       className={cn(
         'sticky top-0 z-50 w-full transition-all duration-300',
-        showBackground ? 'bg-background/80 backdrop-blur-sm border-b' : 'bg-transparent'
+        showBackground ? 'bg-background/50 backdrop-blur-sm border-b' : 'bg-transparent'
       )}
     >
       <div className="container mx-auto px-6 h-20 flex items-center justify-between">
