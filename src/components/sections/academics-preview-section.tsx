@@ -20,7 +20,7 @@ const AcademicsPreview = () => {
                         Our curriculum is a balanced ecosystem of disciplines, designed to foster intellectual curiosity and prepare students for global opportunities.
                     </p>
                 </AnimateOnScroll>
-                <div className="relative aspect-square max-w-2xl mx-auto mt-12">
+                <div className="relative aspect-square max-w-xl mx-auto mt-12">
                     <div className="absolute inset-0 animate-revolve">
                         {glanceStats.map((stat, index) => {
                             const rotate = angle * index;
@@ -33,17 +33,17 @@ const AcademicsPreview = () => {
                                     text={stat.label}
                                     value={stat.value}
                                     Icon={<stat.Icon />}
-                                    color={index % 2 === 0 ? 'hsl(var(--primary))' : 'hsl(var(--primary) / 0.8)'}
+                                    color={index % 2 === 0 ? 'hsl(var(--card))' : 'hsl(var(--secondary))'}
                                     animationDelay={index * 100}
                                 />
                             )
                         })}
                     </div>
                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <AnimateOnScroll delay={500} className="text-center bg-background rounded-full w-[35%] h-[35%] flex flex-col items-center justify-center shadow-2xl p-4">
-                            <CMFILogo className="h-16 w-16 mb-2" />
-                            <h3 className="font-headline text-2xl font-bold">CMFI</h3>
-                            <p className="text-muted-foreground text-sm">At a Glance</p>
+                        <AnimateOnScroll delay={500} className="text-center bg-background rounded-full w-[25%] h-[25%] flex flex-col items-center justify-center shadow-2xl p-4">
+                            <CMFILogo className="h-12 w-12 mb-1" />
+                            <h3 className="font-headline text-xl font-bold">CMFI</h3>
+                            <p className="text-muted-foreground text-xs">Curriculum</p>
                         </AnimateOnScroll>
                     </div>
                 </div>
