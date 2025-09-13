@@ -31,12 +31,13 @@ const TimelineSection = () => {
       
       let progress = 0;
       if (timelineRect.top < window.innerHeight && timelineRect.bottom > 0) {
-        progress = scrollYInTimeline / (timelineHeight + window.innerHeight);
+        // Adjusting the denominator to make the animation last longer
+        progress = scrollYInTimeline / (timelineHeight + window.innerHeight * 0.8);
       }
       
       const newTop = Math.min(
         timelineHeight - iconHeight,
-        Math.max(0, timelineHeight * progress - (timelineHeight * 0.15))
+        Math.max(0, timelineHeight * progress - (timelineHeight * 0.1))
       );
       
       setIconTop(newTop);
@@ -82,7 +83,7 @@ const TimelineSection = () => {
                 <p className="text-primary-foreground/80">{item.description}</p>
               </div>
 
-              <div className="w-full md:w-5/12 ${item.align === 'right' ? 'md:order-1' : ''}">
+              <div className={`w-full md:w-5/12 ${item.align === 'right' ? 'md:order-1' : ''}`}>
                  <div className="relative aspect-square w-full max-w-md mx-auto">
                     <Image
                       src={item.imageUrl}
