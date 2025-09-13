@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
 const TimelineSection = () => {
   const journey = timelineData.map((item, index) => ({
     ...item,
-    imageUrl: `https://picsum.photos/seed/timeline${index}/800/800`,
+    imageUrl: `/images/${item.year}.png`,
     imageHint: item.title.toLowerCase().replace(/\s/g, ' '),
     align: index % 2 === 0 ? 'left' : 'right',
   }));
