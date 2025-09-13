@@ -145,16 +145,4 @@ html {
   .animate-revolve {
     animation: revolve 40s linear infinite;
   }
-
-  @keyframes counter-revolve {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  .animate-counter-revolve {
-    animation: counter-revolve 40s linear infinite;
-  }
 }
