@@ -18,11 +18,11 @@ const HeroSection = () => {
   }, []);
   
   const typewriterPhrases = [
-    "A Leader",
-    "A Scholar",
-    "A Global Citizen",
-    "A Person of Integrity",
-    "A Champion",
+    "Leader",
+    "Scholar",
+    "Global Citizen",
+    "Person of Integrity",
+    "Champion",
   ];
 
   return (
@@ -46,7 +46,7 @@ const HeroSection = () => {
           </AnimateOnScroll>
           <AnimateOnScroll delay={200}>
             <h1 className="font-headline text-5xl md:text-8xl font-bold tracking-tight mt-4 h-32 md:h-48">
-              Be <Typewriter phrases={typewriterPhrases} />
+              Be A <Typewriter phrases={typewriterPhrases} />
             </h1>
           </AnimateOnScroll>
           <AnimateOnScroll delay={400}>
