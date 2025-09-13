@@ -1,3 +1,5 @@
+import { Briefcase, DollarSign, GraduationCap, Group, Heart, Lightbulb, Star, Trophy } from "@/components/icons";
+
 export const timelineData = [
   {
     year: '2014',
@@ -97,6 +99,49 @@ export const stats = [
     { number: 10, suffix: '+', label: 'Years of Excellence' },
     { number: 500, suffix: '+', label: 'Students Enrolled' },
     { number: 100, suffix: '+', label: 'Graduates' },
+];
+
+export const glanceStats = [
+  {
+    value: "10+",
+    label: "Years of Excellence",
+    Icon: Star,
+  },
+  {
+    value: "500+",
+    label: "AP/Honors Courses",
+    Icon: Lightbulb,
+  },
+  {
+    value: "$1M+",
+    label: "In College Scholarships",
+    Icon: DollarSign,
+  },
+  {
+    value: "1000+",
+    label: "Graduates",
+    Icon: GraduationCap,
+  },
+  {
+    value: "5:1",
+    label: "Student to Teacher Ratio",
+    Icon: Group,
+  },
+  {
+    value: "95%",
+    label: "Graduation Rate",
+    Icon: Trophy,
+  },
+  {
+    value: "10K+",
+    label: "Community Service Hours",
+    Icon: Heart,
+  },
+  {
+    value: "20+",
+    label: "Student-Run Clubs and Activities",
+    Icon: Briefcase,
+  },
 ];
 
 export const searchData = [
