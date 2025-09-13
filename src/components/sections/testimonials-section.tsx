@@ -9,13 +9,13 @@ import Autoplay from "embla-carousel-autoplay"
 
 const TestimonialsSection = () => {
     return (
-        <section className="bg-card">
+        <section className="bg-primary text-primary-foreground">
             <div className="container mx-auto px-6">
                 <AnimateOnScroll className="text-center">
                     <h2 className="font-headline text-3xl md:text-4xl font-bold">
                         Voices of Our Community
                     </h2>
-                    <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+                    <p className="mt-4 max-w-2xl mx-auto text-lg text-primary-foreground/80">
                         Hear what students, parents, and alumni have to say about their experience at CMFI.
                     </p>
                 </AnimateOnScroll>
@@ -28,29 +28,29 @@ const TestimonialsSection = () => {
                               delay: 5000,
                             }),
                         ]}
-                        className="w-full"
+                        className="w-full max-w-3xl mx-auto"
                     >
                         <CarouselContent>
                             {testimonials.map((testimonial, index) => (
-                                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                                <CarouselItem key={index}>
                                     <div className="p-4">
-                                        <Card className="h-full">
-                                            <CardContent className="pt-6 flex flex-col items-center text-center">
-                                                <Avatar className="w-16 h-16 mb-4">
+                                        <Card className="bg-card/10 border-card/20 text-primary-foreground h-full min-h-[300px]">
+                                            <CardContent className="pt-8 flex flex-col items-center justify-center text-center h-full">
+                                                <Avatar className="w-20 h-20 mb-6 border-4 border-card/50">
                                                     <AvatarImage src={`https://picsum.photos/seed/avatar${index}/100`} alt={testimonial.name} />
                                                     <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
                                                 </Avatar>
-                                                <p className="text-muted-foreground mb-4">"{testimonial.quote}"</p>
-                                                <p className="font-bold font-headline">{testimonial.name}</p>
-                                                <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                                                <p className="text-lg text-primary-foreground/90 mb-6 max-w-md">"{testimonial.quote}"</p>
+                                                <p className="font-bold font-headline text-accent">{testimonial.name}</p>
+                                                <p className="text-sm text-primary-foreground/70">{testimonial.role}</p>
                                             </CardContent>
                                         </Card>
                                     </div>
                                 </CarouselItem>
                             ))}
                         </CarouselContent>
-                        <CarouselPrevious className="hidden md:flex" />
-                        <CarouselNext className="hidden md:flex"/>
+                        <CarouselPrevious className="hidden md:flex left-[-50px] bg-card/20 border-card/30 hover:bg-card/30 text-primary-foreground" />
+                        <CarouselNext className="hidden md:flex right-[-50px] bg-card/20 border-card/30 hover:bg-card/30 text-primary-foreground"/>
                     </Carousel>
                 </AnimateOnScroll>
             </div>
