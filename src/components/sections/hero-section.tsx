@@ -4,10 +4,7 @@ import { AnimateOnScroll } from '../animate-on-scroll';
 import { ChevronDown } from 'lucide-react';
 
 const HeroSection = () => {
-  // For the background video to work, you need a direct link to a video file (e.g., .mp4).
-  // The Vimeo link provided is for the player and won't work here directly.
-  // Please replace this with the direct file link from your video hosting service.
-  const videoUrl = "https://player.vimeo.com/video/1118267213?h=0d5ff16c5f";
+  const videoUrl = "/videos/hero-video.mp4";
 
   return (
     <section id="home" className="relative h-screen min-h-[700px] flex items-center text-white overflow-hidden">
@@ -19,7 +16,7 @@ const HeroSection = () => {
         playsInline
         className="absolute top-1/2 left-1/2 w-full h-full min-w-full min-h-full object-cover transform -translate-x-1/2 -translate-y-1/2 z-0"
       />
-      <div className="absolute inset-0 bg-black/50 z-10" />
+      <div className="absolute inset-0 bg-black/10 z-10" />
       <div className="relative z-20 container mx-auto px-6 w-full h-full flex flex-col justify-center">
         <div className="max-w-2xl text-left">
           <AnimateOnScroll>
