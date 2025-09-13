@@ -1,3 +1,5 @@
+'use client';
+
 import { AnimateOnScroll } from '../animate-on-scroll';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { BookOpen, Users, Laptop } from 'lucide-react';
