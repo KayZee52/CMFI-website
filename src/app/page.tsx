@@ -7,7 +7,6 @@ import StatsSection from "@/components/sections/stats-section";
 import StudentLifePreview from "@/components/sections/student-life-preview";
 import TestimonialsSection from "@/components/sections/testimonials-section";
 import TimelineSection from "@/components/sections/timeline-section";
-import GallerySection from "@/components/sections/gallery-section";
 
 export default function Home() {
   return (
@@ -17,7 +16,6 @@ export default function Home() {
       <TimelineSection />
       <AcademicsPreview />
       <StudentLifePreview />
-      <GallerySection />
       <TestimonialsSection />
       <NewsPreviewSection />
       <CtaSection />
