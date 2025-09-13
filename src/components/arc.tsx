@@ -31,8 +31,8 @@ type ArcProps = {
 
 export const Arc: FC<ArcProps> = ({ rotate, angle, skew, text, value, Icon, color, animationDelay }) => {
   const id = useId();
-  const radius = 100;
-  const innerRadius = 60;
+  const radius = 95;
+  const innerRadius = 55;
   
   const textAngle = -rotate - angle / 2;
 
