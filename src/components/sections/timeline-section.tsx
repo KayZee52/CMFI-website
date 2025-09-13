@@ -1,43 +1,66 @@
 import { timelineData } from '@/lib/data';
 import { AnimateOnScroll } from '../animate-on-scroll';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import Image from 'next/image';
+import { CheckCircle } from 'lucide-react';
 
 const TimelineSection = () => {
+  // Enhanced timeline data with image details for the new design
+  const journey = timelineData.map((item, index) => ({
+    ...item,
+    imageUrl: `https://picsum.photos/seed/timeline${index}/800/800`,
+    imageHint: item.title.toLowerCase().replace(/\s/g, ' '), // simple hint generation
+    align: index % 2 === 0 ? 'left' : 'right',
+  }));
+
   return (
-    <section id="timeline" className="bg-background">
+    <section id="timeline" className="bg-primary text-primary-foreground">
       <div className="container mx-auto px-6">
         <AnimateOnScroll className="text-center">
           <h2 className="font-headline text-3xl md:text-4xl font-bold">Our Journey</h2>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+          <p className="mt-4 max-w-2xl mx-auto text-lg text-primary-foreground/80">
             From our humble beginnings to becoming a beacon of education, discover the key milestones that have shaped CMFI.
           </p>
         </AnimateOnScroll>
         
-        <div className="relative mt-16">
-          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-border -translate-x-1/2 hidden md:block" />
-          
-          {timelineData.map((item, index) => {
-            const isLeft = index % 2 === 0;
+        <div className="relative mt-24 space-y-24">
+          {/* Central timeline bar */}
+          <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-primary-foreground/10 -translate-x-1/2 hidden md:block" />
 
-            return (
-              <div key={item.year} className={`relative flex items-center md:justify-center mb-12`}>
-                <div className={`w-full md:w-5/12 ${isLeft ? 'md:pr-8 md:text-right' : 'md:pl-8 md:order-2'}`}>
-                  <AnimateOnScroll>
-                    <Card className="hover:shadow-xl transition-shadow duration-300">
-                      <CardHeader>
-                        <p className="text-primary font-bold">{item.year}</p>
-                        <CardTitle className="font-headline text-xl">{item.title}</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-muted-foreground">{item.description}</p>
-                      </CardContent>
-                    </Card>
-                  </AnimateOnScroll>
-                </div>
-                <div className="absolute left-1/2 -translate-x-1/2 h-4 w-4 rounded-full bg-primary border-4 border-card hidden md:block"></div>
+          {journey.map((item, index) => (
+            <AnimateOnScroll 
+              key={item.year} 
+              className={`relative flex flex-col md:flex-row items-center gap-8 md:gap-12 w-full`}
+              delay={index * 100}
+            >
+              {/* Text Content */}
+              <div className={`w-full md:w-5/12 text-center md:text-left ${item.align === 'right' ? 'md:order-2' : ''}`}>
+                <p className="font-headline text-5xl font-bold text-accent mb-2">{item.year}</p>
+                <h3 className="font-headline text-2xl font-semibold mb-4">{item.title}</h3>
+                <p className="text-primary-foreground/80">{item.description}</p>
               </div>
-            );
-          })}
+
+              {/* Timeline Dot */}
+              <div className="absolute left-1/2 -translate-x-1/2 h-6 w-6 rounded-full bg-accent border-4 border-primary hidden md:flex items-center justify-center">
+                <CheckCircle className="h-4 w-4 text-accent-foreground" />
+              </div>
+
+              {/* Image Content */}
+              <div className={`w-full md:w-5/12 ${item.align === 'right' ? 'md:order-1' : ''}`}>
+                 <div className="relative aspect-square w-full max-w-md mx-auto">
+                    <Image
+                      src={item.imageUrl}
+                      alt={item.title}
+                      data-ai-hint={item.imageHint}
+                      fill
+                      className="object-cover rounded-full"
+                      style={{
+                        clipPath: 'polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%)'
+                      }}
+                    />
+                 </div>
+              </div>
+            </AnimateOnScroll>
+          ))}
         </div>
       </div>
     </section>
