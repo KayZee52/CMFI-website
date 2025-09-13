@@ -4,7 +4,6 @@ import { AnimateOnScroll } from '../animate-on-scroll';
 import { ChevronDown } from 'lucide-react';
 
 const HeroSection = () => {
-  // ===> REPLACE THIS URL WITH YOUR VIDEO FILE <===
   const videoUrl = 'https://videos.pexels.com/video-files/853878/853878-hd_1920_1080_25fps.mp4';
 
   return (
