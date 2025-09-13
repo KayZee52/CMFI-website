@@ -20,8 +20,8 @@ const positionClasses = {
     'right': 'top-1/2 right-0 translate-x-full -translate-y-1/2',
     'bottom': 'bottom-0 left-1/2 -translate-x-1/2 translate-y-full',
     'left': 'top-1/2 left-0 -translate-x-full -translate-y-1/2',
-    'top-left': 'top-0 left-0 -translate-x-3/4 -translate-y-3/4',
-    'bottom-right': 'bottom-0 right-0 translate-x-3/4 translate-y-3/4'
+    'top-left': 'top-0 left-0 -translate-x-1/2 -translate-y-1/2',
+    'bottom-right': 'bottom-0 right-0 translate-x-1/2 translate-y-1/2'
 };
 
 const lineClasses = {
