@@ -2,9 +2,8 @@
 'use client';
 
 import Image from 'next/image';
-import { AnimateOnScroll } from '../animate-on-scroll';
 import { CMFILogo } from '../icons';
-import { BookOpen, Users, Laptop, Info } from 'lucide-react';
+import { BookOpen, Users, Laptop } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel';
 import Autoplay from "embla-carousel-autoplay"
@@ -40,13 +39,13 @@ const WhyChooseUsSection = () => {
     return (
         <section id="why-choose-us" className="bg-card">
             <div className="container mx-auto px-6">
-                <AnimateOnScroll className="text-center">
+                <div className="text-center">
                     <h2 className="font-headline text-3xl md:text-4xl font-bold">Why Choose CMFI?</h2>
                     <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
                         We are committed to building future leaders through excellence, discipline, and modern innovation.
                     </p>
-                </AnimateOnScroll>
-                <AnimateOnScroll className="mt-16" delay={200}>
+                </div>
+                <div className="mt-16">
                     <Carousel
                         opts={{ align: "start", loop: true }}
                         plugins={[
@@ -58,35 +57,30 @@ const WhyChooseUsSection = () => {
                     >
                         <CarouselContent>
                             {features.map((feature, index) => (
-                                <CarouselItem key={index}>
-                                    <div className={cn("group relative h-[600px] w-full overflow-hidden rounded-lg shadow-xl text-white p-8 flex flex-col justify-between mx-auto", feature.color)}>
-                                        <div className="absolute inset-0 h-full w-full">
-                                            <Image 
-                                                src={feature.imageUrl} 
-                                                alt={feature.title} 
-                                                data-ai-hint={feature.imageHint}
-                                                fill 
-                                                className="object-cover object-top opacity-0 group-hover:opacity-20 transition-opacity duration-500" 
-                                            />
-                                        </div>
+                                <CarouselItem key={index} className="[perspective:1000px]">
+                                    <div className="group relative h-[600px] w-full overflow-hidden rounded-lg shadow-xl text-white p-8 flex flex-col justify-between mx-auto transition-transform duration-500 transform-style-3d data-[in-view=false]:rotate-y-15">
+                                        <Image 
+                                            src={feature.imageUrl} 
+                                            alt={feature.title} 
+                                            data-ai-hint={feature.imageHint}
+                                            fill 
+                                            className="object-cover object-top" 
+                                        />
+                                        <div className="absolute inset-0 bg-primary/80" />
 
                                         <div className="relative z-10 flex flex-col h-full">
                                             <div className="flex justify-center">
-                                                <CMFILogo className="h-12 w-12 text-white/80" />
+                                                <div className="p-4 bg-white/20 rounded-full">
+                                                  <feature.icon className="h-8 w-8 text-white" />
+                                                </div>
                                             </div>
 
                                             <div className="flex-grow flex items-center justify-center -mt-12">
                                                 <h3 className="font-headline text-4xl text-center font-semibold tracking-tight">{feature.title}</h3>
                                             </div>
                                             
-                                            <div className="absolute bottom-8 left-8 right-8 text-center transition-all duration-500 opacity-0 group-hover:opacity-100 transform group-hover:translate-y-0 translate-y-10">
+                                            <div className="text-center">
                                                  <p className="text-white/90">{feature.description}</p>
-                                            </div>
-                                            
-                                            <div className="flex justify-center mb-4 transition-opacity duration-300 opacity-100 group-hover:opacity-0">
-                                                <div className="bg-white/30 rounded-full p-2">
-                                                    <Info className="h-5 w-5 text-white" />
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -96,7 +90,7 @@ const WhyChooseUsSection = () => {
                         <CarouselPrevious className="hidden sm:flex left-[-50px]" />
                         <CarouselNext className="hidden sm:flex right-[-50px]" />
                     </Carousel>
-                </AnimateOnScroll>
+                </div>
             </div>
         </section>
     );
