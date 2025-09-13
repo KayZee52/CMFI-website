@@ -1,4 +1,4 @@
-import { Briefcase, DollarSign, GraduationCap, Group, Heart, Lightbulb, Star, Trophy } from "@/components/icons";
+import { BookOpen, Briefcase, Calculator, FlaskConical, GraduationCap, Group, Heart, Laptop, Lightbulb, Paintbrush, Star, Trophy, Users } from "@/components/icons";
 
 export const timelineData = [
   {
@@ -103,44 +103,34 @@ export const stats = [
 
 export const glanceStats = [
   {
-    value: "10+",
-    label: "Years of Excellence",
-    Icon: Star,
+    value: 'Creative',
+    label: 'Arts',
+    Icon: Paintbrush,
   },
   {
-    value: "500+",
-    label: "AP/Honors Courses",
-    Icon: Lightbulb,
+    value: 'Languages',
+    label: '& Humanities',
+    Icon: BookOpen,
   },
   {
-    value: "$1M+",
-    label: "In College Scholarships",
-    Icon: DollarSign,
+    value: 'ICT &',
+    label: 'Digital Learning',
+    Icon: Laptop,
   },
   {
-    value: "1000+",
-    label: "Graduates",
-    Icon: GraduationCap,
-  },
-  {
-    value: "5:1",
-    label: "Student to Teacher Ratio",
-    Icon: Group,
-  },
-  {
-    value: "95%",
-    label: "Graduation Rate",
-    Icon: Trophy,
-  },
-  {
-    value: "10K+",
-    label: "Community Service Hours",
-    Icon: Heart,
-  },
-  {
-    value: "20+",
-    label: "Student-Run Clubs and Activities",
+    value: 'Business',
+    label: '& Social Studies',
     Icon: Briefcase,
+  },
+  {
+    value: 'Science &',
+    label: 'Laboratory',
+    Icon: FlaskConical,
+  },
+  {
+    value: 'Mathematics',
+    label: '& Logic',
+    Icon: Calculator,
   },
 ];
 
