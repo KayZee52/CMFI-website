@@ -13,21 +13,21 @@ const features = [
         icon: BookOpen,
         title: 'Excellence in Learning',
         description: 'We are committed to providing a rigorous academic environment that challenges students to achieve their full potential.',
-        imageUrl: 'https://picsum.photos/seed/learning-student/600/800',
+        imageUrl: '/images/excellence-inlearning.png',
         imageHint: 'student reading book',
     },
     {
         icon: Users,
         title: 'Respect & Discipline',
         description: 'We foster a supportive community that emphasizes discipline, integrity, and service to others.',
-        imageUrl: 'https://picsum.photos/seed/respect-student/600/800',
+        imageUrl: '/images/respect-descipline.png',
         imageHint: 'students helping community',
     },
     {
         icon: Laptop,
         title: 'Modern Facilities',
         description: 'We integrate modern technology and facilities to prepare students for the digital age.',
-        imageUrl: 'https://picsum.photos/seed/ict-student/600/800',
+        imageUrl: '/images/modern-facilities.png',
         imageHint: 'student using computer',
     },
 ];
@@ -84,7 +84,6 @@ const WhyChooseUsSection = () => {
                                         <Image 
                                             src={feature.imageUrl} 
                                             alt={feature.title} 
-                                            data-ai-hint={feature.imageHint}
                                             fill 
                                             className="object-cover object-top" 
                                         />
