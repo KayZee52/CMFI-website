@@ -60,7 +60,7 @@ const TimelineSection = () => {
         </AnimateOnScroll>
         
         <div className="relative mt-24 space-y-24">
-          <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-primary-foreground/10 -translate-x-1/2 hidden md:block" />
+          <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-primary-foreground/10 -translate-x-1/2" />
           
           <div
             ref={iconRef}
@@ -83,7 +83,7 @@ const TimelineSection = () => {
               </div>
 
               <div className={`w-full md:w-5/12 ${item.align === 'right' ? 'md:order-1' : ''}`}>
-                 <div className="relative aspect-square w-full max-w-md mx-auto">
+                 <div className="relative aspect-square w-full max-w-sm sm:max-w-md mx-auto">
                     <Image
                       src={item.imageUrl}
                       alt={item.title}

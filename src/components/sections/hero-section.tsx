@@ -45,7 +45,7 @@ const HeroSection = () => {
             </h2>
           </AnimateOnScroll>
           <AnimateOnScroll delay={200}>
-            <h1 className="font-headline text-5xl md:text-8xl font-bold tracking-tight mt-4 h-32 md:h-48">
+            <h1 className="font-headline text-5xl sm:text-6xl md:text-8xl font-bold tracking-tight mt-4 h-32 md:h-48">
               Be A <Typewriter phrases={typewriterPhrases} />
             </h1>
           </AnimateOnScroll>
@@ -70,7 +70,7 @@ const HeroSection = () => {
           </AnimateOnScroll>
         </div>
         <AnimateOnScroll delay={800} className="absolute bottom-10 left-1/2 -translate-x-1/2">
-            <Link href="#about-preview" aria-label="Scroll to next section">
+            <Link href="#why-choose-us" aria-label="Scroll to next section">
                 <ChevronDown className="h-10 w-10 animate-bounce" />
             </Link>
         </AnimateOnScroll>

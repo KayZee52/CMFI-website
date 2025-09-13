@@ -79,7 +79,7 @@ const AdmissionsPage = () => {
 
                     <div className="mt-16 relative">
                          <div className="absolute left-1/2 top-8 bottom-8 w-0.5 bg-border -translate-x-1/2 hidden md:block" />
-                        <div className="grid md:grid-cols-5 gap-8">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-y-12 md:gap-8">
                             {admissionSteps.map((step, index) => (
                                 <AnimateOnScroll key={index} delay={index * 150} className="text-center relative z-10">
                                     <div className="flex flex-col items-center">
@@ -89,7 +89,7 @@ const AdmissionsPage = () => {
                                             </div>
                                         </div>
                                         <h3 className="font-headline text-xl font-bold mb-2">{step.title}</h3>
-                                        <p className="text-muted-foreground">{step.description}</p>
+                                        <p className="text-muted-foreground px-4">{step.description}</p>
                                     </div>
                                 </AnimateOnScroll>
                             ))}
@@ -103,7 +103,7 @@ const AdmissionsPage = () => {
                     <AnimateOnScroll className="text-center">
                         <h2 className="font-headline text-3xl md:text-4xl font-bold">What You'll Need</h2>
                     </AnimateOnScroll>
-                    <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div className="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-8">
                         {requirements.map((req, index) => (
                             <AnimateOnScroll key={index} delay={index * 100}>
                                 <Card className="text-center h-full hover:shadow-lg transition-shadow p-6">
@@ -160,11 +160,11 @@ const AdmissionsPage = () => {
                         <h2 className="font-headline text-3xl md:text-4xl font-bold">
                             Ready to Begin Your Journey at CMFI?
                         </h2>
-                        <div className="mt-8 flex justify-center gap-4">
-                            <Button asChild size="lg" variant="secondary">
+                        <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+                            <Button asChild size="lg" variant="secondary" className="w-full sm:w-auto">
                                 <Link href="#how-to-apply">Apply Now</Link>
                             </Button>
-                             <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+                             <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary w-full sm:w-auto">
                                 <Link href="/contact">Contact Us</Link>
                             </Button>
                         </div>
