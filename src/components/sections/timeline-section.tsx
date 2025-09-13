@@ -8,9 +8,10 @@ import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 
 const TimelineSection = () => {
+
   const journey = timelineData.map((item, index) => ({
     ...item,
-    imageUrl: `/images/${item.year}.png`,
+    imageUrl: `/images/${item.year}${item.year === '2024' ? '_new' : ''}.png`,
     imageHint: item.title.toLowerCase().replace(/\s/g, ' '),
     align: index % 2 === 0 ? 'left' : 'right',
   }));
@@ -88,7 +89,8 @@ const TimelineSection = () => {
                       src={item.imageUrl}
                       alt={item.title}
                       data-ai-hint={item.imageHint}
-                      fill
+                      width={600}
+                      height={600}
                       className="object-cover"
                       style={{
                         clipPath: 'polygon(50% 0%, 90% 20%, 100% 60%, 75% 100%, 25% 100%, 0% 60%, 10% 20%)'
