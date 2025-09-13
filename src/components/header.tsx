@@ -58,7 +58,7 @@ const Header = () => {
   );
   
   const showBackground = (isScrolled || !isHomePage || mobileMenuOpen);
-  const headerTextColor = isHomePage && !showBackground ? "text-white" : "text-foreground";
+  const headerTextColor = "text-foreground";
 
   return (
     <header
