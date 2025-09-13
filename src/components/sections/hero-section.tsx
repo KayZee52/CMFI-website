@@ -31,7 +31,7 @@ const HeroSection = () => {
           </AnimateOnScroll>
           <AnimateOnScroll delay={400}>
             <p className="mt-6 max-w-xl text-base md:text-lg text-white/90">
-              A private, co-educational, English & French college preparatory school for students in grades 7 through 12, dedicated to nurturing and challenging each whole person.
+              CMFI Bilingual High School is a private Nursery–Grade 12 institution where students grow in knowledge, character, and leadership — preparing for higher education and life with strong values and discipline.
             </p>
           </AnimateOnScroll>
           <AnimateOnScroll delay={600}>
