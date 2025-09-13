@@ -133,4 +133,28 @@ html {
   .animate-pulse-glow {
       animation: pulse-glow 4s infinite ease-in-out;
   }
+
+  @keyframes revolve {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+  .animate-revolve {
+    animation: revolve 40s linear infinite;
+  }
+
+  @keyframes counter-revolve {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .animate-counter-revolve {
+    animation: counter-revolve 40s linear infinite;
+  }
 }

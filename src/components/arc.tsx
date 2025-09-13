@@ -60,7 +60,7 @@ export const Arc: FC<ArcProps> = ({ rotate, angle, skew, text, value, Icon, colo
           </svg>
         </div>
         <div
-          className="absolute inset-0 flex flex-col items-center justify-start text-primary text-center pt-3"
+          className="absolute inset-0 flex flex-col items-center justify-start text-primary text-center pt-3 animate-counter-revolve"
           style={{ transform: `rotate(${textAngle}deg) ` }}
         >
             <div className="h-6 w-6">{Icon}</div>
