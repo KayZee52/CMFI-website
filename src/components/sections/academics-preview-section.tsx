@@ -20,7 +20,7 @@ const AcademicsPreview = () => {
                         Our curriculum is a balanced ecosystem of disciplines, designed to foster intellectual curiosity and prepare students for global opportunities.
                     </p>
                 </AnimateOnScroll>
-                <div className="relative aspect-square max-w-xl mx-auto mt-12">
+                <div className="relative aspect-square max-w-lg mx-auto mt-12">
                     <div className="absolute inset-0 animate-revolve">
                         {glanceStats.map((stat, index) => {
                             const rotate = angle * index;
