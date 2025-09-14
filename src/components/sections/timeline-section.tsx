@@ -89,8 +89,7 @@ const TimelineSection = () => {
                       src={item.imageUrl}
                       alt={item.title}
                       data-ai-hint={item.imageHint}
-                      width={600}
-                      height={600}
+                      fill
                       className="object-cover"
                       style={{
                         clipPath: 'polygon(50% 0%, 90% 20%, 100% 60%, 75% 100%, 25% 100%, 0% 60%, 10% 20%)'
