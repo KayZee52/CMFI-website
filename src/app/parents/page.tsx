@@ -36,6 +36,7 @@ const ParentsPage = () => {
                     alt="Parent and student smiling together"
                     fill
                     priority
+                    sizes="100vw"
                     className="object-cover object-center"
                     data-ai-hint="family happy"
                 />
@@ -146,11 +147,11 @@ const ParentsPage = () => {
             <section className="relative bg-primary text-primary-foreground">
                  <Image 
                     src="https://picsum.photos/seed/cta-parents/1920/1080"
-                    layout="fill"
-                    objectFit="cover"
+                    fill
+                    sizes="100vw"
+                    className="object-cover opacity-20"
                     alt="Parents at a school event"
                     data-ai-hint="parents cheering"
-                    className="opacity-20"
                 />
                 <div className="absolute inset-0 bg-primary/80" />
                 <div className="container mx-auto px-6 text-center relative z-10">

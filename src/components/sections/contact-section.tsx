@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useId, useState, useTransition } from 'react';
-import { useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -26,16 +25,6 @@ const contactFormSchema = z.object({
 });
 
 type ContactFormValues = z.infer<typeof contactFormSchema>;
-
-function SubmitButton() {
-  const { pending } = useFormStatus();
-  return (
-    <Button type="submit" disabled={pending} className="w-full bg-accent hover:bg-accent/90">
-      {pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-      Send Message
-    </Button>
-  );
-}
 
 const ContactPageContent = () => {
   const { toast } = useToast();
@@ -103,6 +92,7 @@ const ContactPageContent = () => {
             alt="CMFI School Campus"
             fill
             priority
+            sizes="100vw"
             className="object-cover"
             data-ai-hint="school campus"
         />

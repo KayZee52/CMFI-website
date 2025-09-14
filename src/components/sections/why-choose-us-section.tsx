@@ -84,7 +84,8 @@ const WhyChooseUsSection = () => {
                                         <Image 
                                             src={feature.imageUrl} 
                                             alt={feature.title} 
-                                            fill 
+                                            fill
+                                            sizes="(max-width: 640px) 100vw, 50vw"
                                             className="object-cover object-top" 
                                         />
                                         <div className="absolute inset-0 bg-primary/80" />

@@ -8,11 +8,11 @@ const CtaSection = () => {
         <section className="relative bg-primary text-primary-foreground">
              <Image 
                 src="https://picsum.photos/seed/cta-bg/1920/1080"
-                layout="fill"
-                objectFit="cover"
+                fill
+                sizes="100vw"
+                className="object-cover opacity-20"
                 alt="Graduation"
                 data-ai-hint="graduation students"
-                className="opacity-20"
             />
             <div className="absolute inset-0 bg-primary/80" />
             <div className="container mx-auto px-6 text-center relative z-10">

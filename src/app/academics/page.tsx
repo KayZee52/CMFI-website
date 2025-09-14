@@ -34,6 +34,7 @@ const AcademicsPage = () => {
                     alt="Students in a classroom"
                     fill
                     priority
+                    sizes="100vw"
                     className="object-cover object-center"
                     data-ai-hint="students classroom"
                 />
@@ -63,7 +64,7 @@ const AcademicsPage = () => {
                     </AnimateOnScroll>
                     <AnimateOnScroll delay={200}>
                          <div className="relative aspect-video rounded-lg overflow-hidden">
-                            <Image src="https://picsum.photos/seed/academics-bilingual/800/600" layout="fill" objectFit="cover" alt="Bilingual education" data-ai-hint="books library"/>
+                            <Image src="https://picsum.photos/seed/academics-bilingual/800/600" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" alt="Bilingual education" data-ai-hint="books library"/>
                         </div>
                     </AnimateOnScroll>
                 </div>
@@ -99,7 +100,7 @@ const AcademicsPage = () => {
                         {facilities.map((facility, index) => (
                             <AnimateOnScroll key={facility.title} delay={index * 200}>
                                 <div className="relative aspect-video rounded-lg overflow-hidden mb-4">
-                                    <Image src={facility.imageUrl} layout="fill" objectFit="cover" alt={facility.title} data-ai-hint={facility.hint} />
+                                    <Image src={facility.imageUrl} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" alt={facility.title} data-ai-hint={facility.hint} />
                                 </div>
                                 <h3 className="font-headline text-2xl font-bold flex items-center gap-3 mb-2"><facility.icon className="h-6 w-6 text-primary"/>{facility.title}</h3>
                                 <p className="text-muted-foreground">{facility.description}</p>
@@ -162,11 +163,11 @@ const AcademicsPage = () => {
              <section className="relative bg-primary text-primary-foreground">
                  <Image 
                     src="https://picsum.photos/seed/cta-academics/1920/1080"
-                    layout="fill"
-                    objectFit="cover"
+                    fill
+                    sizes="100vw"
+                    className="object-cover opacity-20"
                     alt="Students collaborating"
                     data-ai-hint="students collaborating"
-                    className="opacity-20"
                 />
                 <div className="absolute inset-0 bg-primary/80" />
                 <div className="container mx-auto px-6 text-center relative z-10">

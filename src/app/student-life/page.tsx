@@ -40,6 +40,7 @@ const StudentLifePage = () => {
                     alt="Students smiling"
                     fill
                     priority
+                    sizes="100vw"
                     className="object-cover object-center"
                     data-ai-hint="students smiling group"
                 />
@@ -66,7 +67,7 @@ const StudentLifePage = () => {
                             <AnimateOnScroll key={sport.title} delay={index * 100}>
                                 <Card className="overflow-hidden group hover:shadow-xl transition-shadow">
                                     <div className="relative aspect-video">
-                                        <Image src={sport.imageUrl} layout="fill" objectFit="cover" alt={sport.title} data-ai-hint={sport.hint} className="group-hover:scale-105 transition-transform duration-300" />
+                                        <Image src={sport.imageUrl} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-300" alt={sport.title} data-ai-hint={sport.hint} />
                                     </div>
                                     <CardHeader>
                                         <CardTitle className="font-headline flex items-center gap-3"><sport.icon className="h-6 w-6 text-primary"/>{sport.title}</CardTitle>
@@ -153,7 +154,7 @@ const StudentLifePage = () => {
                     </AnimateOnScroll>
                     <AnimateOnScroll delay={200}>
                         <div className="relative aspect-video rounded-lg overflow-hidden">
-                            <Image src="https://picsum.photos/seed/alumni-life/800/600" layout="fill" objectFit="cover" alt="Alumni group photo" data-ai-hint="graduates group photo" />
+                            <Image src="https://picsum.photos/seed/alumni-life/800/600" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" alt="Alumni group photo" data-ai-hint="graduates group photo" />
                         </div>
                     </AnimateOnScroll>
                 </div>
@@ -185,11 +186,11 @@ const StudentLifePage = () => {
             <section className="relative bg-primary text-primary-foreground">
                  <Image 
                     src="https://picsum.photos/seed/cta-student-life/1920/1080"
-                    layout="fill"
-                    objectFit="cover"
+                    fill
+                    sizes="100vw"
+                    className="object-cover opacity-20"
                     alt="Students cheering"
                     data-ai-hint="students cheering"
-                    className="opacity-20"
                 />
                 <div className="absolute inset-0 bg-primary/80" />
                 <div className="container mx-auto px-6 text-center relative z-10">

@@ -30,6 +30,7 @@ const AboutPageContent = () => {
             alt="CMFI Campus"
             fill
             priority
+            sizes="100vw"
             className="object-cover"
             data-ai-hint="school campus"
         />
@@ -51,7 +52,7 @@ const AboutPageContent = () => {
         <AnimateOnScroll className="mt-16">
             <Card className="overflow-hidden md:flex shadow-lg">
                 <div className="md:w-1/3 relative min-h-[300px] md:min-h-0">
-                    <Image src="https://picsum.photos/seed/principal/600/800" alt="Principal Simeon E. Ojong" data-ai-hint="portrait person" layout="fill" objectFit="cover" />
+                    <Image src="https://picsum.photos/seed/principal/600/800" alt="Principal Simeon E. Ojong" data-ai-hint="portrait person" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />
                 </div>
                 <div className="md:w-2/3">
                     <CardHeader>

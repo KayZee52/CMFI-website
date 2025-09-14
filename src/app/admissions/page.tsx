@@ -70,6 +70,7 @@ const AdmissionsPage = () => {
                     alt="Admissions at CMFI"
                     fill
                     priority
+                    sizes="100vw"
                     className="object-cover"
                     data-ai-hint="students smiling"
                 />
@@ -125,6 +126,7 @@ const AdmissionsPage = () => {
                                             alt={step.title}
                                             data-ai-hint={step.imageHint}
                                             fill
+                                            sizes="(max-width: 768px) 100vw, 50vw"
                                             className="object-cover"
                                             />
                                         </div>
@@ -186,11 +188,11 @@ const AdmissionsPage = () => {
              <section className="relative bg-primary text-primary-foreground">
                  <Image 
                     src="https://picsum.photos/seed/cta-admissions/1920/1080"
-                    layout="fill"
-                    objectFit="cover"
+                    fill
+                    sizes="100vw"
+                    className="object-cover opacity-20"
                     alt="Students studying"
                     data-ai-hint="students studying"
-                    className="opacity-20"
                 />
                 <div className="absolute inset-0 bg-primary/80" />
                 <div className="container mx-auto px-6 text-center relative z-10">
