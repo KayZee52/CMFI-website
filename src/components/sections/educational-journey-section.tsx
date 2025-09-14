@@ -12,35 +12,35 @@ const journeyLevels = [
     name: 'Nursery',
     icon: Baby,
     description: 'A nurturing start where curiosity and social skills blossom through play-based learning in a safe, caring environment.',
-    imageUrl: 'https://picsum.photos/seed/nursery-journey/800/600',
+    imageUrl: '/images/levelsfive/nursery.jpeg',
     imageHint: 'children playing blocks'
   },
   {
     name: 'Kindergarten',
     icon: Sparkles,
     description: 'Building foundational literacy and numeracy skills while fostering creativity, independence, and a love for learning.',
-    imageUrl: 'https://picsum.photos/seed/kindergarten-journey/800/600',
+    imageUrl: '/images/levelsfive/kindergarten.jpeg',
     imageHint: 'child painting colorful'
   },
   {
     name: 'Elementary',
     icon: BookOpen,
     description: 'Developing core academic competencies in a structured curriculum that encourages critical thinking and collaboration.',
-    imageUrl: 'https://picsum.photos/seed/elementary-journey/800/600',
+    imageUrl: '/images/levelsfive/elementary.jpeg',
     imageHint: 'students reading library'
   },
   {
     name: 'Junior High',
     icon: Users,
     description: 'Transitioning to more advanced subjects, students deepen their knowledge and begin exploring specialized interests.',
-    imageUrl: 'https://picsum.photos/seed/junior-high-journey/800/600',
+    imageUrl: '/images/levelsfive/juniorhigh.jpeg',
     imageHint: 'teenagers science class'
   },
   {
     name: 'Senior High',
     icon: GraduationCap,
     description: 'A rigorous program focused on academic excellence, leadership development, and preparation for university and beyond.',
-    imageUrl: 'https://picsum.photos/seed/senior-high-journey/800/600',
+    imageUrl: '/images/levelsfive/seniorhigh.jpeg',
     imageHint: 'students graduation caps'
   },
 ];
