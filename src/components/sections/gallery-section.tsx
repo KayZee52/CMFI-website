@@ -83,6 +83,7 @@ const GallerySection = () => {
                   src={selectedImage.url}
                   alt={selectedImage.hint}
                   fill
+                  sizes="100vw"
                   data-ai-hint={selectedImage.hint}
                   className="object-contain rounded-md"
                 />
