@@ -1,3 +1,4 @@
+
 import { AnimateOnScroll } from '@/components/animate-on-scroll';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -45,12 +46,12 @@ const AdmissionsPage = () => {
         <>
             <section className="relative h-[400px] flex items-center justify-center text-center text-white">
                 <Image
-                    src="https://picsum.photos/seed/admissions-hero/1920/1080"
-                    alt="Happy students"
+                    src="/images/heroimages/admissionhero.jpeg"
+                    alt="Admissions at CMFI"
                     fill
                     priority
                     className="object-cover"
-                    data-ai-hint="students happy"
+                    data-ai-hint="students smiling"
                 />
                 <div className="absolute inset-0 bg-black/60" />
                 <div className="relative z-10 container mx-auto px-6">
