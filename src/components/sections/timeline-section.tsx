@@ -11,7 +11,7 @@ const TimelineSection = () => {
 
   const journey = timelineData.map((item, index) => ({
     ...item,
-    imageUrl: `/images/${item.year}.png`,
+    imageUrl: item.year === '2023' ? '/images/journeyimages/image2023.jpeg' : `/images/${item.year}.png`,
     imageHint: item.title.toLowerCase().replace(/\s/g, ' '),
     align: index % 2 === 0 ? 'left' : 'right',
   }));
