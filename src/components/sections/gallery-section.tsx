@@ -6,7 +6,7 @@ import { AnimateOnScroll } from '../animate-on-scroll';
 import { galleryData } from '@/lib/data';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Card, CardContent } from '../ui/card';
-import { Dialog, DialogContent } from '../ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 const GallerySection = () => {
@@ -73,15 +73,21 @@ const GallerySection = () => {
       <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
         <DialogContent className="max-w-3xl p-2">
           {selectedImage && (
-            <div className="relative aspect-video">
-              <Image
-                src={selectedImage.url}
-                alt={selectedImage.hint}
-                fill
-                data-ai-hint={selectedImage.hint}
-                className="object-contain rounded-md"
-              />
-            </div>
+            <>
+              <DialogHeader className="sr-only">
+                <DialogTitle>Image Viewer</DialogTitle>
+                <DialogDescription>{`Enlarged view of image: ${selectedImage.hint}`}</DialogDescription>
+              </DialogHeader>
+              <div className="relative aspect-video">
+                <Image
+                  src={selectedImage.url}
+                  alt={selectedImage.hint}
+                  fill
+                  data-ai-hint={selectedImage.hint}
+                  className="object-contain rounded-md"
+                />
+              </div>
+            </>
           )}
         </DialogContent>
       </Dialog>
