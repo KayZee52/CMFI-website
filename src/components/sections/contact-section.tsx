@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect, useId } from 'react';
-import { useActionState } from 'react';
+import { useEffect, useId, useState, useTransition } from 'react';
 import { useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -26,6 +25,8 @@ const contactFormSchema = z.object({
   message: z.string().min(10, { message: 'Message must be at least 10 characters.' }),
 });
 
+type ContactFormValues = z.infer<typeof contactFormSchema>;
+
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
@@ -38,9 +39,10 @@ function SubmitButton() {
 
 const ContactPageContent = () => {
   const { toast } = useToast();
-  const [state, formAction] = useActionState<ContactFormState, FormData>(submitContactForm, { message: '' });
+  const [state, setState] = useState<ContactFormState>({ message: '' });
+  const [isPending, startTransition] = useTransition();
 
-  const form = useForm<z.infer<typeof contactFormSchema>>({
+  const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: { name: '', email: '', subject: '', message: '' },
   });
@@ -52,14 +54,28 @@ const ContactPageContent = () => {
         description: 'Thank you for contacting us. We will get back to you shortly.',
       });
       form.reset();
+      setState({ message: '' }); // Reset state after showing toast
     } else if (state.message && state.message !== '') {
       toast({
         variant: 'destructive',
         title: 'Uh oh! Something went wrong.',
         description: state.message,
       });
+       setState({ message: '' }); // Reset state after showing toast
     }
   }, [state, toast, form]);
+
+  const onSubmit = (values: ContactFormValues) => {
+    const formData = new FormData();
+    Object.entries(values).forEach(([key, value]) => {
+        formData.append(key, value);
+    });
+
+    startTransition(async () => {
+        const result = await submitContactForm(undefined, formData);
+        setState(result);
+    });
+  };
 
   const googleMapsUrl = "https://www.google.com/maps/place/C+M+F+I+COMPUS/@6.2972144,-10.7048804,93m/data=!3m1!1e3!4m12!1m5!8m4!1e3!2s109661092954929372296!3m1!1e1!3m5!1s0xf09ff47e5c02a07:0x31b2da1a364f8544!8m2!3d6.2971472!4d-10.7048819!16s%2Fg%2F11rp0tf6_0?entry=ttu&g_ep=EgoyMDI1MDkwOS4wIKXMDSoASAFQAw%3D%3D";
   const embedMapsUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3227.331855121172!2d-10.707456826099728!3d6.297152525754518!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xf09ff47e5c02a07%3A0x31b2da1a364f8544!2sC%20M%20F%20I%20COMPUS!5e1!3m2!1sen!2sus!4v1757677670381!5m2!1sen!2sus";
@@ -147,8 +163,8 @@ const ContactPageContent = () => {
                     <CardTitle className="font-headline text-3xl">Send Us a Message</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <form action={formAction} className="space-y-6">
-                    <Form {...form}>
+                  <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                       <FormField
                         control={form.control}
                         name="name"
@@ -201,9 +217,12 @@ const ContactPageContent = () => {
                           </FormItem>
                         )}
                       />
-                    </Form>
-                    <SubmitButton />
-                  </form>
+                       <Button type="submit" disabled={isPending} className="w-full bg-accent hover:bg-accent/90">
+                            {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                            Send Message
+                        </Button>
+                    </form>
+                  </Form>
                 </CardContent>
               </Card>
               

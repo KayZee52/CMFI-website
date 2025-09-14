@@ -1,4 +1,3 @@
-
 'use server';
 
 import { z } from 'zod';
@@ -20,7 +19,7 @@ export type ContactFormState = {
   };
 };
 
-export async function submitContactForm(prevState: ContactFormState, formData: FormData) {
+export async function submitContactForm(prevState: ContactFormState | undefined, formData: FormData): Promise<ContactFormState> {
   const validatedFields = contactFormSchema.safeParse({
     name: formData.get('name'),
     email: formData.get('email'),
