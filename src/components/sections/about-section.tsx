@@ -26,7 +26,7 @@ const AboutPageContent = () => {
     <>
     <section className="relative h-[400px] flex items-center justify-center text-center text-white">
         <Image
-            src="https://picsum.photos/seed/about-hero/1920/1080"
+            src="/images/heroimages/abouthero.jpeg"
             alt="CMFI Campus"
             fill
             priority
