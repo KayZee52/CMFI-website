@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { FileText, Award, UserCheck, ScrollText, BadgeCheck } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Typewriter } from '@/components/typewriter';
 
 const AdmissionsPage = () => {
     const admissionSteps = [
@@ -41,6 +42,14 @@ const AdmissionsPage = () => {
         { icon: Award, title: 'Previous Report Cards' },
         { icon: UserCheck, title: 'Exam Participation' },
     ];
+    
+    const typewriterPhrases = [
+        "Journey with Us Today.",
+        "Learning with Us Today.",
+        "Dreams with Us Today.",
+        "Future with Us Today.",
+        "Success with Us Today.",
+    ];
 
     return (
         <>
@@ -59,8 +68,8 @@ const AdmissionsPage = () => {
                         <h1 className="font-headline text-4xl md:text-6xl font-bold tracking-tight">
                             Admissions at CMFI
                         </h1>
-                        <p className="mt-4 text-lg md:text-xl text-white/90">
-                            Start your journey with us today.
+                        <p className="mt-4 text-lg md:text-xl text-white/90 min-h-[56px] md:min-h-0">
+                            Start your <Typewriter phrases={typewriterPhrases} />
                         </p>
                         <Button asChild size="lg" className="mt-8 bg-accent hover:bg-accent/90 text-accent-foreground">
                             <Link href="#how-to-apply">Begin Admission Process</Link>
