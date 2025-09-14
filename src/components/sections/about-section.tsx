@@ -52,7 +52,7 @@ const AboutPageContent = () => {
         <AnimateOnScroll className="mt-16">
             <Card className="overflow-hidden md:flex shadow-lg">
                 <div className="md:w-1/3 relative min-h-[300px] md:min-h-0">
-                    <Image src="/images/adminstrators/principal.jpeg" alt="Principal Simeon E. Ojong" data-ai-hint="portrait person" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />
+                    <Image src="/images/adminstrators/principal.jpeg" alt="Principal Simeon E. Ojong" data-ai-hint="portrait person" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover object-top" />
                 </div>
                 <div className="md:w-2/3">
                     <CardHeader>
