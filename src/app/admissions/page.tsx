@@ -6,33 +6,44 @@ import { FileText, Award, UserCheck, ScrollText, BadgeCheck } from 'lucide-react
 import Image from 'next/image';
 import Link from 'next/link';
 import { Typewriter } from '@/components/typewriter';
+import { cn } from '@/lib/utils';
 
 const AdmissionsPage = () => {
     const admissionSteps = [
         {
             icon: ScrollText,
             title: 'Pick Up Form',
-            description: 'Admission forms are available at the school office.'
+            description: 'Admission forms are available at the school office during working hours. Get yours to begin the journey.',
+            imageUrl: 'https://picsum.photos/seed/pickup-form/800/600',
+            imageHint: 'school office reception'
         },
         {
             icon: FileText,
             title: 'Submit Application',
-            description: 'Complete and return the form with all required documents.'
+            description: 'Complete and return the form with all required documents, including previous academic records and a birth certificate.',
+            imageUrl: 'https://picsum.photos/seed/submit-app/800/600',
+            imageHint: 'person filling form'
         },
         {
             icon: Award,
             title: 'Entrance Examination',
-            description: 'Sit for the mandatory entrance exam covering core subjects.'
+            description: 'Applicants must sit for the mandatory entrance exam covering core subjects to assess their academic readiness.',
+            imageUrl: 'https://picsum.photos/seed/entrance-exam/800/600',
+            imageHint: 'students writing exam'
         },
         {
             icon: UserCheck,
             title: 'Interview & Review',
-            description: 'Attend an interview with our admissions team for final review.'
+            description: 'A friendly interview with our admissions team allows us to get to know the applicant and review their potential.',
+            imageUrl: 'https://picsum.photos/seed/interview-review/800/600',
+            imageHint: 'friendly interview'
         },
         {
             icon: BadgeCheck,
             title: 'Receive Confirmation',
-            description: 'Successful applicants will receive an official admission confirmation.'
+            description: 'Successful applicants will receive an official admission letter and package with further instructions to complete enrollment.',
+            imageUrl: 'https://picsum.photos/seed/confirmation/800/600',
+            imageHint: 'happy student acceptance'
         }
     ];
 
@@ -87,23 +98,40 @@ const AdmissionsPage = () => {
                         </p>
                     </AnimateOnScroll>
 
-                    <div className="mt-16 relative">
-                         <div className="absolute left-1/2 top-8 bottom-8 w-0.5 bg-border -translate-x-1/2 hidden md:block" />
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-y-12 md:gap-8">
-                            {admissionSteps.map((step, index) => (
-                                <AnimateOnScroll key={index} delay={index * 150} className="text-center relative z-10">
-                                    <div className="flex flex-col items-center">
-                                        <div className="mb-4 bg-background p-2 rounded-full">
-                                            <div className="p-4 bg-primary/10 text-primary rounded-full">
-                                                <step.icon className="h-8 w-8" />
-                                            </div>
+                     <div className="relative mt-24 space-y-24">
+                        <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-border -translate-x-1/2 hidden md:block" />
+                        
+                        {admissionSteps.map((step, index) => {
+                            const isEven = index % 2 === 0;
+                            return (
+                                <AnimateOnScroll 
+                                    key={index} 
+                                    className={cn('relative flex flex-col md:flex-row items-center gap-8 md:gap-12 w-full')}
+                                    delay={index * 100}
+                                >
+                                    <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2 md:top-1/2 h-10 w-10 p-1 rounded-full bg-background flex items-center justify-center z-10 border-2 border-primary">
+                                        <step.icon className="h-6 w-6 text-primary" />
+                                    </div>
+
+                                    <div className={cn('w-full md:w-5/12 text-center md:text-left', isEven ? 'md:order-1' : 'md:order-2')}>
+                                        <h3 className="font-headline text-2xl font-semibold mb-4 text-primary">Step {index + 1}: {step.title}</h3>
+                                        <p className="text-muted-foreground">{step.description}</p>
+                                    </div>
+
+                                    <div className={cn('w-full md:w-5/12', isEven ? 'md:order-2' : 'md:order-1')}>
+                                        <div className="relative aspect-video w-full max-w-sm sm:max-w-md mx-auto rounded-lg overflow-hidden shadow-lg">
+                                            <Image
+                                            src={step.imageUrl}
+                                            alt={step.title}
+                                            data-ai-hint={step.imageHint}
+                                            fill
+                                            className="object-cover"
+                                            />
                                         </div>
-                                        <h3 className="font-headline text-xl font-bold mb-2">{step.title}</h3>
-                                        <p className="text-muted-foreground px-4">{step.description}</p>
                                     </div>
                                 </AnimateOnScroll>
-                            ))}
-                        </div>
+                            );
+                        })}
                     </div>
                 </div>
             </section>
