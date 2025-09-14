@@ -12,10 +12,10 @@ const StudentLifePreview = () => {
                     <AnimateOnScroll>
                         <div className="grid grid-cols-2 gap-4">
                             <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg group">
-                                <Image src="https://picsum.photos/seed/student-life-1/600/600" layout="fill" objectFit="cover" alt="Students in sports" data-ai-hint="students playing sports" className="group-hover:scale-105 transition-transform duration-300" />
+                                <Image src="/images/morethanaclass/image1.jpeg" layout="fill" objectFit="cover" alt="Students in sports" data-ai-hint="students playing sports" className="group-hover:scale-105 transition-transform duration-300" />
                             </div>
                             <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg group mt-8">
-                                <Image src="https://picsum.photos/seed/student-life-2/600/600" layout="fill" objectFit="cover" alt="Students in cultural event" data-ai-hint="students cultural event" className="group-hover:scale-105 transition-transform duration-300" />
+                                <Image src="/images/morethanaclass/image2.jpeg" layout="fill" objectFit="cover" alt="Students in cultural event" data-ai-hint="students cultural event" className="group-hover:scale-105 transition-transform duration-300" />
                             </div>
                         </div>
                     </AnimateOnScroll>
