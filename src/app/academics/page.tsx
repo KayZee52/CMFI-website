@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { AnimateOnScroll } from '@/components/animate-on-scroll';
@@ -87,7 +88,7 @@ const AcademicsPage = () => {
                      <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                         {academicDivisions.map((level, index) => (
                              <AnimateOnScroll key={level.title} delay={index * 100}>
-                                <Card className="flex flex-col items-center p-6 text-center hover:shadow-lg transition-shadow h-full">
+                                <Card className="flex flex-col items-center p-6 text-center bg-primary/5 hover:border-primary/50 transition-all hover:shadow-lg h-full border">
                                     <div className="p-4 bg-primary/10 text-primary rounded-full mb-4">
                                         <level.icon className="h-10 w-10" />
                                     </div>
