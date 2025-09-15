@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import { AnimateOnScroll } from '@/components/animate-on-scroll';
@@ -80,7 +79,7 @@ const AcademicsPage = () => {
                 </div>
             </section>
         
-            <section className="bg-card">
+            <section className="bg-background">
                  <div className="container mx-auto px-6">
                     <AnimateOnScroll className="text-center">
                          <h2 className="font-headline text-3xl md:text-4xl font-bold">Academic Divisions</h2>
@@ -88,7 +87,7 @@ const AcademicsPage = () => {
                      <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                         {academicDivisions.map((level, index) => (
                              <AnimateOnScroll key={level.title} delay={index * 100}>
-                                <Card className="flex flex-col items-center p-6 text-center bg-primary/5 hover:border-primary/50 transition-all hover:shadow-lg h-full border">
+                                <Card className="flex flex-col items-center p-6 text-center bg-primary/5 hover:border-accent/50 transition-all hover:shadow-lg h-full border backdrop-blur-sm">
                                     <div className="p-4 bg-primary/10 text-primary rounded-full mb-4">
                                         <level.icon className="h-10 w-10" />
                                     </div>
@@ -101,7 +100,7 @@ const AcademicsPage = () => {
                 </div>
             </section>
 
-            <section id="departments" className="bg-background">
+            <section id="departments" className="bg-card">
                 <div className="container mx-auto px-6">
                     <AnimateOnScroll className="text-center">
                          <h2 className="font-headline text-3xl md:text-4xl font-bold">Departments & Subjects</h2>
@@ -126,7 +125,7 @@ const AcademicsPage = () => {
                 </div>
             </section>
             
-            <section className="bg-card">
+            <section className="bg-background">
                  <div className="container mx-auto px-6">
                     <AnimateOnScroll className="text-center">
                          <h2 className="font-headline text-3xl md:text-4xl font-bold">Meet Our Educators</h2>
@@ -150,7 +149,7 @@ const AcademicsPage = () => {
                  </div>
             </section>
             
-            <section className="bg-background">
+            <section className="bg-card">
                 <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-start">
                     <AnimateOnScroll>
                         <h2 className="font-headline text-3xl font-bold mb-6">Academic Calendar</h2>
@@ -201,7 +200,7 @@ const AcademicsPage = () => {
                 </div>
             </section>
 
-             <section className="bg-card">
+             <section className="bg-background">
                  <div className="container mx-auto px-6">
                     <AnimateOnScroll className="text-center">
                          <h2 className="font-headline text-3xl md:text-4xl font-bold mb-12">Special Academic Features</h2>
@@ -222,7 +221,7 @@ const AcademicsPage = () => {
                  </div>
             </section>
 
-             <section className="bg-background">
+             <section className="bg-card">
                 <div className="container mx-auto px-6">
                     <AnimateOnScroll className="text-center">
                         <h2 className="font-headline text-3xl font-bold mb-6">Frequently Asked Questions</h2>
