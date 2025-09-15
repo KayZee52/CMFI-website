@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { AnimateOnScroll } from '@/components/animate-on-scroll';
@@ -19,10 +20,10 @@ const AcademicsPage = () => {
     ];
 
     const academicDivisions = [
-        { icon: Baby, title: 'Nursery & Early Childhood', description: 'A nurturing start where curiosity and social skills blossom through play-based exploration in a bilingual learning environment.' },
-        { icon: School, title: 'Elementary School', description: 'Building foundational skills in literacy, numeracy, science, and the arts, while instilling strong moral values.' },
-        { icon: Building, title: 'Junior High (Grades 7-9)', description: 'Deepening core academic knowledge with a focus on ICT, bilingual communication, and preparation for national exams.' },
-        { icon: GraduationCap, title: 'Senior High (Grades 10-12)', description: 'A rigorous college preparatory program focused on excelling in sciences, humanities, and developing leadership skills.' },
+        { icon: Baby, title: 'Nursery & Early Childhood', description: 'A nurturing start where curiosity and social skills blossom. Our play-based, bilingual environment fosters a love for learning from day one.' },
+        { icon: School, title: 'Elementary School', description: 'Building the pillars of knowledge. Students develop core skills in literacy, numeracy, and science, all guided by our commitment to strong moral values.' },
+        { icon: Building, title: 'Junior High (Grades 7-9)', description: 'Bridging foundational learning with advanced academics. Students deepen their knowledge with a focus on ICT, critical thinking, and preparation for national examinations.' },
+        { icon: GraduationCap, title: 'Senior High (Grades 10-12)', description: 'A rigorous college preparatory program designed to cultivate expertise. Students specialize in sciences or humanities, developing the leadership skills needed to excel in university and beyond.' },
     ];
     
     const departments = [
