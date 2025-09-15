@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import { AnimateOnScroll } from '@/components/animate-on-scroll';
