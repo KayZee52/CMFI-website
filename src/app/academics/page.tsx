@@ -88,11 +88,17 @@ const AcademicsPage = () => {
                         {academicDivisions.map((level, index) => (
                              <AnimateOnScroll key={level.title} delay={index * 100}>
                                 <Card className="flex flex-col items-center p-6 text-center bg-primary/5 hover:border-accent/50 transition-all hover:shadow-lg h-full border backdrop-blur-sm">
-                                    <div className="p-4 bg-primary/10 text-primary rounded-full mb-4">
-                                        <level.icon className="h-10 w-10" />
-                                    </div>
-                                    <h3 className="font-headline text-xl font-semibold mb-2">{level.title}</h3>
-                                    <p className="text-muted-foreground">{level.description}</p>
+                                    <AnimateOnScroll delay={index * 100 + 100}>
+                                        <div className="p-4 bg-primary/10 text-primary rounded-full mb-4">
+                                            <level.icon className="h-10 w-10" />
+                                        </div>
+                                    </AnimateOnScroll>
+                                    <AnimateOnScroll delay={index * 100 + 200}>
+                                        <h3 className="font-headline text-xl font-semibold mb-2">{level.title}</h3>
+                                    </AnimateOnScroll>
+                                    <AnimateOnScroll delay={index * 100 + 300}>
+                                        <p className="text-muted-foreground">{level.description}</p>
+                                    </AnimateOnScroll>
                                 </Card>
                             </AnimateOnScroll>
                         ))}
