@@ -249,7 +249,7 @@ const AcademicsPage = () => {
                             At CMFI, education goes beyond textbooks — it prepares leaders for tomorrow.
                         </p>
                         <div className="mt-8 flex justify-center gap-4">
-                            <Button asChild size="lg" variant="secondary">
+                            <Button asChild size="lg" variant="secondary" className="animate-pulse-glow">
                                 <Link href="/admissions">Explore Admissions</Link>
                             </Button>
                         </div>
