@@ -46,7 +46,7 @@ const AcademicsPage = () => {
     ];
 
     const faqs = [
-        { q: "What are the school's operating hours?", a: "Our academic day runs from 8:00 AM to 3:00 PM, Monday through Friday. The administrative office is open until 4:00 PM for inquiries and other services." },
+        { q: "What are the school's operating hours?", a: "Our academic day runs from 8:00 AM to 2:20 PM, Monday through Friday. The administrative office is open until 4:00 PM for inquiries and other services." },
         { q: "What is the student-teacher ratio?", a: "We strive to maintain a low student-teacher ratio to ensure personalized attention. On average, our classes have approximately 25 students per teacher, allowing for more interactive and effective learning." },
         { q: "How does the school handle student discipline and safety?", a: "We have a clearly defined code of conduct that emphasizes respect, responsibility, and safety. Disciplinary measures are corrective rather than punitive, and our campus is monitored to ensure a safe and secure learning environment for all." },
     ];
