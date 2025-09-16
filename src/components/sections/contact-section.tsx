@@ -78,7 +78,7 @@ const ContactPageContent = () => {
   ];
 
   const socialLinks = [
-    { name: 'Facebook', icon: Facebook, href: '#' },
+    { name: 'Facebook', icon: Facebook, href: 'https://www.facebook.com/cmfibilingualhighschool/' },
     { name: 'Twitter', icon: Twitter, href: '#' },
     { name: 'Instagram', icon: Instagram, href: '#' },
   ];
@@ -224,6 +224,8 @@ const ContactPageContent = () => {
                     <Link
                       key={social.name}
                       href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       aria-label={social.name}
                       className="text-muted-foreground hover:text-primary transition-colors"
                     >

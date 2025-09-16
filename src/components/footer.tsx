@@ -1,3 +1,4 @@
+
 'use client';
 
 import { CMFILogo } from './icons';
@@ -18,7 +19,7 @@ const Footer = () => {
 
   const followUsLinks = [
     { name: 'YouTube', href: '#' },
-    { name: 'Facebook', href: '#' },
+    { name: 'Facebook', href: 'https://www.facebook.com/cmfibilingualhighschool/' },
     { name: 'Instagram', href: '#' },
     { name: 'LinkedIn', href: '#' },
     { name: 'X', href: '#' },
@@ -64,7 +65,7 @@ const Footer = () => {
             <ul className="space-y-2">
               {followUsLinks.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="hover:text-accent transition-colors">
+                  <Link href={link.href} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">
                     {link.name}
                   </Link>
                 </li>
