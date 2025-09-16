@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import { cn } from '@/lib/utils';
@@ -6,7 +7,7 @@ import { AnimateOnScroll } from '../animate-on-scroll';
 const MarqueeText = ({ children, direction = 'left' }: { children: React.ReactNode, direction?: 'left' | 'right' }) => (
     <div className="flex-shrink-0 flex items-center gap-8 py-4">
         {Array(10).fill(0).map((_, i) => (
-            <span key={i} className="text-4xl md:text-6xl font-bold tracking-tighter whitespace-nowrap text-primary-foreground/20">
+            <span key={i} className="text-4xl md:text-6xl font-bold tracking-tighter whitespace-nowrap text-accent-foreground/20">
                 {children}
             </span>
         ))}
@@ -15,7 +16,7 @@ const MarqueeText = ({ children, direction = 'left' }: { children: React.ReactNo
 
 const MarqueeCtaSection = () => {
     return (
-        <section className="bg-primary text-primary-foreground relative overflow-hidden">
+        <section className="bg-accent text-accent-foreground relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full opacity-50">
                  <div className="relative flex w-[200%] animate-marquee-left">
                     <MarqueeText direction="left">LEADING IN EDUCATION</MarqueeText>
