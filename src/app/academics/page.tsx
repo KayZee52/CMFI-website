@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { AnimateOnScroll } from '@/components/animate-on-scroll';
@@ -59,10 +60,10 @@ const AcademicsPage = () => {
                     fill
                     priority
                     sizes="100vw"
-                    className="object-cover object-center"
+                    className="object-cover object-center blur-sm"
                     data-ai-hint="students library"
                 />
-                <div className="absolute inset-0 bg-black/60" />
+                <div className="absolute inset-0 bg-primary/50" />
                 <div className="relative z-10 container mx-auto px-6">
                     <AnimateOnScroll>
                         <h1 className="font-headline text-4xl md:text-6xl font-bold tracking-tight min-h-[60px] md:min-h-[80px]">
