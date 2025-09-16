@@ -8,6 +8,15 @@ export type DriveImage = {
   thumbnailLink: string;
 };
 
+// Helper function to extract folder ID from a URL
+const getFolderIdFromUrl = (input: string): string => {
+  if (input.includes('drive.google.com')) {
+    const match = input.match(/folders\/([a-zA-Z0-9_-]+)/);
+    return match ? match[1] : input;
+  }
+  return input;
+};
+
 // This function is cached to prevent hitting the API on every request.
 // The `cache` function from React ensures that if this function is called
 // multiple times in a single render pass, it only executes once.
@@ -24,6 +33,8 @@ export const getGalleryImages = cache(async (): Promise<DriveImage[]> => {
     return [];
   }
 
+  const folderId = getFolderIdFromUrl(GOOGLE_DRIVE_GALLERY_FOLDER_ID);
+
   try {
     const auth = new google.auth.GoogleAuth({
       credentials: {
@@ -38,7 +49,7 @@ export const getGalleryImages = cache(async (): Promise<DriveImage[]> => {
     const response = await drive.files.list({
       // The `q` parameter is a query to search for files.
       // We are searching for image files inside the specified folder.
-      q: `'${GOOGLE_DRIVE_GALLERY_FOLDER_ID}' in parents and (mimeType='image/jpeg' or mimeType='image/png')`,
+      q: `'${folderId}' in parents and (mimeType='image/jpeg' or mimeType='image/png')`,
       // The fields we want the API to return for each file.
       fields: 'files(id, name, thumbnailLink)',
       // Order by the date the file was created.
@@ -48,13 +59,13 @@ export const getGalleryImages = cache(async (): Promise<DriveImage[]> => {
 
     const files = response.data.files;
     
-    if (!files) {
+    if (!files || files.length === 0) {
         console.log('No files found in the specified Google Drive folder.');
         return [];
     }
 
     // We are sure `thumbnailLink` exists because we requested it in `fields`.
-    return files as DriveImage[];
+    return files.filter(file => file.id && file.name && file.thumbnailLink) as DriveImage[];
 
   } catch (error: any) {
     console.error('Failed to fetch images from Google Drive. Full error:');
