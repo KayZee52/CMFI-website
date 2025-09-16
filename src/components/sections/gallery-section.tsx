@@ -5,68 +5,63 @@ import Image from 'next/image';
 import { AnimateOnScroll } from '../animate-on-scroll';
 import { galleryData } from '@/lib/data';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Card, CardContent } from '../ui/card';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../ui/dialog';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { cn } from '@/lib/utils';
 
 const GallerySection = () => {
-  const [selectedImage, setSelectedImage] = useState<{ url: string, hint: string } | null>(null);
+  const [selectedImage, setSelectedImage] = useState<{ url: string; hint: string } | null>(null);
 
   const getImage = (id: string) => {
     return PlaceHolderImages.find((img) => img.id === `gallery-${id}`);
   };
 
-  const eventTypes = [...new Set(galleryData.map(item => item.event))];
+  const galleryImages = galleryData.map(item => ({
+      ...item,
+      imageUrl: getImage(item.id)?.imageUrl
+  })).filter(item => item.imageUrl);
+
+
+  const openModal = (image: {imageUrl?: string, hint: string}) => {
+    if (image.imageUrl) {
+        setSelectedImage({ url: image.imageUrl, hint: image.hint });
+    }
+  }
 
   return (
     <section id="gallery" className="bg-card">
       <div className="container mx-auto px-6">
         <AnimateOnScroll className="text-center">
-          <h2 className="font-headline text-3xl md:text-4xl font-bold">Gallery</h2>
+          <h2 className="font-headline text-3xl md:text-4xl font-bold">Image Gallery</h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            Explore moments from our vibrant school life.
+            A glimpse into the vibrant life at CMFI Bilingual High School.
           </p>
         </AnimateOnScroll>
 
         <AnimateOnScroll delay={200} className="mt-12">
-          <Tabs defaultValue={eventTypes[0]} className="w-full">
-            <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 mx-auto max-w-2xl">
-              {eventTypes.map(event => (
-                <TabsTrigger key={event} value={event}>{event}</TabsTrigger>
-              ))}
-            </TabsList>
-            {eventTypes.map(event => (
-              <TabsContent key={event} value={event}>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
-                  {galleryData.filter(item => item.event === event).map((item, index) => {
-                    const img = getImage(item.id);
-                    if (!img) return null;
+            <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[250px] gap-4">
+                {galleryImages.map((image, index) => {
+                    const colSpan = (index === 0 || index === 5) ? 'md:col-span-2' : '';
+                    const rowSpan = (index === 0 || index === 5) ? 'md:row-span-2' : '';
+                    if (!image.imageUrl) return null;
                     return (
-                      <AnimateOnScroll key={item.id} delay={index * 100}>
-                        <Card 
-                          className="overflow-hidden cursor-pointer group"
-                          onClick={() => setSelectedImage({ url: img.imageUrl, hint: item.hint })}
+                        <div 
+                            key={image.id}
+                            onClick={() => openModal(image)}
+                            className={cn('group relative overflow-hidden rounded-lg cursor-pointer', colSpan, rowSpan)}
                         >
-                          <CardContent className="p-0">
-                            <div className="aspect-w-3 aspect-h-2">
-                              <Image
-                                src={img.imageUrl}
-                                alt={`${item.event} - ${item.id}`}
-                                width={600}
-                                height={400}
-                                data-ai-hint={item.hint}
+                            <Image
+                                src={image.imageUrl}
+                                alt={image.hint}
+                                data-ai-hint={image.hint}
+                                fill
+                                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
                                 className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
-                              />
-                            </div>
-                          </CardContent>
-                        </Card>
-                      </AnimateOnScroll>
-                    );
-                  })}
-                </div>
-              </TabsContent>
-            ))}
-          </Tabs>
+                            />
+                            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
+                        </div>
+                    )
+                })}
+            </div>
         </AnimateOnScroll>
       </div>
 
