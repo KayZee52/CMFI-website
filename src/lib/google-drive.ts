@@ -12,18 +12,19 @@ export type DriveImage = {
 // The `cache` function from React ensures that if this function is called
 // multiple times in a single render pass, it only executes once.
 export const getGalleryImages = cache(async (): Promise<DriveImage[]> => {
+  const {
+    GOOGLE_CLIENT_EMAIL,
+    GOOGLE_PRIVATE_KEY,
+    GOOGLE_DRIVE_GALLERY_FOLDER_ID,
+  } = process.env;
+
+  if (!GOOGLE_CLIENT_EMAIL || !GOOGLE_PRIVATE_KEY || !GOOGLE_DRIVE_GALLERY_FOLDER_ID) {
+    console.error('One or more Google Drive environment variables are not set.');
+    console.error('Please check your .env file and ensure GOOGLE_CLIENT_EMAIL, GOOGLE_PRIVATE_KEY, and GOOGLE_DRIVE_GALLERY_FOLDER_ID are all present.');
+    return [];
+  }
+
   try {
-    const {
-      GOOGLE_CLIENT_EMAIL,
-      GOOGLE_PRIVATE_KEY,
-      GOOGLE_DRIVE_GALLERY_FOLDER_ID,
-    } = process.env;
-
-    if (!GOOGLE_CLIENT_EMAIL || !GOOGLE_PRIVATE_KEY || !GOOGLE_DRIVE_GALLERY_FOLDER_ID) {
-      console.error('Google Drive environment variables are not set.');
-      return [];
-    }
-
     const auth = new google.auth.GoogleAuth({
       credentials: {
         client_email: GOOGLE_CLIENT_EMAIL,
@@ -48,14 +49,22 @@ export const getGalleryImages = cache(async (): Promise<DriveImage[]> => {
     const files = response.data.files;
     
     if (!files) {
+        console.log('No files found in the specified Google Drive folder.');
         return [];
     }
 
     // We are sure `thumbnailLink` exists because we requested it in `fields`.
     return files as DriveImage[];
 
-  } catch (error) {
-    console.error('Failed to fetch images from Google Drive:', error);
+  } catch (error: any) {
+    console.error('Failed to fetch images from Google Drive. Full error:');
+    // Log the full error object to get more details
+    console.error(error);
+    
+    if (error.response?.data?.error) {
+       console.error('Google API Error Details:', error.response.data.error);
+    }
+    
     return [];
   }
 });
