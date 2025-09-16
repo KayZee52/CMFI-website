@@ -54,7 +54,7 @@ const AcademicsPage = () => {
         <>
             <section className="relative h-[450px] flex items-center justify-center text-center text-white">
                 <Image
-                    src="https://picsum.photos/seed/academics-hero/1920/1080"
+                    src="/images/heroimages/academicshero.jpeg"
                     alt="Students collaborating in a library"
                     fill
                     priority
