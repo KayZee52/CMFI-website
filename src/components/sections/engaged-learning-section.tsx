@@ -1,3 +1,7 @@
+
+'use client';
+
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { AnimateOnScroll } from '../animate-on-scroll';
@@ -5,6 +9,22 @@ import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const EngagedLearningSection = () => {
+    const images = [
+        { src: '/images/engagedlearningpics/image1.jpeg', hint: 'students in science lab' },
+        { src: '/images/engagedlearningpics/image2.jpeg', hint: 'students debating' },
+        { src: '/images/engagedlearningpics/image3.jpeg', hint: 'students in library' },
+    ];
+
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+        }, 5000); // Change image every 5 seconds
+
+        return () => clearInterval(interval);
+    }, [images.length]);
+
     const links = [
         { name: 'Explore Student Life', href: '/student-life' },
         { name: 'Visit Our Gallery', href: '/gallery' },
@@ -21,14 +41,21 @@ const EngagedLearningSection = () => {
                         style={{ transform: 'translateX(-5%)', opacity: 0 }}
                     >
                         <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-2xl">
-                            <Image
-                                src="https://picsum.photos/seed/engaged-learning/800/600"
-                                alt="Students engaged in a classroom discussion"
-                                data-ai-hint="students discussion classroom"
-                                fill
-                                sizes="(max-width: 768px) 100vw, 50vw"
-                                className="object-cover"
-                            />
+                             {images.map((image, index) => (
+                                <Image
+                                    key={image.src}
+                                    src={image.src}
+                                    alt="Students engaged in learning activities"
+                                    data-ai-hint={image.hint}
+                                    fill
+                                    priority={index === 0}
+                                    sizes="(max-width: 768px) 100vw, 50vw"
+                                    className={cn(
+                                        "object-cover transition-opacity duration-1000 ease-in-out",
+                                        index === currentImageIndex ? "opacity-100" : "opacity-0"
+                                    )}
+                                />
+                            ))}
                         </div>
                     </AnimateOnScroll>
                     <AnimateOnScroll
