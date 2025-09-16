@@ -151,26 +151,11 @@ const AcademicsPage = () => {
                 <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-start">
                     <AnimateOnScroll>
                         <h2 className="font-headline text-3xl font-bold mb-6">Academic Calendar</h2>
-                        <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
-                          <AccordionItem value="item-1">
-                            <AccordionTrigger>1st Term: September – December</AccordionTrigger>
-                            <AccordionContent>
-                              The academic year kicks off with foundational topics, mid-term assessments, and co-curricular activities. Ends with first term examinations.
-                            </AccordionContent>
-                          </AccordionItem>
-                          <AccordionItem value="item-2">
-                            <AccordionTrigger>2nd Term: January – April</AccordionTrigger>
-                            <AccordionContent>
-                              Focus on syllabus advancement, practical labs, and preparation for mid-year mock examinations. Includes Parent-Teacher conferences.
-                            </AccordionContent>
-                          </AccordionItem>
-                          <AccordionItem value="item-3">
-                            <AccordionTrigger>3rd Term: May – July</AccordionTrigger>
-                            <AccordionContent>
-                              Intensive revision, final examinations for promotion, and end-of-year ceremonies including graduation for Grade 12.
-                            </AccordionContent>
-                          </AccordionItem>
-                        </Accordion>
+                        <Card className="p-6 bg-secondary/50">
+                            <p className="text-muted-foreground text-center">
+                                The detailed academic calendar for the 2024-2025 school year will be published here soon. Please check back for updates on key dates, examinations, and school holidays.
+                            </p>
+                        </Card>
                     </AnimateOnScroll>
                     <AnimateOnScroll delay={200}>
                         <h2 className="font-headline text-3xl font-bold mb-6">Academic Policies</h2>
