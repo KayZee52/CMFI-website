@@ -10,9 +10,15 @@ import { cn } from '@/lib/utils';
 
 const EngagedLearningSection = () => {
     const images = [
-        { src: '/images/engagedlearningpics/image1.jpeg', hint: 'students in science lab' },
+        { src: '/images/engagedlearningpics/image1.jpeg', hint: 'students science lab' },
         { src: '/images/engagedlearningpics/image2.jpeg', hint: 'students debating' },
-        { src: '/images/engagedlearningpics/image3.jpeg', hint: 'students in library' },
+        { src: '/images/engagedlearningpics/image3.jpeg', hint: 'students library' },
+        { src: '/images/engagedlearningpics/image4.jpeg', hint: 'student presentation' },
+        { src: '/images/engagedlearningpics/image5.jpeg', hint: 'group project' },
+        { src: '/images/engagedlearningpics/image6.jpeg', hint: 'art class' },
+        { src: '/images/engagedlearningpics/image7.jpeg', hint: 'computer lab' },
+        { src: '/images/engagedlearningpics/image8.jpeg', hint: 'music class' },
+        { src: '/images/engagedlearningpics/image9.jpeg', hint: 'school assembly' },
     ];
 
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
