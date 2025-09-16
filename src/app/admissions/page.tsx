@@ -102,38 +102,35 @@ const AdmissionsPage = () => {
                      <div className="relative mt-24 space-y-24">
                         <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-border -translate-x-1/2 hidden md:block" />
                         
-                        {admissionSteps.map((step, index) => {
-                            const isEven = index % 2 === 0;
-                            return (
-                                <AnimateOnScroll 
-                                    key={index} 
-                                    className={cn('relative flex flex-col md:flex-row items-center gap-8 md:gap-12 w-full')}
-                                    delay={index * 100}
-                                >
-                                    <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2 md:top-1/2 h-10 w-10 p-1 rounded-full bg-background flex items-center justify-center z-10 border-2 border-primary">
-                                        <step.icon className="h-6 w-6 text-primary" />
-                                    </div>
+                        {admissionSteps.map((step, index) => (
+                            <AnimateOnScroll 
+                                key={index} 
+                                className={cn('relative flex flex-col md:grid md:grid-cols-2 md:items-center md:gap-12 w-full')}
+                                delay={index * 100}
+                            >
+                                <div className="md:order-1 md:text-left text-center">
+                                    <h3 className="font-headline text-2xl font-semibold mb-4 text-primary">Step {index + 1}: {step.title}</h3>
+                                    <p className="text-muted-foreground max-w-md mx-auto md:mx-0">{step.description}</p>
+                                </div>
 
-                                    <div className={cn('w-full md:w-5/12 text-center md:text-left', isEven ? 'md:order-1' : 'md:order-2')}>
-                                        <h3 className="font-headline text-2xl font-semibold mb-4 text-primary">Step {index + 1}: {step.title}</h3>
-                                        <p className="text-muted-foreground">{step.description}</p>
+                                <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2 h-10 w-10 p-1 rounded-full bg-background flex items-center justify-center z-10 border-2 border-primary">
+                                    <step.icon className="h-6 w-6 text-primary" />
+                                </div>
+                                
+                                <div className="md:order-2 mt-8 md:mt-0">
+                                    <div className="relative aspect-video w-full max-w-md mx-auto rounded-lg overflow-hidden shadow-lg">
+                                        <Image
+                                        src={step.imageUrl}
+                                        alt={step.title}
+                                        data-ai-hint={step.imageHint}
+                                        fill
+                                        sizes="(max-width: 768px) 100vw, 50vw"
+                                        className="object-cover"
+                                        />
                                     </div>
-
-                                    <div className={cn('w-full md:w-5/12', isEven ? 'md:order-2' : 'md:order-1')}>
-                                        <div className="relative aspect-video w-full max-w-sm sm:max-w-md mx-auto rounded-lg overflow-hidden shadow-lg">
-                                            <Image
-                                            src={step.imageUrl}
-                                            alt={step.title}
-                                            data-ai-hint={step.imageHint}
-                                            fill
-                                            sizes="(max-width: 768px) 100vw, 50vw"
-                                            className="object-cover"
-                                            />
-                                        </div>
-                                    </div>
-                                </AnimateOnScroll>
-                            );
-                        })}
+                                </div>
+                            </AnimateOnScroll>
+                        ))}
                     </div>
                 </div>
             </section>
