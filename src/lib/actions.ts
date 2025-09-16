@@ -34,12 +34,33 @@ export async function submitContactForm(prevState: ContactFormState | undefined,
     };
   }
 
-  // Simulate sending an email
-  console.log('New contact form submission:');
-  console.log(validatedFields.data);
+  const { name, email, subject, message } = validatedFields.data;
+  const googleFormUrl = process.env.GOOGLE_FORM_URL;
+  const nameEntry = process.env.GOOGLE_FORM_ENTRY_NAME;
+  const emailEntry = process.env.GOOGLE_FORM_ENTRY_EMAIL;
+  const subjectEntry = process.env.GOOGLE_FORM_ENTRY_SUBJECT;
+  const messageEntry = process.env.GOOGLE_FORM_ENTRY_MESSAGE;
 
-  // In a real application, you would integrate with an email service here.
-  // For example: await sendEmail(validatedFields.data);
+  if (!googleFormUrl || !nameEntry || !emailEntry || !subjectEntry || !messageEntry) {
+    console.error('Google Form environment variables are not set.');
+    return { message: 'Server configuration error. Could not send message.' };
+  }
 
-  return { message: 'success' };
+  const googleFormData = new FormData();
+  googleFormData.append(nameEntry, name);
+  googleFormData.append(emailEntry, email);
+  googleFormData.append(subjectEntry, subject);
+  googleFormData.append(messageEntry, message);
+
+  try {
+    await fetch(googleFormUrl, {
+      method: 'POST',
+      body: googleFormData,
+      mode: 'no-cors', // Important: Google Forms doesn't support CORS
+    });
+    return { message: 'success' };
+  } catch (error) {
+    console.error('Error submitting to Google Form:', error);
+    return { message: 'An error occurred while sending your message. Please try again.' };
+  }
 }
