@@ -60,7 +60,7 @@ const AcademicsPage = () => {
                     fill
                     priority
                     sizes="100vw"
-                    className="object-cover object-center blur-sm"
+                    className="object-cover object-center blur-[2px]"
                     data-ai-hint="students library"
                 />
                 <div className="absolute inset-0 bg-primary/50" />
