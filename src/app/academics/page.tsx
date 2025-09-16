@@ -44,9 +44,9 @@ const AcademicsPage = () => {
     ];
 
     const faqs = [
-        { q: 'Do students choose subjects in Senior High?', a: 'Yes, students in the Senior High division choose a specialization in either the sciences or humanities, allowing them to focus their studies based on their career aspirations.' },
-        { q: 'What bilingual support is available?', a: 'Our curriculum is fully bilingual. We offer language support classes and encourage students to practice both English and French in academic and social settings to achieve fluency.' },
-        { q: 'Are ICT labs mandatory?', a: 'Yes, ICT is a core component of our curriculum. All students from elementary to senior high are required to take ICT classes to develop essential digital literacy skills for the modern world.' },
+        { q: "What are the school's operating hours?", a: "Our academic day runs from 8:00 AM to 3:00 PM, Monday through Friday. The administrative office is open until 4:00 PM for inquiries and other services." },
+        { q: "What is the student-teacher ratio?", a: "We strive to maintain a low student-teacher ratio to ensure personalized attention. On average, our classes have approximately 25 students per teacher, allowing for more interactive and effective learning." },
+        { q: "How does the school handle student discipline and safety?", a: "We have a clearly defined code of conduct that emphasizes respect, responsibility, and safety. Disciplinary measures are corrective rather than punitive, and our campus is monitored to ensure a safe and secure learning environment for all." },
     ];
 
     return (
