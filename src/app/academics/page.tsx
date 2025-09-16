@@ -30,12 +30,12 @@ const AcademicsPage = () => {
     ];
     
     const departments = [
-        { name: 'Sciences', icon: FlaskConical, subjects: 'Biology, Chemistry, Physics, ICT' },
-        { name: 'Mathematics', icon: Calculator, subjects: 'General Math, Advanced Math' },
-        { name: 'Languages', icon: Languages, subjects: 'English, French, Literature' },
-        { name: 'Social Sciences', icon: Globe, subjects: 'History, Geography, Civic Education' },
-        { name: 'Arts & Creativity', icon: Paintbrush, subjects: 'Music, Visual Arts, Drama' },
-        { name: 'Physical Education', icon: Medal, subjects: 'Football, Basketball, Athletics' },
+        { name: 'Sciences', icon: FlaskConical },
+        { name: 'Mathematics', icon: Calculator },
+        { name: 'Languages', icon: Languages },
+        { name: 'Social Sciences', icon: Globe },
+        { name: 'Arts & Creativity', icon: Paintbrush },
+        { name: 'Physical Education', icon: Medal },
     ];
     
     const specialFeatures = [
@@ -108,19 +108,14 @@ const AcademicsPage = () => {
                     <AnimateOnScroll className="text-center">
                          <h2 className="font-headline text-3xl md:text-4xl font-bold">Departments & Subjects</h2>
                     </AnimateOnScroll>
-                     <div className="mt-16 grid grid-cols-2 md:grid-cols-3 gap-8">
+                     <div className="mt-16 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
                         {departments.map((dept, index) => (
                              <AnimateOnScroll key={dept.name} delay={index * 100}>
-                                <Card className="p-6 h-full hover:border-primary/50 transition-colors">
-                                    <div className="flex items-center gap-4">
-                                        <div className="p-3 bg-primary/10 text-primary rounded-lg">
-                                            <dept.icon className="h-6 w-6" />
-                                        </div>
-                                        <div>
-                                            <h3 className="font-headline text-xl font-semibold">{dept.name}</h3>
-                                            <p className="text-sm text-muted-foreground">{dept.subjects}</p>
-                                        </div>
+                                <Card className="p-6 h-full transition-all duration-300 hover:shadow-lg hover:border-primary/50 hover:scale-105 flex flex-col items-center justify-center text-center">
+                                    <div className="p-3 bg-primary/10 text-primary rounded-lg mb-4">
+                                        <dept.icon className="h-8 w-8" />
                                     </div>
+                                    <h3 className="font-headline text-lg font-semibold">{dept.name}</h3>
                                 </Card>
                             </AnimateOnScroll>
                         ))}
@@ -139,7 +134,7 @@ const AcademicsPage = () => {
                     <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
                         {facultyData.map((member, index) => (
                              <AnimateOnScroll key={index} delay={index * 100}>
-                                <div>
+                                <div className="text-left">
                                     <div className="relative aspect-[4/5] w-full overflow-hidden mb-4 rounded-md shadow-lg">
                                         <Image src={member.imageUrl} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" alt={member.name} data-ai-hint={member.hint} className="object-cover object-top" />
                                     </div>
