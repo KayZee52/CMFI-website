@@ -72,7 +72,7 @@ const ContactPageContent = () => {
 
   const contactDetails = [
     { icon: MapPin, text: 'CMFI Bilingual High School, 72nd, Paynesville, Liberia', href: googleMapsUrl },
-    { icon: Phone, text: '+231 77 073 2334', href: 'tel:+231770732334' },
+    { icon: Phone, text: '+231770732334', href: 'tel:+231770732334' },
     { icon: Mail, text: 'info@cmfischool.online' },
     { icon: Clock, text: 'Mon-Fri, 8:00 AM - 4:00 PM' },
   ];
