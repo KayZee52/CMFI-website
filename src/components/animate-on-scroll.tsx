@@ -8,9 +8,10 @@ type AnimateOnScrollProps = {
   className?: string;
   delay?: number;
   threshold?: number;
+  style?: React.CSSProperties;
 };
 
-export function AnimateOnScroll({ children, className, delay = 0, threshold = 0.1 }: AnimateOnScrollProps) {
+export function AnimateOnScroll({ children, className, delay = 0, threshold = 0.1, style: initialStyle }: AnimateOnScrollProps) {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -37,19 +38,29 @@ export function AnimateOnScroll({ children, className, delay = 0, threshold = 0.
     };
   }, [threshold]);
 
-  const style = {
+  const style: React.CSSProperties = {
     transitionDelay: `${delay}ms`,
+    ...initialStyle,
   };
+  
+  const visibleStyle: React.CSSProperties = {
+      opacity: 1,
+      transform: 'translateY(0) translateX(0)',
+  };
+
+  const defaultHiddenStyle: React.CSSProperties = {
+      opacity: 0,
+      transform: 'translateY(5px)',
+  }
 
   return (
     <div
       ref={ref}
       className={cn(
         'transition-all duration-700 ease-out',
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5',
         className
       )}
-      style={style}
+      style={isVisible ? { ...style, ...visibleStyle } : { ...style, ...defaultHiddenStyle, ...initialStyle }}
     >
       {children}
     </div>

@@ -1,16 +1,16 @@
 
-
 'use client';
 
 import { AnimateOnScroll } from '@/components/animate-on-scroll';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Baby, BookOpen, GraduationCap, Users, Dna, School, BrainCircuit, FlaskConical, Languages, Calculator, Globe, Paintbrush, Medal, Lightbulb, Users2, Building } from 'lucide-react';
+import { Baby, GraduationCap, Users, Dna, School, BrainCircuit, FlaskConical, Languages, Calculator, Globe, Paintbrush, Medal, Building } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Typewriter } from '@/components/typewriter';
 import { facultyData } from '@/lib/faculty-data';
+import EngagedLearningSection from '@/components/sections/engaged-learning-section';
 
 const AcademicsPage = () => {
 
@@ -240,13 +240,15 @@ const AcademicsPage = () => {
                 </div>
             </section>
             
-             <section className="relative bg-primary text-primary-foreground">
+            <EngagedLearningSection />
+            
+             <section className="relative bg-accent text-accent-foreground">
                 <div className="container mx-auto px-6 text-center relative z-10">
                     <AnimateOnScroll>
                         <h2 className="font-headline text-3xl md:text-4xl font-bold">
                             "Excellence in Learning, Integrity in Character."
                         </h2>
-                        <p className="mt-4 max-w-2xl mx-auto text-lg text-primary-foreground/80">
+                        <p className="mt-4 max-w-2xl mx-auto text-lg text-accent-foreground/80">
                             At CMFI, education goes beyond textbooks — it prepares leaders for tomorrow.
                         </p>
                         <div className="mt-8 flex justify-center gap-4">
