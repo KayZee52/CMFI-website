@@ -80,7 +80,7 @@ const ContactPageContent = () => {
   const socialLinks = [
     { name: 'Facebook', icon: Facebook, href: 'https://www.facebook.com/cmfibilingualhighschool/' },
     { name: 'Twitter', icon: Twitter, href: '#' },
-    { name: 'Instagram', icon: Instagram, href: '#' },
+    { name: 'Instagram', icon: Instagram, href: 'https://www.instagram.com/cmfibilingualhigh/' },
   ];
   
   const uniqueId = useId();

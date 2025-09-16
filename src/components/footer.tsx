@@ -20,7 +20,7 @@ const Footer = () => {
   const followUsLinks = [
     { name: 'YouTube', href: '#' },
     { name: 'Facebook', href: 'https://www.facebook.com/cmfibilingualhighschool/' },
-    { name: 'Instagram', href: '#' },
+    { name: 'Instagram', href: 'https://www.instagram.com/cmfibilingualhigh/' },
     { name: 'LinkedIn', href: '#' },
     { name: 'X', href: '#' },
   ];
