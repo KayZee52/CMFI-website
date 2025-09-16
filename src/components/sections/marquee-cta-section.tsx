@@ -18,14 +18,14 @@ const MarqueeCtaSection = () => {
         <section className="bg-primary text-primary-foreground relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full opacity-50">
                  <div className="relative flex w-[200%] animate-marquee-left">
-                    <MarqueeText direction="left">JOIN CMFI TODAY</MarqueeText>
-                    <MarqueeText direction="left">JOIN CMFI TODAY</MarqueeText>
+                    <MarqueeText direction="left">LEADING IN EDUCATION</MarqueeText>
+                    <MarqueeText direction="left">LEADING IN EDUCATION</MarqueeText>
                 </div>
             </div>
              <div className="absolute bottom-0 left-0 w-full opacity-50">
                  <div className="relative flex w-[200%] animate-marquee-right">
-                    <MarqueeText direction="right">SUPPORT US</MarqueeText>
-                    <MarqueeText direction="right">SUPPORT US</MarqueeText>
+                    <MarqueeText direction="right">ONE OF THE BEST SCHOOLS IN LIBERIA</MarqueeText>
+                    <MarqueeText direction="right">ONE OF THE BEST SCHOOLS IN LIBERIA</MarqueeText>
                 </div>
             </div>
 

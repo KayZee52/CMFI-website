@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { Typewriter } from '@/components/typewriter';
 import { facultyData } from '@/lib/faculty-data';
 import EngagedLearningSection from '@/components/sections/engaged-learning-section';
+import MarqueeCtaSection from '@/components/sections/marquee-cta-section';
 
 const AcademicsPage = () => {
 
@@ -242,23 +243,7 @@ const AcademicsPage = () => {
             
             <EngagedLearningSection />
             
-             <section className="relative bg-accent text-accent-foreground">
-                <div className="container mx-auto px-6 text-center relative z-10">
-                    <AnimateOnScroll>
-                        <h2 className="font-headline text-3xl md:text-4xl font-bold">
-                            "Excellence in Learning, Integrity in Character."
-                        </h2>
-                        <p className="mt-4 max-w-2xl mx-auto text-lg text-accent-foreground/80">
-                            At CMFI, education goes beyond textbooks — it prepares leaders for tomorrow.
-                        </p>
-                        <div className="mt-8 flex justify-center gap-4">
-                            <Button asChild size="lg" variant="secondary" className="animate-pulse-glow">
-                                <Link href="/admissions">Explore Admissions</Link>
-                            </Button>
-                        </div>
-                    </AnimateOnScroll>
-                </div>
-            </section>
+            <MarqueeCtaSection />
         </>
     );
 };
