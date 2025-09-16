@@ -7,5 +7,5 @@ export const facultyData = [
     { name: 'Mr. Titus Sonyah', role: 'Vice Principal for Student Affairs (VPSA)', imageUrl: '/images/adminstrators/vpsa.jpg', hint: 'vpsa portrait' },
     { name: 'Kale Varteikai', role: 'Advisor', imageUrl: '/images/adminstrators/kalevarteikai.jpg', hint: 'advisor portrait' },
     { name: 'Mr. Stephen B. Dunbar', role: 'Business Advisor', imageUrl: '/images/adminstrators/businessmanager.jpg', hint: 'BM portrait' },
-    { name: 'Mr. Secretariat', role: 'Head of Academic', imageUrl: '/images/adminstrators/secretariat.jpg', hint: 'secretariat portrait' },
+    { name: 'Mr. Mark Donyen', role: 'Head of Academic', imageUrl: '/images/adminstrators/secretariat.jpg', hint: 'secretariat portrait' },
 ];
