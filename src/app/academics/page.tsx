@@ -36,9 +36,13 @@ const AcademicsPage = () => {
     
     const faculty = [
         { name: 'Mr. Simeon E. Ojong', role: 'Principal', imageUrl: '/images/adminstrators/principal.jpeg', hint: 'principal portrait' },
-        { name: 'Mrs. Jane Doe', role: 'Head of Sciences', imageUrl: 'https://picsum.photos/seed/faculty1/400/400', hint: 'teacher portrait' },
-        { name: 'Mr. John Smith', role: 'Head of Languages', imageUrl: 'https://picsum.photos/seed/faculty2/400/400', hint: 'teacher portrait' },
-        { name: 'Ms. Fatu Kamara', role: 'ICT Coordinator', imageUrl: 'https://picsum.photos/seed/faculty3/400/400', hint: 'teacher portrait' },
+        { name: 'Mrs. Jane Doe', role: 'Head of Sciences', imageUrl: 'https://picsum.photos/seed/faculty1/400/500', hint: 'teacher portrait' },
+        { name: 'Mr. John Smith', role: 'Head of Languages', imageUrl: 'https://picsum.photos/seed/faculty2/400/500', hint: 'teacher portrait' },
+        { name: 'Ms. Fatu Kamara', role: 'ICT Coordinator', imageUrl: 'https://picsum.photos/seed/faculty3/400/500', hint: 'teacher portrait' },
+        { name: 'Dr. David Chen', role: 'Mathematics Lead', imageUrl: 'https://picsum.photos/seed/faculty4/400/500', hint: 'teacher portrait' },
+        { name: 'Mrs. Aisha Bello', role: 'Head of Social Sciences', imageUrl: 'https://picsum.photos/seed/faculty5/400/500', hint: 'teacher portrait' },
+        { name: 'Mr. Kwame Addo', role: 'Arts & Music Director', imageUrl: 'https://picsum.photos/seed/faculty6/400/500', hint: 'teacher portrait' },
+        { name: 'Coach Eva Mwangi', role: 'Head of Physical Education', imageUrl: 'https://picsum.photos/seed/faculty7/400/500', hint: 'coach portrait' },
     ];
 
     const specialFeatures = [
@@ -139,15 +143,15 @@ const AcademicsPage = () => {
                             Our teachers are more than instructors — they are mentors, role models, and guides who nurture every child to reach their full potential.
                         </p>
                     </AnimateOnScroll>
-                    <div className="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
                         {faculty.map((member, index) => (
                              <AnimateOnScroll key={index} delay={index * 100}>
-                                <div className="text-center">
-                                    <div className="relative aspect-square w-40 h-40 mx-auto rounded-full overflow-hidden mb-4 shadow-lg border-4 border-background">
-                                        <Image src={member.imageUrl} fill sizes="160px" alt={member.name} data-ai-hint={member.hint} className="object-cover object-top" />
+                                <div>
+                                    <div className="relative aspect-[4/5] w-full overflow-hidden mb-4 rounded-md shadow-lg">
+                                        <Image src={member.imageUrl} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" alt={member.name} data-ai-hint={member.hint} className="object-cover object-top" />
                                     </div>
-                                    <h3 className="font-headline text-lg font-bold">{member.name}</h3>
-                                    <p className="text-primary font-medium">{member.role}</p>
+                                    <h3 className="font-headline text-lg font-bold uppercase tracking-wide">{member.name}</h3>
+                                    <p className="text-muted-foreground text-sm">{member.role}</p>
                                 </div>
                             </AnimateOnScroll>
                         ))}
