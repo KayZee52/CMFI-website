@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useId, useState, useTransition } from 'react';
@@ -88,7 +89,7 @@ const ContactPageContent = () => {
     <>
       <section className="relative h-[400px] flex items-center justify-center text-center text-white">
         <Image
-            src="https://picsum.photos/seed/contact-hero/1920/1080"
+            src="/images/heroimages/contacthero.jpeg"
             alt="CMFI School Campus"
             fill
             priority
