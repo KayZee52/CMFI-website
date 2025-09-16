@@ -18,11 +18,9 @@ const Footer = () => {
   };
 
   const followUsLinks = [
-    { name: 'YouTube', href: '#' },
     { name: 'Facebook', href: 'https://www.facebook.com/cmfibilingualhighschool/' },
     { name: 'Instagram', href: 'https://www.instagram.com/cmfibilingualhigh/' },
-    { name: 'LinkedIn', href: '#' },
-    { name: 'X', href: '#' },
+    { name: 'WhatsApp', href: 'https://wa.me/231770732334' },
   ];
 
   const usefulLinks = [
