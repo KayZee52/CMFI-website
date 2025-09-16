@@ -36,7 +36,7 @@ const WhatsAppIcon = () => (
 
 const ContactPageContent = () => {
   const { toast } = useToast();
-  const [state, setState] = useState<ContactFormState>({ message: '' });
+  const [state, setState] = useState<ContactFormState | undefined>(undefined);
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<ContactFormValues>({
@@ -45,20 +45,20 @@ const ContactPageContent = () => {
   });
 
   useEffect(() => {
+    if (!state) return;
+
     if (state.message === 'success') {
       toast({
         title: 'Message Sent!',
         description: 'Thank you for contacting us. We will get back to you shortly.',
       });
       form.reset();
-      setState({ message: '' }); // Reset state after showing toast
-    } else if (state.message && state.message !== '') {
+    } else if (state.message) {
       toast({
         variant: 'destructive',
         title: 'Uh oh! Something went wrong.',
         description: state.message,
       });
-       setState({ message: '' }); // Reset state after showing toast
     }
   }, [state, toast, form]);
 

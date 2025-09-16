@@ -53,11 +53,14 @@ export async function submitContactForm(prevState: ContactFormState | undefined,
   googleFormData.append(messageEntry, message);
 
   try {
-    await fetch(googleFormUrl, {
+    const response = await fetch(googleFormUrl, {
       method: 'POST',
       body: googleFormData,
-      mode: 'no-cors', // Important: Google Forms doesn't support CORS
+      mode: 'no-cors',
     });
+
+    // no-cors mode means we can't check the response status,
+    // but we can assume it was successful if no error was thrown.
     return { message: 'success' };
   } catch (error) {
     console.error('Error submitting to Google Form:', error);
