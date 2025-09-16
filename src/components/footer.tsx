@@ -12,7 +12,7 @@ const Footer = () => {
 
   const findUs = {
     address: 'CMFI Bilingual High School, 72nd, Paynesville, Liberia',
-    phone: '+231-XX-XXX-XXXX',
+    phone: '+231 77 073 2334',
     mapHref: "https://www.google.com/maps/place/C+M+F+I+COMPUS/@6.2972144,-10.7048804,93m/data=!3m1!1e3!4m12!1m5!8m4!1e3!2s109661092954929372296!3m1!1e1!3m5!1s0xf09ff47e5c02a07:0x31b2da1a364f8544!8m2!3d6.2971472!4d-10.7048819!16s%2Fg%2F11rp0tf6_0?entry=ttu&g_ep=EgoyMDI1MDkwOS4wIKXMDSoASAFQAw%3D%3D"
   };
 
@@ -53,7 +53,7 @@ const Footer = () => {
               <a href={findUs.mapHref} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors block">
                 {findUs.address}
               </a>
-              <a href={`tel:${findUs.phone}`} className="hover:text-accent transition-colors block">
+              <a href={`tel:${findUs.phone.replace(/\s/g, '')}`} className="hover:text-accent transition-colors block">
                 {findUs.phone}
               </a>
             </address>

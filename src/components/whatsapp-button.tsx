@@ -2,7 +2,7 @@
 import { Button } from "./ui/button";
 
 const WhatsAppButton = () => {
-    const whatsAppUrl = 'https://wa.me/231770578147'; // Replace with school's WhatsApp number
+    const whatsAppUrl = 'https://wa.me/231770732334';
 
     const WhatsAppIcon = () => (
         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
