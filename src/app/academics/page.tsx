@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { AnimateOnScroll } from '@/components/animate-on-scroll';
@@ -9,6 +10,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Typewriter } from '@/components/typewriter';
+import { facultyData } from '@/lib/faculty-data';
 
 const AcademicsPage = () => {
 
@@ -34,17 +36,6 @@ const AcademicsPage = () => {
         { name: 'Physical Education', icon: Medal, subjects: 'Football, Basketball, Athletics' },
     ];
     
-    const faculty = [
-        { name: 'Mr. Simeon E. Ojong', role: 'Principal', imageUrl: '/images/adminstrators/principal.jpeg', hint: 'principal portrait' },
-        { name: 'Mrs. Jane Doe', role: 'Head of Sciences', imageUrl: 'https://picsum.photos/seed/faculty1/400/500', hint: 'teacher portrait' },
-        { name: 'Mr. John Smith', role: 'Head of Languages', imageUrl: 'https://picsum.photos/seed/faculty2/400/500', hint: 'teacher portrait' },
-        { name: 'Ms. Fatu Kamara', role: 'ICT Coordinator', imageUrl: 'https://picsum.photos/seed/faculty3/400/500', hint: 'teacher portrait' },
-        { name: 'Dr. David Chen', role: 'Mathematics Lead', imageUrl: 'https://picsum.photos/seed/faculty4/400/500', hint: 'teacher portrait' },
-        { name: 'Mrs. Aisha Bello', role: 'Head of Social Sciences', imageUrl: 'https://picsum.photos/seed/faculty5/400/500', hint: 'teacher portrait' },
-        { name: 'Mr. Kwame Addo', role: 'Arts & Music Director', imageUrl: 'https://picsum.photos/seed/faculty6/400/500', hint: 'teacher portrait' },
-        { name: 'Coach Eva Mwangi', role: 'Head of Physical Education', imageUrl: 'https://picsum.photos/seed/faculty7/400/500', hint: 'coach portrait' },
-    ];
-
     const specialFeatures = [
         { icon: Dna, title: 'ICT & Science Labs', description: 'Our modern labs provide advanced, hands-on learning experiences to foster innovation and practical skills.' },
         { icon: Languages, title: 'Bilingual Program', description: 'Full immersion in English and French gives our students a competitive edge in a globalized world.' },
@@ -144,7 +135,7 @@ const AcademicsPage = () => {
                         </p>
                     </AnimateOnScroll>
                     <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
-                        {faculty.map((member, index) => (
+                        {facultyData.map((member, index) => (
                              <AnimateOnScroll key={index} delay={index * 100}>
                                 <div>
                                     <div className="relative aspect-[4/5] w-full overflow-hidden mb-4 rounded-md shadow-lg">
