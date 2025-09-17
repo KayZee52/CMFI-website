@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
@@ -73,7 +74,7 @@ const ParentsPage = () => {
                 </div>
             </section>
 
-             <section id="involvement" className="bg-background">
+             <section id="involvement" className="bg-primary text-primary-foreground">
                 <div className="container mx-auto px-6">
                     <AnimateOnScroll className="text-center">
                          <h2 className="font-headline text-3xl md:text-4xl font-bold">How Parents Stay Involved</h2>
@@ -81,12 +82,12 @@ const ParentsPage = () => {
                      <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
                         {involvement.map((item, index) => (
                              <AnimateOnScroll key={item.title} delay={index * 100}>
-                                <Card className="flex flex-col items-center p-6 text-center hover:shadow-lg transition-shadow h-full">
-                                    <div className="p-4 bg-primary/10 text-primary rounded-full mb-4">
+                                <Card className="flex flex-col items-center p-6 text-center bg-primary-foreground/10 hover:shadow-lg transition-shadow h-full">
+                                    <div className="p-4 bg-background/20 text-white rounded-full mb-4">
                                         <item.icon className="h-10 w-10" />
                                     </div>
-                                    <h3 className="font-headline text-xl font-semibold mb-2">{item.title}</h3>
-                                    <p className="text-muted-foreground">{item.description}</p>
+                                    <h3 className="font-headline text-xl font-semibold mb-2 text-white">{item.title}</h3>
+                                    <p className="text-primary-foreground/80">{item.description}</p>
                                 </Card>
                             </AnimateOnScroll>
                         ))}
