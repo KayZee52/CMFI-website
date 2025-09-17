@@ -5,10 +5,11 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export type DriveImage = {
+export type DriveMedia = {
   id: string;
   name: string;
   thumbnailLink: string;
+  mimeType: string;
 };
 
 // Helper function to extract folder ID from a URL
@@ -36,7 +37,7 @@ const getFolderIdFromUrl = (input: string): string => {
 // This function is cached to prevent hitting the API on every request.
 // The `cache` function from React ensures that if this function is called
 // multiple times in a single render pass, it only executes once.
-export const getGalleryImages = cache(async (): Promise<DriveImage[]> => {
+export const getGalleryImages = cache(async (): Promise<DriveMedia[]> => {
   const {
     GOOGLE_CLIENT_EMAIL,
     GOOGLE_PRIVATE_KEY,
@@ -64,13 +65,13 @@ export const getGalleryImages = cache(async (): Promise<DriveImage[]> => {
 
     const response = await drive.files.list({
       // The `q` parameter is a query to search for files.
-      // We are searching for image files inside the specified folder.
-      q: `'${folderId}' in parents and (mimeType='image/jpeg' or mimeType='image/png')`,
+      // We are searching for image and video files inside the specified folder.
+      q: `'${folderId}' in parents and (mimeType contains 'image/' or mimeType contains 'video/')`,
       // The fields we want the API to return for each file.
-      fields: 'files(id, name, thumbnailLink)',
+      fields: 'files(id, name, thumbnailLink, mimeType)',
       // Order by the date the file was created.
       orderBy: 'createdTime desc',
-      pageSize: 50, // Limit to 50 images
+      pageSize: 50, // Limit to 50 items
     });
 
     const files = response.data.files;
@@ -81,7 +82,7 @@ export const getGalleryImages = cache(async (): Promise<DriveImage[]> => {
     }
 
     // We are sure `thumbnailLink` exists because we requested it in `fields`.
-    return files.filter(file => file.id && file.name && file.thumbnailLink) as DriveImage[];
+    return files.filter(file => file.id && file.name && file.thumbnailLink && file.mimeType) as DriveMedia[];
 
   } catch (error: any) {
     console.error('Failed to fetch images from Google Drive. Full error:');

@@ -4,7 +4,7 @@ import { getGalleryImages } from '@/lib/google-drive';
 export const revalidate = 3600; // Revalidate every hour
 
 export default async function GalleryPage() {
-  const images = await getGalleryImages();
+  const media = await getGalleryImages();
 
-  return <GalleryGrid images={images} />;
+  return <GalleryGrid media={media} />;
 }
