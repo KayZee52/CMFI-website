@@ -150,7 +150,7 @@ const ParentsPage = () => {
                      <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
                         {resources.map((resource, index) => (
                              <AnimateOnScroll key={resource.title} delay={index * 100}>
-                                <Card className="p-6 text-center bg-card/50 backdrop-blur-sm border border-primary/20 h-full transition-all duration-300 group hover:shadow-2xl hover:border-accent/80">
+                                <Card className="p-6 text-center bg-primary/10 backdrop-blur-sm border border-primary/20 h-full transition-all duration-300 group hover:shadow-2xl hover:border-accent/80">
                                     <div className="p-4 bg-primary/10 rounded-full mb-4 inline-block transition-transform duration-300 group-hover:scale-110">
                                         <resource.icon className="h-8 w-8 text-primary" />
                                     </div>
