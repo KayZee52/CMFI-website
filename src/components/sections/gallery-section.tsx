@@ -84,7 +84,7 @@ const GallerySection = ({ media }: { media: DriveMedia[] }) => {
             isVideo(selectedMedia) ? (
                 <div className="relative aspect-video w-full h-full">
                     <video
-                        src={`https://docs.google.com/uc?id=${selectedMedia.id}&export=download`}
+                        src={`https://docs.google.com/uc?id=${selectedMedia.id}&export=view`}
                         controls
                         autoPlay
                         className="w-full h-full rounded-md"
