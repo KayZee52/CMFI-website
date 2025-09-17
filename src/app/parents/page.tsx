@@ -97,7 +97,7 @@ const ParentsPage = () => {
                 </div>
             </section>
 
-             <section id="involvement" className="bg-background">
+             <section id="involvement" className="bg-primary/5">
                 <div className="container mx-auto px-6">
                     <AnimateOnScroll className="text-center">
                          <h2 className="font-headline text-3xl md:text-4xl font-bold">A Partnership for Success</h2>
@@ -142,7 +142,7 @@ const ParentsPage = () => {
                 </div>
             </section>
 
-            <section className="bg-card">
+            <section className="bg-background">
                 <div className="container mx-auto px-6">
                     <AnimateOnScroll className="text-center">
                         <h2 className="font-headline text-3xl md:text-4xl font-bold">Helpful Resources</h2>
@@ -150,12 +150,12 @@ const ParentsPage = () => {
                      <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
                         {resources.map((resource, index) => (
                              <AnimateOnScroll key={resource.title} delay={index * 100}>
-                                <Card className="p-6 text-center bg-primary text-primary-foreground h-full hover:shadow-lg transition-shadow">
-                                    <div className="p-4 bg-primary-foreground/10 rounded-full mb-4 inline-block">
-                                        <resource.icon className="h-8 w-8" />
+                                <Card className="p-6 text-center bg-card/50 backdrop-blur-sm border border-primary/20 h-full transition-all duration-300 group hover:shadow-2xl hover:border-accent/80">
+                                    <div className="p-4 bg-primary/10 rounded-full mb-4 inline-block transition-transform duration-300 group-hover:scale-110">
+                                        <resource.icon className="h-8 w-8 text-primary" />
                                     </div>
-                                    <h3 className="font-headline text-xl font-bold mb-2">{resource.title}</h3>
-                                    <p className="text-primary-foreground/80">{resource.description}</p>
+                                    <h3 className="font-headline text-xl font-bold mb-2 text-foreground">{resource.title}</h3>
+                                    <p className="text-muted-foreground">{resource.description}</p>
                                 </Card>
                             </AnimateOnScroll>
                         ))}
