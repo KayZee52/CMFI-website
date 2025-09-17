@@ -14,6 +14,7 @@ export type DriveImage = {
 // Helper function to extract folder ID from a URL
 const getFolderIdFromUrl = (input: string): string => {
   try {
+    // Check if the input is a valid URL
     if (input.includes('drive.google.com')) {
       const url = new URL(input);
       const pathParts = url.pathname.split('/');
@@ -27,8 +28,10 @@ const getFolderIdFromUrl = (input: string): string => {
     // If it's not a valid URL, assume it's an ID
     return input;
   }
+  // Return the input if it's not a URL or if parsing fails (treating it as an ID)
   return input;
 };
+
 
 // This function is cached to prevent hitting the API on every request.
 // The `cache` function from React ensures that if this function is called
@@ -85,6 +88,7 @@ export const getGalleryImages = cache(async (): Promise<DriveImage[]> => {
     // Log the full error object to get more details
     console.error(error);
     
+    // Check if the error object has more specific details from the Google API
     if (error.response?.data?.error) {
        console.error('Google API Error Details:', error.response.data.error);
     }

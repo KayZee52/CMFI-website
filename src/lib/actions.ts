@@ -1,6 +1,9 @@
 'use server';
 
 import { z } from 'zod';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const contactFormSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
