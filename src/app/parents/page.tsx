@@ -11,6 +11,7 @@ import Link from "next/link";
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import Autoplay from "embla-carousel-autoplay";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Typewriter } from "@/components/typewriter";
 
 
 const ParentsPage = () => {
@@ -29,6 +30,13 @@ const ParentsPage = () => {
 
     const parentTestimonials = testimonials.filter(t => t.role === 'Parent');
 
+    const typewriterPhrases = [
+        "Guardians",
+        "Heroes",
+        "Role Models",
+        "Protectors",
+    ];
+
     return (
         <>
              <section className="relative h-[400px] flex items-center justify-center text-center text-white">
@@ -45,7 +53,7 @@ const ParentsPage = () => {
                 <div className="relative z-10 container mx-auto px-6">
                     <AnimateOnScroll>
                         <h1 className="font-headline text-4xl md:text-6xl font-bold tracking-tight">
-                            For Our Parents
+                            For Our <Typewriter phrases={typewriterPhrases} />
                         </h1>
                         <p className="mt-4 text-lg md:text-xl text-white/90">
                            Your partnership makes education stronger.
