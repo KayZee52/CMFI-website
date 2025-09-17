@@ -53,7 +53,7 @@ const ParentsPage = () => {
                 <div className="relative z-10 container mx-auto px-6">
                     <AnimateOnScroll>
                         <h1 className="font-headline text-4xl md:text-6xl font-bold tracking-tight">
-                            For Our <Typewriter phrases={typewriterPhrases} />
+                            For Our <Typewriter phrases={typewriterPhrases} typingSpeed={150} deletingSpeed={100} />
                         </h1>
                         <p className="mt-4 text-lg md:text-xl text-white/90">
                            Your partnership makes education stronger.
