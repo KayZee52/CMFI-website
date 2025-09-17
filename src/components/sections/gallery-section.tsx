@@ -74,9 +74,9 @@ const GallerySection = ({ images }: { images: DriveImage[] }) => {
         <DialogContent className="max-w-3xl p-2">
           {selectedImage && (
             <>
-              <DialogHeader className="sr-only">
-                <DialogTitle>Image Viewer</DialogTitle>
-                <DialogDescription>{`Enlarged view of image: ${selectedImage.name}`}</DialogDescription>
+              <DialogHeader>
+                <DialogTitle className="sr-only">Image Viewer</DialogTitle>
+                <DialogDescription className="sr-only">{`Enlarged view of image: ${selectedImage.name}`}</DialogDescription>
               </DialogHeader>
               <div className="relative aspect-video">
                 <Image
