@@ -29,7 +29,7 @@ const Footer = () => {
     { name: 'Student Life', href: '/student-life' },
     { name: 'Parents', href: '/parents' },
     { name: 'Contact', href: '/contact' },
-    { name: 'Portal', href: '#' }
+    { name: 'Portal', href: 'https://new.cmfischool.online/', isExternal: true }
   ];
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
@@ -76,7 +76,12 @@ const Footer = () => {
             <ul className="space-y-2">
               {usefulLinks.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="hover:text-accent transition-colors">
+                  <Link 
+                    href={link.href}
+                    target={link.isExternal ? '_blank' : undefined}
+                    rel={link.isExternal ? 'noopener noreferrer' : undefined}
+                    className="hover:text-accent transition-colors"
+                  >
                     {link.name}
                   </Link>
                 </li>

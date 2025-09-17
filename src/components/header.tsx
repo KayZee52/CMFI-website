@@ -75,7 +75,7 @@ const Header = () => {
         
         <div className="flex items-center gap-4">
           <Button asChild className="hidden sm:flex bg-accent hover:bg-accent/90 text-accent-foreground">
-            <Link href="/admissions">Access Portal</Link>
+            <Link href="https://new.cmfischool.online/" target="_blank" rel="noopener noreferrer">Access Portal</Link>
           </Button>
 
           <Link href="/search" className={cn("hidden sm:flex items-center justify-center h-10 w-10 rounded-full", headerTextColor)}>
@@ -98,7 +98,7 @@ const Header = () => {
                 </nav>
                  <div className="mt-auto space-y-4">
                     <Button asChild className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
-                        <Link href="/admissions">Access Portal</Link>
+                        <Link href="https://new.cmfischool.online/" target="_blank" rel="noopener noreferrer">Access Portal</Link>
                     </Button>
                     <Button asChild variant="outline" className="w-full">
                         <Link href="/contact">Inquire</Link>
