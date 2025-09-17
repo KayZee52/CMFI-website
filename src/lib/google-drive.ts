@@ -10,6 +10,7 @@ export type DriveMedia = {
   name: string;
   thumbnailLink: string;
   mimeType: string;
+  webViewLink: string; // Add webViewLink to the type
 };
 
 // Helper function to extract folder ID from a URL
@@ -58,20 +59,18 @@ export const getGalleryImages = cache(async (): Promise<DriveMedia[]> => {
         client_email: GOOGLE_CLIENT_EMAIL,
         private_key: GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'), // Handle newline characters
       },
-      scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+      // Scope needs to be changed to allow file permission modifications
+      scopes: ['https://www.googleapis.com/auth/drive'],
     });
 
     const drive = google.drive({ version: 'v3', auth });
 
     const response = await drive.files.list({
-      // The `q` parameter is a query to search for files.
-      // We are searching for image and video files inside the specified folder.
       q: `'${folderId}' in parents and (mimeType contains 'image/' or mimeType contains 'video/')`,
-      // The fields we want the API to return for each file.
-      fields: 'files(id, name, thumbnailLink, mimeType)',
-      // Order by the date the file was created.
+      // Add webViewLink to the fields
+      fields: 'files(id, name, thumbnailLink, mimeType, webViewLink)',
       orderBy: 'createdTime desc',
-      pageSize: 50, // Limit to 50 items
+      pageSize: 50,
     });
 
     const files = response.data.files;
@@ -81,15 +80,26 @@ export const getGalleryImages = cache(async (): Promise<DriveMedia[]> => {
         return [];
     }
 
-    // We are sure `thumbnailLink` exists because we requested it in `fields`.
-    return files.filter(file => file.id && file.name && file.thumbnailLink && file.mimeType) as DriveMedia[];
+    // Ensure all files are publicly accessible
+    for (const file of files) {
+      if (file.id) {
+        await drive.permissions.create({
+          fileId: file.id,
+          requestBody: {
+            role: 'reader',
+            type: 'anyone',
+          },
+        });
+      }
+    }
+
+    // We are sure `thumbnailLink` and `webViewLink` exist because we requested them in `fields`.
+    return files.filter(file => file.id && file.name && file.thumbnailLink && file.mimeType && file.webViewLink) as DriveMedia[];
 
   } catch (error: any) {
     console.error('Failed to fetch images from Google Drive. Full error:');
-    // Log the full error object to get more details
     console.error(error);
     
-    // Check if the error object has more specific details from the Google API
     if (error.response?.data?.error) {
        console.error('Google API Error Details:', error.response.data.error);
     }

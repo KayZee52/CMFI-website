@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -16,6 +17,17 @@ const GallerySection = ({ media }: { media: DriveMedia[] }) => {
   };
 
   const isVideo = (item: DriveMedia) => item.mimeType.startsWith('video/');
+
+  // Helper to get the direct video URL
+  const getVideoSrc = (item: DriveMedia) => {
+    // The webViewLink looks like: https://drive.google.com/file/d/FILE_ID/view?usp=drivesdk
+    // We need to transform it into: https://drive.google.com/uc?export=view&id=FILE_ID
+    if (item.id) {
+      return `https://drive.google.com/uc?export=view&id=${item.id}`;
+    }
+    return '';
+  };
+
 
   if (!media || media.length === 0) {
     return (
@@ -84,7 +96,7 @@ const GallerySection = ({ media }: { media: DriveMedia[] }) => {
             isVideo(selectedMedia) ? (
                 <div className="relative aspect-video w-full h-full">
                     <video
-                        src={`https://docs.google.com/uc?id=${selectedMedia.id}&export=view`}
+                        src={getVideoSrc(selectedMedia)}
                         controls
                         autoPlay
                         className="w-full h-full rounded-md"
