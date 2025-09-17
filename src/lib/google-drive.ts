@@ -1,6 +1,9 @@
 
 import { google } from 'googleapis';
 import { cache } from 'react';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export type DriveImage = {
   id: string;
@@ -10,9 +13,19 @@ export type DriveImage = {
 
 // Helper function to extract folder ID from a URL
 const getFolderIdFromUrl = (input: string): string => {
-  if (input.includes('drive.google.com')) {
-    const match = input.match(/folders\/([a-zA-Z0-9_-]+)/);
-    return match ? match[1] : input;
+  try {
+    if (input.includes('drive.google.com')) {
+      const url = new URL(input);
+      const pathParts = url.pathname.split('/');
+      // The ID is usually the last part of the path for /folders/
+      const folderIdIndex = pathParts.indexOf('folders');
+      if (folderIdIndex !== -1 && folderIdIndex < pathParts.length - 1) {
+        return pathParts[folderIdIndex + 1];
+      }
+    }
+  } catch (e) {
+    // If it's not a valid URL, assume it's an ID
+    return input;
   }
   return input;
 };
