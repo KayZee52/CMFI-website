@@ -80,18 +80,22 @@ export const getGalleryImages = cache(async (): Promise<DriveMedia[]> => {
         return [];
     }
 
-    // Ensure all files are publicly accessible
+    // Ensure all files are publicly accessible using a batch request
+    const batch = drive.newBatch();
     for (const file of files) {
       if (file.id) {
-        await drive.permissions.create({
-          fileId: file.id,
-          requestBody: {
-            role: 'reader',
-            type: 'anyone',
-          },
+        batch.add({
+            url: `https://www.googleapis.com/drive/v3/files/${file.id}/permissions`,
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                role: 'reader',
+                type: 'anyone',
+            }),
         });
       }
     }
+    await batch.execute();
 
     // We are sure `thumbnailLink` and `webViewLink` exist because we requested them in `fields`.
     return files.filter(file => file.id && file.name && file.thumbnailLink && file.mimeType && file.webViewLink) as DriveMedia[];
