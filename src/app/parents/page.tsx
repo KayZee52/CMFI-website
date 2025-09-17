@@ -1,3 +1,4 @@
+
 'use client';
 
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
@@ -32,7 +33,7 @@ const ParentsPage = () => {
         <>
              <section className="relative h-[400px] flex items-center justify-center text-center text-white">
                 <Image
-                    src="https://picsum.photos/seed/parents-hero/1920/1080"
+                    src="/images/heroimages/parentshero.jpeg"
                     alt="Parent and student smiling together"
                     fill
                     priority
