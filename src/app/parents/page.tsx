@@ -160,9 +160,12 @@ const ParentsPage = () => {
                             </AnimateOnScroll>
                         ))}
                     </div>
-                     <div className="text-center mt-12">
+                     <div className="text-center mt-12 flex flex-wrap justify-center gap-4">
                         <Button asChild>
                             <Link href="/contact">Download Resources</Link>
+                        </Button>
+                        <Button asChild variant="outline">
+                            <Link href="https://new.cmfischool.online/" target="_blank" rel="noopener noreferrer">Access Portal</Link>
                         </Button>
                     </div>
                 </div>
