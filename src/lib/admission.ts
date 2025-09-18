@@ -3,7 +3,8 @@
 
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 import { z } from 'zod';
-import { uploadFileToDrive } from './google-drive';
+import { getFirebaseAdminApp } from './firebase-admin';
+import { getStorage } from 'firebase-admin/storage';
 
 // Define the schema for form values, including files
 const fileSchema = z.instanceof(File).optional();
@@ -212,25 +213,27 @@ export async function submitAdmissionForm(
     y2 = await embedImage(pdfDoc, page2, data.recommendationFile, margin + 300, height - margin, 250, 300);
     drawText(page2, 'Recommendation Letter', margin + 300, y2 + 10, font, 8);
 
-
     const pdfBytes = await pdfDoc.save();
 
-    const fileName = `Admission_Form_${data.studentFullName?.replace(/\s/g, '_') || 'Applicant'}_${new Date().toISOString().split('T')[0]}.pdf`;
-    const uploadResult = await uploadFileToDrive(
-      pdfBytes,
-      'application/pdf',
-      fileName
-    );
+    // Upload to Firebase Storage
+    const adminApp = getFirebaseAdminApp();
+    const bucket = getStorage(adminApp).bucket();
+    const fileName = `admissions/${data.studentFullName?.replace(/\s/g, '_') || 'Applicant'}_${Date.now()}.pdf`;
+    const file = bucket.file(fileName);
 
-    if (uploadResult.message !== 'success' || !uploadResult.downloadUrl) {
-      throw new Error(
-        uploadResult.message || 'Failed to upload file to Google Drive.'
-      );
-    }
-    
+    await file.save(Buffer.from(pdfBytes), {
+        metadata: {
+            contentType: 'application/pdf',
+        },
+    });
+
+    // Make the file public and get the URL
+    await file.makePublic();
+    const downloadUrl = file.publicUrl();
+
     return {
       message: 'success',
-      downloadUrl: uploadResult.downloadUrl,
+      downloadUrl: downloadUrl,
     };
 
   } catch (error: any) {
