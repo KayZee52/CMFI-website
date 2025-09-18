@@ -51,8 +51,8 @@ const AdmissionsPage = () => {
         { icon: FileSignature, title: 'Completed Form', mandatory: true },
         { icon: ScrollText, title: 'Birth Certificate', mandatory: true },
         { icon: BookCopy, title: 'Previous Report Cards', mandatory: true },
-        { icon: FileText, title: 'Transcript', mandatory: false },
-        { icon: Star, title: 'Recommendation Letter', mandatory: false },
+        { icon: FileText, title: 'Transcript', mandatory: true },
+        { icon: Star, title: 'Recommendation Letter', mandatory: true },
     ];
     
     const timeline = [
