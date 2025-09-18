@@ -10,27 +10,19 @@ export type DriveMedia = {
   name: string;
   thumbnailLink: string;
   mimeType: string;
-  webViewLink: string; // Add webViewLink to the type
 };
 
 // Helper function to extract folder ID from a URL
 const getFolderIdFromUrl = (input: string): string => {
-  try {
-    // Check if the input is a valid URL
-    if (input.includes('drive.google.com')) {
-      const url = new URL(input);
-      const pathParts = url.pathname.split('/');
-      // The ID is usually the last part of the path for /folders/
-      const folderIdIndex = pathParts.indexOf('folders');
-      if (folderIdIndex !== -1 && folderIdIndex < pathParts.length - 1) {
-        return pathParts[folderIdIndex + 1];
-      }
-    }
-  } catch (e) {
-    // If it's not a valid URL, assume it's an ID
-    return input;
+  if (!input) return '';
+  // Regular expression to find the folder ID from various Google Drive URL formats
+  const regex = /\/folders\/([a-zA-Z0-9_-]+)|id=([a-zA-Z0-9_-]+)/;
+  const match = input.match(regex);
+  // The ID could be in the first or second capturing group
+  if (match) {
+    return match[1] || match[2];
   }
-  // Return the input if it's not a URL or if parsing fails (treating it as an ID)
+  // If no match is found, assume the input string is the ID itself
   return input;
 };
 
@@ -52,6 +44,11 @@ export const getGalleryImages = cache(async (): Promise<DriveMedia[]> => {
   }
 
   const folderId = getFolderIdFromUrl(GOOGLE_DRIVE_GALLERY_FOLDER_ID);
+  
+  if (!folderId) {
+    console.error('Could not extract a valid Google Drive folder ID from the environment variable.');
+    return [];
+  }
 
   try {
     const auth = new google.auth.GoogleAuth({
@@ -59,7 +56,6 @@ export const getGalleryImages = cache(async (): Promise<DriveMedia[]> => {
         client_email: GOOGLE_CLIENT_EMAIL,
         private_key: GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'), // Handle newline characters
       },
-      // Scope needs to be changed to allow file permission modifications
       scopes: ['https://www.googleapis.com/auth/drive'],
     });
 
@@ -67,8 +63,7 @@ export const getGalleryImages = cache(async (): Promise<DriveMedia[]> => {
 
     const response = await drive.files.list({
       q: `'${folderId}' in parents and (mimeType contains 'image/' or mimeType contains 'video/')`,
-      // Add webViewLink to the fields
-      fields: 'files(id, name, thumbnailLink, mimeType, webViewLink)',
+      fields: 'files(id, name, thumbnailLink, mimeType)',
       orderBy: 'createdTime desc',
       pageSize: 50,
     });
@@ -97,8 +92,10 @@ export const getGalleryImages = cache(async (): Promise<DriveMedia[]> => {
     }
     await batch.execute();
 
-    // We are sure `thumbnailLink` and `webViewLink` exist because we requested them in `fields`.
-    return files.filter(file => file.id && file.name && file.thumbnailLink && file.mimeType && file.webViewLink) as DriveMedia[];
+    return files
+      .filter((file): file is DriveMedia => 
+        !!file.id && !!file.name && !!file.thumbnailLink && !!file.mimeType
+      );
 
   } catch (error: any) {
     console.error('Failed to fetch images from Google Drive. Full error:');

@@ -18,14 +18,14 @@ const GallerySection = ({ media }: { media: DriveMedia[] }) => {
 
   const isVideo = (item: DriveMedia) => item.mimeType.startsWith('video/');
 
-  // Helper to get the direct video URL for streaming
   const getVideoSrc = (item: DriveMedia) => {
-    if (item.id) {
-      return `https://drive.google.com/uc?export=view&id=${item.id}`;
-    }
-    return '';
+    return `https://drive.google.com/uc?export=view&id=${item.id}`;
   };
 
+  const getHighQualityThumbnail = (thumbnailLink: string) => {
+    // Request a larger, higher-quality thumbnail by replacing the size parameter.
+    return thumbnailLink.replace(/=s\d+/, '=s1024');
+  };
 
   if (!media || media.length === 0) {
     return (
@@ -69,7 +69,7 @@ const GallerySection = ({ media }: { media: DriveMedia[] }) => {
                   )}
                 >
                   <Image
-                    src={item.thumbnailLink.replace('=s220', '=s1024')} // Request a larger thumbnail
+                    src={getHighQualityThumbnail(item.thumbnailLink)}
                     alt={item.name}
                     fill
                     sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
@@ -97,7 +97,7 @@ const GallerySection = ({ media }: { media: DriveMedia[] }) => {
                         src={getVideoSrc(selectedMedia)}
                         controls
                         autoPlay
-                        className="w-full h-full rounded-md"
+                        className="w-full h-full rounded-md bg-black"
                     >
                         Your browser does not support the video tag.
                     </video>
@@ -105,7 +105,7 @@ const GallerySection = ({ media }: { media: DriveMedia[] }) => {
             ) : (
               <div className="relative aspect-video">
                 <Image
-                  src={selectedMedia.thumbnailLink.replace('=s220', '=w1920-h1080')}
+                  src={getHighQualityThumbnail(selectedMedia.thumbnailLink)}
                   alt={selectedMedia.name}
                   fill
                   sizes="100vw"
@@ -119,7 +119,6 @@ const GallerySection = ({ media }: { media: DriveMedia[] }) => {
     </section>
   );
 };
-
 
 // Renaming to GalleryGrid to avoid conflict with async server component
 const GalleryGrid = GallerySection;
