@@ -1,12 +1,12 @@
 
+
 import { AnimateOnScroll } from '@/components/animate-on-scroll';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { FileText, Award, UserCheck, ScrollText, BadgeCheck, CalendarDays, FileSignature, BookCopy, Star, FileUp } from 'lucide-react';
+import { FileText, Award, UserCheck, ScrollText, BadgeCheck, FileSignature, BookCopy, Star, FileUp, Phone } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Typewriter } from '@/components/typewriter';
-import { cn } from '@/lib/utils';
 
 const AdmissionsPage = () => {
     const admissionSteps = [
@@ -43,13 +43,6 @@ const AdmissionsPage = () => {
         { icon: BookCopy, title: 'Previous Report Cards', mandatory: true },
         { icon: FileText, title: 'Transcript', mandatory: true },
         { icon: Star, title: 'Recommendation Letter', mandatory: true },
-    ];
-    
-    const timeline = [
-        { date: 'June 1st - July 31st', event: 'Application Period' },
-        { date: 'August 5th', event: 'Entrance Exam' },
-        { date: 'August 15th', event: 'Admission Decisions Released' },
-        { date: 'August 25th', event: 'Enrollment Deadline' },
     ];
     
     const typewriterPhrases = [
@@ -102,7 +95,7 @@ const AdmissionsPage = () => {
                      <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
                         {admissionSteps.map((step, index) => (
                             <AnimateOnScroll key={index} delay={index * 100}>
-                                <Card className="text-center h-full hover:shadow-xl transition-shadow p-6 bg-primary/5 border-primary/10">
+                                <Card className="text-center h-full hover:shadow-xl transition-shadow p-6 bg-primary/5 border-primary/10 flex flex-col items-center justify-start">
                                     <CardHeader className="items-center">
                                         <div className="p-4 bg-primary/10 text-primary rounded-full mb-4">
                                             <step.icon className="h-10 w-10" />
@@ -141,28 +134,24 @@ const AdmissionsPage = () => {
 
              <section className="bg-background">
                 <div className="container mx-auto px-6">
-                    <AnimateOnScroll className="text-center mb-16">
-                        <h2 className="font-headline text-3xl md:text-4xl font-bold">Admissions Timeline</h2>
-                        <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                            Stay on track with these important dates for the 2024/2025 admission cycle.
-                        </p>
+                    <AnimateOnScroll>
+                        <Card className="max-w-2xl mx-auto text-center p-8 bg-primary/5 border-primary/10">
+                            <CardHeader>
+                                <CardTitle className="font-headline text-3xl font-bold">Admissions Timeline</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-lg text-muted-foreground mb-6">
+                                    For the most up-to-date information on application periods, exam dates, and enrollment deadlines, please contact our administration office directly.
+                                </p>
+                                <Button asChild size="lg">
+                                    <Link href="/contact" className="inline-flex items-center gap-2">
+                                        <Phone className="h-5 w-5" />
+                                        Contact the Office
+                                    </Link>
+                                </Button>
+                            </CardContent>
+                        </Card>
                     </AnimateOnScroll>
-                     <div className="relative max-w-2xl mx-auto">
-                        <div className="absolute left-1/2 -translate-x-1/2 md:left-5 h-full w-1 bg-border" />
-                        {timeline.map((item, index) => (
-                            <AnimateOnScroll key={index} delay={index * 150} className="mb-10 flex items-start gap-6">
-                                <div className="relative z-10">
-                                    <div className="h-10 w-10 rounded-full bg-background border-2 border-primary flex items-center justify-center">
-                                        <CalendarDays className="h-5 w-5 text-primary" />
-                                    </div>
-                                </div>
-                                <div className="pt-1.5">
-                                    <p className="font-semibold text-muted-foreground">{item.date}</p>
-                                    <h3 className="font-headline text-xl font-bold text-foreground">{item.event}</h3>
-                                </div>
-                            </AnimateOnScroll>
-                        ))}
-                    </div>
                 </div>
             </section>
             
