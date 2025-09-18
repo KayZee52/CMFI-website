@@ -14,36 +14,26 @@ const AdmissionsPage = () => {
             icon: Award,
             title: 'Entrance Examination',
             description: 'Applicants must first sit for the mandatory entrance exam covering core subjects to assess their academic readiness.',
-            imageUrl: 'https://picsum.photos/seed/entrance-exam/800/600',
-            imageHint: 'students writing exam'
         },
         {
             icon: ScrollText,
             title: 'Pick Up Form',
             description: 'After successfully passing the exam, admission forms are available at the school office during working hours.',
-            imageUrl: 'https://picsum.photos/seed/pickup-form/800/600',
-            imageHint: 'school office reception'
         },
         {
             icon: FileText,
             title: 'Submit Application',
             description: 'Complete and return the form with all required documents, including previous academic records and a birth certificate.',
-            imageUrl: 'https://picsum.photos/seed/submit-app/800/600',
-            imageHint: 'person filling form'
         },
         {
             icon: UserCheck,
             title: 'Interview & Review',
             description: 'A friendly interview with our admissions team allows us to get to know the applicant and review their potential.',
-            imageUrl: 'https://picsum.photos/seed/interview-review/800/600',
-            imageHint: 'friendly interview'
         },
         {
             icon: BadgeCheck,
             title: 'Receive Confirmation',
             description: 'Successful applicants will receive an official admission letter and package with further instructions to complete enrollment.',
-            imageUrl: 'https://picsum.photos/seed/confirmation/800/600',
-            imageHint: 'happy student acceptance'
         }
     ];
 
@@ -109,36 +99,20 @@ const AdmissionsPage = () => {
                         </p>
                     </AnimateOnScroll>
 
-                     <div className="relative mt-24 space-y-24">
-                        <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-border -translate-x-1/2 hidden md:block" />
-                        
+                     <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
                         {admissionSteps.map((step, index) => (
-                            <AnimateOnScroll 
-                                key={index} 
-                                className={cn('relative flex flex-col md:grid md:grid-cols-2 md:items-center md:gap-12 w-full')}
-                                delay={index * 100}
-                            >
-                                <div className="md:order-1 md:text-left text-center">
-                                    <h3 className="font-headline text-2xl font-semibold mb-4 text-primary">Step {index + 1}: {step.title}</h3>
-                                    <p className="text-muted-foreground max-w-md mx-auto md:mx-0">{step.description}</p>
-                                </div>
-
-                                <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2 h-10 w-10 p-1 rounded-full bg-background flex items-center justify-center z-10 border-2 border-primary">
-                                    <step.icon className="h-6 w-6 text-primary" />
-                                </div>
-                                
-                                <div className="md:order-2 mt-8 md:mt-0">
-                                    <div className="relative aspect-video w-full max-w-md mx-auto rounded-lg overflow-hidden shadow-lg">
-                                        <Image
-                                        src={step.imageUrl}
-                                        alt={step.title}
-                                        data-ai-hint={step.imageHint}
-                                        fill
-                                        sizes="(max-width: 768px) 100vw, 50vw"
-                                        className="object-cover"
-                                        />
-                                    </div>
-                                </div>
+                            <AnimateOnScroll key={index} delay={index * 100}>
+                                <Card className="text-center h-full hover:shadow-xl transition-shadow p-6 bg-primary/5 border-primary/10">
+                                    <CardHeader className="items-center">
+                                        <div className="p-4 bg-primary/10 text-primary rounded-full mb-4">
+                                            <step.icon className="h-10 w-10" />
+                                        </div>
+                                        <CardTitle className="font-headline text-lg">Step {index + 1}: {step.title}</CardTitle>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <p className="text-muted-foreground text-sm">{step.description}</p>
+                                    </CardContent>
+                                </Card>
                             </AnimateOnScroll>
                         ))}
                     </div>
