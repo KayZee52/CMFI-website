@@ -16,11 +16,67 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
+const SportImageCarousel = ({ imageUrls, title }: { imageUrls: string[], title: string }) => {
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % imageUrls.length);
+        }, 3000); // Change image every 3 seconds
+        return () => clearInterval(interval);
+    }, [imageUrls.length]);
+
+    return (
+        <div className="relative aspect-video">
+            <AnimatePresence mode="wait">
+                <motion.div
+                    key={currentImageIndex}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 1.0, ease: 'easeInOut' }}
+                    className="absolute inset-0"
+                >
+                    <Image
+                        src={imageUrls[currentImageIndex]}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-cover"
+                        alt={`${title} action shot ${currentImageIndex + 1}`}
+                        data-ai-hint={title.toLowerCase()}
+                    />
+                </motion.div>
+            </AnimatePresence>
+        </div>
+    );
+};
+
 const StudentLifePage = () => {
     
     const sports = [
-        { icon: Trophy, title: 'Football', description: 'Team spirit, training, and inter-school matches.', imageUrl: 'https://picsum.photos/seed/football/800/600', hint: 'students playing football' },
-        { icon: Trophy, title: 'Kickball', description: 'Fun, energy, and school-wide participation.', imageUrl: 'https://picsum.photos/seed/kickball/800/600', hint: 'students playing kickball' },
+        { 
+            icon: Trophy, 
+            title: 'Football', 
+            description: 'Team spirit, training, and inter-school matches.', 
+            imageUrls: [
+                '/images/sports-athletics/football1.jpg',
+                '/images/sports-athletics/football2.jpg',
+                '/images/sports-athletics/football3.jpg',
+                '/images/sports-athletics/football4.jpg'
+            ], 
+            hint: 'students playing football' 
+        },
+        { 
+            icon: Trophy, 
+            title: 'Kickball', 
+            description: 'Fun, energy, and school-wide participation.', 
+            imageUrls: [
+                '/images/sports-athletics/kickball1.jpg',
+                '/images/sports-athletics/kickball2.jpg',
+                '/images/sports-athletics/kickball3.jpg'
+            ], 
+            hint: 'students playing kickball' 
+        },
     ];
 
     const events = [
@@ -110,9 +166,7 @@ const StudentLifePage = () => {
                         {sports.map((sport, index) => (
                             <AnimateOnScroll key={sport.title} delay={index * 100}>
                                 <Card className="overflow-hidden group hover:shadow-xl transition-shadow">
-                                    <div className="relative aspect-video">
-                                        <Image src={sport.imageUrl} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-300" alt={sport.title} data-ai-hint={sport.hint} />
-                                    </div>
+                                    <SportImageCarousel imageUrls={sport.imageUrls} title={sport.title} />
                                     <CardHeader>
                                         <CardTitle className="font-headline flex items-center gap-3"><sport.icon className="h-6 w-6 text-primary"/>{sport.title}</CardTitle>
                                     </CardHeader>
@@ -216,7 +270,7 @@ const StudentLifePage = () => {
                         {merchandiseByColor[0].items.map((item, index) => (
                             <Card key={`${item.name}-${index}`} className="overflow-hidden group">
                                 <div className="relative aspect-square">
-                                    <AnimatePresence initial={false} mode="wait">
+                                    <AnimatePresence mode="wait">
                                         <motion.div
                                             key={currentColorIndex}
                                             initial={{ opacity: 0, x: 50 }}
