@@ -113,9 +113,6 @@ const Footer = () => {
 
         <div className="mt-16 border-t border-primary-foreground/30 pt-8 flex flex-col md:flex-row justify-between items-center text-xs gap-4">
           <p>&copy; {new Date().getFullYear()} CMFI Bilingual High School. All Rights Reserved.</p>
-          <div className="flex gap-4">
-             <Link href="#" className="hover:text-accent transition-colors">Privacy Policy</Link>
-          </div>
         </div>
       </div>
     </footer>

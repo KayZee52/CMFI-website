@@ -247,12 +247,12 @@ const StudentLifePage = () => {
                             CMFI alumni are leaders in their communities, continuing to live by the values of excellence and discipline. We are proud of our graduates who make a positive impact across various fields.
                         </p>
                         <Button asChild className="bg-accent hover:bg-accent/90">
-                            <Link href="#" target="_blank">Join the Alumni Network</Link>
+                            <Link href="/contact">Join the Alumni Network</Link>
                         </Button>
                     </AnimateOnScroll>
                     <AnimateOnScroll delay={200}>
                         <div className="relative aspect-video rounded-lg overflow-hidden">
-                            <Image src="/images/alumni.jpeg" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover object-top" alt="Alumni group photo" data-ai-hint="graduates group photo" />
+                            <Image src="/images/alumni.jpeg" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover object-top" alt="Alumni group photo at a CMFI event" data-ai-hint="graduates group photo" />
                         </div>
                     </AnimateOnScroll>
                 </div>

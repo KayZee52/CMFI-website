@@ -29,7 +29,7 @@ const NewsSection = () => {
                 </CardContent>
                 <CardFooter>
                   <Button asChild variant="link" className="px-0 group-hover:text-primary transition-colors">
-                    <Link href="#">
+                    <Link href="/contact#news">
                       Read More <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
