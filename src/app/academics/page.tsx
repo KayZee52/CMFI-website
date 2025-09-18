@@ -191,12 +191,12 @@ const AcademicsPage = () => {
                     <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                         {specialFeatures.map((feature, index) => (
                              <AnimateOnScroll key={feature.title} delay={index * 100}>
-                                <Card className="p-6 text-center bg-primary/5 h-full">
-                                    <div className="p-4 bg-primary/10 text-primary rounded-full mb-4 inline-block">
+                                <Card className="p-6 text-center bg-primary text-primary-foreground h-full">
+                                    <div className="p-4 bg-primary-foreground/20 text-primary-foreground rounded-full mb-4 inline-block">
                                         <feature.icon className="h-8 w-8" />
                                     </div>
                                     <h3 className="font-headline text-xl font-bold mb-2">{feature.title}</h3>
-                                    <p className="text-muted-foreground">{feature.description}</p>
+                                    <p className="text-primary-foreground/80">{feature.description}</p>
                                 </Card>
                             </AnimateOnScroll>
                         ))}
