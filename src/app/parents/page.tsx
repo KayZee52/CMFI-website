@@ -38,9 +38,9 @@ const ParentsPage = () => {
     ];
 
     const involvementImages = [
-        { src: 'https://picsum.photos/seed/parent-meeting/800/600', hint: 'parent teacher meeting' },
-        { src: 'https://picsum.photos/seed/parent-volunteer/800/600', hint: 'parent volunteering school' },
-        { src: 'https://picsum.photos/seed/parent-event/800/600', hint: 'parents school event' },
+        { src: '/images/parents/parent-teacher-meeting.jpeg', hint: 'parent teacher meeting' },
+        { src: '/images/parents/school-event-volunteering.jpeg', hint: 'parent volunteering school' },
+        { src: '/images/parents/support-feedbacks.jpeg', hint: 'parents school event' },
     ];
     
     const [activeInvolvementImage, setActiveInvolvementImage] = useState(involvementImages[0]);
