@@ -12,6 +12,8 @@ import { Button } from '../ui/button';
 
 const GallerySection = ({ media }: { media: DriveMedia[] }) => {
   const [selectedMediaIndex, setSelectedMediaIndex] = useState<number | null>(null);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const minSwipeDistance = 50;
 
   const openModal = (index: number) => {
     setSelectedMediaIndex(index);
@@ -30,6 +32,24 @@ const GallerySection = ({ media }: { media: DriveMedia[] }) => {
     if (selectedMediaIndex === null) return;
     setSelectedMediaIndex((prevIndex) => (prevIndex! - 1 + media.length) % media.length);
   }, [selectedMediaIndex, media.length]);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    if (touchStart === null) return;
+    const currentTouch = e.targetTouches[0].clientX;
+    const distance = touchStart - currentTouch;
+
+    if (distance > minSwipeDistance) {
+      goToNext();
+      setTouchStart(null);
+    } else if (distance < -minSwipeDistance) {
+      goToPrevious();
+      setTouchStart(null);
+    }
+  };
 
 
   const selectedMedia = selectedMediaIndex !== null ? media[selectedMediaIndex] : null;
@@ -110,7 +130,11 @@ const GallerySection = ({ media }: { media: DriveMedia[] }) => {
       </div>
 
       <Dialog open={!!selectedMedia} onOpenChange={closeModal}>
-        <DialogContent className="max-w-6xl w-full p-2 h-auto max-h-[90vh] bg-transparent border-0 shadow-none flex items-center justify-center">
+        <DialogContent 
+          className="max-w-6xl w-full p-2 h-auto max-h-[90vh] bg-transparent border-0 shadow-none flex items-center justify-center"
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+        >
           {selectedMedia && (
             <div className="relative w-full h-full max-w-full max-h-full">
               {isVideo(selectedMedia) ? (
