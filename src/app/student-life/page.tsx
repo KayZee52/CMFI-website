@@ -14,6 +14,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Autoplay from "embla-carousel-autoplay"
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 const StudentLifePage = () => {
     
@@ -36,6 +37,7 @@ const StudentLifePage = () => {
     const merchandiseByColor = [
         {
             color: 'Blue',
+            buttonClass: 'bg-blue-500 hover:bg-blue-600 text-white',
             items: [
                 { name: 'School T-Shirt', imageUrl: '/images/merchs/blueShirt.png', hint: 'blue school t-shirt' },
                 { name: 'Backpack', imageUrl: '/images/merchs/blueBackpack.png', hint: 'blue school backpack' },
@@ -44,6 +46,7 @@ const StudentLifePage = () => {
         },
         {
             color: 'Brown',
+            buttonClass: 'bg-yellow-800 hover:bg-yellow-900 text-white',
             items: [
                 { name: 'School T-Shirt', imageUrl: '/images/merchs/brownShirt.png', hint: 'brown school t-shirt' },
                 { name: 'Backpack', imageUrl: '/images/merchs/brownBackpack.png', hint: 'brown school backpack' },
@@ -52,6 +55,7 @@ const StudentLifePage = () => {
         },
         {
             color: 'Pink',
+            buttonClass: 'bg-pink-500 hover:bg-pink-600 text-white',
             items: [
                 { name: 'School T-Shirt', imageUrl: '/images/merchs/pinkShirt.png', hint: 'pink school t-shirt' },
                 { name: 'Backpack', imageUrl: '/images/merchs/pinkBackpack.png', hint: 'pink school backpack' },
@@ -212,7 +216,7 @@ const StudentLifePage = () => {
                         {merchandiseByColor[0].items.map((item, index) => (
                             <Card key={`${item.name}-${index}`} className="overflow-hidden group">
                                 <div className="relative aspect-square">
-                                    <AnimatePresence initial={false}>
+                                    <AnimatePresence initial={false} mode="wait">
                                         <motion.div
                                             key={currentColorIndex}
                                             initial={{ opacity: 0, x: 50 }}
@@ -239,7 +243,7 @@ const StudentLifePage = () => {
                         ))}
                     </div>
                      <div className="text-center mt-12">
-                        <Button asChild size="lg">
+                        <Button asChild size="lg" className={cn("transition-colors duration-500", merchandiseByColor[currentColorIndex].buttonClass)}>
                             <Link href="/contact">Contact Office for Merch</Link>
                         </Button>
                     </div>
