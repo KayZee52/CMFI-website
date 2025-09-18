@@ -92,10 +92,7 @@ const AdmissionsPage = () => {
                             Start your <Typewriter phrases={typewriterPhrases} />
                         </p>
                         <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-                            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
-                                <Link href="/admissions/apply">Start Online Application</Link>
-                            </Button>
-                            <Button asChild size="lg" variant="outline" className="text-white border-white hover:bg-white hover:text-primary">
+                            <Button asChild size="lg" variant="default" className="text-white border-white hover:bg-white hover:text-primary">
                                 <Link href="#how-to-apply">How to Apply (In-Person)</Link>
                             </Button>
                         </div>
@@ -239,7 +236,7 @@ const AdmissionsPage = () => {
                         </h2>
                         <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
                             <Button asChild size="lg" variant="secondary" className="w-full sm:w-auto">
-                                <Link href="/admissions/apply">Apply Now</Link>
+                                <Link href="/admissions">Apply Now</Link>
                             </Button>
                              <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary w-full sm:w-auto">
                                 <Link href="/contact">Contact Us</Link>
