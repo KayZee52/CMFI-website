@@ -46,7 +46,6 @@ const admissionFormSchema = z.object({
 
 type AdmissionFormState = {
   message: string;
-  // downloadUrl is removed as we are not uploading to storage anymore
   errors?: Record<string, string[] | undefined>;
 };
 
@@ -159,7 +158,7 @@ export async function submitAdmissionForm(
 
   try {
     const pdfDoc = await PDFDocument.create();
-    const page = pdfDoc.addPage();
+    let page = pdfDoc.addPage();
     const { width, height } = page.getSize();
     const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
     const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
