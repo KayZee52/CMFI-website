@@ -252,7 +252,7 @@ const StudentLifePage = () => {
                     </AnimateOnScroll>
                     <AnimateOnScroll delay={200}>
                         <div className="relative aspect-video rounded-lg overflow-hidden">
-                            <Image src="https://picsum.photos/seed/alumni-life/800/600" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" alt="Alumni group photo" data-ai-hint="graduates group photo" />
+                            <Image src="/images/alumni.jpeg" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" alt="Alumni group photo" data-ai-hint="graduates group photo" />
                         </div>
                     </AnimateOnScroll>
                 </div>
