@@ -3,7 +3,7 @@
 import { AnimateOnScroll } from '@/components/animate-on-scroll';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Medal, Trophy, BrainCircuit, GraduationCap, Users, HeartHandshake, School } from 'lucide-react';
+import { Medal, Trophy, BrainCircuit, GraduationCap, Users, HeartHandshake, School, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { testimonials } from '@/lib/data';
@@ -28,6 +28,12 @@ const StudentLifePage = () => {
         { icon: Users, title: "Parents' Involvement" },
         { icon: School, title: "School-wide Activities" },
         { icon: HeartHandshake, title: "Community Service" },
+    ];
+
+    const merchandise = [
+        { name: 'School T-Shirt', imageUrl: 'https://picsum.photos/seed/merch-shirt/600/600', hint: 'school t-shirt' },
+        { name: 'Backpack', imageUrl: 'https://picsum.photos/seed/merch-backpack/600/600', hint: 'school backpack' },
+        { name: 'Water Bottle', imageUrl: 'https://picsum.photos/seed/merch-bottle/600/600', hint: 'water bottle' },
     ];
 
     const studentTestimonials = testimonials.filter(t => t.role.includes('Student'));
@@ -161,6 +167,36 @@ const StudentLifePage = () => {
             </section>
 
             <section className="bg-background">
+                <div className="container mx-auto px-6 text-center">
+                    <AnimateOnScroll>
+                        <h2 className="font-headline text-3xl md:text-4xl font-bold">Show Your School Spirit</h2>
+                        <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+                            Official CMFI merchandise, including uniforms, t-shirts, and accessories, is available. Contact the administration office for details on how to get yours.
+                        </p>
+                    </AnimateOnScroll>
+                    <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                        {merchandise.map((item, index) => (
+                            <AnimateOnScroll key={item.name} delay={index * 150}>
+                                <Card className="overflow-hidden group">
+                                    <div className="relative aspect-square">
+                                        <Image src={item.imageUrl} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover group-hover:scale-105 transition-transform" alt={item.name} data-ai-hint={item.hint} />
+                                    </div>
+                                    <CardHeader>
+                                        <CardTitle className="font-headline text-lg text-center">{item.name}</CardTitle>
+                                    </CardHeader>
+                                </Card>
+                            </AnimateOnScroll>
+                        ))}
+                    </div>
+                     <div className="text-center mt-12">
+                        <Button asChild size="lg">
+                            <Link href="/contact">Contact Office for Merch</Link>
+                        </Button>
+                    </div>
+                </div>
+            </section>
+
+            <section className="bg-card">
                 <div className="container mx-auto px-6 text-center">
                     <AnimateOnScroll>
                         <h2 className="font-headline text-3xl md:text-4xl font-bold">Together Beyond the Classroom</h2>
