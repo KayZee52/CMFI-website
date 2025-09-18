@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { AnimateOnScroll } from '@/components/animate-on-scroll';
@@ -215,9 +216,9 @@ const StudentLifePage = () => {
                                     <AnimatePresence initial={false}>
                                         <motion.div
                                             key={currentColorIndex}
-                                            initial={{ opacity: 0, x: -100 }}
+                                            initial={{ opacity: 0, x: 50 }}
                                             animate={{ opacity: 1, x: 0 }}
-                                            exit={{ opacity: 0, x: 100 }}
+                                            exit={{ opacity: 0, x: -50 }}
                                             transition={{ duration: 0.8, ease: 'easeInOut' }}
                                             className="absolute inset-0"
                                         >
