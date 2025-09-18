@@ -243,7 +243,7 @@ const StudentLifePage = () => {
                         ))}
                     </div>
                      <div className="text-center mt-12">
-                        <Button asChild size="lg" className={cn("transition-colors duration-500", merchandiseByColor[currentColorIndex].buttonClass)}>
+                        <Button asChild size="lg" className={cn("transition-colors duration-700", merchandiseByColor[currentColorIndex].buttonClass)}>
                             <Link href="/contact">Contact Office for Merch</Link>
                         </Button>
                     </div>
