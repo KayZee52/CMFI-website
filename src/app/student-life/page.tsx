@@ -208,34 +208,35 @@ const StudentLifePage = () => {
                             Official CMFI merchandise is available in various colors. Contact the administration office for details on how to get yours.
                         </p>
                     </AnimateOnScroll>
-                    <div className="mt-12 relative h-[450px] md:h-[350px]">
-                        <AnimatePresence initial={false}>
-                            <motion.div
-                                key={currentColorIndex}
-                                initial={{ opacity: 0, x: 300 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -300 }}
-                                transition={{ duration: 0.5, ease: 'easeInOut' }}
-                                className="absolute inset-0 w-full grid grid-cols-1 sm:grid-cols-3 gap-8 place-content-center"
-                            >
-                                {merchandiseByColor[currentColorIndex].items.map((item, index) => (
-                                    <Card key={`${item.name}-${index}`} className="overflow-hidden group">
-                                        <div className="relative aspect-square">
+                     <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8">
+                        {merchandiseByColor[0].items.map((item, index) => (
+                            <Card key={`${item.name}-${index}`} className="overflow-hidden group">
+                                <div className="relative aspect-square">
+                                    <AnimatePresence initial={false}>
+                                        <motion.div
+                                            key={currentColorIndex}
+                                            initial={{ opacity: 0, x: 100 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: -100 }}
+                                            transition={{ duration: 0.5, ease: 'easeInOut' }}
+                                            className="absolute inset-0"
+                                        >
                                             <Image 
-                                                src={item.imageUrl} 
-                                                alt={item.name} 
-                                                data-ai-hint={item.hint}
+                                                src={merchandiseByColor[currentColorIndex].items[index].imageUrl} 
+                                                alt={merchandiseByColor[currentColorIndex].items[index].name} 
+                                                data-ai-hint={merchandiseByColor[currentColorIndex].items[index].hint}
                                                 fill 
                                                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 25vw" 
-                                                className="object-cover group-hover:scale-105 transition-transform" />
-                                        </div>
-                                        <CardHeader>
-                                            <CardTitle className="font-headline text-lg text-center">{item.name}</CardTitle>
-                                        </CardHeader>
-                                    </Card>
-                                ))}
-                            </motion.div>
-                        </AnimatePresence>
+                                                className="object-cover group-hover:scale-105 transition-transform" 
+                                            />
+                                        </motion.div>
+                                    </AnimatePresence>
+                                </div>
+                                <CardHeader>
+                                    <CardTitle className="font-headline text-lg text-center">{item.name}</CardTitle>
+                                </CardHeader>
+                            </Card>
+                        ))}
                     </div>
                      <div className="text-center mt-12">
                         <Button asChild size="lg">
