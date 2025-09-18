@@ -2,7 +2,7 @@
 import { AnimateOnScroll } from '@/components/animate-on-scroll';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { FileText, Award, UserCheck, ScrollText, BadgeCheck } from 'lucide-react';
+import { FileText, Award, UserCheck, ScrollText, BadgeCheck, CalendarDays, FileSignature, BookCopy, Star } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Typewriter } from '@/components/typewriter';
@@ -20,7 +20,7 @@ const AdmissionsPage = () => {
         {
             icon: FileText,
             title: 'Submit Application',
-            description: 'Complete and return the form with all required documents, including previous academic records and a birth certificate.',
+            description: 'Complete and return the form with all required documents, including previous academic records, a birth certificate, and transcripts if available.',
             imageUrl: 'https://picsum.photos/seed/submit-app/800/600',
             imageHint: 'person filling form'
         },
@@ -48,10 +48,18 @@ const AdmissionsPage = () => {
     ];
 
     const requirements = [
-        { icon: FileText, title: 'Completed Form' },
-        { icon: ScrollText, title: 'Birth Certificate' },
-        { icon: Award, title: 'Previous Report Cards' },
-        { icon: UserCheck, title: 'Exam Participation' },
+        { icon: FileSignature, title: 'Completed Form', mandatory: true },
+        { icon: ScrollText, title: 'Birth Certificate', mandatory: true },
+        { icon: BookCopy, title: 'Previous Report Cards', mandatory: true },
+        { icon: FileText, title: 'Transcript', mandatory: false },
+        { icon: Star, title: 'Recommendation Letter', mandatory: false },
+    ];
+    
+    const timeline = [
+        { date: 'June 1st - July 31st', event: 'Application Period' },
+        { date: 'August 5th', event: 'Entrance Exam' },
+        { date: 'August 15th', event: 'Admission Decisions Released' },
+        { date: 'August 25th', event: 'Enrollment Deadline' },
     ];
     
     const typewriterPhrases = [
@@ -140,7 +148,7 @@ const AdmissionsPage = () => {
                     <AnimateOnScroll className="text-center">
                         <h2 className="font-headline text-3xl md:text-4xl font-bold">What You'll Need</h2>
                     </AnimateOnScroll>
-                    <div className="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div className="mt-16 grid grid-cols-2 lg:grid-cols-5 gap-8">
                         {requirements.map((req, index) => (
                             <AnimateOnScroll key={index} delay={index * 100}>
                                 <Card className="text-center h-full hover:shadow-lg transition-shadow p-6">
@@ -148,14 +156,42 @@ const AdmissionsPage = () => {
                                         <req.icon className="h-8 w-8" />
                                     </div>
                                     <h3 className="font-headline text-lg font-semibold">{req.title}</h3>
+                                    {!req.mandatory && <p className="text-sm text-muted-foreground">(Optional)</p>}
                                 </Card>
                             </AnimateOnScroll>
                         ))}
                     </div>
                 </div>
             </section>
+
+             <section className="bg-background">
+                <div className="container mx-auto px-6">
+                    <AnimateOnScroll className="text-center mb-16">
+                        <h2 className="font-headline text-3xl md:text-4xl font-bold">Admissions Timeline</h2>
+                        <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+                            Stay on track with these important dates for the 2024/2025 admission cycle.
+                        </p>
+                    </AnimateOnScroll>
+                     <div className="relative max-w-2xl mx-auto">
+                        <div className="absolute left-1/2 -translate-x-1/2 md:left-5 h-full w-1 bg-border" />
+                        {timeline.map((item, index) => (
+                            <AnimateOnScroll key={index} delay={index * 150} className="mb-10 flex items-start gap-6">
+                                <div className="relative z-10">
+                                    <div className="h-10 w-10 rounded-full bg-background border-2 border-primary flex items-center justify-center">
+                                        <CalendarDays className="h-5 w-5 text-primary" />
+                                    </div>
+                                </div>
+                                <div className="pt-1.5">
+                                    <p className="font-semibold text-muted-foreground">{item.date}</p>
+                                    <h3 className="font-headline text-xl font-bold text-foreground">{item.event}</h3>
+                                </div>
+                            </AnimateOnScroll>
+                        ))}
+                    </div>
+                </div>
+            </section>
             
-            <section className="bg-background">
+            <section className="bg-card">
                 <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
                     <AnimateOnScroll>
                         <Card className="bg-primary/10 border-primary/20 p-8">
