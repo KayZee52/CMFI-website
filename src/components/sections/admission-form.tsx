@@ -74,7 +74,7 @@ type AdmissionFormValues = z.infer<typeof admissionFormSchema>;
 const AdmissionForm = () => {
   const { toast } = useToast();
   const [isPending, startTransition] = useTransition();
-  const [submissionResult, setSubmissionResult] = useState<{ downloadUrl: string } | null>(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const form = useForm<AdmissionFormValues>({
     resolver: zodResolver(admissionFormSchema),
@@ -103,12 +103,12 @@ const AdmissionForm = () => {
       
       const result = await submitAdmissionForm(undefined, formData);
 
-      if (result.message === 'success' && result.downloadUrl) {
+      if (result.message === 'success') {
         toast({
             title: 'Application Submitted!',
-            description: 'Your form has been successfully submitted and saved.',
+            description: 'Your form has been successfully submitted and sent to the administration.',
         });
-        setSubmissionResult({ downloadUrl: result.downloadUrl });
+        setIsSubmitted(true);
       } else {
         toast({
             variant: 'destructive',
@@ -119,7 +119,7 @@ const AdmissionForm = () => {
     });
   };
 
-  if (submissionResult) {
+  if (isSubmitted) {
     return (
         <section className="bg-background">
             <div className="container mx-auto px-6 text-center py-20 md:py-32">
@@ -129,14 +129,9 @@ const AdmissionForm = () => {
                     </div>
                     <h1 className="font-headline text-3xl md:text-4xl font-bold mt-8">Application Submitted!</h1>
                     <p className="mt-4 text-lg max-w-2xl mx-auto text-muted-foreground">
-                        Thank you for your interest in CMFI Bilingual High School. Your application has been received. You can download a copy of your submitted form for your records.
+                        Thank you for your interest in CMFI Bilingual High School. Your application has been received and sent to our admissions team for review. You will be contacted shortly.
                     </p>
                     <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-                        <Button asChild size="lg">
-                            <a href={submissionResult.downloadUrl} target="_blank" rel="noopener noreferrer">
-                                <Download className="mr-2 h-5 w-5" /> Download Your Form
-                            </a>
-                        </Button>
                         <Button asChild size="lg" variant="outline">
                             <Link href="/">Return to Homepage</Link>
                         </Button>
