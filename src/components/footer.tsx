@@ -120,7 +120,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="flex items-center gap-2 hover:text-accent transition-colors"
           >
-            <Image src="/images/soumedlogo.png" alt="Soumed Logo" width={20} height={20} className="rounded-full" />
+            <Image src="/images/soumedlogo.png" alt="Soumed Logo" width={20} height={20} className="rounded-full brightness-0 invert" />
             <span>Powered by Soumed</span>
           </a>
         </div>
