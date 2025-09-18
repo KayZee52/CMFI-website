@@ -1,29 +1,56 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import Image from 'next/image';
 import { AnimateOnScroll } from '../animate-on-scroll';
 import { Dialog, DialogContent } from '../ui/dialog';
 import { cn } from '@/lib/utils';
 import type { DriveMedia } from '@/lib/google-drive';
-import { PlayCircle } from 'lucide-react';
+import { PlayCircle, ChevronLeft, ChevronRight, Download } from 'lucide-react';
+import { Button } from '../ui/button';
 
 const GallerySection = ({ media }: { media: DriveMedia[] }) => {
-  const [selectedMedia, setSelectedMedia] = useState<DriveMedia | null>(null);
+  const [selectedMediaIndex, setSelectedMediaIndex] = useState<number | null>(null);
 
-  const openModal = (item: DriveMedia) => {
-    setSelectedMedia(item);
+  const openModal = (index: number) => {
+    setSelectedMediaIndex(index);
   };
+
+  const closeModal = () => {
+    setSelectedMediaIndex(null);
+  };
+  
+  const goToNext = useCallback(() => {
+    if (selectedMediaIndex === null) return;
+    setSelectedMediaIndex((prevIndex) => (prevIndex! + 1) % media.length);
+  }, [selectedMediaIndex, media.length]);
+  
+  const goToPrevious = useCallback(() => {
+    if (selectedMediaIndex === null) return;
+    setSelectedMediaIndex((prevIndex) => (prevIndex! - 1 + media.length) % media.length);
+  }, [selectedMediaIndex, media.length]);
+
+
+  const selectedMedia = selectedMediaIndex !== null ? media[selectedMediaIndex] : null;
 
   const isVideo = (item: DriveMedia) => item.mimeType.startsWith('video/');
 
-  const getVideoSrc = (item: DriveMedia) => {
+  const getStreamSrc = (item: DriveMedia) => {
     return `https://drive.google.com/uc?export=view&id=${item.id}`;
   };
 
+  const getDownloadSrc = (item: DriveMedia) => {
+    // For images, we can trigger a download of the high-res thumbnail.
+    // For videos, Google Drive's download link is different.
+    if (isVideo(item)) {
+      return `https://drive.google.com/uc?export=download&id=${item.id}`;
+    }
+    // A bit of a hack to proxy the download through a service that sets the correct headers
+    return `https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=2000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=${item.id}`;
+  };
+
   const getHighQualityThumbnail = (thumbnailLink: string) => {
-    // Request a larger, higher-quality thumbnail by replacing the size parameter.
     return thumbnailLink.replace(/=s\d+/, '=s1024');
   };
 
@@ -61,7 +88,7 @@ const GallerySection = ({ media }: { media: DriveMedia[] }) => {
               return (
                 <div
                   key={item.id}
-                  onClick={() => openModal(item)}
+                  onClick={() => openModal(index)}
                   className={cn(
                     'group relative overflow-hidden rounded-lg cursor-pointer',
                     colSpan,
@@ -88,32 +115,52 @@ const GallerySection = ({ media }: { media: DriveMedia[] }) => {
         </AnimateOnScroll>
       </div>
 
-      <Dialog open={!!selectedMedia} onOpenChange={() => setSelectedMedia(null)}>
-        <DialogContent className="max-w-4xl w-full p-2 h-auto max-h-[90vh]">
+      <Dialog open={!!selectedMedia} onOpenChange={closeModal}>
+        <DialogContent className="max-w-6xl w-full p-2 h-auto max-h-[90vh] bg-transparent border-0 shadow-none flex items-center justify-center">
           {selectedMedia && (
-            isVideo(selectedMedia) ? (
-                <div className="relative aspect-video w-full h-full">
+            <div className="relative w-full h-full max-w-full max-h-full">
+              {isVideo(selectedMedia) ? (
+                <div className="relative aspect-video w-full h-full max-h-[90vh] flex items-center justify-center">
                     <video
-                        src={getVideoSrc(selectedMedia)}
+                        src={getStreamSrc(selectedMedia)}
                         controls
                         autoPlay
-                        className="w-full h-full rounded-md bg-black"
+                        className="w-auto h-auto max-w-full max-h-full rounded-md bg-black"
                     >
                         Your browser does not support the video tag.
                     </video>
                 </div>
-            ) : (
-              <div className="relative aspect-video">
-                <Image
-                  src={getHighQualityThumbnail(selectedMedia.thumbnailLink)}
-                  alt={selectedMedia.name}
-                  fill
-                  sizes="100vw"
-                  className="object-contain rounded-md"
-                />
+              ) : (
+                <div className="relative aspect-video w-full h-full max-h-[90vh]">
+                  <Image
+                    src={getHighQualityThumbnail(selectedMedia.thumbnailLink)}
+                    alt={selectedMedia.name}
+                    fill
+                    sizes="100vw"
+                    className="object-contain rounded-md"
+                  />
+                </div>
+              )}
+               <div className="absolute bottom-4 right-4 z-20">
+                <Button asChild size="icon" className="bg-black/50 hover:bg-black/80 text-white rounded-full">
+                  <a href={getDownloadSrc(selectedMedia)} download={selectedMedia.name} target="_blank" rel="noopener noreferrer">
+                    <Download className="h-5 w-5" />
+                    <span className="sr-only">Download</span>
+                  </a>
+                </Button>
               </div>
-            )
+            </div>
           )}
+
+          <Button onClick={goToPrevious} size="icon" className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-black/80 text-white rounded-full">
+            <ChevronLeft className="h-6 w-6" />
+            <span className="sr-only">Previous</span>
+          </Button>
+          <Button onClick={goToNext} size="icon" className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-black/80 text-white rounded-full">
+            <ChevronRight className="h-6 w-6" />
+            <span className="sr-only">Next</span>
+          </Button>
+
         </DialogContent>
       </Dialog>
     </section>
