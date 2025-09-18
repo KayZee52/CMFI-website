@@ -19,7 +19,6 @@ const StudentLifePage = () => {
     
     const sports = [
         { icon: Trophy, title: 'Football', description: 'Team spirit, training, and inter-school matches.', imageUrl: 'https://picsum.photos/seed/football/800/600', hint: 'students playing football' },
-        { icon: Medal, title: 'Basketball', description: 'Encouraging discipline, teamwork, and fitness.', imageUrl: 'https://picsum.photos/seed/basketball/800/600', hint: 'students playing basketball' },
         { icon: Trophy, title: 'Kickball', description: 'Fun, energy, and school-wide participation.', imageUrl: 'https://picsum.photos/seed/kickball/800/600', hint: 'students playing kickball' },
     ];
 
@@ -103,7 +102,7 @@ const StudentLifePage = () => {
                     <AnimateOnScroll className="text-center">
                         <h2 className="font-headline text-3xl md:text-4xl font-bold">Sports & Athletics</h2>
                     </AnimateOnScroll>
-                    <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                         {sports.map((sport, index) => (
                             <AnimateOnScroll key={sport.title} delay={index * 100}>
                                 <Card className="overflow-hidden group hover:shadow-xl transition-shadow">
