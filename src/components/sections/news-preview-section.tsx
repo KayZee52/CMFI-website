@@ -31,8 +31,8 @@ const NewsPreviewSection = () => {
                 </CardContent>
                 <CardFooter>
                   <Button asChild variant="link" className="px-0 group-hover:text-primary transition-colors">
-                    <Link href="/contact#news">
-                      Read More <ArrowRight className="ml-2 h-4 w-4" />
+                    <Link href="/blog">
+                      Read on Blog <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
                 </CardFooter>
@@ -43,7 +43,7 @@ const NewsPreviewSection = () => {
 
         <AnimateOnScroll className="text-center mt-12">
             <Button asChild size="lg" variant="outline">
-                <Link href="/contact#news">See All Updates</Link>
+                <Link href="/blog">See All Posts</Link>
             </Button>
         </AnimateOnScroll>
       </div>

@@ -36,6 +36,7 @@ const Header = () => {
     { name: 'Student Life', href: '/student-life' },
     { name: 'Parents', href: '/parents' },
     { name: 'Gallery', href: '/gallery' },
+    { name: 'Blog', href: '/blog' },
     { name: 'Contact', href: '/contact' },
   ];
 
@@ -48,7 +49,7 @@ const Header = () => {
           onClick={onLinkClick}
           className={cn(
             "font-medium transition-colors hover:text-primary text-2xl lg:text-lg",
-            pathname === link.href ? "text-primary font-semibold" : "text-foreground/80"
+            pathname.startsWith(link.href) && link.href !== '/' || pathname === link.href ? "text-primary font-semibold" : "text-foreground/80"
           )}
         >
           {link.name}
