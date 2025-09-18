@@ -11,17 +11,19 @@ import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2 } from 'lucide-react';
+import { Check, Download, Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 import { Checkbox } from '../ui/checkbox';
 import FileUpload from '../file-upload';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { CMFILogo } from '../icons';
+import { submitAdmissionForm } from '@/lib/admission';
+import Link from 'next/link';
 
 const fileSchema = typeof window === 'undefined' 
-  ? z.any() 
-  : z.instanceof(File, { message: "File is required." });
+  ? z.any()
+  : z.instanceof(File).optional().nullable();
 
 const admissionFormSchema = z.object({
   academyYear: z.string().min(4, "Invalid year."),
@@ -61,17 +63,18 @@ const admissionFormSchema = z.object({
   principalName: z.string().optional(),
   prevSchoolContact: z.string().optional(),
 
-  transcriptFile: fileSchema.nullable().optional(),
-  recommendationFile: fileSchema.nullable().optional(),
-  reportCardFile: fileSchema.nullable().optional(),
-  birthCertificateFile: fileSchema.nullable().optional(),
+  transcriptFile: fileSchema,
+  recommendationFile: fileSchema,
+  reportCardFile: fileSchema,
+  birthCertificateFile: fileSchema,
 });
 
 type AdmissionFormValues = z.infer<typeof admissionFormSchema>;
 
 const AdmissionForm = () => {
   const { toast } = useToast();
-  const [isPending, setIsPending] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const [submissionResult, setSubmissionResult] = useState<{ downloadUrl: string } | null>(null);
 
   const form = useForm<AdmissionFormValues>({
     resolver: zodResolver(admissionFormSchema),
@@ -86,18 +89,63 @@ const AdmissionForm = () => {
   });
 
   const onSubmit = (values: AdmissionFormValues) => {
-    setIsPending(true);
-    console.log(values);
-    // Here we will eventually call the server action
-    // For now, just simulate a delay
-    setTimeout(() => {
+    startTransition(async () => {
+      const formData = new FormData();
+      Object.entries(values).forEach(([key, value]) => {
+        if (value instanceof File) {
+          formData.append(key, value);
+        } else if (typeof value === 'object' && value !== null && !(value instanceof File)) {
+          formData.append(key, JSON.stringify(value));
+        } else if (value !== undefined && value !== null) {
+          formData.append(key, String(value));
+        }
+      });
+      
+      const result = await submitAdmissionForm(undefined, formData);
+
+      if (result.message === 'success' && result.downloadUrl) {
         toast({
-            title: 'Form Submitted (Simulated)',
-            description: 'The PDF generation and upload logic will be added next.',
+            title: 'Application Submitted!',
+            description: 'Your form has been successfully submitted and saved.',
         });
-        setIsPending(false);
-    }, 2000);
+        setSubmissionResult({ downloadUrl: result.downloadUrl });
+      } else {
+        toast({
+            variant: 'destructive',
+            title: 'Submission Failed',
+            description: result.message,
+        });
+      }
+    });
   };
+
+  if (submissionResult) {
+    return (
+        <section className="bg-background">
+            <div className="container mx-auto px-6 text-center py-20 md:py-32">
+                <AnimateOnScroll>
+                    <div className="mx-auto w-fit bg-green-100 p-4 rounded-full">
+                        <Check className="h-12 w-12 text-green-600" />
+                    </div>
+                    <h1 className="font-headline text-3xl md:text-4xl font-bold mt-8">Application Submitted!</h1>
+                    <p className="mt-4 text-lg max-w-2xl mx-auto text-muted-foreground">
+                        Thank you for your interest in CMFI Bilingual High School. Your application has been received. You can download a copy of your submitted form for your records.
+                    </p>
+                    <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+                        <Button asChild size="lg">
+                            <a href={submissionResult.downloadUrl} target="_blank" rel="noopener noreferrer">
+                                <Download className="mr-2 h-5 w-5" /> Download Your Form
+                            </a>
+                        </Button>
+                        <Button asChild size="lg" variant="outline">
+                            <Link href="/">Return to Homepage</Link>
+                        </Button>
+                    </div>
+                </AnimateOnScroll>
+            </div>
+        </section>
+    );
+  }
   
   return (
     <>
@@ -323,5 +371,3 @@ const AdmissionForm = () => {
 };
 
 export default AdmissionForm;
-
-    
