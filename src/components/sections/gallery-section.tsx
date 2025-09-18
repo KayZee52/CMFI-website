@@ -18,10 +18,8 @@ const GallerySection = ({ media }: { media: DriveMedia[] }) => {
 
   const isVideo = (item: DriveMedia) => item.mimeType.startsWith('video/');
 
-  // Helper to get the direct video URL
+  // Helper to get the direct video URL for streaming
   const getVideoSrc = (item: DriveMedia) => {
-    // The webViewLink looks like: https://drive.google.com/file/d/FILE_ID/view?usp=drivesdk
-    // We need to transform it into: https://drive.google.com/uc?export=view&id=FILE_ID
     if (item.id) {
       return `https://drive.google.com/uc?export=view&id=${item.id}`;
     }
