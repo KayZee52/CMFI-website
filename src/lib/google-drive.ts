@@ -75,22 +75,24 @@ export const getGalleryImages = cache(async (): Promise<DriveMedia[]> => {
         return [];
     }
 
-    // Ensure all files are publicly accessible using a batch request
-    const batch = drive.newBatch();
-    for (const file of files) {
+    // Ensure all files are publicly accessible
+    await Promise.all(files.map(file => {
       if (file.id) {
-        batch.add({
-            url: `https://www.googleapis.com/drive/v3/files/${file.id}/permissions`,
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                role: 'reader',
-                type: 'anyone',
-            }),
+        return drive.permissions.create({
+          fileId: file.id,
+          requestBody: {
+            role: 'reader',
+            type: 'anyone',
+          }
+        }).catch(err => {
+            // Log permission errors but don't fail the whole process
+            if (err.code !== 409) { // 409 is "duplicate permission", which is fine
+                 console.error(`Failed to set permission for file ${file.id}:`, err.message);
+            }
         });
       }
-    }
-    await batch.execute();
+      return Promise.resolve();
+    }));
 
     return files
       .filter((file): file is DriveMedia => 
