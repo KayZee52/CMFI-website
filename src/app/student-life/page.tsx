@@ -136,7 +136,7 @@ const StudentLifePage = () => {
         <>
             <section className="relative h-[400px] flex items-center justify-center text-center text-white">
                 <Image
-                    src="https://picsum.photos/seed/student-life-hero/1920/1080"
+                    src="/images/heroimages/studentlife-hero.jpeg"
                     alt="Students smiling"
                     fill
                     priority
