@@ -142,21 +142,21 @@ export async function submitAdmissionForm(
   prevState: AdmissionFormState | undefined,
   formData: FormData
 ): Promise<AdmissionFormState> {
-  const formObject = Object.fromEntries(formData.entries());
-
-  const validatedFields = admissionFormSchema.safeParse(formObject);
-
-  if (!validatedFields.success) {
-    return {
-      message: 'Validation failed. Check your inputs.',
-      errors: validatedFields.error.flatten().fieldErrors,
-    };
-  }
-
-  const data = validatedFields.data;
-  const applicantName = data.studentFullName || 'Unknown Applicant';
-
   try {
+    const formObject = Object.fromEntries(formData.entries());
+
+    const validatedFields = admissionFormSchema.safeParse(formObject);
+
+    if (!validatedFields.success) {
+      return {
+        message: 'Validation failed. Check your inputs.',
+        errors: validatedFields.error.flatten().fieldErrors,
+      };
+    }
+
+    const data = validatedFields.data;
+    const applicantName = data.studentFullName || 'Unknown Applicant';
+
     const pdfDoc = await PDFDocument.create();
     let page = pdfDoc.addPage();
     const { width, height } = page.getSize();
@@ -291,7 +291,7 @@ export async function submitAdmissionForm(
   } catch (error: any) {
     console.error('Error processing admission form:', error);
     return {
-      message: `An error occurred: ${error.message}`,
+      message: `An unexpected server error occurred: ${error.message}`,
     };
   }
 }
