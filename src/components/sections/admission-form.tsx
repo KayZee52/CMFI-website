@@ -17,6 +17,7 @@ import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 import { Checkbox } from '../ui/checkbox';
 import FileUpload from '../file-upload';
 import { useState } from 'react';
+import { CMFILogo } from '../icons';
 
 const fileSchema = typeof window === 'undefined' 
   ? z.any() 
@@ -123,12 +124,18 @@ const AdmissionForm = () => {
         </div>
       </section>
       
-      <section className="bg-background">
-        <div className="container mx-auto px-6 max-w-4xl">
-           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
+      <section className="bg-background relative overflow-hidden">
+        <div className="absolute top-0 left-0 -translate-x-1/4 -translate-y-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
 
-            <Card>
+        <div className="container mx-auto px-6 max-w-4xl relative">
+           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <CMFILogo className="h-96 w-96 text-primary/5 opacity-50" />
+           </div>
+           <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12 relative z-10">
+
+            <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Academy Year</CardTitle>
                 </CardHeader>
@@ -149,7 +156,7 @@ const AdmissionForm = () => {
                 </CardContent>
             </Card>
             
-            <Card>
+            <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Student Details</CardTitle>
                 </CardHeader>
@@ -172,7 +179,7 @@ const AdmissionForm = () => {
                 </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Guardian Details</CardTitle>
                 </CardHeader>
@@ -184,7 +191,7 @@ const AdmissionForm = () => {
                 </CardContent>
             </Card>
             
-            <Card>
+            <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Parents Detail</CardTitle>
                 </CardHeader>
@@ -220,7 +227,7 @@ const AdmissionForm = () => {
                 </CardContent>
             </Card>
 
-             <Card>
+             <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Previous School Details (for New Students Only)</CardTitle>
                 </CardHeader>
@@ -248,7 +255,7 @@ const AdmissionForm = () => {
                 </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Document Uploads</CardTitle>
                     <CardDescription>Please upload the required documents. Images (JPEG, PNG) or PDF files are accepted.</CardDescription>
@@ -316,3 +323,5 @@ const AdmissionForm = () => {
 };
 
 export default AdmissionForm;
+
+    
