@@ -2,7 +2,7 @@
 import { AnimateOnScroll } from '@/components/animate-on-scroll';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { FileText, Award, UserCheck, ScrollText, BadgeCheck, CalendarDays, FileSignature, BookCopy, Star } from 'lucide-react';
+import { FileText, Award, UserCheck, ScrollText, BadgeCheck, CalendarDays, FileSignature, BookCopy, Star, FileUp } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Typewriter } from '@/components/typewriter';
@@ -91,9 +91,14 @@ const AdmissionsPage = () => {
                         <p className="mt-4 text-lg md:text-xl text-white/90 min-h-[56px] md:min-h-0">
                             Start your <Typewriter phrases={typewriterPhrases} />
                         </p>
-                        <Button asChild size="lg" className="mt-8 bg-accent hover:bg-accent/90 text-accent-foreground">
-                            <Link href="#how-to-apply">Begin Admission Process</Link>
-                        </Button>
+                        <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+                            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                                <Link href="/admissions/apply">Start Online Application</Link>
+                            </Button>
+                            <Button asChild size="lg" variant="outline" className="text-white border-white hover:bg-white hover:text-primary">
+                                <Link href="#how-to-apply">How to Apply (In-Person)</Link>
+                            </Button>
+                        </div>
                     </AnimateOnScroll>
                 </div>
             </section>
@@ -101,9 +106,9 @@ const AdmissionsPage = () => {
             <section id="how-to-apply" className="bg-background">
                 <div className="container mx-auto px-6">
                     <AnimateOnScroll className="text-center">
-                        <h2 className="font-headline text-3xl md:text-4xl font-bold">How to Apply</h2>
+                        <h2 className="font-headline text-3xl md:text-4xl font-bold">How to Apply (In-Person)</h2>
                         <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                            Our admission process is simple and transparent. Follow these steps to join our community.
+                            Our in-person admission process is simple and transparent. Follow these steps to join our community.
                         </p>
                     </AnimateOnScroll>
 
@@ -156,7 +161,6 @@ const AdmissionsPage = () => {
                                         <req.icon className="h-8 w-8" />
                                     </div>
                                     <h3 className="font-headline text-lg font-semibold">{req.title}</h3>
-                                    {!req.mandatory && <p className="text-sm text-muted-foreground">(Optional)</p>}
                                 </Card>
                             </AnimateOnScroll>
                         ))}
@@ -235,7 +239,7 @@ const AdmissionsPage = () => {
                         </h2>
                         <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
                             <Button asChild size="lg" variant="secondary" className="w-full sm:w-auto">
-                                <Link href="#how-to-apply">Apply Now</Link>
+                                <Link href="/admissions/apply">Apply Now</Link>
                             </Button>
                              <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary w-full sm:w-auto">
                                 <Link href="/contact">Contact Us</Link>
