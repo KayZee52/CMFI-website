@@ -1,15 +1,18 @@
+
 'use client';
 
 import { AnimateOnScroll } from '@/components/animate-on-scroll';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Medal, Trophy, BrainCircuit, GraduationCap, Users, HeartHandshake, School, ShoppingCart } from 'lucide-react';
+import { Medal, Trophy, BrainCircuit, GraduationCap, Users, HeartHandshake, School, ChevronRight, ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { testimonials } from '@/lib/data';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Autoplay from "embla-carousel-autoplay"
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const StudentLifePage = () => {
     
@@ -30,11 +33,42 @@ const StudentLifePage = () => {
         { icon: HeartHandshake, title: "Community Service" },
     ];
 
-    const merchandise = [
-        { name: 'School T-Shirt', imageUrl: 'https://picsum.photos/seed/merch-shirt/600/600', hint: 'school t-shirt' },
-        { name: 'Backpack', imageUrl: 'https://picsum.photos/seed/merch-backpack/600/600', hint: 'school backpack' },
-        { name: 'Water Bottle', imageUrl: 'https://picsum.photos/seed/merch-bottle/600/600', hint: 'water bottle' },
+    const merchandiseByColor = [
+        {
+            color: 'Blue',
+            items: [
+                { name: 'School T-Shirt', imageUrl: '/images/merchs/blueShirt.png', hint: 'blue school t-shirt' },
+                { name: 'Backpack', imageUrl: '/images/merchs/blueBackpack.png', hint: 'blue school backpack' },
+                { name: 'Water Bottle', imageUrl: '/images/merchs/blueBottle.png', hint: 'blue water bottle' },
+            ]
+        },
+        {
+            color: 'Brown',
+            items: [
+                { name: 'School T-Shirt', imageUrl: '/images/merchs/brownShirt.png', hint: 'brown school t-shirt' },
+                { name: 'Backpack', imageUrl: '/images/merchs/brownBackpack.png', hint: 'brown school backpack' },
+                { name: 'Water Bottle', imageUrl: '/images/merchs/brownBottle.png', hint: 'brown water bottle' },
+            ]
+        },
+        {
+            color: 'Pink',
+            items: [
+                { name: 'School T-Shirt', imageUrl: '/images/merchs/pinkShirt.png', hint: 'pink school t-shirt' },
+                { name: 'Backpack', imageUrl: '/images/merchs/pinkBackpack.png', hint: 'pink school backpack' },
+                { name: 'Water Bottle', imageUrl: '/images/merchs/pinkBottle.png', hint: 'pink water bottle' },
+            ]
+        }
     ];
+
+    const [currentColorIndex, setCurrentColorIndex] = useState(0);
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setCurrentColorIndex(prevIndex => (prevIndex + 1) % merchandiseByColor.length);
+        }, 5000); // Change color every 5 seconds
+
+        return () => clearInterval(intervalId);
+    }, [merchandiseByColor.length]);
 
     const studentTestimonials = testimonials.filter(t => t.role.includes('Student'));
     
@@ -166,27 +200,42 @@ const StudentLifePage = () => {
                 </div>
             </section>
 
-            <section className="bg-background">
+            <section className="bg-background overflow-x-hidden">
                 <div className="container mx-auto px-6 text-center">
                     <AnimateOnScroll>
                         <h2 className="font-headline text-3xl md:text-4xl font-bold">Show Your School Spirit</h2>
                         <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                            Official CMFI merchandise, including uniforms, t-shirts, and accessories, is available. Contact the administration office for details on how to get yours.
+                            Official CMFI merchandise is available in various colors. Contact the administration office for details on how to get yours.
                         </p>
                     </AnimateOnScroll>
-                    <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                        {merchandise.map((item, index) => (
-                            <AnimateOnScroll key={item.name} delay={index * 150}>
-                                <Card className="overflow-hidden group">
-                                    <div className="relative aspect-square">
-                                        <Image src={item.imageUrl} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover group-hover:scale-105 transition-transform" alt={item.name} data-ai-hint={item.hint} />
-                                    </div>
-                                    <CardHeader>
-                                        <CardTitle className="font-headline text-lg text-center">{item.name}</CardTitle>
-                                    </CardHeader>
-                                </Card>
-                            </AnimateOnScroll>
-                        ))}
+                    <div className="mt-12 relative h-[450px] md:h-[350px]">
+                        <AnimatePresence initial={false}>
+                            <motion.div
+                                key={currentColorIndex}
+                                initial={{ opacity: 0, x: 300 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -300 }}
+                                transition={{ duration: 0.5, ease: 'easeInOut' }}
+                                className="absolute inset-0 w-full grid grid-cols-1 sm:grid-cols-3 gap-8 place-content-center"
+                            >
+                                {merchandiseByColor[currentColorIndex].items.map((item, index) => (
+                                    <Card key={`${item.name}-${index}`} className="overflow-hidden group">
+                                        <div className="relative aspect-square">
+                                            <Image 
+                                                src={item.imageUrl} 
+                                                alt={item.name} 
+                                                data-ai-hint={item.hint}
+                                                fill 
+                                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 25vw" 
+                                                className="object-cover group-hover:scale-105 transition-transform" />
+                                        </div>
+                                        <CardHeader>
+                                            <CardTitle className="font-headline text-lg text-center">{item.name}</CardTitle>
+                                        </CardHeader>
+                                    </Card>
+                                ))}
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
                      <div className="text-center mt-12">
                         <Button asChild size="lg">
