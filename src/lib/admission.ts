@@ -5,6 +5,7 @@ import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 import { z } from 'zod';
 import { getFirebaseAdminApp } from './firebase-admin';
 import { getStorage } from 'firebase-admin/storage';
+import nodemailer from 'nodemailer';
 
 // Define the schema for form values, including files
 const fileSchema = z.instanceof(File).optional();
@@ -99,6 +100,47 @@ const embedImage = async (
   return y - dims.height - 10;
 };
 
+async function sendAdmissionEmail(applicantName: string, pdfBuffer: Buffer, pdfFileName: string) {
+    const { EMAIL_HOST, EMAIL_PORT, EMAIL_USER, EMAIL_PASS, ADMIN_EMAIL } = process.env;
+
+    if (!EMAIL_HOST || !EMAIL_PORT || !EMAIL_USER || !EMAIL_PASS || !ADMIN_EMAIL) {
+        console.warn("Email environment variables are not fully configured. Skipping email notification.");
+        return;
+    }
+
+    const transporter = nodemailer.createTransport({
+        host: EMAIL_HOST,
+        port: Number(EMAIL_PORT),
+        secure: Number(EMAIL_PORT) === 465, // true for 465, false for other ports
+        auth: {
+            user: EMAIL_USER,
+            pass: EMAIL_PASS,
+        },
+    });
+
+    try {
+        await transporter.sendMail({
+            from: `"CMFI Admissions" <${EMAIL_USER}>`,
+            to: ADMIN_EMAIL,
+            subject: `New Admission Application: ${applicantName}`,
+            text: `A new admission application has been submitted for ${applicantName}. The completed form is attached to this email.`,
+            html: `<p>A new admission application has been submitted for <strong>${applicantName}</strong>.</p><p>The completed form is attached.</p>`,
+            attachments: [
+                {
+                    filename: pdfFileName,
+                    content: pdfBuffer,
+                    contentType: 'application/pdf',
+                },
+            ],
+        });
+        console.log("Admission notification email sent successfully.");
+    } catch (error) {
+        console.error("Error sending admission email:", error);
+        // We don't want to fail the whole process if email fails, so we just log the error.
+    }
+}
+
+
 export async function submitAdmissionForm(
   prevState: AdmissionFormState | undefined,
   formData: FormData
@@ -116,6 +158,7 @@ export async function submitAdmissionForm(
   }
 
   const data = validatedFields.data;
+  const applicantName = data.studentFullName || 'Unknown Applicant';
 
   try {
     const pdfDoc = await PDFDocument.create();
@@ -199,29 +242,32 @@ export async function submitAdmissionForm(
     drawText(page, 'Uploaded Documents', margin, y, boldFont, 14);
     y -= 20;
 
-    y = await embedImage(pdfDoc, page, data.birthCertificateFile, margin, y, 250, 150);
-    drawText(page, 'Birth Certificate', margin, y + 10, font, 8);
-    y = await embedImage(pdfDoc, page, data.reportCardFile, margin + 300, height - margin - 350, 250, 150);
-    drawText(page, 'Report Card', margin + 300, y + 10, font, 8);
-    
-    // Create new page for other documents if needed
     const page2 = pdfDoc.addPage();
     let y2 = height - margin;
 
-    y2 = await embedImage(pdfDoc, page2, data.transcriptFile, margin, y2, 250, 300);
+    y = await embedImage(pdfDoc, page, data.birthCertificateFile, margin, y, 250, 200);
+    drawText(page, 'Birth Certificate', margin, y + 10, font, 8);
+    
+    y = await embedImage(pdfDoc, page, data.reportCardFile, margin + 300, height - margin - 350, 250, 200);
+    drawText(page, 'Report Card', margin + 300, y + 10, font, 8);
+    
+    y2 = await embedImage(pdfDoc, page2, data.transcriptFile, margin, y2, 500, 350);
     drawText(page2, 'Transcript', margin, y2 + 10, font, 8);
-    y2 = await embedImage(pdfDoc, page2, data.recommendationFile, margin + 300, height - margin, 250, 300);
-    drawText(page2, 'Recommendation Letter', margin + 300, y2 + 10, font, 8);
+    
+    y2 = await embedImage(pdfDoc, page2, data.recommendationFile, margin, y2 - 20, 500, 350);
+    drawText(page2, 'Recommendation Letter', margin, y2 - 10, font, 8);
+
 
     const pdfBytes = await pdfDoc.save();
+    const pdfBuffer = Buffer.from(pdfBytes);
 
     // Upload to Firebase Storage
     const adminApp = getFirebaseAdminApp();
     const bucket = getStorage(adminApp).bucket();
-    const fileName = `admissions/${data.studentFullName?.replace(/\s/g, '_') || 'Applicant'}_${Date.now()}.pdf`;
+    const fileName = `admissions/${applicantName.replace(/\s/g, '_')}_${Date.now()}.pdf`;
     const file = bucket.file(fileName);
 
-    await file.save(Buffer.from(pdfBytes), {
+    await file.save(pdfBuffer, {
         metadata: {
             contentType: 'application/pdf',
         },
@@ -230,6 +276,9 @@ export async function submitAdmissionForm(
     // Make the file public and get the URL
     await file.makePublic();
     const downloadUrl = file.publicUrl();
+
+    // Send email notification
+    await sendAdmissionEmail(applicantName, pdfBuffer, fileName);
 
     return {
       message: 'success',
