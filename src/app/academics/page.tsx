@@ -111,11 +111,11 @@ const AcademicsPage = () => {
                      <div className="mt-16 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
                         {departments.map((dept, index) => (
                              <AnimateOnScroll key={dept.name} delay={index * 100}>
-                                <Card className="p-6 h-full transition-all duration-300 hover:shadow-lg hover:border-accent/50 hover:scale-105 flex flex-col items-center justify-center text-center bg-primary text-primary-foreground">
-                                    <div className="p-3 bg-primary-foreground/20 text-primary-foreground rounded-lg mb-4">
+                                <Card className="p-6 h-full transition-all duration-300 hover:shadow-lg hover:border-accent/50 hover:scale-105 flex flex-col items-center justify-center text-center bg-primary/5">
+                                    <div className="p-3 bg-primary/10 text-primary rounded-lg mb-4">
                                         <dept.icon className="h-8 w-8" />
                                     </div>
-                                    <h3 className="font-headline text-lg font-semibold">{dept.name}</h3>
+                                    <h3 className="font-headline text-lg font-semibold text-primary">{dept.name}</h3>
                                 </Card>
                             </AnimateOnScroll>
                         ))}
