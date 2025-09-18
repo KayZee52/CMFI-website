@@ -41,13 +41,7 @@ const GallerySection = ({ media }: { media: DriveMedia[] }) => {
   };
 
   const getDownloadSrc = (item: DriveMedia) => {
-    // For images, we can trigger a download of the high-res thumbnail.
-    // For videos, Google Drive's download link is different.
-    if (isVideo(item)) {
-      return `https://drive.google.com/uc?export=download&id=${item.id}`;
-    }
-    // A bit of a hack to proxy the download through a service that sets the correct headers
-    return `https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=2000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=${item.id}`;
+    return `https://drive.google.com/uc?export=download&id=${item.id}`;
   };
 
   const getHighQualityThumbnail = (thumbnailLink: string) => {
