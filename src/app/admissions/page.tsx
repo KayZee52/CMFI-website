@@ -11,25 +11,25 @@ import { cn } from '@/lib/utils';
 const AdmissionsPage = () => {
     const admissionSteps = [
         {
+            icon: Award,
+            title: 'Entrance Examination',
+            description: 'Applicants must first sit for the mandatory entrance exam covering core subjects to assess their academic readiness.',
+            imageUrl: 'https://picsum.photos/seed/entrance-exam/800/600',
+            imageHint: 'students writing exam'
+        },
+        {
             icon: ScrollText,
             title: 'Pick Up Form',
-            description: 'Admission forms are available at the school office during working hours. Get yours to begin the journey.',
+            description: 'After successfully passing the exam, admission forms are available at the school office during working hours.',
             imageUrl: 'https://picsum.photos/seed/pickup-form/800/600',
             imageHint: 'school office reception'
         },
         {
             icon: FileText,
             title: 'Submit Application',
-            description: 'Complete and return the form with all required documents, including previous academic records, a birth certificate, and transcripts if available.',
+            description: 'Complete and return the form with all required documents, including previous academic records and a birth certificate.',
             imageUrl: 'https://picsum.photos/seed/submit-app/800/600',
             imageHint: 'person filling form'
-        },
-        {
-            icon: Award,
-            title: 'Entrance Examination',
-            description: 'Applicants must sit for the mandatory entrance exam covering core subjects to assess their academic readiness.',
-            imageUrl: 'https://picsum.photos/seed/entrance-exam/800/600',
-            imageHint: 'students writing exam'
         },
         {
             icon: UserCheck,
