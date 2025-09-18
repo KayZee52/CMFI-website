@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { Input } from './ui/input';
 import { useRouter } from 'next/navigation';
 import type { FormEvent } from 'react';
+import Image from 'next/image';
 
 const Footer = () => {
   const router = useRouter();
@@ -113,6 +114,15 @@ const Footer = () => {
 
         <div className="mt-16 border-t border-primary-foreground/30 pt-8 flex flex-col md:flex-row justify-between items-center text-xs gap-4">
           <p>&copy; {new Date().getFullYear()} CMFI Bilingual High School. All Rights Reserved.</p>
+          <a
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 hover:text-accent transition-colors"
+          >
+            <Image src="/images/soumedlogo.png" alt="Soumed Logo" width={20} height={20} className="rounded-full" />
+            <span>Powered by Soumed</span>
+          </a>
         </div>
       </div>
     </footer>
