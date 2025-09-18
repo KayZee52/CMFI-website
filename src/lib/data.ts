@@ -64,34 +64,40 @@ export const newsData = [
 
 export const testimonials = [
   {
-    name: 'John Doe',
-    role: 'Alumnus',
-    quote: 'CMFI gave me the foundation for success. The discipline and values here shape true leaders.'
+    name: 'Alumnus',
+    role: 'Class of 2019',
+    quote: 'CMFI gave me the foundation for success. The discipline and values here shape true leaders.',
+    avatarUrl: `https://picsum.photos/seed/alumnus1/100`
   },
   {
-    name: 'Jane Smith',
+    name: 'A Grateful Parent',
     role: 'Parent',
-    quote: 'The teachers are incredibly dedicated and the communication with parents is excellent. I always feel informed and involved in my child\'s education.'
+    quote: 'The teachers are incredibly dedicated and the communication with parents is excellent. I always feel informed and involved in my child\'s education.',
+    avatarUrl: '/images/parents/school-event-volunteering.jpeg'
   },
-    {
-    name: 'Grace Williams',
+  {
+    name: 'A Happy Parent',
     role: 'Parent',
-    quote: 'The discipline and values here shape true leaders. I trust CMFI with my child’s future because they balance academics and discipline.'
+    quote: 'The discipline and values here shape true leaders. I trust CMFI with my child’s future because they balance academics and discipline.',
+    avatarUrl: '/images/testimonials/parent3.jpeg'
   },
   {
     name: 'Samuel Johnson',
     role: 'Student',
-    quote: 'At CMFI, I feel inspired and motivated every day. The friendly competition and the wide range of activities available is great.'
+    quote: 'At CMFI, I feel inspired and motivated every day. The friendly competition and the wide range of activities available is great.',
+    avatarUrl: `https://picsum.photos/seed/student1/100`
   },
   {
     name: 'Fatu Kamara',
     role: 'Student',
-    quote: 'At CMFI, I’ve grown both academically and socially. It feels like a family here, and the teachers really care about our success.'
+    quote: 'At CMFI, I’ve grown both academically and socially. It feels like a family here, and the teachers really care about our success.',
+    avatarUrl: `https://picsum.photos/seed/student2/100`
   },
   {
     name: 'David Williams',
     role: 'Student',
-    quote: 'The sports program gave me confidence and taught me the value of teamwork. It\'s a great balance to our challenging academic schedule.'
+    quote: 'The sports program gave me confidence and taught me the value of teamwork. It\'s a great balance to our challenging academic schedule.',
+    avatarUrl: `https://picsum.photos/seed/student3/100`
   },
 ];
 
