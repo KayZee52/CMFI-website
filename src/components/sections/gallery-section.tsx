@@ -4,7 +4,7 @@
 import { useState, useCallback } from 'react';
 import Image from 'next/image';
 import { AnimateOnScroll } from '../animate-on-scroll';
-import { Dialog, DialogContent } from '../ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from '../ui/dialog';
 import { cn } from '@/lib/utils';
 import type { DriveMedia } from '@/lib/google-drive';
 import { PlayCircle, ChevronLeft, ChevronRight, Download } from 'lucide-react';
@@ -136,38 +136,44 @@ const GallerySection = ({ media }: { media: DriveMedia[] }) => {
           onTouchMove={onTouchMove}
         >
           {selectedMedia && (
-            <div className="relative w-full h-full max-w-full max-h-full">
-              {isVideo(selectedMedia) ? (
-                <div className="relative aspect-video w-full h-full max-h-[90vh] flex items-center justify-center">
-                    <video
-                        src={getStreamSrc(selectedMedia)}
-                        controls
-                        autoPlay
-                        className="w-auto h-auto max-w-full max-h-full rounded-md bg-black"
-                    >
-                        Your browser does not support the video tag.
-                    </video>
+            <>
+              <DialogTitle className="sr-only">Gallery Viewer</DialogTitle>
+              <DialogDescription className="sr-only">
+                Viewing {isVideo(selectedMedia) ? 'video' : 'image'} titled {selectedMedia.name}. Use arrow buttons to navigate.
+              </DialogDescription>
+              <div className="relative w-full h-full max-w-full max-h-full">
+                {isVideo(selectedMedia) ? (
+                  <div className="relative aspect-video w-full h-full max-h-[90vh] flex items-center justify-center">
+                      <video
+                          src={getStreamSrc(selectedMedia)}
+                          controls
+                          autoPlay
+                          className="w-auto h-auto max-w-full max-h-full rounded-md bg-black"
+                      >
+                          Your browser does not support the video tag.
+                      </video>
+                  </div>
+                ) : (
+                  <div className="relative aspect-video w-full h-full max-h-[90vh]">
+                    <Image
+                      src={getHighQualityThumbnail(selectedMedia.thumbnailLink)}
+                      alt={selectedMedia.name}
+                      fill
+                      sizes="100vw"
+                      className="object-contain rounded-md"
+                    />
+                  </div>
+                )}
+                 <div className="absolute bottom-4 right-4 z-20">
+                  <Button asChild size="icon" className="bg-black/50 hover:bg-black/80 text-white rounded-full">
+                    <a href={getDownloadSrc(selectedMedia)} download={selectedMedia.name} target="_blank" rel="noopener noreferrer">
+                      <Download className="h-5 w-5" />
+                      <span className="sr-only">Download</span>
+                    </a>
+                  </Button>
                 </div>
-              ) : (
-                <div className="relative aspect-video w-full h-full max-h-[90vh]">
-                  <Image
-                    src={getHighQualityThumbnail(selectedMedia.thumbnailLink)}
-                    alt={selectedMedia.name}
-                    fill
-                    sizes="100vw"
-                    className="object-contain rounded-md"
-                  />
-                </div>
-              )}
-               <div className="absolute bottom-4 right-4 z-20">
-                <Button asChild size="icon" className="bg-black/50 hover:bg-black/80 text-white rounded-full">
-                  <a href={getDownloadSrc(selectedMedia)} download={selectedMedia.name} target="_blank" rel="noopener noreferrer">
-                    <Download className="h-5 w-5" />
-                    <span className="sr-only">Download</span>
-                  </a>
-                </Button>
               </div>
-            </div>
+            </>
           )}
 
           <Button onClick={goToPrevious} size="icon" className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-black/80 text-white rounded-full">
