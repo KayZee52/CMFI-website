@@ -74,11 +74,6 @@ const AdmissionsPage = () => {
                         <p className="mt-4 text-lg md:text-xl text-white/90 min-h-[56px] md:min-h-0">
                             Start your <Typewriter phrases={typewriterPhrases} />
                         </p>
-                        <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-                            <Button asChild size="lg" variant="default" className="text-white border-white hover:bg-white hover:text-primary">
-                                <Link href="#how-to-apply">How to Apply (In-Person)</Link>
-                            </Button>
-                        </div>
                     </AnimateOnScroll>
                 </div>
             </section>
@@ -86,7 +81,7 @@ const AdmissionsPage = () => {
             <section id="how-to-apply" className="bg-background">
                 <div className="container mx-auto px-6">
                     <AnimateOnScroll className="text-center">
-                        <h2 className="font-headline text-3xl md:text-4xl font-bold">How to Apply (In-Person)</h2>
+                        <h2 className="font-headline text-3xl md:text-4xl font-bold">Admission Process</h2>
                         <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
                             Our in-person admission process is simple and transparent. Follow these steps to join our community.
                         </p>
@@ -137,7 +132,7 @@ const AdmissionsPage = () => {
                     <AnimateOnScroll>
                         <Card className="max-w-2xl mx-auto text-center p-8 bg-primary/5 border-primary/10">
                             <CardHeader>
-                                <CardTitle className="font-headline text-3xl font-bold">Admissions Timeline</CardTitle>
+                                <CardTitle className="font-headline text-3xl font-bold">Get Current Admission Info</CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <p className="text-lg text-muted-foreground mb-6">
