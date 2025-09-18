@@ -64,10 +64,10 @@ export const newsData = [
 
 export const testimonials = [
   {
-    name: 'Alumnus',
-    role: 'Class of 2019',
+    name: 'Alumni',
+    role: 'A Proud Graduate',
     quote: 'CMFI gave me the foundation for success. The discipline and values here shape true leaders.',
-    avatarUrl: `https://picsum.photos/seed/alumnus1/100`
+    avatarUrl: `/images/testimonials/student3.jpeg`
   },
   {
     name: 'A Grateful Parent',
@@ -82,22 +82,22 @@ export const testimonials = [
     avatarUrl: '/images/testimonials/parent3.jpeg'
   },
   {
-    name: 'Samuel Johnson',
+    name: 'A Great Student',
     role: 'Student',
     quote: 'At CMFI, I feel inspired and motivated every day. The friendly competition and the wide range of activities available is great.',
-    avatarUrl: `https://picsum.photos/seed/student1/100`
+    avatarUrl: `/images/testimonials/student1.jpeg`
   },
   {
-    name: 'Fatu Kamara',
+    name: 'An Outstanding Student',
     role: 'Student',
     quote: 'At CMFI, I’ve grown both academically and socially. It feels like a family here, and the teachers really care about our success.',
-    avatarUrl: `https://picsum.photos/seed/student2/100`
+    avatarUrl: `/images/testimonials/student2.jpeg`
   },
   {
-    name: 'David Williams',
+    name: 'An Outspoken Student',
     role: 'Student',
     quote: 'The sports program gave me confidence and taught me the value of teamwork. It\'s a great balance to our challenging academic schedule.',
-    avatarUrl: `https://picsum.photos/seed/student3/100`
+    avatarUrl: `/images/testimonials/student4.jpeg`
   },
 ];
 
