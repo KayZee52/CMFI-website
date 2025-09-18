@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import { getSortedPostsData } from '@/lib/posts';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
@@ -17,8 +18,8 @@ export default function BlogPage() {
     <>
       <section className="relative h-[400px] flex items-center justify-center text-center text-white">
         <Image
-          src="https://picsum.photos/seed/blog-hero/1920/1080"
-          alt="Person writing in a notebook"
+          src="/images/heroimages/blog-hero.jpeg"
+          alt="A person writing in a notebook, symbolizing the school blog"
           fill
           priority
           sizes="100vw"
