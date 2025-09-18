@@ -37,7 +37,7 @@ const TestimonialsSection = () => {
                                         <Card className="bg-card/10 border-card/20 text-primary-foreground h-full min-h-[300px]">
                                             <CardContent className="pt-8 flex flex-col items-center justify-center text-center h-full">
                                                 <Avatar className="w-20 h-20 mb-6 border-4 border-card/50">
-                                                    <AvatarImage src={testimonial.avatarUrl} alt={testimonial.name} />
+                                                    <AvatarImage src={testimonial.avatarUrl} alt={testimonial.name} className="object-cover" />
                                                     <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
                                                 </Avatar>
                                                 <p className="text-lg text-primary-foreground/90 mb-6 max-w-md">"{testimonial.quote}"</p>

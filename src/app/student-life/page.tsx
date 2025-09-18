@@ -125,7 +125,7 @@ const StudentLifePage = () => {
                                         <div className="p-4">
                                             <div className="flex flex-col items-center text-center">
                                                 <Avatar className="w-20 h-20 mb-4">
-                                                    <AvatarImage src={`https://picsum.photos/seed/student-avatar${index}/100`} alt={testimonial.name} />
+                                                    <AvatarImage src={testimonial.avatarUrl} alt={testimonial.name} className="object-cover" />
                                                     <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
                                                 </Avatar>
                                                 <p className="text-lg text-muted-foreground mb-4 max-w-2xl">"{testimonial.quote}"</p>
