@@ -73,7 +73,7 @@ export const testimonials = [
     name: 'A Grateful Parent',
     role: 'Parent',
     quote: 'The teachers are incredibly dedicated and the communication with parents is excellent. I always feel informed and involved in my child\'s education.',
-    avatarUrl: '/images/parents/school-event-volunteering.jpeg'
+    avatarUrl: '/images/testimonials/parent1.jpeg'
   },
   {
     name: 'A Happy Parent',
