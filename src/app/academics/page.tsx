@@ -153,7 +153,7 @@ const AcademicsPage = () => {
                         <h2 className="font-headline text-3xl font-bold mb-6">Academic Calendar</h2>
                         <Card className="p-6 bg-secondary/50">
                             <p className="text-muted-foreground text-center">
-                                The detailed academic calendar for the 2024-2025 school year will be published here soon. Please check back for updates on key dates, examinations, and school holidays.
+                                The detailed academic calendar for the 2025-2026 school year will be published here soon. Please check back for updates on key dates, examinations, and school holidays.
                             </p>
                         </Card>
                     </AnimateOnScroll>
