@@ -2,7 +2,7 @@
 title: "Welcome to the CMFI Blog"
 date: "2024-08-01"
 author: "Principal Simeon E. Ojong"
-excerpt: "A warm welcome to our new school blog! Here, we'll share stories, updates, and insights from our vibrant community."
+excerpt: "A warm welcome to our school new blog! Here, we'll share stories, updates, and insights from our vibrant community."
 ---
 
 ## A New Chapter for Communication
