@@ -57,7 +57,7 @@ export const newsData = [
   },
   {
     date: '2024-05-20',
-    title: 'Registration for 2024/2025 Academic Year Now Open',
+    title: 'Registration for 2025/2026 Academic Year Now Open',
     summary: 'Prospective parents and students are invited to apply for admission into JSS1 and SSS1 for the upcoming academic year.'
   },
 ];
