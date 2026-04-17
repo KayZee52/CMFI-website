@@ -46,7 +46,7 @@ const Footer = () => {
     <footer className="bg-primary text-primary-foreground/80">
       <div className="container mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 text-sm">
-          
+
           <div className="space-y-4">
             <h3 className="font-headline tracking-widest text-xs uppercase border-t border-primary-foreground/30 pt-4">Find Us</h3>
             <address className="not-italic space-y-2">
@@ -71,13 +71,13 @@ const Footer = () => {
               ))}
             </ul>
           </div>
-          
+
           <div className="space-y-4">
             <h3 className="font-headline tracking-widest text-xs uppercase border-t border-primary-foreground/30 pt-4">Useful Links</h3>
             <ul className="space-y-2">
               {usefulLinks.map((link) => (
                 <li key={link.name}>
-                  <Link 
+                  <Link
                     href={link.href}
                     target={link.isExternal ? '_blank' : undefined}
                     rel={link.isExternal ? 'noopener noreferrer' : undefined}
@@ -100,13 +100,13 @@ const Footer = () => {
             </p>
             <form onSubmit={handleSearch}>
               <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-primary-foreground/50" />
-                  <Input 
-                      type="search"
-                      name="q"
-                      placeholder="What are you looking for?"
-                      className="bg-primary-foreground/10 border-primary-foreground/30 text-primary-foreground placeholder:text-primary-foreground/50 pl-9"
-                  />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-primary-foreground/50" />
+                <Input
+                  type="search"
+                  name="q"
+                  placeholder="What are you looking for?"
+                  className="bg-primary-foreground/10 border-primary-foreground/30 text-primary-foreground placeholder:text-primary-foreground/50 pl-9"
+                />
               </div>
             </form>
           </div>
@@ -130,7 +130,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               className="hover:text-accent transition-colors underline-offset-4 hover:underline font-medium"
             >
-              © KEMZ
+              KEMZ
             </a>
           </div>
         </div>
