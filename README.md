@@ -83,6 +83,6 @@ excerpt: "A short summary of the post."
 Your content here...
 ```
 
-## "Powered by Soumed"
+## "Powered by SOUMED Technologies"
 
-This project was developed by Soumed. The logo and credit in the footer can be found in `src/components/footer.tsx`.
+This project was developed by SOUMED Technologies. The logo and credit in the footer can be found in `src/components/footer.tsx`.

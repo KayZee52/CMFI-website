@@ -112,17 +112,27 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-16 border-t border-primary-foreground/30 pt-8 flex flex-col md:flex-row justify-between items-center text-xs gap-4">
+        <div className="mt-16 border-t border-primary-foreground/30 pt-8 flex flex-col md:flex-row justify-between items-center text-xs gap-6">
           <p>&copy; {new Date().getFullYear()} CMFI Bilingual High School. All Rights Reserved.</p>
-          <a
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 hover:text-accent transition-colors"
-          >
-            <Image src="/images/soumedlogo.png" alt="Soumed Logo" width={24} height={24} className="rounded-full brightness-0 invert" />
-            <span>Powered by Soumed</span>
-          </a>
+          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+            <a
+              href="https://soumed.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:text-accent transition-colors"
+            >
+              <Image src="/images/soumedlogo.png" alt="Soumed Logo" width={24} height={24} className="rounded-full brightness-0 invert" />
+              <span>Powered by SOUMED Technologies</span>
+            </a>
+            <a
+              href="https://iamkemz.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-accent transition-colors underline-offset-4 hover:underline font-medium"
+            >
+              © KEMZ
+            </a>
+          </div>
         </div>
       </div>
     </footer>
