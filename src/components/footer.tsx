@@ -124,14 +124,6 @@ const Footer = () => {
               <Image src="/images/soumedlogo.png" alt="Soumed Logo" width={24} height={24} className="rounded-full brightness-0 invert" />
               <span>Powered by SOUMED Technologies</span>
             </a>
-            <a
-              href="https://iamkemz.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-accent transition-colors underline-offset-4 hover:underline font-medium"
-            >
-              KEMZ
-            </a>
           </div>
         </div>
       </div>
