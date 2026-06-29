@@ -44,7 +44,9 @@ const WhyChooseUsSection = () => {
         setCurrent(api.selectedScrollSnap())
 
         const onSelect = (api: CarouselApi) => {
-            setCurrent(api.selectedScrollSnap())
+            if (api) {
+                setCurrent(api.selectedScrollSnap())
+            }
         }
 
         api.on("select", onSelect)

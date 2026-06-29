@@ -14,7 +14,7 @@ export default {
         headline: ['Poppins', 'sans-serif'],
         code: ['monospace'],
       },
-      typography: ({ theme }) => ({
+      typography: ({ theme }: any) => ({
         DEFAULT: {
           css: {
             '--tw-prose-body': theme('colors.foreground / 0.8'),

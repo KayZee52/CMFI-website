@@ -39,6 +39,7 @@
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "firebase": "^11.9.1",
+    "firebase-admin": "^14.1.0",
     "framer-motion": "^11.5.7",
     "googleapis": "^140.0.1",
     "gray-matter": "^4.0.3",
