@@ -204,11 +204,6 @@ export default function TeacherApplicationPage() {
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
-      toast({
-        variant: 'destructive',
-        title: 'Validation Error',
-        description: 'Please fix all flagged errors in red before continuing.',
-      });
       return false;
     }
 
