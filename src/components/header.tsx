@@ -28,6 +28,11 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile menu when pathname changes
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
+
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
@@ -40,13 +45,13 @@ const Header = () => {
     { name: 'Contact', href: '/contact' },
   ];
 
-  const NavItems = ({ onLinkClick }: { onLinkClick?: () => void }) => (
+  const NavItems = ({ onLinkClick }: { onLinkClick?: (href: string) => void }) => (
     <>
       {navLinks.map((link) => (
         <Link
           key={link.name}
           href={link.href}
-          onClick={onLinkClick}
+          onClick={() => onLinkClick?.(link.href)}
           className={cn(
             "font-medium transition-colors hover:text-primary text-2xl lg:text-lg",
             pathname.startsWith(link.href) && link.href !== '/' || pathname === link.href ? "text-primary font-semibold" : "text-foreground/80"
@@ -95,7 +100,11 @@ const Header = () => {
               <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
               <div className="p-8 h-full flex flex-col">
                 <nav className="flex flex-col gap-6 text-lg mt-8">
-                  <NavItems onLinkClick={() => setMobileMenuOpen(false)} />
+                  <NavItems onLinkClick={(href) => {
+                    if (pathname === href) {
+                      setMobileMenuOpen(false);
+                    }
+                  }} />
                 </nav>
                  <div className="mt-auto space-y-4">
                     <Button asChild className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
