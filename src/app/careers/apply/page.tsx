@@ -31,6 +31,7 @@ export default function TeacherApplicationPage() {
   // Validation Errors State
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [showSecondReference, setShowSecondReference] = useState(false);
+  const [showSecondEmployer, setShowSecondEmployer] = useState(false);
 
   // Form State
   const [formDataState, setFormDataState] = useState<{ [key: string]: any }>({
@@ -81,6 +82,14 @@ export default function TeacherApplicationPage() {
       delete next.ref2Email;
       return next;
     });
+  };
+
+  const handleRemoveEmployer = () => {
+    setShowSecondEmployer(false);
+    setFormDataState(prev => ({
+      ...prev,
+      newAppEmployer2: ''
+    }));
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -662,17 +671,38 @@ export default function TeacherApplicationPage() {
                     <div className="pt-6 border-t border-slate-100 space-y-4">
                       <div>
                         <p className="text-sm font-bold text-slate-700 uppercase tracking-wider">Prior School Details</p>
-                        <p className="text-xs text-slate-400">Specify details of your last two employers (School Name, Position, Supervisor Contact).</p>
+                        <p className="text-xs text-slate-400">Specify details of your previous employers (School Name, Position, Supervisor Contact).</p>
                       </div>
                       <div className="space-y-4">
                         <div className="space-y-2">
                           <FormLabel>Prior Employer 1</FormLabel>
                           <Input name="newAppEmployer1" value={formDataState.newAppEmployer1} onChange={handleInputChange} placeholder="School Name, Position, Supervisor Contact Info" className={inputClass} />
                         </div>
-                        <div className="space-y-2">
-                          <FormLabel>Prior Employer 2</FormLabel>
-                          <Input name="newAppEmployer2" value={formDataState.newAppEmployer2} onChange={handleInputChange} placeholder="School Name, Position, Supervisor Contact Info" className={inputClass} />
-                        </div>
+                        {showSecondEmployer ? (
+                          <div className="space-y-2 relative pt-2">
+                            <div className="flex justify-between items-center mb-1">
+                              <FormLabel>Prior Employer 2</FormLabel>
+                              <button
+                                type="button"
+                                onClick={handleRemoveEmployer}
+                                className="text-xs font-semibold text-red-500 hover:text-red-700 transition-colors"
+                              >
+                                Remove Prior Employer 2
+                              </button>
+                            </div>
+                            <Input name="newAppEmployer2" value={formDataState.newAppEmployer2} onChange={handleInputChange} placeholder="School Name, Position, Supervisor Contact Info" className={inputClass} />
+                          </div>
+                        ) : (
+                          <div className="pt-2">
+                            <button
+                              type="button"
+                              onClick={() => setShowSecondEmployer(true)}
+                              className="w-full border border-dashed border-slate-200 hover:border-slate-400 transition-colors rounded-lg py-3 text-sm font-semibold text-slate-600 hover:text-slate-900 flex items-center justify-center gap-1.5"
+                            >
+                              + Add Prior Employer 2
+                            </button>
+                          </div>
+                        )}
                       </div>
                     </div>
                   )}
