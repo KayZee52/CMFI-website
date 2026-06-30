@@ -30,6 +30,7 @@ export default function TeacherApplicationPage() {
   
   // Validation Errors State
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [showSecondReference, setShowSecondReference] = useState(false);
 
   // Form State
   const [formDataState, setFormDataState] = useState<{ [key: string]: any }>({
@@ -60,6 +61,27 @@ export default function TeacherApplicationPage() {
     idCard: null,
     photo: null,
   });
+
+  const handleRemoveReference = () => {
+    setShowSecondReference(false);
+    setFormDataState(prev => ({
+      ...prev,
+      ref2Name: '',
+      ref2Position: '',
+      ref2Org: '',
+      ref2Phone: '',
+      ref2Email: ''
+    }));
+    setErrors(prev => {
+      const next = { ...prev };
+      delete next.ref2Name;
+      delete next.ref2Position;
+      delete next.ref2Org;
+      delete next.ref2Phone;
+      delete next.ref2Email;
+      return next;
+    });
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -181,10 +203,12 @@ export default function TeacherApplicationPage() {
       if (!formDataState.ref1Org.trim()) newErrors.ref1Org = 'Reference 1 organization is required';
       if (!formDataState.ref1Phone.trim()) newErrors.ref1Phone = 'Reference 1 phone is required';
       
-      if (!formDataState.ref2Name.trim()) newErrors.ref2Name = 'Reference 2 name is required';
-      if (!formDataState.ref2Position.trim()) newErrors.ref2Position = 'Reference 2 position is required';
-      if (!formDataState.ref2Org.trim()) newErrors.ref2Org = 'Reference 2 organization is required';
-      if (!formDataState.ref2Phone.trim()) newErrors.ref2Phone = 'Reference 2 phone is required';
+      if (showSecondReference) {
+        if (!formDataState.ref2Name.trim()) newErrors.ref2Name = 'Reference 2 name is required';
+        if (!formDataState.ref2Position.trim()) newErrors.ref2Position = 'Reference 2 position is required';
+        if (!formDataState.ref2Org.trim()) newErrors.ref2Org = 'Reference 2 organization is required';
+        if (!formDataState.ref2Phone.trim()) newErrors.ref2Phone = 'Reference 2 phone is required';
+      }
       
       if (!formDataState.startDate) newErrors.startDate = 'Available start date is required';
     }
@@ -796,35 +820,56 @@ export default function TeacherApplicationPage() {
                     </div>
                   </div>
 
-                  <div className="pt-6 border-t border-slate-100 space-y-4">
-                    <p className="text-sm font-bold text-slate-700 uppercase tracking-wider">Reference 2</p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <div className="space-y-2">
-                        <FormLabel required>Full Name</FormLabel>
-                        <Input name="ref2Name" value={formDataState.ref2Name} onChange={handleInputChange} className={cn(inputClass, errors.ref2Name && "border-red-300 bg-red-50/5")} required />
-                        {errors.ref2Name && <p className="text-[12px] font-semibold text-red-500">{errors.ref2Name}</p>}
+                  {showSecondReference ? (
+                    <div className="pt-6 border-t border-slate-100 space-y-4">
+                      <div className="flex justify-between items-center">
+                        <p className="text-sm font-bold text-slate-700 uppercase tracking-wider">Reference 2</p>
+                        <button
+                          type="button"
+                          onClick={handleRemoveReference}
+                          className="text-xs font-semibold text-red-500 hover:text-red-700 transition-colors"
+                        >
+                          Remove Reference 2
+                        </button>
                       </div>
-                      <div className="space-y-2">
-                        <FormLabel required>Position</FormLabel>
-                        <Input name="ref2Position" value={formDataState.ref2Position} onChange={handleInputChange} className={cn(inputClass, errors.ref2Position && "border-red-300 bg-red-50/5")} required />
-                        {errors.ref2Position && <p className="text-[12px] font-semibold text-red-500">{errors.ref2Position}</p>}
-                      </div>
-                      <div className="space-y-2">
-                        <FormLabel required>Organization</FormLabel>
-                        <Input name="ref2Org" value={formDataState.ref2Org} onChange={handleInputChange} className={cn(inputClass, errors.ref2Org && "border-red-300 bg-red-50/5")} required />
-                        {errors.ref2Org && <p className="text-[12px] font-semibold text-red-500">{errors.ref2Org}</p>}
-                      </div>
-                      <div className="space-y-2">
-                        <FormLabel required>Phone Number</FormLabel>
-                        <Input type="tel" name="ref2Phone" value={formDataState.ref2Phone} onChange={handleInputChange} className={cn(inputClass, errors.ref2Phone && "border-red-300 bg-red-50/5")} required />
-                        {errors.ref2Phone && <p className="text-[12px] font-semibold text-red-500">{errors.ref2Phone}</p>}
-                      </div>
-                      <div className="space-y-2 sm:col-span-2">
-                        <FormLabel>Email Address</FormLabel>
-                        <Input type="email" name="ref2Email" value={formDataState.ref2Email} onChange={handleInputChange} placeholder="example@mail.com" className={inputClass} />
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div className="space-y-2">
+                          <FormLabel required>Full Name</FormLabel>
+                          <Input name="ref2Name" value={formDataState.ref2Name} onChange={handleInputChange} className={cn(inputClass, errors.ref2Name && "border-red-300 bg-red-50/5")} required />
+                          {errors.ref2Name && <p className="text-[12px] font-semibold text-red-500">{errors.ref2Name}</p>}
+                        </div>
+                        <div className="space-y-2">
+                          <FormLabel required>Position</FormLabel>
+                          <Input name="ref2Position" value={formDataState.ref2Position} onChange={handleInputChange} className={cn(inputClass, errors.ref2Position && "border-red-300 bg-red-50/5")} required />
+                          {errors.ref2Position && <p className="text-[12px] font-semibold text-red-500">{errors.ref2Position}</p>}
+                        </div>
+                        <div className="space-y-2">
+                          <FormLabel required>Organization</FormLabel>
+                          <Input name="ref2Org" value={formDataState.ref2Org} onChange={handleInputChange} className={cn(inputClass, errors.ref2Org && "border-red-300 bg-red-50/5")} required />
+                          {errors.ref2Org && <p className="text-[12px] font-semibold text-red-500">{errors.ref2Org}</p>}
+                        </div>
+                        <div className="space-y-2">
+                          <FormLabel required>Phone Number</FormLabel>
+                          <Input type="tel" name="ref2Phone" value={formDataState.ref2Phone} onChange={handleInputChange} className={cn(inputClass, errors.ref2Phone && "border-red-300 bg-red-50/5")} required />
+                          {errors.ref2Phone && <p className="text-[12px] font-semibold text-red-500">{errors.ref2Phone}</p>}
+                        </div>
+                        <div className="space-y-2 sm:col-span-2">
+                          <FormLabel>Email Address</FormLabel>
+                          <Input type="email" name="ref2Email" value={formDataState.ref2Email} onChange={handleInputChange} placeholder="example@mail.com" className={inputClass} />
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="pt-4 border-t border-slate-100">
+                      <button
+                        type="button"
+                        onClick={() => setShowSecondReference(true)}
+                        className="w-full border border-dashed border-slate-200 hover:border-slate-400 transition-colors rounded-lg py-4 text-sm font-semibold text-slate-600 hover:text-slate-900 flex items-center justify-center gap-1.5"
+                      >
+                        + Add Second Reference
+                      </button>
+                    </div>
+                  )}
 
                   <div className="pt-6 border-t border-slate-100 space-y-4">
                     <p className="text-sm font-bold text-slate-700 uppercase tracking-wider">Availability</p>
