@@ -25,14 +25,16 @@ const GallerySection = ({ media }: { media: DriveMedia[] }) => {
   };
   
   const goToNext = useCallback(() => {
-    if (selectedMediaIndex === null) return;
-    setSelectedMediaIndex((prevIndex) => (prevIndex! + 1) % media.length);
-  }, [selectedMediaIndex, media.length]);
+    setSelectedMediaIndex((prevIndex) => 
+      prevIndex !== null ? (prevIndex + 1) % media.length : null
+    );
+  }, [media.length]);
   
   const goToPrevious = useCallback(() => {
-    if (selectedMediaIndex === null) return;
-    setSelectedMediaIndex((prevIndex) => (prevIndex! - 1 + media.length) % media.length);
-  }, [selectedMediaIndex, media.length]);
+    setSelectedMediaIndex((prevIndex) => 
+      prevIndex !== null ? (prevIndex - 1 + media.length) % media.length : null
+    );
+  }, [media.length]);
 
   const onTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientX);
@@ -135,6 +137,7 @@ const GallerySection = ({ media }: { media: DriveMedia[] }) => {
           className="max-w-6xl w-full p-2 h-auto max-h-[90vh] bg-transparent border-0 shadow-none flex items-center justify-center"
           onTouchStart={onTouchStart}
           onTouchMove={onTouchMove}
+          onClick={closeModal}
         >
           {selectedMedia && (
             <>
@@ -142,7 +145,10 @@ const GallerySection = ({ media }: { media: DriveMedia[] }) => {
               <DialogDescription className="sr-only">
                 Viewing {isVideo(selectedMedia) ? 'video' : 'image'} titled {selectedMedia.name}. Use arrow buttons to navigate.
               </DialogDescription>
-              <div className="relative w-full h-full max-w-full max-h-full">
+              <div 
+                className="relative w-full h-full max-w-full max-h-full"
+                onClick={(e) => e.stopPropagation()}
+              >
                 {isVideo(selectedMedia) ? (
                   <div className="relative aspect-video w-full h-full max-h-[90vh] flex items-center justify-center">
                       <video
@@ -177,11 +183,29 @@ const GallerySection = ({ media }: { media: DriveMedia[] }) => {
             </>
           )}
 
-          <Button onClick={goToPrevious} size="icon" className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-black/80 text-white rounded-full">
+          <Button 
+            onClick={(e) => {
+              e.stopPropagation();
+              goToPrevious();
+            }} 
+            onPointerDown={(e) => e.stopPropagation()}
+            onMouseDown={(e) => e.stopPropagation()}
+            size="icon" 
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-black/80 text-white rounded-full"
+          >
             <ChevronLeft className="h-6 w-6" />
             <span className="sr-only">Previous</span>
           </Button>
-          <Button onClick={goToNext} size="icon" className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-black/80 text-white rounded-full">
+          <Button 
+            onClick={(e) => {
+              e.stopPropagation();
+              goToNext();
+            }} 
+            onPointerDown={(e) => e.stopPropagation()}
+            onMouseDown={(e) => e.stopPropagation()}
+            size="icon" 
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-black/80 text-white rounded-full"
+          >
             <ChevronRight className="h-6 w-6" />
             <span className="sr-only">Next</span>
           </Button>
