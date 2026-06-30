@@ -190,13 +190,6 @@ export default function TeacherApplicationPage() {
     }
     
     if (currentStep === 8) {
-      const wordCount = formDataState.personalStatement.trim().split(/\s+/).filter(Boolean).length;
-      if (!formDataState.personalStatement.trim()) {
-        newErrors.personalStatement = 'Personal statement is required';
-      } else if (wordCount < 50) {
-        newErrors.personalStatement = `Statement is too short (${wordCount} words). Minimum is 50 words.`;
-      }
-      
       if (!formDataState.declarationSigned) {
         newErrors.declarationSigned = 'You must check the declaration box to submit your application';
       }
@@ -868,21 +861,16 @@ export default function TeacherApplicationPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <FormLabel required>Personal Statement (Minimum 50 words)</FormLabel>
+                    <FormLabel>Personal Statement</FormLabel>
                     <Textarea
                       name="personalStatement"
                       value={formDataState.personalStatement}
                       onChange={handleInputChange}
-                      placeholder="Share your teaching philosophy, why you want to teach at CMFI, and the value you bring to students..."
-                      className={cn(
-                        "min-h-[180px] w-full rounded-lg border border-slate-200 bg-slate-50/30 px-4 py-3 text-base transition-all focus:bg-white focus:border-slate-800 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none",
-                        errors.personalStatement && "border-red-300 bg-red-50/5"
-                      )}
-                      required
+                      placeholder="Share your teaching philosophy, why you want to teach at CMFI, and the value you bring to students (optional)..."
+                      className="min-h-[180px] w-full rounded-lg border border-slate-200 bg-slate-50/30 px-4 py-3 text-base transition-all focus:bg-white focus:border-slate-800 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
                     />
                     <div className="flex justify-between items-center text-xs text-slate-400">
                       <span>Word Count: {formDataState.personalStatement.trim() ? formDataState.personalStatement.trim().split(/\s+/).filter(Boolean).length : 0} words</span>
-                      {errors.personalStatement && <span className="font-semibold text-red-500">{errors.personalStatement}</span>}
                     </div>
                   </div>
 

@@ -81,7 +81,7 @@ const teacherApplicationSchema = z.object({
   applicantType: z.string().min(1, { message: 'Applicant type is required.' }),
   positionApplyingFor: z.string().min(1, { message: 'Position applying for is required.' }),
   highestQualification: z.string().min(1, { message: 'Highest qualification is required.' }),
-  personalStatement: z.string().min(100, { message: 'Personal statement must be at least 100 words.' }).optional().or(z.string().min(100)),
+  personalStatement: z.string().optional(),
 });
 
 export type TeacherApplicationState = {
