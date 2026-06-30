@@ -323,6 +323,9 @@ export async function submitTeacherApplication(
         user: smtpUser,
         pass: smtpPass,
       },
+      tls: {
+        rejectUnauthorized: false,
+      },
     });
 
     // Send Admin Email with attachments
