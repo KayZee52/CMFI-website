@@ -30,6 +30,7 @@ const Footer = () => {
     { name: 'Student Life', href: '/student-life' },
     { name: 'Parents', href: '/parents' },
     { name: 'Contact', href: '/contact' },
+    { name: 'Apply to Teach', href: '/careers/apply' },
     { name: 'Portal', href: 'https://new.cmfischool.online/', isExternal: true }
   ];
 
