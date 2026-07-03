@@ -1153,10 +1153,10 @@ body {
 /* Candidate Profile Minimalist Styles */
 .profile-card {
     background: var(--bg-white);
-    border-radius: 20px;
-    border: none;
+    border-radius: 24px;
+    border: 1px solid var(--border-color);
     overflow: hidden;
-    box-shadow: var(--shadow-sm);
+    box-shadow: none; /* Removing shadow to match dashboard stats */
 }
 
 .profile-tabs {
@@ -1390,7 +1390,7 @@ body {
     padding: 40px;
     border-radius: 24px;
     text-align: center;
-    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
 }
 
 .hero-card .avatar-large {
