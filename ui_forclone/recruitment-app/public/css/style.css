@@ -676,10 +676,6 @@ body {
     cursor: pointer;
 }
 
-/* Project List */
-.project-list {
-    /* Styles for the project list container */
-}
 
 .btn-add-small {
     background-color: transparent;
@@ -1260,4 +1256,130 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* Slide-over Panel for PDF Preview */
+.slide-over {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 600px;
+    background: white;
+    z-index: 1000;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+    transform: translateX(100%);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slide-over.active {
+    transform: translateX(0);
+}
+
+.slide-over-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.slide-over-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Radar Chart / Skill Matrix Mock */
+.skill-matrix {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+}
+
+.skill-bar-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.skill-bar-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.skill-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    width: 100px;
+}
+
+.skill-track {
+    flex: 1;
+    height: 8px;
+    background: #F1F5F9;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.skill-fill {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 4px;
+}
+
+/* Match Score Gauge */
+.match-gauge {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+}
+
+.match-gauge svg {
+    transform: rotate(-90deg);
+}
+
+.match-gauge-bg {
+    fill: none;
+    stroke: #F1F5F9;
+    stroke-width: 10;
+}
+
+.match-gauge-fill {
+    fill: none;
+    stroke: var(--primary);
+    stroke-width: 10;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s ease-in-out;
+}
+
+.match-score-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.match-score-number {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--primary);
+    display: block;
+}
+
+.match-score-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-light);
+    text-transform: uppercase;
 }
