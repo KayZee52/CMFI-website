@@ -96,9 +96,9 @@
                     <tr>
                         <td>
                             <div style="display: flex; align-items: center; gap: 12px;">
-                                <div style="width: 36px; height: 36px; border-radius: 10px; background: #F1F5F9; color: #475569; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; border: 1px solid #E2E8F0;">
-                                    {{ substr($interview->application->applicant->first_name, 0, 1) }}{{ substr($interview->application->applicant->last_name, 0, 1) }}
-                                </div>
+                                <img src="{{ asset('images/avatars/avatar_' . (strtolower($interview->application->applicant->gender) == 'male' ? 'male' : (strtolower($interview->application->applicant->gender) == 'female' ? 'female' : 'neutral')) . '.png') }}" 
+                                     alt="Avatar" 
+                                     style="width: 36px; height: 36px; border-radius: 10px; object-fit: cover; border: 1px solid #E2E8F0;">
                                 <div>
                                     <div style="font-weight: 600; font-size: 14px; color: #0F172A;">{{ $interview->application->applicant->full_name }}</div>
                                     <div style="font-size: 12px; color: #64748B;">{{ $interview->application->jobOpening->position->title }}</div>

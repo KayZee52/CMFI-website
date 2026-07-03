@@ -129,9 +129,9 @@
                 @forelse($recentApplicants as $applicant)
                     <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #F9F9F9;">
                         <div style="display: flex; align-items: center; gap: 12px;">
-                            <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px;">
-                                {{ substr($applicant->first_name, 0, 1) }}{{ substr($applicant->last_name, 0, 1) }}
-                            </div>
+                            <img src="{{ asset('images/avatars/avatar_' . (strtolower($applicant->gender) == 'male' ? 'male' : (strtolower($applicant->gender) == 'female' ? 'female' : 'neutral')) . '.png') }}" 
+                                 alt="Avatar" 
+                                 style="width: 32px; height: 32px; border-radius: 8px; object-fit: cover;">
                             <div>
                                 <div style="font-weight: 600; font-size: 13px;">{{ $applicant->full_name }}</div>
                                 <div style="font-size: 11px; color: var(--text-muted);">{{ $applicant->applications->first()->jobOpening->position->title ?? 'N/A' }}</div>
@@ -154,9 +154,9 @@
             </div>
             <div class="team-list">
                 <div class="team-item">
-                    <div class="avatar-crop" style="background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 800;">
-                        {{ substr(Auth::user()->name, 0, 1) }}
-                    </div>
+                    <img src="{{ asset('images/avatars/avatar_neutral.png') }}" 
+                         alt="Team Member" 
+                         style="width: 40px; height: 40px; border-radius: 12px; object-fit: cover;">
                     <div class="member-info">
                         <h4>{{ Auth::user()->name }}</h4>
                         <p>Role: <span>{{ Auth::user()->roles->first()->name ?? 'HR Manager' }}</span></p>

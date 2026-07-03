@@ -104,9 +104,7 @@
                         <x-icon name="bell" />
                     </button>
                     <div class="user-profile">
-                        <div class="avatar-crop" style="font-weight: 800; font-size: 14px;">
-                            {{ substr(Auth::user()->name, 0, 1) }}{{ substr(strrchr(Auth::user()->name, " "), 1, 1) ?: '' }}
-                        </div>
+                        <img src="{{ asset('images/avatars/avatar_neutral.png') }}" alt="User Profile" style="width: 40px; height: 40px; border-radius: 12px; object-fit: cover; border: 1px solid var(--border-color);">
                         <div class="user-info">
                             <span class="user-name">{{ Auth::user()->name }}</span>
                             <span class="user-email">{{ Auth::user()->email }}</span>
