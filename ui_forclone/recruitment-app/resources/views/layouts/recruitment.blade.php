@@ -110,7 +110,9 @@
                         <i data-lucide="bell"></i>
                     </button>
                     <div class="user-profile">
-                        <div class="avatar-crop" style="background-position: 15% 15%;"></div>
+                        <div class="avatar-crop" style="font-weight: 800; font-size: 14px;">
+                            {{ substr(Auth::user()->name, 0, 1) }}{{ substr(strrchr(Auth::user()->name, " "), 1, 1) ?: '' }}
+                        </div>
                         <div class="user-info">
                             <span class="user-name">{{ Auth::user()->name }}</span>
                             <span class="user-email">{{ Auth::user()->email }}</span>

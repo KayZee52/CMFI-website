@@ -20,10 +20,26 @@
     --green-accent: #7FC008;
     
     /* Transitions & Shadows */
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     --shadow-sm: 0 2px 4px rgba(0,0,0,0.02);
-    --shadow-md: 0 4px 12px rgba(0,0,0,0.05);
-    --shadow-lg: 0 10px 24px rgba(0,0,0,0.08);
+    --shadow-md: 0 10px 20px rgba(0,0,0,0.04);
+    --shadow-lg: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+/* Premium Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #E0E0E0;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #CCCCCC;
 }
 
 * {
@@ -134,10 +150,11 @@ body {
     left: -24px;
     top: 50%;
     transform: translateY(-50%);
-    width: 6px;
-    height: 32px;
+    width: 4px;
+    height: 24px;
     background-color: var(--primary);
-    border-radius: 0 4px 4px 0;
+    border-radius: 0 100px 100px 0;
+    box-shadow: 2px 0 10px var(--primary);
 }
 
 .badge {
@@ -209,10 +226,9 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('donezo_wavy_bg.png');
-    background-size: cover;
-    background-position: center;
-    opacity: 0.15;
+    background: radial-gradient(circle at 20% 100%, rgba(255,255,255,0.1) 0%, transparent 20%),
+                radial-gradient(circle at 80% 0%, rgba(255,255,255,0.1) 0%, transparent 20%);
+    opacity: 0.5;
     z-index: 1;
     pointer-events: none;
 }
@@ -297,14 +313,17 @@ body {
 }
 
 .avatar-crop {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background-image: url('donezo_avatars.png');
-    background-size: 400%; /* Since it's likely a 4x4 or 2x2 grid */
-    background-repeat: no-repeat;
-    border: 2px solid var(--white);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: var(--primary-light);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    border: 1px solid rgba(42, 133, 255, 0.1);
 }
 
 .avatar {
@@ -482,6 +501,19 @@ body {
     border: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.grid-item:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .project-analytics { grid-area: analytics; }
