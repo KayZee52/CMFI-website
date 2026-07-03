@@ -129,6 +129,45 @@
             </div>
         </section>
 
+        <!-- Recruitment Team -->
+        <section class="grid-item team-collaboration">
+            <div class="section-header">
+                <h2>Recruitment Team</h2>
+            </div>
+            <div class="team-list">
+                <div class="team-item">
+                    <div class="avatar-crop" style="background-position: 15% 85%;"></div>
+                    <div class="member-info">
+                        <h4>{{ Auth::user()->name }}</h4>
+                        <p>Role: <span>{{ Auth::user()->roles->first()->name ?? 'User' }}</span></p>
+                    </div>
+                    <span class="status-tag completed">Online</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hiring Progress -->
+        <section class="grid-item project-progress">
+            <div class="section-header">
+                <h2>Hiring Goal</h2>
+            </div>
+            <div class="progress-container">
+                @php 
+                    $degree = ($hiringGoalPercentage / 100) * 360; 
+                @endphp
+                <div class="gauge-chart" style="background: conic-gradient(var(--primary) 0deg {{ $degree }}deg, #EFEFEF {{ $degree }}deg 360deg);">
+                    <div class="gauge-center">
+                        <span class="percentage">{{ $hiringGoalPercentage }}%</span>
+                        <span class="label">Positions Filled</span>
+                    </div>
+                </div>
+                <div class="legend">
+                    <div class="legend-item"><span class="dot completed"></span> Hired</div>
+                    <div class="legend-item"><span class="dot pending"></span> Remaining</div>
+                </div>
+            </div>
+        </section>
+
         <!-- Activity Feed -->
         <section class="grid-item time-tracker" style="background: none; border: none; padding: 0;">
             <div class="time-tracker-card" style="height: 100%; overflow: hidden;">

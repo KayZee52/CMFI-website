@@ -50,6 +50,11 @@ class DashboardController extends Controller
             'Hired' => (clone $applicationQuery)->where('decision_status', 'Hired')->count(),
         ];
 
+        // Hiring Goal
+        $totalVacancies = $jobQuery->sum('vacancies') ?: 1;
+        $filledPositions = $stats['hired'];
+        $hiringGoalPercentage = min(100, round(($filledPositions / $totalVacancies) * 100));
+
         // Recent Applicants
         $recentApplicants = (clone $applicantQuery)->latest()->take(3)->get();
 
@@ -65,6 +70,6 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
-        return view('dashboard', compact('stats', 'recentApplicants', 'activities', 'pipeline'));
+        return view('dashboard', compact('stats', 'recentApplicants', 'activities', 'pipeline', 'hiringGoalPercentage'));
     }
 }

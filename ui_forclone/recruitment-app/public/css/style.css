@@ -778,9 +778,9 @@ body {
     height: 190px;
     border-radius: 50%;
     background: conic-gradient(
-        #1B5E3F 0deg 148deg,      /* Completed (Lighter) */
-        #123D29 148deg 250deg,    /* In Progress (Darker) */
-        #E8E8E8 250deg 360deg     /* Pending (Hatched Placeholder) */
+        var(--primary) 0deg 0deg,
+        var(--primary-dark) 0deg 0deg,
+        #EFEFEF 0deg 360deg
     );
     position: relative;
     display: flex;
