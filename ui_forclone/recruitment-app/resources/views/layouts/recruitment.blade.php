@@ -12,9 +12,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
     <!-- Alpine.js -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
@@ -26,13 +23,10 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="logo">
-                <div class="logo-icon">
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="16" cy="16" r="14" stroke="var(--primary)" stroke-width="4" />
-                        <circle cx="16" cy="16" r="6" fill="var(--primary)" />
-                    </svg>
+                <div class="logo-icon" style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(42, 133, 255, 0.3);">
+                    <x-icon name="dashboard" class="w-6 h-6" />
                 </div>
-                <span class="logo-text">CMFI Recruitment</span>
+                <span class="logo-text" style="font-weight: 800; font-size: 18px; letter-spacing: -0.5px;">CMFI <span style="color: var(--primary);">Recruit</span></span>
             </div>
 
             <nav class="sidebar-nav">
@@ -41,26 +35,26 @@
                     <ul class="nav-list">
                         <li class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                             <a href="{{ route('dashboard') }}" style="display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; width: 100%;">
-                                <i data-lucide="layout-grid"></i>
+                                <x-icon name="dashboard" />
                                 <span>Dashboard</span>
                             </a>
                         </li>
                         <li class="nav-item {{ request()->routeIs('applicants.*') ? 'active' : '' }}">
                             <a href="{{ route('applicants.index') }}" style="display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; width: 100%;">
-                                <i data-lucide="users"></i>
+                                <x-icon name="users" />
                                 <span>Applicants</span>
                                 <span class="badge">{{ \App\Models\Applicant::count() }}</span>
                             </a>
                         </li>
                         <li class="nav-item {{ request()->routeIs('interviews.*') ? 'active' : '' }}">
                             <a href="{{ route('interviews.index') }}" style="display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; width: 100%;">
-                                <i data-lucide="calendar"></i>
+                                <x-icon name="calendar" />
                                 <span>Interviews</span>
                             </a>
                         </li>
                         <li class="nav-item {{ request()->routeIs('job-openings.*') ? 'active' : '' }}">
                             <a href="{{ route('job-openings.index') }}" style="display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; width: 100%;">
-                                <i data-lucide="briefcase"></i>
+                                <x-icon name="briefcase" />
                                 <span>Job Openings</span>
                             </a>
                         </li>
@@ -72,19 +66,19 @@
                     <ul class="nav-list">
                         <li class="nav-item {{ request()->routeIs('settings.*') ? 'active' : '' }}">
                             <a href="{{ route('settings.index') }}" style="display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; width: 100%;">
-                                <i data-lucide="settings"></i>
+                                <x-icon name="settings" />
                                 <span>Settings</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <i data-lucide="help-circle"></i>
-                            <span>Help</span>
+                            <x-icon name="help" />
+                            <span>Help Center</span>
                         </li>
                         <li class="nav-item">
                             <form method="POST" action="{{ route('logout') }}" style="width: 100%;">
                                 @csrf
                                 <button type="submit" style="background: none; border: none; padding: 0; display: flex; align-items: center; gap: 12px; color: inherit; font: inherit; cursor: pointer; width: 100%;">
-                                    <i data-lucide="log-out"></i>
+                                    <x-icon name="logout" />
                                     <span>Logout</span>
                                 </button>
                             </form>
@@ -99,15 +93,15 @@
             <!-- Top Header -->
             <header class="top-header">
                 <div class="search-bar">
-                    <i data-lucide="search" style="width: 18px; color: #9A9FA5;"></i>
+                    <x-icon name="search" class="w-5 h-5" style="color: #9A9FA5;" />
                     <input type="text" placeholder="Search applicant...">
                 </div>
                 <div class="header-actions">
                     <button class="icon-btn">
-                        <i data-lucide="mail"></i>
+                        <x-icon name="mail" />
                     </button>
                     <button class="icon-btn">
-                        <i data-lucide="bell"></i>
+                        <x-icon name="bell" />
                     </button>
                     <div class="user-profile">
                         <div class="avatar-crop" style="font-weight: 800; font-size: 14px;">
@@ -124,10 +118,5 @@
             @yield('content')
         </main>
     </div>
-
-    <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
-    </script>
 </body>
 </html>

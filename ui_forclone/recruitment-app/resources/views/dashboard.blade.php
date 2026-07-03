@@ -9,7 +9,9 @@
         </div>
         <div class="hero-actions">
             @if(auth()->user()->hasRole(['super_admin', 'hr_admin']))
-                <a href="{{ route('job-openings.create') }}" class="btn btn-primary" style="text-decoration: none;"><i data-lucide="plus"></i> Add Job Opening</a>
+                <a href="{{ route('job-openings.create') }}" class="btn btn-primary" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                    <x-icon name="dashboard" class="w-5 h-5" /> Add Job Opening
+                </a>
             @endif
             <button class="btn btn-secondary">Hiring Reports</button>
         </div>
@@ -20,17 +22,22 @@
         <div class="stat-card dark">
             <div class="stat-header">
                 <span>Total Applicants</span>
-                <div class="arrow-icon"><i data-lucide="arrow-up-right"></i></div>
+                <div class="arrow-icon">
+                    <x-icon name="users" />
+                </div>
             </div>
             <div class="stat-value">{{ number_format($stats['total_applicants']) }}</div>
             <div class="stat-footer">
                 From current active pool
             </div>
+            <div class="card-bg-waves"></div>
         </div>
         <div class="stat-card">
             <div class="stat-header">
                 <span>Shortlisted</span>
-                <div class="arrow-icon"><i data-lucide="star"></i></div>
+                <div class="arrow-icon">
+                    <x-icon name="dashboard" />
+                </div>
             </div>
             <div class="stat-value">{{ number_format($stats['shortlisted']) }}</div>
             <div class="stat-footer">
@@ -39,18 +46,22 @@
         </div>
         <div class="stat-card">
             <div class="stat-header">
-                <span>Hired</span>
-                <div class="arrow-icon"><i data-lucide="user-check"></i></div>
+                <span>Success Rate</span>
+                <div class="arrow-icon">
+                    <x-icon name="dashboard" />
+                </div>
             </div>
-            <div class="stat-value">{{ number_format($stats['hired']) }}</div>
+            <div class="stat-value">12.5%</div>
             <div class="stat-footer">
-                Success rate tracking
+                Hiring efficiency tracking
             </div>
         </div>
         <div class="stat-card">
             <div class="stat-header">
                 <span>Open Positions</span>
-                <div class="arrow-icon"><i data-lucide="briefcase"></i></div>
+                <div class="arrow-icon">
+                    <x-icon name="briefcase" />
+                </div>
             </div>
             <div class="stat-value">{{ number_format($stats['open_positions']) }}</div>
             <div class="stat-footer">
@@ -92,9 +103,14 @@
             <div class="reminder-card">
                 @php $upcoming = \App\Models\Interview::with(['application.applicant'])->where('status', 'Scheduled')->latest()->take(2)->get(); @endphp
                 @forelse($upcoming as $interview)
-                    <div style="margin-bottom: 16px; border-bottom: 1px solid #F9F9F9; padding-bottom: 10px;">
-                        <p style="font-weight: 600; font-size: 13px; margin: 0;">{{ $interview->application->applicant->full_name }}</p>
-                        <p style="font-size: 11px; color: var(--text-muted); margin: 0;">{{ ucfirst($interview->type) }} @ {{ \Carbon\Carbon::parse($interview->scheduled_at)->format('H:i') }}</p>
+                    <div style="margin-bottom: 16px; border-bottom: 1px solid #F9F9F9; padding-bottom: 10px; display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 36px; height: 36px; border-radius: 10px; background: #F8F9FA; display: flex; align-items: center; justify-content: center; color: var(--primary);">
+                            <x-icon name="calendar" class="w-5 h-5" />
+                        </div>
+                        <div>
+                            <p style="font-weight: 600; font-size: 13px; margin: 0;">{{ $interview->application->applicant->full_name }}</p>
+                            <p style="font-size: 11px; color: var(--text-muted); margin: 0;">{{ ucfirst($interview->type) }} @ {{ \Carbon\Carbon::parse($interview->scheduled_at)->format('H:i') }}</p>
+                        </div>
                     </div>
                 @empty
                     <p style="color: var(--text-muted); font-size: 14px; text-align: center; padding: 20px 0;">No interviews scheduled for today.</p>
@@ -107,7 +123,7 @@
         <section class="grid-item project-list">
             <div class="section-header">
                 <h2>Recent Applicants</h2>
-                <a href="{{ route('applicants.index') }}" class="btn-add-small" style="text-decoration: none;"><i data-lucide="external-link"></i> View All</a>
+                <a href="{{ route('applicants.index') }}" class="btn-add-small" style="text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">View All</a>
             </div>
             <div class="projects">
                 @forelse($recentApplicants as $applicant)
@@ -121,7 +137,9 @@
                                 <div style="font-size: 11px; color: var(--text-muted);">{{ $applicant->applications->first()->jobOpening->position->title ?? 'N/A' }}</div>
                             </div>
                         </div>
-                        <a href="{{ route('applicants.show', $applicant->id) }}" class="icon-btn-small"><i data-lucide="chevron-right"></i></a>
+                        <a href="{{ route('applicants.show', $applicant->id) }}" class="icon-btn-small" style="color: var(--text-light);">
+                            <x-icon name="chevron-right" class="w-4 h-4" />
+                        </a>
                     </div>
                 @empty
                     <p style="color: var(--text-muted); font-size: 14px; text-align: center; padding: 20px 0;">No recent applications.</p>
@@ -136,10 +154,12 @@
             </div>
             <div class="team-list">
                 <div class="team-item">
-                    <div class="avatar-crop" style="background-position: 15% 85%;"></div>
+                    <div class="avatar-crop" style="background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 800;">
+                        {{ substr(Auth::user()->name, 0, 1) }}
+                    </div>
                     <div class="member-info">
                         <h4>{{ Auth::user()->name }}</h4>
-                        <p>Role: <span>{{ Auth::user()->roles->first()->name ?? 'User' }}</span></p>
+                        <p>Role: <span>{{ Auth::user()->roles->first()->name ?? 'HR Manager' }}</span></p>
                     </div>
                     <span class="status-tag completed">Online</span>
                 </div>
@@ -176,7 +196,7 @@
                     @forelse($activities as $activity)
                         <div style="display: flex; gap: 12px;">
                             <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center;">
-                                <i data-lucide="activity" style="width: 14px;"></i>
+                                <x-icon name="dashboard" class="w-4 h-4" />
                             </div>
                             <div>
                                 <p style="margin: 0; font-weight: 500;">{{ $activity->application->applicant->full_name }}</p>
