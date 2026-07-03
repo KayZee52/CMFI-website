@@ -11,7 +11,16 @@
         </div>
         <div class="hero-actions">
             <button class="btn btn-secondary"><i data-lucide="mail"></i> Message</button>
-            <button class="btn btn-primary"><i data-lucide="check-circle"></i> Update Stage</button>
+            
+            <form action="{{ route('applications.update-stage', $applicant->applications->first()->id) }}" method="POST" style="display: flex; gap: 8px;">
+                @csrf
+                <select name="current_stage" onchange="this.form.submit()" style="padding: 8px 16px; border-radius: 12px; border: 1px solid var(--primary); font-family: inherit; font-size: 14px; cursor: pointer;">
+                    @php $stages = ['Application Received', 'Phone Screening', 'Shortlisted', 'Interviewing', 'Demo / Observation', 'Background Check', 'Offer Sent', 'Hired / Contract Signed', 'Rejected']; @endphp
+                    @foreach($stages as $stage)
+                        <option value="{{ $stage }}" {{ $applicant->applications->first()->current_stage === $stage ? 'selected' : '' }}>{{ $stage }}</option>
+                    @endforeach
+                </select>
+            </form>
         </div>
     </section>
 
@@ -146,9 +155,35 @@
             <section class="grid-item" style="padding: 24px; border: 2px dashed #EFEFEF; background: transparent;">
                 <h3 style="margin: 0 0 16px 0; font-size: 16px; text-align: center;">Hiring Decision</h3>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <button class="btn btn-primary" style="width: 100%;">Shortlist</button>
-                    <button class="btn btn-secondary" style="width: 100%; background: #FF6A55; color: white;">Reject</button>
-                    <button class="btn btn-secondary" style="width: 100%;">Put on Hold</button>
+                    <form action="{{ route('applications.decision', $applicant->applications->first()->id) }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="decision_status" value="Shortlisted">
+                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <i data-lucide="star"></i> Shortlist
+                        </button>
+                    </form>
+
+                    <form action="{{ route('applications.decision', $applicant->applications->first()->id) }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="decision_status" value="Hired">
+                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 10px; background: #28a745; border: none; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <i data-lucide="user-check"></i> Hire Candidate
+                        </button>
+                    </form>
+
+                    <div x-data="{ showReject: false }">
+                        <button @click="showReject = !showReject" class="btn btn-secondary" style="width: 100%; background: #FF6A55; color: white; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <i data-lucide="user-x"></i> Reject
+                        </button>
+                        <div x-show="showReject" style="margin-top: 10px;">
+                            <form action="{{ route('applications.decision', $applicant->applications->first()->id) }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="decision_status" value="Rejected">
+                                <textarea name="rejection_reason" placeholder="Reason for rejection..." style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #EFEFEF; margin-bottom: 8px; font-size: 12px;"></textarea>
+                                <button type="submit" class="btn btn-secondary" style="width: 100%; font-size: 12px;">Confirm Rejection</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>
