@@ -73,7 +73,7 @@
             <section class="grid-item" style="padding: 24px;">
                 <div class="section-header">
                     <h2>Interview History</h2>
-                    <button class="btn-add-small outline"><i data-lucide="calendar"></i> Schedule</button>
+                    <a href="{{ route('interviews.create', ['application_id' => $applicant->applications->first()->id]) }}" class="btn-add-small outline" style="text-decoration: none;"><i data-lucide="calendar"></i> Schedule</a>
                 </div>
                 <div style="margin-top: 16px;">
                     @forelse($applicant->applications->first()->interviews as $interview)

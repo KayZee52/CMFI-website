@@ -50,7 +50,7 @@
                             </a>
                         </li>
                         <li class="nav-item {{ request()->routeIs('interviews.*') ? 'active' : '' }}">
-                            <a href="#" style="display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; width: 100%;">
+                            <a href="{{ route('interviews.index') }}" style="display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; width: 100%;">
                                 <i data-lucide="calendar"></i>
                                 <span>Interviews</span>
                             </a>
