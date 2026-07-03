@@ -12,7 +12,7 @@ use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('apply');
 });
 
 Route::get('/apply', [PublicApplicationController::class, 'index'])->name('apply');
