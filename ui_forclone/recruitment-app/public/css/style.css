@@ -761,7 +761,7 @@ body {
     border-radius: 6px;
 }
 
-.status-tag.completed { background-color: #E8F5E9; color: var(--primary); }
+.status-tag.completed { background-color: var(--primary-light); color: var(--primary); }
 .status-tag.in-progress { background-color: #FFF9E6; color: var(--yellow); }
 .status-tag.pending { background-color: #FFEAE8; color: var(--orange); }
 
@@ -888,7 +888,7 @@ body {
 }
 
 .time-tracker-card {
-    background: linear-gradient(135deg, #0A2F1F, #123D29);
+    background: linear-gradient(135deg, hsl(223, 100%, 15%), hsl(223, 100%, 25%));
     height: 100%;
     padding: 24px;
     color: var(--white);

@@ -67,20 +67,20 @@
                 <h2>Hiring Pipeline</h2>
             </div>
             <div class="chart-container">
-                @forelse($recentApplicants as $applicant)
-                    <div class="project-card">
-                        <div class="project-info">
-                            <h4>{{ $applicant->full_name }}</h4>
-                            <p>{{ $applicant->applications->first()->jobOpening->position->title ?? 'N/A' }}</p>
+                <div class="bar-chart">
+                    @php 
+                        $max = max(array_values($pipeline)) ?: 1; 
+                    @endphp
+                    @foreach($pipeline as $stage => $count)
+                        <div class="bar-group">
+                            <div class="bar {{ $stage === 'Hired' ? 'filled' : ($stage === 'Received' ? 'hatched' : 'dark') }}" 
+                                 style="height: {{ ($count / $max) * 100 }}%; min-height: 5px;">
+                                <div class="tooltip">{{ $count }}</div>
+                            </div>
+                            <span>{{ $stage }}</span>
                         </div>
-                        <span class="status-tag {{ strtolower($applicant->applications->first()->decision_status ?? 'pending') }}">
-                            {{ $applicant->applications->first()->decision_status ?? 'Pending' }}
-                        </span>
-                        <a href="{{ route('applicants.show', $applicant->id) }}" class="icon-btn"><i data-lucide="chevron-right"></i></a>
-                    </div>
-                @empty
-                    <p style="padding: 20px; color: var(--text-muted);">No recent applicants.</p>
-                @endforelse
+                    @endforeach
+                </div>
             </div>
         </section>
 
@@ -100,6 +100,32 @@
                     <p style="color: var(--text-muted); font-size: 14px; text-align: center; padding: 20px 0;">No interviews scheduled for today.</p>
                 @endforelse
                 <a href="{{ route('interviews.index') }}" class="btn btn-secondary" style="width: 100%; text-decoration: none; display: block; text-align: center;">View Schedule</a>
+            </div>
+        </section>
+
+        <!-- Recent Applicants -->
+        <section class="grid-item project-list">
+            <div class="section-header">
+                <h2>Recent Applicants</h2>
+                <a href="{{ route('applicants.index') }}" class="btn-add-small" style="text-decoration: none;"><i data-lucide="external-link"></i> View All</a>
+            </div>
+            <div class="projects">
+                @forelse($recentApplicants as $applicant)
+                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #F9F9F9;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px;">
+                                {{ substr($applicant->first_name, 0, 1) }}{{ substr($applicant->last_name, 0, 1) }}
+                            </div>
+                            <div>
+                                <div style="font-weight: 600; font-size: 13px;">{{ $applicant->full_name }}</div>
+                                <div style="font-size: 11px; color: var(--text-muted);">{{ $applicant->applications->first()->jobOpening->position->title ?? 'N/A' }}</div>
+                            </div>
+                        </div>
+                        <a href="{{ route('applicants.show', $applicant->id) }}" class="icon-btn-small"><i data-lucide="chevron-right"></i></a>
+                    </div>
+                @empty
+                    <p style="color: var(--text-muted); font-size: 14px; text-align: center; padding: 20px 0;">No recent applications.</p>
+                @endforelse
             </div>
         </section>
 
@@ -124,23 +150,6 @@
                     @endforelse
                 </div>
                 <div class="card-bg-waves"></div>
-            </div>
-        </section>
-
-        <!-- Recruitment Team -->
-        <section class="grid-item team-collaboration">
-            <div class="section-header">
-                <h2>Recruitment Team</h2>
-            </div>
-            <div class="team-list">
-                <div class="team-item">
-                    <div class="avatar-crop" style="background-position: 15% 85%;"></div>
-                    <div class="member-info">
-                        <h4>{{ Auth::user()->name }}</h4>
-                        <p>Role: <span>{{ Auth::user()->roles->first()->name ?? 'User' }}</span></p>
-                    </div>
-                    <span class="status-tag completed">Online</span>
-                </div>
             </div>
         </section>
     </div>

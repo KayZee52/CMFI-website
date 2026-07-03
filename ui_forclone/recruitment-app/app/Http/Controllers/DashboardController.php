@@ -41,6 +41,15 @@ class DashboardController extends Controller
             'open_positions' => $jobQuery->where('status', 'Open')->count(),
         ];
 
+        // Pipeline Counts for Chart
+        $pipeline = [
+            'Received' => (clone $applicationQuery)->where('current_stage', 'Application Received')->count(),
+            'Screening' => (clone $applicationQuery)->where('current_stage', 'Phone Screening')->count(),
+            'Shortlist' => (clone $applicationQuery)->where('decision_status', 'Shortlisted')->count(),
+            'Interview' => (clone $applicationQuery)->where('current_stage', 'Interviewing')->count(),
+            'Hired' => (clone $applicationQuery)->where('decision_status', 'Hired')->count(),
+        ];
+
         // Recent Applicants
         $recentApplicants = (clone $applicantQuery)->latest()->take(3)->get();
 
@@ -56,6 +65,6 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
-        return view('dashboard', compact('stats', 'recentApplicants', 'activities'));
+        return view('dashboard', compact('stats', 'recentApplicants', 'activities', 'pipeline'));
     }
 }
