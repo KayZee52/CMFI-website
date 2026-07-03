@@ -57,7 +57,7 @@
 
                 <!-- Personal Info Mini Card -->
                 <div class="profile-card" style="padding: 24px; background: white; border-radius: 20px; border: 1px solid #F1F5F9;">
-                    <h4 style="font-size: 12px; font-weight: 700; color: #94A3B8; margin: 0 0 16px; text-transform: uppercase; letter-spacing: 0.1em;">Identity & Contact</h4>
+                    <h4 style="font-size: 12px; font-weight: 700; color: #94A3B8; margin: 0 0 16px; text-transform: uppercase; letter-spacing: 0.1em;">Contact Details</h4>
                     <div style="display: flex; flex-direction: column; gap: 16px;">
                         <div style="display: flex; align-items: center; gap: 12px;">
                             <div style="width: 32px; height: 32px; background: #F8FAFC; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #64748B;">
@@ -88,6 +88,15 @@
                             </div>
                         </div>
                         @endif
+                    </div>
+                </div>
+
+                <!-- Emergency Contact Card -->
+                <div class="profile-card" style="padding: 24px; background: white; border-radius: 20px; border: 1px solid #F1F5F9;">
+                    <h4 style="font-size: 12px; font-weight: 700; color: #94A3B8; margin: 0 0 16px; text-transform: uppercase; letter-spacing: 0.1em;">Emergency Contact</h4>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <p style="font-size: 14px; font-weight: 700; color: #0F172A; margin: 0;">{{ $applicant->emergency_name }}</p>
+                        <p style="font-size: 14px; font-weight: 600; color: #3B82F6; margin: 0;">{{ $applicant->emergency_number }}</p>
                     </div>
                 </div>
 
@@ -165,6 +174,12 @@
                                     <p style="font-size: 15px; font-weight: 600; color: #475569; margin: 4px 0 0;">{{ $applicant->major }}</p>
                                 </div>
                                 @endif
+                                @if($applicant->certifications)
+                                <div>
+                                    <p style="font-size: 11px; font-weight: 700; color: #94A3B8; margin: 0; text-transform: uppercase;">Professional Certifications</p>
+                                    <p style="font-size: 14px; font-weight: 600; color: #475569; margin: 4px 0 0;">{{ $applicant->certifications }}</p>
+                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -196,50 +211,117 @@
                                         <span style="color: #94A3B8; font-size: 12px;">Preferred: {{ $applicant->applications->first()->grades_preferred ?? 'N/A' }}</span>
                                     </p>
                                 </div>
+                                
+                                <!-- Work History Blocks -->
                                 @if($applicant->applications->first()->previous_school)
-                                <div>
-                                    <p style="font-size: 11px; font-weight: 700; color: #94A3B8; margin: 0; text-transform: uppercase;">Most Recent Employer</p>
-                                    <p style="font-size: 14px; font-weight: 600; color: #475569; margin: 4px 0 0;">
-                                        {{ $applicant->applications->first()->previous_school }} ({{ $applicant->applications->first()->prev_position }})
-                                    </p>
+                                <div style="padding: 16px; background: #F8FAFC; border-radius: 16px; border: 1px solid #F1F5F9;">
+                                    <p style="font-size: 11px; font-weight: 700; color: #64748B; margin: 0; text-transform: uppercase;">Employer 1 (Recent)</p>
+                                    <p style="font-size: 14px; font-weight: 700; color: #0F172A; margin: 4px 0 0;">{{ $applicant->applications->first()->previous_school }}</p>
+                                    <p style="font-size: 13px; font-weight: 600; color: #475569; margin: 2px 0 0;">{{ $applicant->applications->first()->prev_position }}</p>
+                                    <p style="font-size: 12px; color: #94A3B8; margin: 2px 0 0;">{{ $applicant->applications->first()->prev_period }}</p>
+                                </div>
+                                @endif
+
+                                @if($applicant->applications->first()->prev_school_2)
+                                <div style="padding: 16px; background: #F8FAFC; border-radius: 16px; border: 1px solid #F1F5F9;">
+                                    <p style="font-size: 11px; font-weight: 700; color: #64748B; margin: 0; text-transform: uppercase;">Employer 2</p>
+                                    <p style="font-size: 14px; font-weight: 700; color: #0F172A; margin: 4px 0 0;">{{ $applicant->applications->first()->prev_school_2 }}</p>
+                                    <p style="font-size: 13px; font-weight: 600; color: #475569; margin: 2px 0 0;">{{ $applicant->applications->first()->prev_position_2 }}</p>
+                                    <p style="font-size: 12px; color: #94A3B8; margin: 2px 0 0;">{{ $applicant->applications->first()->prev_period_2 }}</p>
                                 </div>
                                 @endif
                             </div>
                         </div>
 
-                        <!-- CMFI Specific (Conditional) -->
+                        <!-- CMFI Specific or Skills (Conditional) -->
                         <div>
                             @if($applicant->applicant_type === 'current_teacher')
                             <h4 style="font-size: 16px; font-weight: 800; color: #0F172A; margin: 0 0 24px; display: flex; align-items: center; gap: 8px;">
                                 <div style="width: 8px; height: 8px; background: #EF4444; border-radius: 2px;"></div>
                                 Internal History (Staff)
                             </h4>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                                <div>
-                                    <p style="font-size: 11px; font-weight: 700; color: #94A3B8; margin: 0; text-transform: uppercase;">Department</p>
-                                    <p style="font-size: 15px; font-weight: 700; color: #0F172A; margin: 4px 0 0;">{{ $applicant->applications->first()->current_dept }}</p>
+                            <div style="display: flex; flex-direction: column; gap: 20px;">
+                                <div style="display: flex; gap: 32px;">
+                                    <div>
+                                        <p style="font-size: 11px; font-weight: 700; color: #94A3B8; margin: 0; text-transform: uppercase;">Department</p>
+                                        <p style="font-size: 15px; font-weight: 700; color: #0F172A; margin: 4px 0 0;">{{ $applicant->applications->first()->current_dept }}</p>
+                                    </div>
+                                    <div>
+                                        <p style="font-size: 11px; font-weight: 700; color: #94A3B8; margin: 0; text-transform: uppercase;">Years Served</p>
+                                        <p style="font-size: 15px; font-weight: 700; color: #0F172A; margin: 4px 0 0;">{{ $applicant->applications->first()->years_served }}</p>
+                                    </div>
                                 </div>
                                 <div>
-                                    <p style="font-size: 11px; font-weight: 700; color: #94A3B8; margin: 0; text-transform: uppercase;">Years at CMFI</p>
-                                    <p style="font-size: 15px; font-weight: 700; color: #0F172A; margin: 4px 0 0;">{{ $applicant->applications->first()->years_served }}</p>
-                                </div>
-                                <div style="grid-column: span 2;">
                                     <p style="font-size: 11px; font-weight: 700; color: #94A3B8; margin: 0; text-transform: uppercase;">Achievements</p>
                                     <p style="font-size: 14px; font-weight: 600; color: #475569; margin: 4px 0 0; line-height: 1.6;">{{ $applicant->applications->first()->achievements ?? 'None documented.' }}</p>
+                                </div>
+                                <div>
+                                    <p style="font-size: 11px; font-weight: 700; color: #94A3B8; margin: 0; text-transform: uppercase;">Challenges Faced</p>
+                                    <p style="font-size: 14px; font-weight: 600; color: #475569; margin: 4px 0 0; line-height: 1.6;">{{ $applicant->applications->first()->challenges ?? 'None documented.' }}</p>
+                                </div>
+                                <div>
+                                    <p style="font-size: 11px; font-weight: 700; color: #94A3B8; margin: 0; text-transform: uppercase;">Why continue?</p>
+                                    <p style="font-size: 14px; font-weight: 600; color: #475569; margin: 4px 0 0; line-height: 1.6;">{{ $applicant->applications->first()->why_continue ?? 'No statement provided.' }}</p>
                                 </div>
                             </div>
                             @else
                             <h4 style="font-size: 16px; font-weight: 800; color: #0F172A; margin: 0 0 24px; display: flex; align-items: center; gap: 8px;">
                                 <div style="width: 8px; height: 8px; background: #64748B; border-radius: 2px;"></div>
-                                References
+                                Skills Proficiency
                             </h4>
-                            <div style="padding: 16px; background: #F8FAFC; border-radius: 16px; border: 1px solid #F1F5F9;">
-                                <p style="font-size: 14px; color: #475569; margin: 0; line-height: 1.6; font-weight: 500;">
-                                    {!! nl2br(e($applicant->applications->first()->reference_data ?? 'No references provided.')) !!}
-                                </p>
+                            <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
+                                @php 
+                                    $skills = $applicant->skills_proficiency ?? []; 
+                                    $labels = [
+                                        'classroom_management' => 'Classroom Mgmt',
+                                        'lesson_planning' => 'Lesson Planning',
+                                        'student_assessment' => 'Student Assessment',
+                                        'computer_skills' => 'Computer Skills',
+                                        'ms_word' => 'MS Word',
+                                        'ms_excel' => 'MS Excel',
+                                        'google_workspace' => 'Google Workspace',
+                                        'online_teaching' => 'Online Platforms'
+                                    ];
+                                @endphp
+                                @foreach($labels as $key => $label)
+                                <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: #F8FAFC; border-radius: 12px;">
+                                    <span style="font-size: 13px; font-weight: 700; color: #475569;">{{ $label }}</span>
+                                    <div style="display: flex; gap: 4px;">
+                                        @for($i = 1; $i <= 5; $i++)
+                                        <div style="width: 8px; height: 8px; border-radius: 50%; background: {{ ($skills[$key] ?? 0) >= $i ? '#0F172A' : '#E2E8F0' }};"></div>
+                                        @endfor
+                                    </div>
+                                </div>
+                                @endforeach
                             </div>
                             @endif
                         </div>
+                    </div>
+                </div>
+
+                <!-- References & Commitments Card -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
+                    <div class="profile-card" style="padding: 32px; background: white; border-radius: 24px; border: 1px solid #F1F5F9;">
+                        <h4 style="font-size: 16px; font-weight: 800; color: #0F172A; margin: 0 0 24px;">Professional References</h4>
+                        <div style="display: flex; flex-direction: column; gap: 24px;">
+                            @php $refs = $applicant->applications->first()->reference_data ?? []; @endphp
+                            @forelse($refs as $ref)
+                            <div>
+                                <p style="font-size: 14px; font-weight: 700; color: #0F172A; margin: 0;">{{ $ref['name'] ?? 'N/A' }}</p>
+                                <p style="font-size: 12px; font-weight: 600; color: #64748B; margin: 2px 0 0;">{{ $ref['position'] ?? '' }} @ {{ $ref['org'] ?? '' }}</p>
+                                <p style="font-size: 12px; color: #3B82F6; font-weight: 700; margin: 4px 0 0;">{{ $ref['phone'] ?? '' }} | {{ $ref['email'] ?? '' }}</p>
+                            </div>
+                            @empty
+                            <p style="font-size: 14px; color: #94A3B8;">No structured references provided.</p>
+                            @endforelse
+                        </div>
+                    </div>
+                    <div class="profile-card" style="padding: 32px; background: white; border-radius: 24px; border: 1px solid #F1F5F9;">
+                        <h4 style="font-size: 16px; font-weight: 800; color: #0F172A; margin: 0 0 16px;">Additional Commitments</h4>
+                        <p style="font-size: 14px; line-height: 1.6; color: #475569; margin: 0;">
+                            <strong>Type:</strong> {{ $applicant->applications->first()->commitment_type ?? 'Full-Time' }} <br><br>
+                            {{ $applicant->applications->first()->other_commitments ?? 'No other commitments disclosed.' }}
+                        </p>
                     </div>
                 </div>
 

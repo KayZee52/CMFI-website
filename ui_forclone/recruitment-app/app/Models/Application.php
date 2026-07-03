@@ -25,6 +25,7 @@ class Application extends Model
         'commitment_type',
         'personal_statement',
         'previous_school',
+        'abide_policies',
         'prev_position',
         'prev_subjects',
         'prev_period',
@@ -43,6 +44,7 @@ class Application extends Model
 
     protected $casts = [
         'submitted_at' => 'datetime',
+        'reference_data' => 'array',
     ];
 
     public function applicant(): BelongsTo

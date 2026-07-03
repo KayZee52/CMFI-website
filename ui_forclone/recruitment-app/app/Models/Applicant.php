@@ -38,6 +38,10 @@ class Applicant extends Model
         'abide_policies',
     ];
 
+    protected $casts = [
+        'skills_proficiency' => 'array',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
