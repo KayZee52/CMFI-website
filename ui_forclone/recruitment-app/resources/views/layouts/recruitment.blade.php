@@ -76,12 +76,6 @@
                         </li>
                     </ul>
                 </div>
-                        <li class="nav-item">
-                            <x-icon name="help" />
-                            <span>Help Center</span>
-                        </li>
-                    </ul>
-                </div>
             </nav>
         </aside>
 
