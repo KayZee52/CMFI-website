@@ -204,8 +204,8 @@
                                     <input type="tel" name="phone" class="input-class" required>
                                 </div>
                                 <div>
-                                    <label class="form-label">WhatsApp Number</label>
-                                    <input type="tel" name="whatsapp_number" class="input-class">
+                                    <label class="form-label">WhatsApp Number <span class="text-red-500">*</span></label>
+                                    <input type="tel" name="whatsapp_number" class="input-class" required>
                                 </div>
                                 <div class="sm:col-span-2">
                                     <label class="form-label">Email Address <span class="text-red-500">*</span></label>
@@ -732,6 +732,24 @@
                 },
 
                 handleNext() {
+                    // Validation Check: Find all required fields in the current step
+                    const currentStepEl = document.querySelector(`[x-show="currentStep === ${this.currentStep}"]`);
+                    if (currentStepEl) {
+                        const inputs = currentStepEl.querySelectorAll('input[required], select[required], textarea[required]');
+                        let isValid = true;
+                        
+                        // Check validity from last to first so the first invalid one gets the focus/bubble
+                        for (let i = 0; i < inputs.length; i++) {
+                            if (!inputs[i].checkValidity()) {
+                                inputs[i].reportValidity();
+                                isValid = false;
+                                break; // Stop at the first error
+                            }
+                        }
+                        
+                        if (!isValid) return;
+                    }
+
                     if (this.currentStep < 9) {
                         // If it's a new applicant, skip Step 5 (Staff Reapplication)
                         if (this.applicantType === 'new' && this.currentStep === 4) {

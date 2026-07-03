@@ -28,7 +28,7 @@ class PublicApplicationController extends Controller
             'nationality' => 'required|string',
             'city_of_residence' => 'required|string',
             'phone' => 'required|string',
-            'whatsapp_number' => 'nullable|string',
+            'whatsapp_number' => 'required|string',
             'email' => 'required|email|unique:applicants,email',
             'home_address' => 'required|string',
             'emergency_name' => 'required|string',
