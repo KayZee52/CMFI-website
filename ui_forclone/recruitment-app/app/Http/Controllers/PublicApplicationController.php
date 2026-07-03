@@ -21,66 +21,83 @@ class PublicApplicationController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            // Section 1
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
+            // Section 1: Personal
+            'full_name' => 'required|string|max:255',
+            'gender' => 'required|string',
+            'date_of_birth' => 'required|date',
+            'nationality' => 'required|string',
+            'city_of_residence' => 'required|string',
+            'phone' => 'required|string',
+            'whatsapp_number' => 'nullable|string',
             'email' => 'required|email|unique:applicants,email',
-            'phone' => 'required|string|max:20',
-            'gender' => 'nullable|string',
-            'date_of_birth' => 'nullable|date',
-            'home_address' => 'nullable|string',
+            'home_address' => 'required|string',
             
-            // Section 2
-            'job_opening_id' => 'required|exists:job_openings,id',
+            // Section 2: Position
             'applicant_type' => 'required|in:new,current_teacher',
+            'job_opening_id' => 'required|exists:job_openings,id',
             'subjects_can_teach' => 'nullable|string',
+            'grades_preferred' => 'nullable|string',
             
-            // Section 3
-            'highest_qualification' => 'nullable|string',
-            'institution' => 'nullable|string',
-            'graduation_year' => 'nullable|integer',
+            // Section 3: Education
+            'highest_qualification' => 'required|string',
+            'institution' => 'required|string',
+            'graduation_year' => 'required|integer',
             'major' => 'nullable|string',
             
-            // Section 4
-            'years_experience' => 'nullable|integer',
+            // Section 4: Experience
+            'years_experience' => 'required|integer',
             'previous_school' => 'nullable|string',
             'prev_position' => 'nullable|string',
-            'prev_period' => 'nullable|string',
             
-            // Section 6
-            'dismissed' => 'nullable|string',
-            'convicted' => 'nullable|string',
-            'abide_policies' => 'nullable|string',
+            // Section 5: Reapplication (Conditional)
+            'current_dept' => 'required_if:applicant_type,current_teacher|nullable|string',
+            'years_served' => 'required_if:applicant_type,current_teacher|nullable|integer',
+            'achievements' => 'nullable|string',
             
-            // Section 7
+            // Section 6: Conduct
+            'dismissed' => 'required|string',
+            'convicted' => 'required|string',
+            'abide_policies' => 'required|string',
+            
+            // Section 7: Availability
+            'available_start_date' => 'required|date',
+            'reference_data' => 'nullable|string',
+            
+            // Section 8: Final
             'personal_statement' => 'nullable|string',
             
             // Files
             'cv' => 'required|file|mimes:pdf,doc,docx|max:5120',
-            'academic_certificate' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
-            'photo' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
-            'id_card' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'photo' => 'nullable|file|mimes:jpg,jpeg,png|max:5120',
         ]);
 
         return DB::transaction(function () use ($request, $validated) {
-            // 1. Create Applicant
+            // Split full name
+            $names = explode(' ', $validated['full_name'], 2);
+            $firstName = $names[0];
+            $lastName = isset($names[1]) ? $names[1] : '';
+
+            // 1. Create or update Applicant
             $applicant = Applicant::create([
-                'first_name' => $validated['first_name'],
-                'last_name' => $validated['last_name'],
+                'first_name' => $firstName,
+                'last_name' => $lastName,
                 'email' => $validated['email'],
                 'phone' => $validated['phone'],
+                'whatsapp_number' => $validated['whatsapp_number'],
                 'gender' => $validated['gender'],
                 'date_of_birth' => $validated['date_of_birth'],
+                'nationality' => $validated['nationality'],
+                'city_of_residence' => $validated['city_of_residence'],
                 'home_address' => $validated['home_address'],
-                'applicant_type' => $validated['applicant_type'],
                 'highest_qualification' => $validated['highest_qualification'],
                 'institution' => $validated['institution'],
                 'graduation_year' => $validated['graduation_year'],
                 'major' => $validated['major'],
-                'years_experience' => $validated['years_experience'] ?? 0,
-                'dismissed' => $validated['dismissed'] ?? 'No',
-                'convicted' => $validated['convicted'] ?? 'No',
-                'abide_policies' => $validated['abide_policies'] ?? 'Yes',
+                'years_experience' => $validated['years_experience'],
+                'dismissed' => $validated['dismissed'],
+                'convicted' => $validated['convicted'],
+                'abide_policies' => $validated['abide_policies'],
+                'applicant_type' => $validated['applicant_type'],
             ]);
 
             // 2. Create Application
@@ -89,37 +106,42 @@ class PublicApplicationController extends Controller
                 'job_opening_id' => $validated['job_opening_id'],
                 'applicant_type' => $validated['applicant_type'] === 'new' ? 'New Applicant' : 'Current Teacher (Reapplying)',
                 'subjects_can_teach' => $validated['subjects_can_teach'],
-                'personal_statement' => $validated['personal_statement'],
+                'grades_preferred' => $validated['grades_preferred'],
                 'previous_school' => $validated['previous_school'],
                 'prev_position' => $validated['prev_position'],
-                'prev_period' => $validated['prev_period'],
+                'current_dept' => $validated['current_dept'],
+                'years_served' => $validated['years_served'],
+                'achievements' => $validated['achievements'],
+                'available_start_date' => $validated['available_start_date'],
+                'reference_data' => $validated['reference_data'],
+                'personal_statement' => $validated['personal_statement'],
                 'reference_number' => 'APP-' . strtoupper(Str::random(8)),
                 'submitted_at' => now(),
             ]);
 
             // 3. Handle File Uploads
-            $fileFields = [
-                'cv' => 'CV',
-                'academic_certificate' => 'Academic Certificate',
-                'photo' => 'Passport Photo',
-                'id_card' => 'ID Card',
-            ];
+            if ($request->hasFile('cv')) {
+                $path = $request->file('cv')->store('applications/cvs', 'private');
+                $application->documents()->create([
+                    'document_type' => 'CV',
+                    'file_path' => $path,
+                    'original_filename' => $request->file('cv')->getClientOriginalName(),
+                ]);
+            }
 
-            foreach ($fileFields as $field => $type) {
-                if ($request->hasFile($field)) {
-                    $path = $request->file($field)->store('applications/' . Str::plural(strtolower($field)), 'private');
-                    $application->documents()->create([
-                        'document_type' => $type,
-                        'file_path' => $path,
-                        'original_filename' => $request->file($field)->getClientOriginalName(),
-                    ]);
-                }
+            if ($request->hasFile('photo')) {
+                $path = $request->file('photo')->store('applications/photos', 'private');
+                $application->documents()->create([
+                    'document_type' => 'Passport Photo',
+                    'file_path' => $path,
+                    'original_filename' => $request->file('photo')->getClientOriginalName(),
+                ]);
             }
 
             // 4. Log Activity
             $application->logActivity('Application submitted via public portal.', null);
 
-            return redirect()->route('apply')->with('success', 'Application submitted successfully! Our recruitment team will review your application soon.');
+            return redirect()->route('apply')->with('success', 'Your application for the 2026/2027 Academic Year has been successfully submitted! Our team will review it and contact you via email.');
         });
     }
 }
