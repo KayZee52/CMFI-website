@@ -21,6 +21,7 @@ Route::post('/apply', [PublicApplicationController::class, 'store'])->name('appl
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    Route::get('/applicants/pipeline', [ApplicantController::class, 'pipeline'])->name('applicants.pipeline');
     Route::resource('applicants', ApplicantController::class)->only(['index', 'show']);
     Route::post('/applications/{application}/update-stage', [ApplicationController::class, 'updateStage'])->name('applications.update-stage');
     Route::post('/applications/{application}/decision', [ApplicationController::class, 'makeDecision'])->name('applications.decision');

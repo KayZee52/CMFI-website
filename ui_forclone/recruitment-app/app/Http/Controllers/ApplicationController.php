@@ -20,6 +20,13 @@ class ApplicationController extends Controller
         
         $application->logActivity("Moved to stage: " . $validated['current_stage']);
 
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Application stage updated to: ' . $validated['current_stage']
+            ]);
+        }
+
         return redirect()->back()->with('success', 'Application stage updated to: ' . $validated['current_stage']);
     }
 

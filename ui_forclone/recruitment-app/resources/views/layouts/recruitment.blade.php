@@ -39,11 +39,17 @@
                                 <span>Dashboard</span>
                             </a>
                         </li>
-                        <li class="nav-item {{ request()->routeIs('applicants.*') ? 'active' : '' }}">
+                        <li class="nav-item {{ request()->routeIs('applicants.index') || request()->routeIs('applicants.show') ? 'active' : '' }}">
                             <a href="{{ route('applicants.index') }}" style="display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; width: 100%;">
                                 <x-icon name="users" />
                                 <span>Applicants</span>
                                 <span class="badge">{{ \App\Models\Applicant::count() }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item {{ request()->routeIs('applicants.pipeline') ? 'active' : '' }}">
+                            <a href="{{ route('applicants.pipeline') }}" style="display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; width: 100%;">
+                                <x-icon name="dashboard" />
+                                <span>Pipeline Board</span>
                             </a>
                         </li>
                         <li class="nav-item {{ request()->routeIs('interviews.*') ? 'active' : '' }}">

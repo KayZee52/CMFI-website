@@ -50,4 +50,41 @@ class ApplicantController extends Controller
 
         return view('admin.applicants.show', compact('applicant'));
     }
+
+    /**
+     * Display a pipeline view of the applicants.
+     */
+    public function pipeline()
+    {
+        $user = auth()->user();
+        $query = Applicant::with(['applications.jobOpening.position']);
+
+        if ($user->hasRole(['department_head', 'principal'])) {
+            $deptId = $user->department_id;
+            $query->whereHas('applications.jobOpening', function($q) use ($deptId) {
+                $q->where('department_id', $deptId);
+            });
+        }
+
+        $allApplicants = $query->get();
+
+        $stages = [
+            'Application Received',
+            'Screening',
+            'Interview',
+            'Shortlisted',
+            'Offered',
+            'Hired',
+            'Rejected'
+        ];
+
+        $pipeline = [];
+        foreach ($stages as $stage) {
+            $pipeline[$stage] = $allApplicants->filter(function($applicant) use ($stage) {
+                return $applicant->applications->first()->current_stage === $stage;
+            });
+        }
+
+        return view('admin.applicants.pipeline', compact('pipeline', 'stages'));
+    }
 }
