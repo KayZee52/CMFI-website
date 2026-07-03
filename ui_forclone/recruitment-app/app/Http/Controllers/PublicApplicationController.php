@@ -31,6 +31,8 @@ class PublicApplicationController extends Controller
             'whatsapp_number' => 'nullable|string',
             'email' => 'required|email|unique:applicants,email',
             'home_address' => 'required|string',
+            'emergency_name' => 'required|string',
+            'emergency_number' => 'required|string',
             
             // Section 2: Position
             'applicant_type' => 'required|in:new,current_teacher',
@@ -43,32 +45,52 @@ class PublicApplicationController extends Controller
             'institution' => 'required|string',
             'graduation_year' => 'required|integer',
             'major' => 'nullable|string',
+            'certifications' => 'nullable|string',
             
             // Section 4: Experience
             'years_experience' => 'required|integer',
             'previous_school' => 'nullable|string',
             'prev_position' => 'nullable|string',
+            'prev_period' => 'nullable|string',
+            'prev_school_2' => 'nullable|string',
+            'prev_position_2' => 'nullable|string',
+            'prev_period_2' => 'nullable|string',
             
             // Section 5: Reapplication (Conditional)
             'current_dept' => 'required_if:applicant_type,current_teacher|nullable|string',
             'years_served' => 'required_if:applicant_type,current_teacher|nullable|integer',
             'achievements' => 'nullable|string',
+            'challenges' => 'nullable|string',
+            'why_continue' => 'nullable|string',
             
-            // Section 6: Conduct
+            // Section 6: Skills
+            'skills_proficiency' => 'nullable|array',
+            
+            // Section 7: Conduct
             'dismissed' => 'required|string',
             'convicted' => 'required|string',
             'abide_policies' => 'required|string',
             
-            // Section 7: Availability
-            'available_start_date' => 'required|date',
-            'reference_data' => 'nullable|string',
+            // Section 8: References
+            'references' => 'nullable|array',
             
-            // Section 8: Final
+            // Section 9: Availability
+            'available_start_date' => 'required|date',
+            'commitment_type' => 'required|string',
+            'other_commitments' => 'nullable|string',
+            
+            // Section 10: Final
             'personal_statement' => 'nullable|string',
             
             // Files
             'cv' => 'required|file|mimes:pdf,doc,docx|max:5120',
             'photo' => 'nullable|file|mimes:jpg,jpeg,png|max:5120',
+            'transcripts' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'academic_certificates' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'professional_certificates' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'identification_card' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'police_clearance' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'recommendation_letters' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
         ]);
 
         return DB::transaction(function () use ($request, $validated) {
@@ -83,17 +105,21 @@ class PublicApplicationController extends Controller
                 'last_name' => $lastName,
                 'email' => $validated['email'],
                 'phone' => $validated['phone'],
-                'whatsapp_number' => $validated['whatsapp_number'],
+                'whatsapp_number' => $validated['whatsapp_number'] ?? null,
                 'gender' => $validated['gender'],
                 'date_of_birth' => $validated['date_of_birth'],
                 'nationality' => $validated['nationality'],
                 'city_of_residence' => $validated['city_of_residence'],
                 'home_address' => $validated['home_address'],
+                'emergency_name' => $validated['emergency_name'],
+                'emergency_number' => $validated['emergency_number'],
                 'highest_qualification' => $validated['highest_qualification'],
                 'institution' => $validated['institution'],
                 'graduation_year' => $validated['graduation_year'],
-                'major' => $validated['major'],
+                'major' => $validated['major'] ?? null,
+                'certifications' => $validated['certifications'] ?? null,
                 'years_experience' => $validated['years_experience'],
+                'skills_proficiency' => $validated['skills_proficiency'] ?? [],
                 'dismissed' => $validated['dismissed'],
                 'convicted' => $validated['convicted'],
                 'abide_policies' => $validated['abide_policies'],
@@ -105,37 +131,50 @@ class PublicApplicationController extends Controller
                 'applicant_id' => $applicant->id,
                 'job_opening_id' => $validated['job_opening_id'],
                 'applicant_type' => $validated['applicant_type'] === 'new' ? 'New Applicant' : 'Current Teacher (Reapplying)',
-                'subjects_can_teach' => $validated['subjects_can_teach'],
-                'grades_preferred' => $validated['grades_preferred'],
-                'previous_school' => $validated['previous_school'],
-                'prev_position' => $validated['prev_position'],
-                'current_dept' => $validated['current_dept'],
-                'years_served' => $validated['years_served'],
-                'achievements' => $validated['achievements'],
+                'subjects_can_teach' => $validated['subjects_can_teach'] ?? null,
+                'grades_preferred' => $validated['grades_preferred'] ?? null,
+                'previous_school' => $validated['previous_school'] ?? null,
+                'prev_position' => $validated['prev_position'] ?? null,
+                'prev_period' => $validated['prev_period'] ?? null,
+                'prev_school_2' => $validated['prev_school_2'] ?? null,
+                'prev_position_2' => $validated['prev_position_2'] ?? null,
+                'prev_period_2' => $validated['prev_period_2'] ?? null,
+                'current_dept' => $validated['current_dept'] ?? null,
+                'years_served' => $validated['years_served'] ?? null,
+                'achievements' => $validated['achievements'] ?? null,
+                'challenges' => $validated['challenges'] ?? null,
+                'why_continue' => $validated['why_continue'] ?? null,
                 'available_start_date' => $validated['available_start_date'],
-                'reference_data' => $validated['reference_data'],
-                'personal_statement' => $validated['personal_statement'],
+                'commitment_type' => $validated['commitment_type'],
+                'other_commitments' => $validated['other_commitments'] ?? null,
+                'reference_data' => $validated['references'] ?? [],
+                'personal_statement' => $validated['personal_statement'] ?? null,
                 'reference_number' => 'APP-' . strtoupper(Str::random(8)),
                 'submitted_at' => now(),
             ]);
 
             // 3. Handle File Uploads
-            if ($request->hasFile('cv')) {
-                $path = $request->file('cv')->store('applications/cvs', 'private');
-                $application->documents()->create([
-                    'document_type' => 'CV',
-                    'file_path' => $path,
-                    'original_filename' => $request->file('cv')->getClientOriginalName(),
-                ]);
-            }
+            $fileFields = [
+                'cv' => 'CV',
+                'photo' => 'Passport Photo',
+                'transcripts' => 'Transcripts',
+                'academic_certificates' => 'Academic Certificates',
+                'professional_certificates' => 'Professional Certificates',
+                'identification_card' => 'Identification Card',
+                'police_clearance' => 'Police Clearance',
+                'recommendation_letters' => 'Recommendation Letters',
+            ];
 
-            if ($request->hasFile('photo')) {
-                $path = $request->file('photo')->store('applications/photos', 'private');
-                $application->documents()->create([
-                    'document_type' => 'Passport Photo',
-                    'file_path' => $path,
-                    'original_filename' => $request->file('photo')->getClientOriginalName(),
-                ]);
+            foreach ($fileFields as $field => $label) {
+                if ($request->hasFile($field)) {
+                    $folder = Str::plural(Str::snake($label));
+                    $path = $request->file($field)->store("applications/{$folder}", 'private');
+                    $application->documents()->create([
+                        'document_type' => $label,
+                        'file_path' => $path,
+                        'original_filename' => $request->file($field)->getClientOriginalName(),
+                    ]);
+                }
             }
 
             // 4. Log Activity
