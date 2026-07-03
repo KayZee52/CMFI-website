@@ -29,15 +29,15 @@ class PublicApplicationController extends Controller
             'city_of_residence' => 'required|string',
             'phone' => 'required|string',
             'whatsapp_number' => 'required|string',
-            'email' => 'required|email|unique:applicants,email',
+            'email' => 'email|unique:applicants,email',
             'home_address' => 'required|string',
             'emergency_name' => 'required|string',
             'emergency_number' => 'required|string',
             
             // Section 2: Position
-            'applicant_type' => 'required|in:new,current_teacher',
-            'job_opening_id' => 'required|exists:job_openings,id',
-            'subjects_can_teach' => 'nullable|string',
+            'applicant_type' => 'required|string',
+            'position_applying_for' => 'required|string',
+            'subjects_can_teach' => 'required|string',
             'grades_preferred' => 'nullable|string',
             
             // Section 3: Education
@@ -133,9 +133,14 @@ class PublicApplicationController extends Controller
             }
 
             // 3. Create Application
+            $opening = JobOpening::whereHas('position', function($q) use ($validated) {
+                $q->where('title', $validated['position_applying_for']);
+            })->first();
+
             $application = Application::create([
                 'applicant_id' => $applicant->id,
-                'job_opening_id' => $validated['job_opening_id'],
+                'job_opening_id' => $opening ? $opening->id : null,
+                'position_applying_for' => $validated['position_applying_for'],
                 'applicant_type' => $validated['applicant_type'] === 'new' ? 'New Applicant' : 'Current Teacher (Reapplying)',
                 'subjects_can_teach' => $validated['subjects_can_teach'] ?? null,
                 'grades_preferred' => $validated['grades_preferred'] ?? null,

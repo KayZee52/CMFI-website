@@ -246,12 +246,18 @@
                                 <div class="sm:col-span-2">
                                     <label class="form-label">Position Applying For <span
                                             class="text-red-500">*</span></label>
-                                    <select name="job_opening_id" class="input-class" required>
+                                    <input type="text" name="position_applying_for" list="positions-list" class="input-class" required 
+                                        placeholder="e.g. Nursery Teacher, Biology Teacher, etc.">
+                                    <datalist id="positions-list">
                                         @foreach ($openings as $opening)
-                                            <option value="{{ $opening->id }}">{{ $opening->position->title }}
-                                            </option>
+                                            <option value="{{ $opening->position->title }}">
                                         @endforeach
-                                    </select>
+                                        <option value="Nursery Teacher">
+                                        <option value="Elementary Teacher">
+                                        <option value="Junior High Teacher">
+                                        <option value="Senior High Teacher">
+                                        <option value="Subject Specialist">
+                                    </datalist>
                                 </div>
                                 <div class="sm:col-span-2">
                                     <label class="form-label">Subjects You Can Teach <span
