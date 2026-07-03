@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use App\Notifications\SystemNotification;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -42,7 +43,9 @@ class ProfileController extends Controller
             $user->email_verified_at = null;
         }
 
-        $user->save();
+        $request->user()->save();
+
+        $request->user()->notify(new SystemNotification('Your profile has been updated successfully.'));
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }

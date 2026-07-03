@@ -91,9 +91,67 @@
                     <button class="icon-btn">
                         <x-icon name="mail" />
                     </button>
-                    <button class="icon-btn">
-                        <x-icon name="bell" />
-                    </button>
+                    
+                    <!-- Notification Dropdown -->
+                    <div x-data="{ open: false }" @click.away="open = false" style="position: relative;">
+                        <button @click="open = !open" class="icon-btn" style="position: relative;">
+                            <x-icon name="bell" />
+                            @if(Auth::user()->unreadNotifications->count() > 0)
+                                <span style="position: absolute; top: 8px; right: 8px; width: 8px; height: 8px; background: #EF4444; border-radius: 50%; border: 2px solid white;"></span>
+                            @endif
+                        </button>
+
+                        <div x-show="open" 
+                             x-transition:enter="transition ease-out duration-200"
+                             x-transition:enter-start="opacity-0 scale-95"
+                             x-transition:enter-end="opacity-100 scale-100"
+                             x-transition:leave="transition ease-in duration-75"
+                             x-transition:leave-start="opacity-100 scale-100"
+                             x-transition:leave-end="opacity-0 scale-95"
+                             style="position: absolute; right: 0; top: 100%; margin-top: 12px; width: 360px; background: white; border-radius: 16px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); border: 1px solid #F1F5F9; z-index: 50; overflow: hidden; display: none;"
+                             :style="{ display: open ? 'block' : 'none' }">
+                            
+                            <div style="padding: 16px 20px; border-bottom: 1px solid #F1F5F9; display: flex; justify-content: space-between; align-items: center; background: #F8FAFC;">
+                                <h3 style="font-size: 16px; font-weight: 700; color: #0F172A;">Notifications</h3>
+                                @if(Auth::user()->unreadNotifications->count() > 0)
+                                    <form method="POST" action="{{ route('notifications.read-all') }}">
+                                        @csrf
+                                        <button type="submit" style="font-size: 13px; color: var(--primary); font-weight: 600; background: none; border: none; cursor: pointer;">Mark all as read</button>
+                                    </form>
+                                @endif
+                            </div>
+
+                            <div style="max-height: 400px; overflow-y: auto;">
+                                @forelse(Auth::user()->unreadNotifications->take(5) as $notification)
+                                    <div style="padding: 16px 20px; border-bottom: 1px solid #F1F5F9; transition: background 0.2s; cursor: pointer;" onmouseover="this.style.background='#F8FAFC'" onmouseout="this.style.background='white'">
+                                        <div style="display: flex; gap: 12px;">
+                                            <div style="width: 40px; height: 40px; border-radius: 10px; background: #EFF6FF; display: flex; align-items: center; justify-content: center; color: var(--primary); flex-shrink: 0;">
+                                                <x-icon name="bell" style="width: 20px; height: 20px;" />
+                                            </div>
+                                            <div style="flex: 1;">
+                                                <p style="font-size: 14px; color: #0F172A; font-weight: 500; line-height: 1.4; margin-bottom: 4px;">{{ $notification->data['message'] ?? 'New notification' }}</p>
+                                                <span style="font-size: 12px; color: #94A3B8;">{{ $notification->created_at->diffForHumans() }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @empty
+                                    <div style="padding: 40px 20px; text-align: center;">
+                                        <div style="width: 64px; height: 64px; background: #F1F5F9; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
+                                            <x-icon name="bell" style="width: 32px; height: 32px; color: #94A3B8;" />
+                                        </div>
+                                        <p style="font-size: 15px; color: #64748B; font-weight: 500;">No new notifications</p>
+                                        <p style="font-size: 13px; color: #94A3B8; margin-top: 4px;">We'll let you know when something happens.</p>
+                                    </div>
+                                @endforelse
+                            </div>
+
+                            @if(Auth::user()->notifications->count() > 0)
+                                <a href="{{ route('notifications.index') }}" style="display: block; padding: 14px; text-align: center; font-size: 14px; color: #64748B; font-weight: 600; text-decoration: none; background: #F8FAFC; border-top: 1px solid #F1F5F9; transition: color 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='#64748B'">
+                                    View all notifications
+                                </a>
+                            @endif
+                        </div>
+                    </div>
                     
                     <!-- User Profile Dropdown -->
                     <div x-data="{ open: false }" @click.away="open = false" style="position: relative;">
