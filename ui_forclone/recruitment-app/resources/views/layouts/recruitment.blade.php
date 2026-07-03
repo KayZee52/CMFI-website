@@ -67,9 +67,11 @@
                 <div class="nav-section">
                     <p class="section-title">GENERAL</p>
                     <ul class="nav-list">
-                        <li class="nav-item">
-                            <i data-lucide="settings"></i>
-                            <span>Settings</span>
+                        <li class="nav-item {{ request()->routeIs('settings.*') ? 'active' : '' }}">
+                            <a href="{{ route('settings.index') }}" style="display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; width: 100%;">
+                                <i data-lucide="settings"></i>
+                                <span>Settings</span>
+                            </a>
                         </li>
                         <li class="nav-item">
                             <i data-lucide="help-circle"></i>

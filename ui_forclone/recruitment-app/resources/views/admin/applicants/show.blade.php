@@ -106,6 +106,23 @@
                 <p style="font-size: 12px; margin-top: 12px; opacity: 0.8;">Next expected step: Phone Screening</p>
             </section>
 
+            <!-- Messaging Section -->
+            <section class="grid-item" style="padding: 24px;">
+                <div class="section-header">
+                    <h2>Send Notification</h2>
+                </div>
+                <div style="margin-top: 16px;">
+                    <form action="#" method="POST" onsubmit="alert('Notification request sent to gateway (Placeholder)'); return false;">
+                        <div class="form-group">
+                            <textarea placeholder="Type your message here..." style="width: 100%; padding: 12px; border: 1.5px solid #EFEFEF; border-radius: 12px; font-family: inherit; font-size: 13px;"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+                            <i data-lucide="send" style="width: 14px;"></i> Send WhatsApp/SMS
+                        </button>
+                    </form>
+                </div>
+            </section>
+
             <!-- Screening Notes -->
             <section class="grid-item" style="padding: 24px;">
                 <div class="section-header">

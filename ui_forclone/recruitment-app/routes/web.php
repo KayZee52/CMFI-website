@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicApplicationController;
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\JobOpeningController;
+use App\Http\Controllers\RecruitmentSettingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,6 +21,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('applicants', ApplicantController::class)->only(['index', 'show']);
     Route::resource('job-openings', JobOpeningController::class);
+    
+    Route::get('/settings', [RecruitmentSettingController::class, 'index'])->name('settings.index');
+    Route::post('/settings', [RecruitmentSettingController::class, 'update'])->name('settings.update');
 });
 
 Route::middleware('auth')->group(function () {
