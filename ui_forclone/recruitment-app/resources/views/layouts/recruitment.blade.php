@@ -55,10 +55,10 @@
                                 <span>Interviews</span>
                             </a>
                         </li>
-                        <li class="nav-item {{ request()->routeIs('positions.*') ? 'active' : '' }}">
-                            <a href="#" style="display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; width: 100%;">
+                        <li class="nav-item {{ request()->routeIs('job-openings.*') ? 'active' : '' }}">
+                            <a href="{{ route('job-openings.index') }}" style="display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; width: 100%;">
                                 <i data-lucide="briefcase"></i>
-                                <span>Positions</span>
+                                <span>Job Openings</span>
                             </a>
                         </li>
                     </ul>
