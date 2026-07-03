@@ -49,11 +49,17 @@
 }
 
 body {
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Inter', sans-serif;
     background-color: var(--bg-main);
     color: var(--text-main);
-    line-height: 1.5;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
     overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.02em;
+    line-height: 1.2;
 }
 
 .app-container {
@@ -356,10 +362,11 @@ body {
     margin-bottom: 32px;
 }
 
-.hero-text h1 {
-    font-size: 32px;
+.dashboard-hero h1 {
+    font-size: 36px;
     font-weight: 700;
     margin-bottom: 8px;
+    letter-spacing: -0.03em;
 }
 
 .hero-text p {
@@ -1391,6 +1398,14 @@ body {
     border-radius: 24px;
     text-align: center;
     border: 1px solid var(--border-color);
+}
+
+.hero-card h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #0F172A;
+    margin: 0;
+    letter-spacing: -0.03em;
 }
 
 .hero-card .avatar-large {
