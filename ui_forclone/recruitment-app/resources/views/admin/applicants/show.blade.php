@@ -7,7 +7,7 @@
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px;">
             <div style="display: flex; align-items: center; gap: 16px;">
                 <a href="{{ route('applicants.index') }}" style="color: var(--text-muted);"><x-icon name="arrow-left" class="w-6 h-6" /></a>
-                <h1 style="font-size: 24px; font-weight: 800; margin: 0;">Candidate Profile</h1>
+                <h1 style="font-size: 36px; font-weight: 700; margin: 0; letter-spacing: -0.03em;">Candidate Profile</h1>
             </div>
             <div style="display: flex; gap: 12px;">
                 <button class="btn btn-secondary" style="border-radius: 12px;"><x-icon name="mail" class="w-4 h-4" /> Message</button>
@@ -25,7 +25,7 @@
                              class="avatar-large" alt="Avatar">
                         <div style="position: absolute; bottom: 30px; right: 10px; width: 28px; height: 28px; background: #10B981; border: 4px solid white; border-radius: 50%;"></div>
                     </div>
-                    <h2 style="font-size: 24px; font-weight: 800; color: #0F172A; margin: 0;">{{ $applicant->full_name }}</h2>
+                    <h2 style="font-size: 24px; font-weight: 700; color: #0F172A; margin: 0; letter-spacing: -0.02em;">{{ $applicant->full_name }}</h2>
                     <p style="font-size: 14px; color: var(--primary); font-weight: 700; margin: 8px 0 24px;">{{ $applicant->applications->first()->jobOpening->position->title }}</p>
                     
                     <div style="display: flex; justify-content: center; gap: 12px;">
@@ -34,8 +34,8 @@
                     </div>
                 </div>
 
-                <div class="profile-card" style="padding: 32px;">
-                    <h4 style="font-size: 14px; font-weight: 800; color: #0F172A; margin: 0 0 24px; text-transform: uppercase; letter-spacing: 0.05em;">Social Presence</h4>
+                <div class="profile-card" style="padding: 24px;">
+                    <h4 style="font-size: 14px; font-weight: 600; color: #0F172A; margin: 0 0 16px; text-transform: uppercase; letter-spacing: 0.05em;">Social Presence</h4>
                     <div style="display: flex; gap: 16px;">
                         <a href="#" style="width: 44px; height: 44px; background: #F8FAFC; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #E11D48;"><x-icon name="users" class="w-6 h-6" /></a>
                         <a href="#" style="width: 44px; height: 44px; background: #F8FAFC; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #8B5CF6;"><x-icon name="users" class="w-6 h-6" /></a>
@@ -44,8 +44,8 @@
                 </div>
 
                 <!-- Match Score Section (Adapted from Maria Fernanda "Availability") -->
-                <div class="profile-card" style="padding: 32px; text-align: center;">
-                    <h4 style="font-size: 14px; font-weight: 800; color: #0F172A; margin: 0 0 24px; text-transform: uppercase; letter-spacing: 0.05em;">Hiring Match</h4>
+                <div class="profile-card" style="padding: 24px; text-align: center;">
+                    <h4 style="font-size: 14px; font-weight: 600; color: #0F172A; margin: 0 0 16px; text-transform: uppercase; letter-spacing: 0.05em;">Hiring Match</h4>
                     <div style="display: flex; justify-content: center; margin-bottom: 20px;">
                         @php $matchScore = 82; $degree = ($matchScore / 100) * 360; @endphp
                         <div class="gauge-chart" style="width: 130px; height: 130px; background: conic-gradient(var(--primary) 0deg {{ $degree }}deg, #F1F5F9 {{ $degree }}deg 360deg);">
@@ -63,9 +63,9 @@
             <div style="display: flex; flex-direction: column; gap: 32px;">
                 
                 <!-- Bio & Details Card -->
-                <div class="profile-card" style="padding: 32px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                        <h4 style="font-size: 16px; font-weight: 800; color: #0F172A; margin: 0;">Bio & other details</h4>
+                <div class="profile-card" style="padding: 24px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h4 style="font-size: 18px; font-weight: 700; color: #0F172A; margin: 0; letter-spacing: -0.01em;">Bio & other details</h4>
                         <div style="width: 8px; height: 8px; background: #10B981; border-radius: 50%;"></div>
                     </div>
                     <p style="font-size: 15px; line-height: 1.8; color: #475569; margin-bottom: 32px;">{{ $applicant->bio ?? 'No professional biography provided.' }}</p>
@@ -100,8 +100,8 @@
                 </div>
 
                 <!-- Work Experience (Production Style) -->
-                <div class="profile-card" style="padding: 32px;">
-                    <h4 style="font-size: 16px; font-weight: 800; color: #0F172A; margin: 0 0 24px;">Professional History</h4>
+                <div class="profile-card" style="padding: 24px;">
+                    <h4 style="font-size: 18px; font-weight: 700; color: #0F172A; margin: 0 0 20px; letter-spacing: -0.01em;">Professional History</h4>
                     <div class="production-list">
                         <div class="production-item">
                             <div style="display: flex; align-items: center; gap: 16px;">
@@ -137,8 +137,8 @@
                 </div>
 
                 <!-- Documents Collection (Grid Style) -->
-                <div class="profile-card" style="padding: 32px;">
-                    <h4 style="font-size: 16px; font-weight: 800; color: #0F172A; margin: 0 0 24px;">Evidence Collection</h4>
+                <div class="profile-card" style="padding: 24px;">
+                    <h4 style="font-size: 18px; font-weight: 700; color: #0F172A; margin: 0 0 20px; letter-spacing: -0.01em;">Evidence Collection</h4>
                     <div class="doc-gallery">
                         @forelse($applicant->applications->first()->documents as $doc)
                             <div class="doc-item" @click="previewOpen = true; previewTitle = '{{ $doc->document_type }}'">
