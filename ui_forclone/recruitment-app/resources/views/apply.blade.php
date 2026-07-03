@@ -6,69 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teacher Application | CMFI Bilingual High School</title>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap"
-        rel="stylesheet">
+    <!-- Local Styles & Fonts -->
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    
+    <!-- Local Compiled Assets (Tailwind & Alpine) -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <!-- Tailwind CDN (Ensures design works without local compilation) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        headline: ['Poppins', 'sans-serif'],
-                        body: ['Roboto', 'sans-serif'],
-                    },
-                    colors: {
-                        slate: {
-                            900: '#0f172a',
-                            800: '#1e293b',
-                            700: '#334155',
-                            600: '#475569',
-                            500: '#64748b',
-                            400: '#94a3b8',
-                            200: '#e2e8f0',
-                            100: '#f1f5f9',
-                            50: '#f8fafc',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style type="text/tailwindcss">
-        @layer components {
-            .input-class {
-                @apply w-full rounded-lg border border-slate-200 bg-slate-50/30 px-4 py-3 text-base transition-all focus:bg-white focus:border-slate-800 focus:ring-0 focus:outline-none;
-            }
-            .btn-primary {
-                @apply bg-slate-900 text-white font-semibold py-4 px-8 rounded-lg transition-all hover:bg-slate-800 flex items-center justify-center gap-2 disabled:opacity-50;
-            }
-            .btn-secondary {
-                @apply bg-white text-slate-600 font-semibold py-4 px-8 rounded-lg border border-slate-200 transition-all hover:text-slate-900 hover:border-slate-300;
-            }
-            .form-label {
-                @apply text-[13px] font-bold text-slate-600 uppercase tracking-wider block mb-2;
-            }
-        }
-
+    <style>
         [x-cloak] { display: none !important; }
-        
-        .animate-fadeIn {
-            animation: fadeIn 0.4s ease-out forwards;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
     </style>
 </head>
 

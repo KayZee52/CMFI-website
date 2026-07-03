@@ -12,10 +12,23 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Roboto', ...defaultTheme.fontFamily.sans],
-                headline: ['Poppins', 'sans-serif'],
-                body: ['Roboto', 'sans-serif'],
+                sans: ['Satoshi', ...defaultTheme.fontFamily.sans],
+                headline: ['Satoshi', 'sans-serif'],
+                body: ['Satoshi', 'sans-serif'],
             },
+            colors: {
+                slate: {
+                    900: '#0f172a',
+                    800: '#1e293b',
+                    700: '#334155',
+                    600: '#475569',
+                    500: '#64748b',
+                    400: '#94a3b8',
+                    200: '#e2e8f0',
+                    100: '#f1f5f9',
+                    50: '#f8fafc',
+                }
+            }
         },
     },
 

@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .input-class {
+        @apply w-full rounded-lg border border-slate-200 bg-slate-50/30 px-4 py-3 text-base transition-all focus:bg-white focus:border-slate-800 focus:ring-0 focus:outline-none;
+    }
+    .btn-primary {
+        @apply bg-slate-900 text-white font-semibold py-4 px-8 rounded-lg transition-all hover:bg-slate-800 flex items-center justify-center gap-2 disabled:opacity-50;
+    }
+    .btn-secondary {
+        @apply bg-white text-slate-600 font-semibold py-4 px-8 rounded-lg border border-slate-200 transition-all hover:text-slate-900 hover:border-slate-300;
+    }
+    .form-label {
+        @apply text-[13px] font-bold text-slate-600 uppercase tracking-wider block mb-2;
+    }
+    .animate-fadeIn {
+        animation: fadeIn 0.4s ease-out forwards;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
