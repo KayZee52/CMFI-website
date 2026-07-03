@@ -85,10 +85,10 @@
             </nav>
         </aside>
 
-        <!-- Main Content -->
-        <main class="main-content">
+        <!-- Main Wrapper -->
+        <div style="flex: 1; display: flex; flex-direction: column; min-width: 0; height: 100vh;">
             <!-- Top Header -->
-            <header class="top-header">
+            <header class="top-header" style="background: white; border-bottom: 1px solid #F1F5F9; padding: 20px 48px; margin-bottom: 0;">
                 <div class="search-bar">
                     <x-icon name="search" class="w-5 h-5" style="color: #9A9FA5;" />
                     <input type="text" placeholder="Search applicant...">
@@ -215,8 +215,10 @@
                 </div>
             </header>
 
-            @yield('content')
-        </main>
+            <main class="main-content" style="flex: 1; overflow-y: auto; padding: 0;">
+                @yield('content')
+            </main>
+        </div>
     </div>
 </body>
 </html>

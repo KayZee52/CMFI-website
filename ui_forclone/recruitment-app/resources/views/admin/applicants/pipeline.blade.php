@@ -1,7 +1,7 @@
 @extends('layouts.recruitment')
 
 @section('content')
-<div class="page-content" style="padding: 0; height: calc(100vh - 100px); overflow: hidden; display: flex; flex-direction: column;">
+<div class="page-content" style="padding: 0; display: flex; flex-direction: column;">
     
     <!-- Pipeline Header -->
     <div style="padding: 32px 40px; background: white; border-bottom: 1px solid #F1F5F9; display: flex; justify-content: space-between; align-items: center;">
@@ -151,7 +151,10 @@ document.addEventListener('DOMContentLoaded', function() {
         toast.style.display = 'flex';
         toast.style.alignItems = 'center';
         toast.style.gap = '12px';
-        toast.innerHTML = (type === 'success' ? '✅ ' : '❌ ') + message;
+        const successIcon = `<svg style="width: 20px; height: 20px; color: #10B981;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+        const errorIcon = `<svg style="width: 20px; height: 20px; color: #EF4444;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path></svg>`;
+        
+        toast.innerHTML = (type === 'success' ? successIcon : errorIcon) + ` <span style="font-weight: 600;">${message}</span>`;
         
         document.body.appendChild(toast);
         
@@ -163,6 +166,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+
+@endsection
 
 <style>
 .sortable-ghost {

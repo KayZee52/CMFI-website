@@ -55,7 +55,9 @@
                 </div>
                 <h3 style="font-size: 20px; font-weight: 800; color: #0F172A; margin: 0;">All caught up!</h3>
                 <p style="font-size: 15px; color: #94A3B8; font-weight: 600; margin-top: 8px;">You don't have any new notifications at the moment.</p>
-                <a href="{{ route('dashboard') }}" style="display: inline-block; margin-top: 24px; font-size: 14px; font-weight: 700; color: var(--primary); text-decoration: none;">Return to Dashboard &rarr;</a>
+                <a href="{{ route('dashboard') }}" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 24px; font-size: 14px; font-weight: 700; color: var(--primary); text-decoration: none;">
+                    Return to Dashboard <x-icon name="arrow-right" class="w-4 h-4" />
+                </a>
             </div>
         @endforelse
     </div>
