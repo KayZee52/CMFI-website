@@ -29,13 +29,13 @@ class PublicApplicationController extends Controller
             'city_of_residence' => 'required|string',
             'phone' => 'required|string',
             'whatsapp_number' => 'required|string',
-            'email' => 'email|unique:applicants,email',
+            'email' => 'required|email|unique:applicants,email',
             'home_address' => 'required|string',
             'emergency_name' => 'required|string',
             'emergency_number' => 'required|string',
             
             // Section 2: Position
-            'applicant_type' => 'required|string',
+            'applicant_type' => 'required|in:new,current_teacher',
             'position_applying_for' => 'required|string',
             'subjects_can_teach' => 'required|string',
             'grades_preferred' => 'nullable|string',
