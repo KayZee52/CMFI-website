@@ -682,26 +682,36 @@
     <script>
         function applicationForm() {
             return {
-                currentStep: 1,
+                currentStep: 0,
                 applicantType: 'new',
                 isPending: false,
-                steps: [
-                    { id: 1, name: 'Personal Information' },
-                    { id: 2, name: 'Position & Preferences' },
-                    { id: 3, name: 'Education & Credentials' },
-                    { id: 4, name: 'Teaching Experience' },
-                    { id: 5, name: 'CMFI Reapplication', conditional: true },
-                    { id: 6, name: 'Skills & Conduct' },
-                    { id: 7, name: 'References & Availability' },
-                    { id: 8, name: 'Final Statement' }
+                skills: [
+                    { id: 'classroom_management', label: 'Classroom Management' },
+                    { id: 'lesson_planning', label: 'Lesson Planning' },
+                    { id: 'student_assessment', label: 'Student Assessment' },
+                    { id: 'computer_skills', label: 'Computer Literacy' },
+                    { id: 'ms_word', label: 'Microsoft Word' },
+                    { id: 'ms_excel', label: 'Microsoft Excel' },
+                    { id: 'google_workspace', label: 'Google Workspace' },
+                    { id: 'online_teaching', label: 'Online Teaching Platforms' }
+                ],
+                
+                stepNames: [
+                    'Selection',
+                    'Personal Information',
+                    'Position Information',
+                    'Educational Background',
+                    'Teaching Experience',
+                    'Staff Reapplication',
+                    'Skills & Competencies',
+                    'Character & Conduct',
+                    'Professional References',
+                    'Personal Statement'
                 ],
 
-                activeSteps() {
-                    return this.steps.filter(step => !step.conditional || this.applicantType === 'current_teacher');
-                },
-
                 totalActiveSteps() {
-                    return this.activeSteps().length;
+                    // For "new" applicants, we skip step 5 (Reapplication)
+                    return this.applicantType === 'current_teacher' ? 10 : 9;
                 },
 
                 getActiveStepIndex() {
@@ -716,15 +726,31 @@
                 },
 
                 progressPercent() {
+                    const total = this.totalActiveSteps();
+                    const current = this.getActiveStepIndex();
+                    return (current / total) * 100;
+                },
+
+                handleNext() {
+                    if (this.currentStep < 9) {
+                        // If it's a new applicant, skip Step 5 (Staff Reapplication)
+                        if (this.applicantType === 'new' && this.currentStep === 4) {
+                            this.currentStep = 6;
+                        } else {
+                            this.currentStep++;
+                        }
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                     }
                 },
 
                 handleBack() {
-                    const active = this.activeSteps();
-                    const currentIndex = active.findIndex(s => s.id === this.currentStep);
-                    if (currentIndex > 0) {
-                        this.currentStep = active[currentIndex - 1].id;
+                    if (this.currentStep > 0) {
+                        // If it's a new applicant, skip back from 6 to 4
+                        if (this.applicantType === 'new' && this.currentStep === 6) {
+                            this.currentStep = 4;
+                        } else {
+                            this.currentStep--;
+                        }
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                     }
                 }

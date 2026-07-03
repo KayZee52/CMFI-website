@@ -39,8 +39,7 @@
                 <div class="hero-card" style="background: white; border-radius: 24px; padding: 40px; text-align: center; border: 1px solid #F1F5F9; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);">
                     <div style="position: relative; display: inline-block; margin-bottom: 24px;">
                         @php 
-                            $photoDoc = $applicant->applications->first()->documents->where('document_type', 'Passport Photo')->first();
-                            $avatarUrl = $photoDoc ? asset('storage/' . $photoDoc->file_path) : asset('images/avatars/avatar_' . (strtolower($applicant->gender) == 'male' ? 'male' : (strtolower($applicant->gender) == 'female' ? 'female' : 'neutral')) . '.png');
+                            $avatarUrl = $applicant->photo_path ? asset('storage/' . $applicant->photo_path) : asset('images/avatars/avatar_' . (strtolower($applicant->gender) == 'male' ? 'male' : (strtolower($applicant->gender) == 'female' ? 'female' : 'neutral')) . '.png');
                         @endphp
                         <img src="{{ $avatarUrl }}" 
                              style="width: 140px; height: 140px; border-radius: 40px; object-fit: cover; border: 4px solid #F1F5F9; background: #F8FAFC;" alt="Avatar">
@@ -340,7 +339,7 @@
                     
                     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
                         @forelse($applicant->applications->first()->documents as $doc)
-                            <div @click="openPreview('{{ $doc->document_type }}', '{{ asset('storage/' . $doc->file_path) }}')" 
+                            <div @click="openPreview('{{ $doc->document_type }}', '{{ route('documents.serve', $doc->id) }}')" 
                                  style="background: #F8FAFC; border-radius: 16px; padding: 20px; border: 1.5px solid #F1F5F9; cursor: pointer; transition: all 0.2s; position: relative;" 
                                  class="doc-item"
                                  onmouseover="this.style.borderColor='#3B82F6'; this.style.transform='translateY(-2px)'" 

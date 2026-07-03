@@ -33,6 +33,7 @@ class Applicant extends Model
         'certifications',
         'years_experience',
         'skills_proficiency',
+        'photo_path',
         'dismissed',
         'convicted',
         'abide_policies',

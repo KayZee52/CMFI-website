@@ -4,9 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Application;
+use App\Models\ApplicationDocument;
+use Illuminate\Support\Facades\Storage;
 
 class ApplicationController extends Controller
 {
+    /**
+     * Serve a protected document.
+     */
+    public function serveDocument(ApplicationDocument $document)
+    {
+        if (!Storage::disk('private')->exists($document->file_path)) {
+            abort(404);
+        }
+
+        return Storage::disk('private')->response($document->file_path);
+    }
+
     /**
      * Update the pipeline stage of an application.
      */

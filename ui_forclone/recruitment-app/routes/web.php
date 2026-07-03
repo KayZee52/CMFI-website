@@ -25,6 +25,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('applicants', ApplicantController::class)->only(['index', 'show']);
     Route::post('/applications/{application}/update-stage', [ApplicationController::class, 'updateStage'])->name('applications.update-stage');
     Route::post('/applications/{application}/decision', [ApplicationController::class, 'makeDecision'])->name('applications.decision');
+    Route::get('/documents/{document}', [ApplicationController::class, 'serveDocument'])->name('documents.serve');
     
     Route::resource('job-openings', JobOpeningController::class);
     Route::resource('interviews', InterviewController::class);

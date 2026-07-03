@@ -126,7 +126,13 @@ class PublicApplicationController extends Controller
                 'applicant_type' => $validated['applicant_type'],
             ]);
 
-            // 2. Create Application
+            // 2. Handle Profile Photo separately (Public)
+            if ($request->hasFile('photo')) {
+                $photoPath = $request->file('photo')->store("applicants/photos", 'public');
+                $applicant->update(['photo_path' => $photoPath]);
+            }
+
+            // 3. Create Application
             $application = Application::create([
                 'applicant_id' => $applicant->id,
                 'job_opening_id' => $validated['job_opening_id'],
@@ -153,10 +159,9 @@ class PublicApplicationController extends Controller
                 'submitted_at' => now(),
             ]);
 
-            // 3. Handle File Uploads
+            // 4. Handle File Uploads (Private)
             $fileFields = [
                 'cv' => 'CV',
-                'photo' => 'Passport Photo',
                 'transcripts' => 'Transcripts',
                 'academic_certificates' => 'Academic Certificates',
                 'professional_certificates' => 'Professional Certificates',
