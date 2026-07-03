@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donezo Dashboard | Project Management</title>
+    <meta name="description" content="Donezo dashboard - Plan, prioritize, and accomplish your tasks with ease.">
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="16" cy="16" r="14" stroke="#1B5E3F" stroke-width="4" />
+                        <circle cx="16" cy="16" r="6" fill="#1B5E3F" />
+                    </svg>
+                </div>
+                <span class="logo-text">Donezo</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <p class="section-title">MENU</p>
+                    <ul class="nav-list">
+                        <li class="nav-item active">
+                            <i data-lucide="layout-grid"></i>
+                            <span>Dashboard</span>
+                        </li>
+                        <li class="nav-item">
+                            <i data-lucide="check-square"></i>
+                            <span>Tasks</span>
+                            <span class="badge">12+</span>
+                        </li>
+                        <li class="nav-item">
+                            <i data-lucide="calendar"></i>
+                            <span>Calendar</span>
+                        </li>
+                        <li class="nav-item">
+                            <i data-lucide="bar-chart-2"></i>
+                            <span>Analytics</span>
+                        </li>
+                        <li class="nav-item">
+                            <i data-lucide="users"></i>
+                            <span>Team</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <p class="section-title">GENERAL</p>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <i data-lucide="settings"></i>
+                            <span>Settings</span>
+                        </li>
+                        <li class="nav-item">
+                            <i data-lucide="help-circle"></i>
+                            <span>Help</span>
+                        </li>
+                        <li class="nav-item">
+                            <i data-lucide="log-out"></i>
+                            <span>Logout</span>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="search-bar">
+                    <i data-lucide="search" style="width: 18px; color: #9A9FA5;"></i>
+                    <input type="text" placeholder="Search task">
+                    <div class="shortcut-badge">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3z"></path>
+                            <path d="M6 21a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3 3 3 0 0 1-3 3H9a3 3 0 0 1-3-3z"></path>
+                            <path d="M18 21a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3 3 3 0 0 1 3 3v12a3 3 0 0 1-3 3z"></path>
+                            <path d="M6 3a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3H9a3 3 0 0 0-3 3z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="icon-btn">
+                        <i data-lucide="mail"></i>
+                    </button>
+                    <button class="icon-btn">
+                        <i data-lucide="bell"></i>
+                    </button>
+                    <div class="user-profile">
+                        <div class="avatar-crop" style="background-position: 15% 15%;"></div>
+                        <div class="user-info">
+                            <span class="user-name">Totok Michael</span>
+                            <span class="user-email">tmichael20@mail.com</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Hero -->
+            <section class="dashboard-hero">
+                <div class="hero-text">
+                    <h1>Dashboard</h1>
+                    <p>Plan, prioritize, and accomplish your tasks with ease.</p>
+                </div>
+                <div class="hero-actions">
+                    <button class="btn btn-primary"><i data-lucide="plus"></i> Add Project</button>
+                    <button class="btn btn-secondary">Import Data</button>
+                </div>
+            </section>
+
+            <!-- Stats Grid -->
+            <section class="stats-grid">
+                <div class="stat-card dark">
+                    <div class="stat-header">
+                        <span>Total Projects</span>
+                        <div class="arrow-icon"><i data-lucide="arrow-up-right"></i></div>
+                    </div>
+                    <div class="stat-value">24</div>
+                    <div class="stat-footer">
+                        <div class="growth-tag">5</div> Increased from last month
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span>Ended Projects</span>
+                        <div class="arrow-icon"><i data-lucide="arrow-up-right"></i></div>
+                    </div>
+                    <div class="stat-value">10</div>
+                    <div class="stat-footer">
+                        <div class="growth-tag secondary">6</div> Increased from last month
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span>Running Projects</span>
+                        <div class="arrow-icon"><i data-lucide="arrow-up-right"></i></div>
+                    </div>
+                    <div class="stat-value">12</div>
+                    <div class="stat-footer">
+                        <div class="growth-tag secondary">2</div> Increased from last month
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span>Pending Project</span>
+                        <div class="arrow-icon"><i data-lucide="arrow-up-right"></i></div>
+                    </div>
+                    <div class="stat-value">2</div>
+                    <div class="stat-footer">
+                        On Discuss
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Project Analytics -->
+                <section class="grid-item project-analytics">
+                    <div class="section-header">
+                        <h2>Project Analytics</h2>
+                    </div>
+                    <div class="chart-container">
+                        <div class="bar-chart">
+                            <div class="bar-group">
+                                <div class="bar hatched" style="height: 40%;"></div>
+                                <span>S</span>
+                            </div>
+                            <div class="bar-group">
+                                <div class="bar dark" style="height: 70%;"></div>
+                                <span>M</span>
+                            </div>
+                            <div class="bar-group">
+                                <div class="bar light" style="height: 60%;">
+                                    <div class="tooltip">74%</div>
+                                </div>
+                                <span>T</span>
+                            </div>
+                            <div class="bar-group">
+                                <div class="bar filled" style="height: 85%;"></div>
+                                <span>W</span>
+                            </div>
+                            <div class="bar-group">
+                                <div class="bar hatched" style="height: 45%;"></div>
+                                <span>T</span>
+                            </div>
+                            <div class="bar-group">
+                                <div class="bar hatched" style="height: 35%;"></div>
+                                <span>F</span>
+                            </div>
+                            <div class="bar-group">
+                                <div class="bar hatched" style="height: 30%;"></div>
+                                <span>S</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Reminders -->
+                <section class="grid-item reminders">
+                    <div class="section-header">
+                        <h2>Reminders</h2>
+                    </div>
+                    <div class="reminder-card">
+                        <h3>Meeting with Arc Company</h3>
+                        <p class="time">Time: 02.00 pm - 04.00 pm</p>
+                        <button class="btn-start"><i data-lucide="video" style="width: 18px;"></i> Start
+                            Meeting</button>
+                    </div>
+                </section>
+
+                <!-- Project List -->
+                <section class="grid-item project-list">
+                    <div class="section-header">
+                        <h2>Project</h2>
+                        <button class="btn-add-small"><i data-lucide="plus"></i> New</button>
+                    </div>
+                    <div class="projects">
+                        <div class="project-item">
+                            <div class="project-icon" style="background-color: #2A85FF;">
+                                <i data-lucide="layers" style="width: 18px;"></i>
+                            </div>
+                            <div class="project-info">
+                                <h4>Develop API Endpoints</h4>
+                                <p>Due date: Nov 26, 2024</p>
+                            </div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-icon" style="background-color: #7FC008;">
+                                <i data-lucide="target" style="width: 18px;"></i>
+                            </div>
+                            <div class="project-info">
+                                <h4>Onboarding Flow</h4>
+                                <p>Due date: Nov 30, 2024</p>
+                            </div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-icon" style="background-color: #FFBC11;">
+                                <i data-lucide="layout" style="width: 18px;"></i>
+                            </div>
+                            <div class="project-info">
+                                <h4>Build Dashboard</h4>
+                                <p>Due date: Nov 30, 2024</p>
+                            </div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-icon" style="background-color: #FF6A55;">
+                                <i data-lucide="zap" style="width: 18px;"></i>
+                            </div>
+                            <div class="project-info">
+                                <h4>Optimize Page Load</h4>
+                                <p>Due date: Dec 5, 2024</p>
+                            </div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-icon" style="background-color: #8E59FF;">
+                                <i data-lucide="smartphone" style="width: 18px;"></i>
+                            </div>
+                            <div class="project-info">
+                                <h4>Cross-Browser Testing</h4>
+                                <p>Due date: Dec 6, 2024</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Team Collaboration -->
+                <section class="grid-item team-collaboration">
+                    <div class="section-header">
+                        <h2>Team Collaboration</h2>
+                        <button class="btn-add-small outline"><i data-lucide="plus"></i> Add Member</button>
+                    </div>
+                    <div class="team-list">
+                        <div class="team-item">
+                            <div class="avatar-crop" style="background-position: 15% 85%;"></div>
+                            <div class="member-info">
+                                <h4>Alexandra Deff</h4>
+                                <p>Working on <span>Github Project Repository</span></p>
+                            </div>
+                            <span class="status-tag completed">Completed</span>
+                        </div>
+                        <div class="team-item">
+                            <div class="avatar-crop" style="background-position: 85% 15%;"></div>
+                            <div class="member-info">
+                                <h4>Edwin Adenike</h4>
+                                <p>Working on <span>Integrate User Authentication System</span></p>
+                            </div>
+                            <span class="status-tag in-progress">In Progress</span>
+                        </div>
+                        <div class="team-item">
+                            <div class="avatar-crop" style="background-position: 85% 85%;"></div>
+                            <div class="member-info">
+                                <h4>Isaac Oluwatemilorun</h4>
+                                <p>Working on <span>Develop Search and Filter Functionality</span></p>
+                            </div>
+                            <span class="status-tag pending">Pending</span>
+                        </div>
+                        <div class="team-item">
+                            <div class="avatar-crop" style="background-position: 50% 50%;"></div>
+                            <div class="member-info">
+                                <h4>David Oshodi</h4>
+                                <p>Working on <span>Responsive Layout for Homepage</span></p>
+                            </div>
+                            <span class="status-tag in-progress">In Progress</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Project Progress -->
+                <section class="grid-item project-progress">
+                    <div class="section-header">
+                        <h2>Project Progress</h2>
+                    </div>
+                    <div class="progress-container">
+                        <div class="gauge-chart">
+                            <div class="gauge-center">
+                                <span class="percentage">41%</span>
+                                <span class="label">Project Ended</span>
+                            </div>
+                        </div>
+                        <div class="legend">
+                            <div class="legend-item"><span class="dot completed"></span> Completed</div>
+                            <div class="legend-item"><span class="dot in-progress"></span> In Progress</div>
+                            <div class="legend-item"><span class="dot pending"></span> Pending</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Time Tracker -->
+                <section class="grid-item time-tracker">
+                    <div class="time-tracker-card">
+                        <span class="card-title">Time Tracker</span>
+                        <div class="time-display">01:24:08</div>
+                        <div class="controls">
+                            <button class="control-btn play"><i data-lucide="pause"></i></button>
+                            <button class="control-btn stop"><i data-lucide="square"></i></button>
+                        </div>
+                        <div class="card-bg-waves"></div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
