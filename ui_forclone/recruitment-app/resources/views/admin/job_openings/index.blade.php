@@ -5,12 +5,14 @@
     <section class="dashboard-hero">
         <div class="hero-text">
             <h1>Job Openings</h1>
-            <p>Manage teaching vacancies and track recruitment goals for the current session.</p>
+            <p>Manage teaching vacancies and track recruitment status for each position.</p>
         </div>
         <div class="hero-actions">
-            <a href="{{ route('job-openings.create') }}" class="btn btn-primary" style="text-decoration: none;">
-                <i data-lucide="plus-circle"></i> Create New Opening
-            </a>
+            @if(auth()->user()->hasRole(['super_admin', 'hr_admin']))
+                <a href="{{ route('job-openings.create') }}" class="btn btn-primary" style="text-decoration: none;">
+                    <x-icon name="dashboard" class="w-4 h-4" /> Add New Opening
+                </a>
+            @endif
         </div>
     </section>
 
@@ -20,24 +22,24 @@
             <div class="stat-header">
                 <span>Total Vacancies</span>
                 <div class="arrow-icon">
-                    <i data-lucide="briefcase"></i>
+                    <x-icon name="briefcase" />
                 </div>
             </div>
             <div class="stat-value">{{ $stats['vacancies'] }}</div>
             <div class="stat-footer">
-                <span>Active spots across all openings</span>
+                <span>Across all open positions</span>
             </div>
             <div class="card-bg-waves"></div>
         </div>
 
         <div class="stat-card">
             <div class="stat-header">
-                <span>Open Positions</span>
+                <span>Open Openings</span>
                 <div class="arrow-icon">
-                    <i data-lucide="check-circle"></i>
+                    <x-icon name="calendar" />
                 </div>
             </div>
-            <div class="stat-value">{{ $stats['open'] }}</div>
+            <div class="stat-value">{{ $stats['total'] }}</div>
             <div class="stat-footer">
                 <span>Currently accepting applications</span>
             </div>
@@ -45,120 +47,114 @@
 
         <div class="stat-card">
             <div class="stat-header">
-                <span>Filled Spots</span>
+                <span>Dept. Breakdown</span>
                 <div class="arrow-icon">
-                    <i data-lucide="user-check"></i>
+                    <x-icon name="dashboard" />
                 </div>
             </div>
-            <div class="stat-value">{{ \App\Models\Application::where('decision_status', 'Hired')->count() }}</div>
+            <div class="stat-value">{{ \App\Models\Department::count() }}</div>
             <div class="stat-footer">
-                <span class="growth-tag">+2</span>
-                <span>filled this month</span>
+                <span>Active departments hiring</span>
             </div>
         </div>
 
         <div class="stat-card">
             <div class="stat-header">
-                <span>Total Posts</span>
+                <span>Academic Year</span>
                 <div class="arrow-icon">
-                    <i data-lucide="file-text"></i>
+                    <x-icon name="calendar" />
                 </div>
             </div>
-            <div class="stat-value">{{ $stats['total'] }}</div>
+            <div class="stat-value" style="font-size: 24px; padding: 12px 0;">2026/2027</div>
             <div class="stat-footer">
-                <span>Job advertisements published</span>
+                <span>Active recruitment cycle</span>
             </div>
         </div>
     </div>
 
-    @if(session('success'))
-        <div style="background: #E6F4EA; border-left: 4px solid #28A745; color: #1E7E34; padding: 16px 24px; border-radius: 12px; margin-top: 32px; display: flex; align-items: center; gap: 12px;">
-            <i data-lucide="check-circle" style="width: 20px;"></i>
-            <span style="font-size: 14px; font-weight: 500;">{{ session('success') }}</span>
-        </div>
-    @endif
-
-    <!-- Openings List Container -->
-    <section class="grid-item" style="margin-top: 32px; padding: 0; overflow: hidden; border: 1px solid var(--border-color); background: var(--white); border-radius: 24px;">
-        <div style="padding: 24px; border-bottom: 1px solid var(--border-color); background: #FAFBFC; display: flex; justify-content: space-between; align-items: center;">
-            <h2 style="font-size: 18px; font-weight: 600; margin: 0;">Active Vacancies List</h2>
-            <div class="search-bar" style="width: 300px; background: white;">
-                <x-icon name="search" class="w-4 h-4" style="color: var(--text-light);" />
-                <input type="text" placeholder="Search positions, depts..." style="font-size: 13px;">
+    <!-- Shadcn-inspired Table Section -->
+    <div class="table-container" style="margin-top: 32px; box-shadow: var(--shadow-md);">
+        <div class="list-header">
+            <h2>Active Vacancies List</h2>
+            <div class="search-bar" style="width: 380px; background: white; border-radius: 10px; padding: 8px 16px; border: 1px solid #E2E8F0;">
+                <x-icon name="search" class="w-4 h-4" style="color: #64748B;" />
+                <input type="text" placeholder="Filter positions or departments..." style="font-size: 13px; color: #1E293B;">
             </div>
         </div>
 
-        <div style="overflow-x: auto;">
-            <table style="width: 100%; border-collapse: collapse;">
-                <thead>
-                    <tr style="text-align: left; background: #FAFBFC;">
-                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Position Details</th>
-                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Department</th>
-                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Spots</th>
-                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Status</th>
-                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Closing Date</th>
-                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; text-align: right;">Action</th>
+        <table class="premium-table">
+            <thead>
+                <tr>
+                    <th>Position Details</th>
+                    <th>Department</th>
+                    <th>Spots</th>
+                    <th>Status</th>
+                    <th>Closing Date</th>
+                    <th style="text-align: right;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($openings as $opening)
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="width: 36px; height: 36px; border-radius: 10px; background: #F1F5F9; display: flex; align-items: center; justify-content: center; color: var(--primary); border: 1px solid #E2E8F0;">
+                                    <x-icon name="briefcase" class="w-5 h-5" />
+                                </div>
+                                <div style="font-weight: 600; font-size: 14px; color: #0F172A;">{{ $opening->position->title }}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <span style="font-size: 14px; color: #475569;">{{ $opening->position->department->name }}</span>
+                        </td>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 6px;">
+                                <span style="font-weight: 700; font-size: 14px; color: #0F172A;">{{ $opening->vacancies }}</span>
+                                <span style="font-size: 12px; color: #94A3B8;">slots</span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="status-tag {{ $opening->status === 'open' ? 'completed' : 'pending' }}" style="padding: 4px 10px; border-radius: 6px; font-size: 11px;">
+                                {{ ucfirst($opening->status) }}
+                            </span>
+                        </td>
+                        <td>
+                            <div style="font-size: 13px; color: #64748B; display: flex; align-items: center; gap: 6px;">
+                                <x-icon name="calendar" class="w-4 h-4" style="opacity: 0.5;" />
+                                {{ $opening->closing_date ? \Carbon\Carbon::parse($opening->closing_date)->format('M d, Y') : 'Ongoing' }}
+                            </div>
+                        </td>
+                        <td style="text-align: right;">
+                            <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                                <a href="{{ route('job-openings.edit', $opening->id) }}" class="btn-action">
+                                    Edit
+                                </a>
+                                <form action="{{ route('job-openings.destroy', $opening->id) }}" method="POST" onsubmit="return confirm('Archive this job opening?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn-action" style="color: #EF4444; border-color: #FEE2E2; background: #FEF2F2;">
+                                        Archive
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @forelse($openings as $opening)
-                        <tr style="border-bottom: 1px solid var(--border-color); transition: background 0.2s;" onmouseover="this.style.background='#F8F9FA'" onmouseout="this.style.background='transparent'">
-                            <td style="padding: 20px 24px;">
-                                <div style="display: flex; align-items: center; gap: 14px;">
-                                    <div style="width: 40px; height: 40px; border-radius: 12px; background: #F4F7F6; display: flex; align-items: center; justify-content: center; color: var(--primary);">
-                                        <x-icon name="briefcase" class="w-5 h-5" />
-                                    </div>
-                                    <div style="font-weight: 600; font-size: 14px; color: var(--text-main);">{{ $opening->position->title }}</div>
-                                </div>
-                            </td>
-                            <td style="padding: 20px 24px;">
-                                <span style="font-size: 14px; color: var(--text-muted);">{{ $opening->position->department->name }}</span>
-                            </td>
-                            <td style="padding: 20px 24px;">
-                                <div style="display: flex; align-items: center; gap: 6px;">
-                                    <b style="font-size: 14px; color: var(--text-main);">{{ $opening->vacancies }}</b>
-                                    <span style="font-size: 12px; color: var(--text-light);">spots</span>
-                                </div>
-                            </td>
-                            <td style="padding: 20px 24px;">
-                                <span class="status-tag {{ $opening->status === 'open' ? 'completed' : 'pending' }}" style="padding: 6px 12px; border-radius: 10px;">
-                                    {{ ucfirst($opening->status) }}
-                                </span>
-                            </td>
-                            <td style="padding: 20px 24px;">
-                                <div style="font-size: 14px; color: var(--text-muted); display: flex; align-items: center; gap: 6px;">
-                                    <x-icon name="calendar" class="w-4 h-4" style="opacity: 0.5;" />
-                                    {{ $opening->closing_date ? \Carbon\Carbon::parse($opening->closing_date)->format('M d, Y') : 'Ongoing' }}
-                                </div>
-                            </td>
-                            <td style="padding: 20px 24px; text-align: right;">
-                                <div style="display: flex; gap: 8px; justify-content: flex-end;">
-                                    <a href="{{ route('job-openings.edit', $opening->id) }}" class="btn-add-small" style="padding: 8px; border-radius: 10px; text-decoration: none;">
-                                        Edit
-                                    </a>
-                                    <form action="{{ route('job-openings.destroy', $opening->id) }}" method="POST" onsubmit="return confirm('Archive this job opening?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn-add-small" style="padding: 8px; border-radius: 10px; color: #FF6A55; border-color: #FFEAE8; background: #FFEAE8;">
-                                            Archive
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="6" style="padding: 64px 24px; text-align: center;">
-                                <div style="background: #F8F9FA; width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
-                                    <x-icon name="briefcase" class="w-8 h-8" style="color: var(--text-light);" />
-                                </div>
-                                <h3 style="font-size: 16px; font-weight: 600; color: var(--text-main); margin-bottom: 4px;">No job openings found</h3>
-                                <p style="font-size: 14px; color: var(--text-light);">Start by creating your first vacancy for the new session.</p>
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                @empty
+                    <tr>
+                        <td colspan="6" style="padding: 80px 24px; text-align: center;">
+                            <div style="background: #F8FAFC; width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; border: 1px solid #F1F5F9;">
+                                <x-icon name="briefcase" class="w-6 h-6" style="color: #94A3B8;" />
+                            </div>
+                            <h3 style="font-size: 16px; font-weight: 600; color: #0F172A; margin-bottom: 4px;">No job openings found</h3>
+                            <p style="font-size: 14px; color: #64748B;">Start by creating your first vacancy for the new session.</p>
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+
+        <div style="padding: 20px 24px; border-top: 1px solid #F1F5F9; background: #FAFBFC;">
+            {{ $openings->links() }}
         </div>
-    </section>
+    </div>
 @endsection

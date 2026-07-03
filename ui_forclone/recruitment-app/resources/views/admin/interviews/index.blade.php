@@ -71,84 +71,82 @@
         </div>
     </div>
 
-    <!-- Interviews List Card -->
-    <section class="grid-item" style="margin-top: 32px; padding: 0; overflow: hidden; border: 1px solid var(--border-color); background: var(--white); border-radius: 24px;">
-        <div style="padding: 24px; border-bottom: 1px solid var(--border-color); background: #FAFBFC; display: flex; justify-content: space-between; align-items: center;">
-            <h2 style="font-size: 18px; font-weight: 600; margin: 0;">Full Timeline Overview</h2>
-            <div class="search-bar" style="width: 300px; background: white;">
-                <x-icon name="search" class="w-4 h-4" style="color: var(--text-light);" />
-                <input type="text" placeholder="Filter by candidate or type..." style="font-size: 13px;">
+    <!-- Shadcn-inspired Table Section -->
+    <div class="table-container" style="margin-top: 32px; box-shadow: var(--shadow-md);">
+        <div class="list-header">
+            <h2>Full Timeline Overview</h2>
+            <div class="search-bar" style="width: 380px; background: white; border-radius: 10px; padding: 8px 16px; border: 1px solid #E2E8F0;">
+                <x-icon name="search" class="w-4 h-4" style="color: #64748B;" />
+                <input type="text" placeholder="Filter by candidate or interview type..." style="font-size: 13px; color: #1E293B;">
             </div>
         </div>
 
-        <div style="overflow-x: auto;">
-            <table style="width: 100%; border-collapse: collapse;">
-                <thead>
-                    <tr style="text-align: left; background: #FAFBFC;">
-                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Candidate</th>
-                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Interview Type</th>
-                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Date & Time</th>
-                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Status</th>
-                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; text-align: right;">Action</th>
+        <table class="premium-table">
+            <thead>
+                <tr>
+                    <th>Candidate</th>
+                    <th>Interview Type</th>
+                    <th>Date & Time</th>
+                    <th>Status</th>
+                    <th style="text-align: right;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($interviews as $interview)
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="width: 36px; height: 36px; border-radius: 10px; background: #F1F5F9; color: #475569; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; border: 1px solid #E2E8F0;">
+                                    {{ substr($interview->application->applicant->first_name, 0, 1) }}{{ substr($interview->application->applicant->last_name, 0, 1) }}
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 14px; color: #0F172A;">{{ $interview->application->applicant->full_name }}</div>
+                                    <div style="font-size: 12px; color: #64748B;">{{ $interview->application->jobOpening->position->title }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div style="width: 32px; height: 32px; border-radius: 8px; background: #F8FAFC; display: flex; align-items: center; justify-content: center; color: #64748B; border: 1px solid #F1F5F9;">
+                                    <x-icon name="mail" class="w-4 h-4" />
+                                </div>
+                                <span style="font-size: 14px; color: #1E293B; font-weight: 500;">{{ ucfirst($interview->type) }}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex; flex-direction: column;">
+                                <span style="font-size: 14px; font-weight: 600; color: #0F172A;">{{ \Carbon\Carbon::parse($interview->scheduled_at)->format('l, M d') }}</span>
+                                <span style="font-size: 12px; color: #94A3B8;">{{ \Carbon\Carbon::parse($interview->scheduled_at)->format('H:i A') }}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="status-tag {{ $interview->status === 'Completed' ? 'completed' : 'pending' }}" style="padding: 4px 10px; border-radius: 6px; font-size: 11px;">
+                                {{ $interview->status }}
+                            </span>
+                        </td>
+                        <td style="text-align: right;">
+                            <a href="{{ route('interviews.show', $interview->id) }}" class="btn-action {{ $interview->status === 'Completed' ? '' : 'btn-action-primary' }}">
+                                {{ $interview->status === 'Completed' ? 'View Result' : 'Enter Scores' }}
+                                <x-icon name="chevron-right" class="w-4 h-4" />
+                            </a>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @forelse($interviews as $interview)
-                        <tr style="border-bottom: 1px solid var(--border-color); transition: background 0.2s;" onmouseover="this.style.background='#F8F9FA'" onmouseout="this.style.background='transparent'">
-                            <td style="padding: 20px 24px;">
-                                <div style="display: flex; align-items: center; gap: 14px;">
-                                    <div style="width: 40px; height: 40px; border-radius: 12px; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700;">
-                                        {{ substr($interview->application->applicant->first_name, 0, 1) }}{{ substr($interview->application->applicant->last_name, 0, 1) }}
-                                    </div>
-                                    <div>
-                                        <div style="font-weight: 600; font-size: 14px; color: var(--text-main);">{{ $interview->application->applicant->full_name }}</div>
-                                        <div style="font-size: 12px; color: var(--text-muted);">{{ $interview->application->jobOpening->position->title }}</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td style="padding: 20px 24px;">
-                                <div style="display: flex; align-items: center; gap: 8px;">
-                                    <div style="width: 32px; height: 32px; border-radius: 8px; background: #F4F7F6; display: flex; align-items: center; justify-content: center; color: var(--text-light);">
-                                        <x-icon name="mail" class="w-4 h-4" />
-                                    </div>
-                                    <span style="font-size: 14px; color: var(--text-main); font-weight: 500;">{{ ucfirst($interview->type) }}</span>
-                                </div>
-                            </td>
-                            <td style="padding: 20px 24px;">
-                                <div style="display: flex; flex-direction: column;">
-                                    <span style="font-size: 14px; font-weight: 600; color: var(--text-main);">{{ \Carbon\Carbon::parse($interview->scheduled_at)->format('l, M d') }}</span>
-                                    <span style="font-size: 12px; color: var(--text-light);">{{ \Carbon\Carbon::parse($interview->scheduled_at)->format('H:i A') }}</span>
-                                </div>
-                            </td>
-                            <td style="padding: 20px 24px;">
-                                <span class="status-tag {{ $interview->status === 'Completed' ? 'completed' : 'pending' }}" style="padding: 6px 14px; border-radius: 10px;">
-                                    {{ $interview->status }}
-                                </span>
-                            </td>
-                            <td style="padding: 20px 24px; text-align: right;">
-                                <a href="{{ route('interviews.show', $interview->id) }}" class="btn {{ $interview->status === 'Completed' ? 'btn-secondary' : 'btn-primary' }}" style="display: inline-flex; padding: 8px 16px; font-size: 13px; text-decoration: none; border-radius: 10px;">
-                                    {{ $interview->status === 'Completed' ? 'View Result' : 'Enter Scores' }}
-                                    <x-icon name="chevron-right" class="w-4 h-4" />
-                                </a>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="5" style="padding: 64px 24px; text-align: center;">
-                                <div style="background: #F8F9FA; width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
-                                    <x-icon name="calendar" class="w-8 h-8" style="color: var(--text-light);" />
-                                </div>
-                                <h3 style="font-size: 16px; font-weight: 600; color: var(--text-main); margin-bottom: 4px;">No interviews scheduled</h3>
-                                <p style="font-size: 14px; color: var(--text-light);">Coordinate sessions by visiting an applicant's profile.</p>
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
+                @empty
+                    <tr>
+                        <td colspan="5" style="padding: 80px 24px; text-align: center;">
+                            <div style="background: #F8FAFC; width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; border: 1px solid #F1F5F9;">
+                                <x-icon name="calendar" class="w-6 h-6" style="color: #94A3B8;" />
+                            </div>
+                            <h3 style="font-size: 16px; font-weight: 600; color: #0F172A; margin-bottom: 4px;">No interviews scheduled</h3>
+                            <p style="font-size: 14px; color: #64748B;">Coordinate sessions by visiting an applicant's profile.</p>
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
 
-        <div style="padding: 24px; border-top: 1px solid var(--border-color); background: #FAFBFC;">
+        <div style="padding: 20px 24px; border-top: 1px solid #F1F5F9; background: #FAFBFC;">
             {{ $interviews->links() }}
         </div>
-    </section>
+    </div>
 @endsection

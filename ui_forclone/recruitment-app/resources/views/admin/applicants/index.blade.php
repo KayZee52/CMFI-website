@@ -75,94 +75,93 @@
         </div>
     </div>
 
-    <!-- Main List Container -->
-    <section class="grid-item" style="margin-top: 32px; padding: 0; overflow: hidden; border: 1px solid var(--border-color); background: var(--white); border-radius: 24px;">
-        <div style="padding: 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: #FAFBFC;">
-            <h2 style="font-size: 18px; font-weight: 600; margin: 0;">All Applicants List</h2>
-            <div class="search-bar" style="width: 350px; background: white;">
-                <x-icon name="search" class="w-4 h-4" style="color: var(--text-light);" />
-                <input type="text" placeholder="Quick search by name, position or email..." style="font-size: 13px;">
+    <!-- Shadcn-inspired Table Section -->
+    <div class="table-container" style="margin-top: 32px; box-shadow: var(--shadow-md);">
+        <div class="list-header">
+            <h2>All Applicants List</h2>
+            <div class="search-bar" style="width: 380px; background: white; border-radius: 10px; padding: 8px 16px; border: 1px solid #E2E8F0;">
+                <x-icon name="search" class="w-4 h-4" style="color: #64748B;" />
+                <input type="text" placeholder="Search by name, position or email..." style="font-size: 13px; color: #1E293B;">
+                <div style="background: #F1F5F9; border: 1px solid #E2E8F0; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 700; color: #64748B;">⌘K</div>
             </div>
         </div>
 
-        <div style="overflow-x: auto;">
-            <table style="width: 100%; border-collapse: collapse;">
-                <thead>
-                    <tr style="text-align: left; background: #FAFBFC;">
-                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Applicant Info</th>
-                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Position & Dept</th>
-                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Type</th>
-                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Stage Status</th>
-                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Submission</th>
-                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; text-align: right;">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($applicants as $applicant)
-                        @php $latestApp = $applicant->applications->first(); @endphp
-                        <tr style="border-bottom: 1px solid var(--border-color); transition: background 0.2s;" onmouseover="this.style.background='#F8F9FA'" onmouseout="this.style.background='transparent'">
-                            <td style="padding: 16px 24px;">
-                                <div style="display: flex; align-items: center; gap: 14px;">
-                                    <div style="width: 40px; height: 40px; border-radius: 12px; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; border: 1px solid rgba(42, 133, 255, 0.1);">
-                                        {{ substr($applicant->first_name, 0, 1) }}{{ substr($applicant->last_name, 0, 1) }}
-                                    </div>
-                                    <div>
-                                        <div style="font-weight: 600; font-size: 14px; color: var(--text-main);">{{ $applicant->full_name }}</div>
-                                        <div style="font-size: 12px; color: var(--text-muted);">{{ $applicant->email }}</div>
-                                    </div>
+        <table class="premium-table">
+            <thead>
+                <tr>
+                    <th>Applicant Info</th>
+                    <th>Position & Dept</th>
+                    <th>Type</th>
+                    <th>Stage Status</th>
+                    <th>Submission</th>
+                    <th style="text-align: right;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($applicants as $applicant)
+                    @php $latestApp = $applicant->applications->first(); @endphp
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="width: 36px; height: 36px; border-radius: 10px; background: #F1F5F9; color: #475569; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; border: 1px solid #E2E8F0;">
+                                    {{ substr($applicant->first_name, 0, 1) }}{{ substr($applicant->last_name, 0, 1) }}
                                 </div>
-                            </td>
-                            <td style="padding: 16px 24px;">
-                                <div style="font-weight: 500; font-size: 14px; color: var(--text-main);">{{ $latestApp->jobOpening->position->title ?? 'N/A' }}</div>
-                                <div style="font-size: 12px; color: var(--text-light);">{{ $latestApp->jobOpening->position->department->name ?? 'General' }}</div>
-                            </td>
-                            <td style="padding: 16px 24px;">
-                                @if($applicant->applicant_type === 'current_teacher')
-                                    <span style="display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 8px; background: #FFF9E6; color: #D4A106; font-size: 11px; font-weight: 600;">
-                                        Staff Reapp
-                                    </span>
-                                @else
-                                    <span style="display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 8px; background: #E6F0FF; color: var(--primary); font-size: 11px; font-weight: 600;">
-                                        New App
-                                    </span>
-                                @endif
-                            </td>
-                            <td style="padding: 16px 24px;">
-                                <span class="status-tag {{ Str::contains($latestApp->current_stage ?? '', 'Interview') ? 'in-progress' : ($latestApp->decision_status === 'Hired' ? 'completed' : 'pending') }}" style="padding: 6px 12px; border-radius: 10px;">
-                                    {{ $latestApp->current_stage ?? 'Pending' }}
+                                <div>
+                                    <div style="font-weight: 600; font-size: 14px; color: #0F172A;">{{ $applicant->full_name }}</div>
+                                    <div style="font-size: 12px; color: #64748B;">{{ $applicant->email }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="font-weight: 500; font-size: 14px; color: #1E293B;">{{ $latestApp->jobOpening->position->title ?? 'N/A' }}</div>
+                            <div style="font-size: 12px; color: #94A3B8;">{{ $latestApp->jobOpening->position->department->name ?? 'General' }}</div>
+                        </td>
+                        <td>
+                            @if($applicant->applicant_type === 'current_teacher')
+                                <span class="badge-premium badge-yellow">
+                                    Staff Reapp
                                 </span>
-                            </td>
-                            <td style="padding: 16px 24px; font-size: 14px; color: var(--text-muted);">
-                                {{ $applicant->created_at->format('M d, Y') }}
-                            </td>
-                            <td style="padding: 16px 24px; text-align: right;">
-                                <a href="{{ route('applicants.show', $applicant->id) }}" class="btn btn-secondary" style="display: inline-flex; padding: 8px 16px; border-radius: 10px; text-decoration: none; font-size: 13px; border-width: 1px;">
-                                    Review Details <x-icon name="chevron-right" class="w-4 h-4" />
-                                </a>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="6" style="padding: 64px 24px; text-align: center;">
-                                <div style="background: #F8F9FA; width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
-                                    <x-icon name="users" class="w-8 h-8" style="color: var(--text-light);" />
-                                </div>
-                                <h3 style="font-size: 16px; font-weight: 600; color: var(--text-main); margin-bottom: 4px;">No applicants found</h3>
-                                <p style="font-size: 14px; color: var(--text-light);">Try adjusting your filters or search terms.</p>
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
+                            @else
+                                <span class="badge-premium badge-blue">
+                                    New App
+                                </span>
+                            @endif
+                        </td>
+                        <td>
+                            <span class="status-tag {{ Str::contains($latestApp->current_stage ?? '', 'Interview') ? 'in-progress' : ($latestApp->decision_status === 'Hired' ? 'completed' : 'pending') }}" style="padding: 4px 10px; font-size: 11px; border-radius: 6px;">
+                                {{ $latestApp->current_stage ?? 'Pending' }}
+                            </span>
+                        </td>
+                        <td style="font-size: 13px; color: #64748B;">
+                            {{ $applicant->created_at->format('M d, Y') }}
+                        </td>
+                        <td style="text-align: right;">
+                            <a href="{{ route('applicants.show', $applicant->id) }}" class="btn-action btn-action-primary">
+                                Review Details <x-icon name="chevron-right" class="w-4 h-4" />
+                            </a>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" style="padding: 80px 24px; text-align: center;">
+                            <div style="background: #F8FAFC; width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; border: 1px solid #F1F5F9;">
+                                <x-icon name="users" class="w-6 h-6" style="color: #94A3B8;" />
+                            </div>
+                            <h3 style="font-size: 16px; font-weight: 600; color: #0F172A; margin-bottom: 4px;">No applicants found</h3>
+                            <p style="font-size: 14px; color: #64748B;">Try adjusting your filters or search terms.</p>
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
 
-        <div style="padding: 24px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: #FAFBFC;">
-            <div style="font-size: 14px; color: var(--text-muted);">
+        <div style="padding: 20px 24px; border-top: 1px solid #F1F5F9; display: flex; justify-content: space-between; align-items: center; background: #FAFBFC;">
+            <div style="font-size: 13px; color: #64748B;">
                 Showing <b>{{ $applicants->firstItem() }}</b> to <b>{{ $applicants->lastItem() }}</b> of <b>{{ $applicants->total() }}</b> applicants
             </div>
             <div class="pagination-container">
                 {{ $applicants->links() }}
             </div>
         </div>
-    </section>
+    </div>
 @endsection
