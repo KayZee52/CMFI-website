@@ -1,11 +1,11 @@
 @extends('layouts.recruitment')
 
 @section('content')
-    <!-- Header Section -->
+    <!-- Dashboard-style Header -->
     <section class="dashboard-hero">
         <div class="hero-text">
             <h1>Job Openings</h1>
-            <p>Manage and track teaching vacancies for the 2026/2027 academic session.</p>
+            <p>Manage teaching vacancies and track recruitment goals for the current session.</p>
         </div>
         <div class="hero-actions">
             <a href="{{ route('job-openings.create') }}" class="btn btn-primary" style="text-decoration: none;">
@@ -14,6 +14,63 @@
         </div>
     </section>
 
+    <!-- Stats Overview (Dashboard Style) -->
+    <div class="stats-grid" style="margin-top: 32px;">
+        <div class="stat-card dark">
+            <div class="stat-header">
+                <span>Total Vacancies</span>
+                <div class="arrow-icon">
+                    <i data-lucide="briefcase"></i>
+                </div>
+            </div>
+            <div class="stat-value">{{ $stats['vacancies'] }}</div>
+            <div class="stat-footer">
+                <span>Active spots across all openings</span>
+            </div>
+            <div class="card-bg-waves"></div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-header">
+                <span>Open Positions</span>
+                <div class="arrow-icon">
+                    <i data-lucide="check-circle"></i>
+                </div>
+            </div>
+            <div class="stat-value">{{ $stats['open'] }}</div>
+            <div class="stat-footer">
+                <span>Currently accepting applications</span>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-header">
+                <span>Filled Spots</span>
+                <div class="arrow-icon">
+                    <i data-lucide="user-check"></i>
+                </div>
+            </div>
+            <div class="stat-value">{{ \App\Models\Application::where('decision_status', 'Hired')->count() }}</div>
+            <div class="stat-footer">
+                <span class="growth-tag">+2</span>
+                <span>filled this month</span>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-header">
+                <span>Total Posts</span>
+                <div class="arrow-icon">
+                    <i data-lucide="file-text"></i>
+                </div>
+            </div>
+            <div class="stat-value">{{ $stats['total'] }}</div>
+            <div class="stat-footer">
+                <span>Job advertisements published</span>
+            </div>
+        </div>
+    </div>
+
     @if(session('success'))
         <div style="background: #E6F4EA; border-left: 4px solid #28A745; color: #1E7E34; padding: 16px 24px; border-radius: 12px; margin-top: 32px; display: flex; align-items: center; gap: 12px;">
             <i data-lucide="check-circle" style="width: 20px;"></i>
@@ -21,15 +78,13 @@
         </div>
     @endif
 
-    <!-- Openings Card -->
+    <!-- Openings List Container -->
     <section class="grid-item" style="margin-top: 32px; padding: 0; overflow: hidden; border: 1px solid var(--border-color); background: var(--white); border-radius: 24px;">
         <div style="padding: 24px; border-bottom: 1px solid var(--border-color); background: #FAFBFC; display: flex; justify-content: space-between; align-items: center;">
-            <h2 style="font-size: 18px; font-weight: 600; margin: 0;">Active Vacancies</h2>
-            <div style="display: flex; gap: 12px;">
-                <div class="search-bar" style="width: 280px; background: white;">
-                    <i data-lucide="search" style="width: 16px; color: var(--text-light);"></i>
-                    <input type="text" placeholder="Search positions..." style="font-size: 13px;">
-                </div>
+            <h2 style="font-size: 18px; font-weight: 600; margin: 0;">Active Vacancies List</h2>
+            <div class="search-bar" style="width: 300px; background: white;">
+                <i data-lucide="search" style="width: 16px; color: var(--text-light);"></i>
+                <input type="text" placeholder="Search positions, depts..." style="font-size: 13px;">
             </div>
         </div>
 
@@ -39,7 +94,7 @@
                     <tr style="text-align: left; background: #FAFBFC;">
                         <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Position Details</th>
                         <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Department</th>
-                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Vacancies</th>
+                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Spots</th>
                         <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Status</th>
                         <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Closing Date</th>
                         <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; text-align: right;">Action</th>
@@ -66,7 +121,7 @@
                                 </div>
                             </td>
                             <td style="padding: 20px 24px;">
-                                <span class="status-tag {{ $opening->status === 'Open' ? 'completed' : 'pending' }}" style="padding: 6px 12px; border-radius: 10px;">
+                                <span class="status-tag {{ $opening->status === 'open' ? 'completed' : 'pending' }}" style="padding: 6px 12px; border-radius: 10px;">
                                     {{ ucfirst($opening->status) }}
                                 </span>
                             </td>

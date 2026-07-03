@@ -18,7 +18,13 @@ class JobOpeningController extends Controller
             ->latest()
             ->paginate(15);
 
-        return view('admin.job_openings.index', compact('openings'));
+        $stats = [
+            'total' => JobOpening::count(),
+            'open' => JobOpening::where('status', 'open')->count(),
+            'vacancies' => JobOpening::where('status', 'open')->sum('vacancies'),
+        ];
+
+        return view('admin.job_openings.index', compact('openings', 'stats'));
     }
 
     /**

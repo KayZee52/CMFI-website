@@ -21,7 +21,14 @@ class InterviewController extends Controller
             ->latest('scheduled_at')
             ->paginate(15);
 
-        return view('admin.interviews.index', compact('interviews'));
+        $stats = [
+            'total' => Interview::count(),
+            'completed' => Interview::where('status', 'Completed')->count(),
+            'upcoming' => Interview::where('status', 'Pending')->where('scheduled_at', '>=', now())->count(),
+            'today' => Interview::whereDate('scheduled_at', today())->count(),
+        ];
+
+        return view('admin.interviews.index', compact('interviews', 'stats'));
     }
 
     /**

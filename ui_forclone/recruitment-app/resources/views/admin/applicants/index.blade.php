@@ -1,11 +1,11 @@
 @extends('layouts.recruitment')
 
 @section('content')
-    <!-- Header Section -->
+    <!-- Dashboard-style Header -->
     <section class="dashboard-hero">
         <div class="hero-text">
-            <h1>Applicants</h1>
-            <p>Manage and review teacher applications across all departments.</p>
+            <h1>Applicants Management</h1>
+            <p>Review and process teacher applications across all departments.</p>
         </div>
         <div class="hero-actions">
             <button class="btn btn-secondary">
@@ -17,14 +17,72 @@
         </div>
     </section>
 
-    <!-- Applicants Card Container -->
+    <!-- Stats Overview (Same style as Dashboard) -->
+    <div class="stats-grid" style="margin-top: 32px;">
+        <div class="stat-card dark">
+            <div class="stat-header">
+                <span>Total Applicants</span>
+                <div class="arrow-icon">
+                    <i data-lucide="users"></i>
+                </div>
+            </div>
+            <div class="stat-value">{{ $stats['total'] }}</div>
+            <div class="stat-footer">
+                <span class="growth-tag">+{{ $stats['new'] }}</span>
+                <span>new this week</span>
+            </div>
+            <div class="card-bg-waves"></div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-header">
+                <span>Shortlisted</span>
+                <div class="arrow-icon">
+                    <i data-lucide="star"></i>
+                </div>
+            </div>
+            <div class="stat-value">{{ $stats['shortlisted'] }}</div>
+            <div class="stat-footer">
+                <span>Candidates for panel review</span>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-header">
+                <span>In Screening</span>
+                <div class="arrow-icon">
+                    <i data-lucide="search"></i>
+                </div>
+            </div>
+            <div class="stat-value">{{ $applicants->where('current_stage', 'Phone Screening')->count() }}</div>
+            <div class="stat-footer">
+                <span>Currently active screening</span>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-header">
+                <span>Success Rate</span>
+                <div class="arrow-icon">
+                    <i data-lucide="trending-up"></i>
+                </div>
+            </div>
+            <div class="stat-value">12%</div>
+            <div class="stat-footer">
+                <span class="growth-tag">+2.4%</span>
+                <span>since last month</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main List Container (Mirroring Dashboard Grid Items) -->
     <section class="grid-item" style="margin-top: 32px; padding: 0; overflow: hidden; border: 1px solid var(--border-color); background: var(--white); border-radius: 24px;">
         <!-- Card Header with Search -->
         <div style="padding: 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: #FAFBFC;">
-            <h2 style="font-size: 18px; font-weight: 600; margin: 0;">All Applicants</h2>
-            <div class="search-bar" style="width: 320px; background: white;">
+            <h2 style="font-size: 18px; font-weight: 600; margin: 0;">All Applicants List</h2>
+            <div class="search-bar" style="width: 350px; background: white;">
                 <i data-lucide="search" style="width: 16px; color: var(--text-light);"></i>
-                <input type="text" placeholder="Quick search name or email..." style="font-size: 13px;">
+                <input type="text" placeholder="Quick search by name, position or email..." style="font-size: 13px;">
             </div>
         </div>
 
@@ -33,11 +91,11 @@
             <table style="width: 100%; border-collapse: collapse;">
                 <thead>
                     <tr style="text-align: left; background: #FAFBFC;">
-                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Applicant</th>
-                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Position / Dept</th>
+                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Applicant Info</th>
+                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Position & Dept</th>
                         <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Type</th>
-                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Status Stage</th>
-                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Applied Date</th>
+                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Stage Status</th>
+                        <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;">Submission</th>
                         <th style="padding: 16px 24px; font-weight: 600; font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; text-align: right;">Action</th>
                     </tr>
                 </thead>
@@ -57,7 +115,7 @@
                                 </div>
                             </td>
                             <td style="padding: 16px 24px;">
-                                <div style="font-weight: 500; font-size: 14px;">{{ $latestApp->jobOpening->position->title ?? 'N/A' }}</div>
+                                <div style="font-weight: 500; font-size: 14px; color: var(--text-main);">{{ $latestApp->jobOpening->position->title ?? 'N/A' }}</div>
                                 <div style="font-size: 12px; color: var(--text-light);">{{ $latestApp->jobOpening->position->department->name ?? 'General' }}</div>
                             </td>
                             <td style="padding: 16px 24px;">
@@ -81,7 +139,7 @@
                             </td>
                             <td style="padding: 16px 24px; text-align: right;">
                                 <a href="{{ route('applicants.show', $applicant->id) }}" class="btn btn-secondary" style="display: inline-flex; padding: 8px 16px; border-radius: 10px; text-decoration: none; font-size: 13px; border-width: 1px;">
-                                    Review <i data-lucide="chevron-right" style="width: 14px;"></i>
+                                    Review Details <i data-lucide="chevron-right" style="width: 14px;"></i>
                                 </a>
                             </td>
                         </tr>
@@ -100,10 +158,10 @@
             </table>
         </div>
 
-        <!-- Pagination -->
+        <!-- Pagination (Same style as dashboard) -->
         <div style="padding: 24px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: #FAFBFC;">
             <div style="font-size: 14px; color: var(--text-muted);">
-                Showing <b>{{ $applicants->firstItem() }}</b> to <b>{{ $applicants->lastItem() }}</b> of <b>{{ $applicants->total() }}</b> results
+                Showing <b>{{ $applicants->firstItem() }}</b> to <b>{{ $applicants->lastItem() }}</b> of <b>{{ $applicants->total() }}</b> applicants
             </div>
             <div class="pagination-container">
                 {{ $applicants->links() }}

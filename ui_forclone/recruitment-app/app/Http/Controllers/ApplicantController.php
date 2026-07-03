@@ -23,7 +23,17 @@ class ApplicantController extends Controller
         }
 
         $applicants = $query->latest()->paginate(15);
-        return view('admin.applicants.index', compact('applicants'));
+        
+        // Stats for Dashboard-style UI
+        $stats = [
+            'total' => (clone $query)->count(),
+            'new' => (clone $query)->where('created_at', '>=', now()->subDays(7))->count(),
+            'shortlisted' => (clone $query)->whereHas('applications', function($q) {
+                $q->where('decision_status', 'Shortlisted');
+            })->count(),
+        ];
+
+        return view('admin.applicants.index', compact('applicants', 'stats'));
     }
 
     /**
