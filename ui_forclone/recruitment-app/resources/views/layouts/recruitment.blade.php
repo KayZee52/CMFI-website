@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'CMFI Recruitment') }}</title>
+    <title>{{ config('app.name', 'Careers at CMFI') }}</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 
     
     <!-- Alpine.js -->
@@ -19,10 +20,13 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="logo">
-                <div class="logo-icon" style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(42, 133, 255, 0.3);">
-                    <x-icon name="dashboard" class="w-6 h-6" />
+                <div class="logo-wrapper" style="display: flex; align-items: center; gap: 16px;">
+                    <img src="{{ asset('images/logo.png') }}" alt="CMFI Logo" style="height: 48px; width: auto;">
+                    <div style="display: flex; flex-direction: column;">
+                        <span class="logo-text" style="font-weight: 800; font-size: 24px; letter-spacing: -0.5px; line-height: 1; color: #0F172A;">Careers</span>
+                        <span style="font-size: 14px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em;">at CMFI</span>
+                    </div>
                 </div>
-                <span class="logo-text" style="font-weight: 800; font-size: 18px; letter-spacing: -0.5px;">CMFI <span style="color: var(--primary);">Recruit</span></span>
             </div>
 
             <nav class="sidebar-nav">
@@ -70,14 +74,11 @@
                             <x-icon name="help" />
                             <span>Help Center</span>
                         </li>
+                    </ul>
+                </div>
                         <li class="nav-item">
-                            <form method="POST" action="{{ route('logout') }}" style="width: 100%;">
-                                @csrf
-                                <button type="submit" style="background: none; border: none; padding: 0; display: flex; align-items: center; gap: 12px; color: inherit; font: inherit; cursor: pointer; width: 100%;">
-                                    <x-icon name="logout" />
-                                    <span>Logout</span>
-                                </button>
-                            </form>
+                            <x-icon name="help" />
+                            <span>Help Center</span>
                         </li>
                     </ul>
                 </div>
@@ -99,11 +100,58 @@
                     <button class="icon-btn">
                         <x-icon name="bell" />
                     </button>
-                    <div class="user-profile">
-                        <img src="{{ asset('images/avatars/avatar_neutral.png') }}" alt="User Profile" style="width: 40px; height: 40px; border-radius: 12px; object-fit: cover; border: 1px solid var(--border-color);">
-                        <div class="user-info">
-                            <span class="user-name">{{ Auth::user()->name }}</span>
-                            <span class="user-email">{{ Auth::user()->email }}</span>
+                    
+                    <!-- User Profile Dropdown -->
+                    <div x-data="{ open: false }" @click.away="open = false" style="position: relative;">
+                        <button @click="open = !open" class="user-profile" style="background: none; border: none; padding: 0; cursor: pointer; display: flex; align-items: center; gap: 12px;">
+                            <img src="{{ asset('images/avatars/admin.png') }}" alt="User Profile" style="width: 40px; height: 40px; border-radius: 12px; object-fit: cover; border: 1px solid var(--border-color);">
+                            <div class="user-info" style="text-align: left;">
+                                <span class="user-name" style="display: block; font-weight: 700; color: #0F172A; font-size: 14px;">{{ Auth::user()->name }}</span>
+                                <span class="user-email" style="display: block; font-size: 12px; color: #64748B;">{{ Auth::user()->email }}</span>
+                            </div>
+                            <x-icon name="chevron-down" style="width: 16px; height: 16px; color: #94A3B8; transition: transform 0.2s;" ::style="open ? 'transform: rotate(180deg)' : ''" />
+                        </button>
+
+                        <!-- Dropdown Menu (Pops Down) -->
+                        <div x-show="open" 
+                             x-transition:enter="transition ease-out duration-150"
+                             x-transition:enter-start="transform opacity-0 scale-95 -translate-y-4"
+                             x-transition:enter-end="transform opacity-100 scale-100 translate-y-0"
+                             x-transition:leave="transition ease-in duration-100"
+                             x-transition:leave-start="transform opacity-100 scale-100 translate-y-0"
+                             x-transition:leave-end="transform opacity-0 scale-95 -translate-y-4"
+                             style="position: absolute; top: calc(100% + 12px); right: 0; width: 240px; background: #fff; border-radius: 16px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); border: 1px solid #F1F5F9; padding: 8px; z-index: 100; display: none;"
+                             :style="{ display: open ? 'block' : 'none' }">
+                            
+                            <div style="padding: 12px; border-bottom: 1px solid #F1F5F9; margin-bottom: 4px;">
+                                <div style="font-weight: 600; font-size: 11px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.1em;">Account Management</div>
+                            </div>
+
+                            <a href="{{ route('profile.edit') }}" class="dropdown-item" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; text-decoration: none; color: #334155; font-size: 14px; font-weight: 500; transition: all 0.2s;">
+                                <div style="width: 32px; height: 32px; background: #F8FAFC; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                                    <x-icon name="user" style="width: 18px; height: 18px; color: #64748B;" />
+                                </div>
+                                My Profile
+                            </a>
+
+                            <a href="#" class="dropdown-item" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; text-decoration: none; color: #334155; font-size: 14px; font-weight: 500; transition: all 0.2s;">
+                                <div style="width: 32px; height: 32px; background: #F8FAFC; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                                    <x-icon name="settings" style="width: 18px; height: 18px; color: #64748B;" />
+                                </div>
+                                Settings
+                            </a>
+
+                            <div style="height: 1px; background: #F1F5F9; margin: 8px 4px;"></div>
+
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="dropdown-item" style="width: 100%; border: none; background: transparent; display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; cursor: pointer; text-decoration: none; color: #EF4444; font-size: 14px; font-weight: 600; transition: all 0.2s;">
+                                    <div style="width: 32px; height: 32px; background: #FEF2F2; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                                        <x-icon name="logout" style="width: 18px; height: 18px; color: #EF4444;" />
+                                    </div>
+                                    Logout
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
