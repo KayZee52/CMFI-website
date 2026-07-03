@@ -1150,11 +1150,11 @@ body {
     color: var(--text-main);
 }
 
-/* Candidate Profile Premium Styles */
+/* Candidate Profile Minimalist Styles */
 .profile-card {
     background: var(--bg-white);
-    border-radius: 24px;
-    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    border: none;
     overflow: hidden;
     box-shadow: var(--shadow-sm);
 }
@@ -1163,8 +1163,8 @@ body {
     display: flex;
     gap: 32px;
     padding: 0 32px;
-    background: #FAFBFC;
-    border-bottom: 1px solid var(--border-color);
+    background: white;
+    border-bottom: 1px solid #F1F5F9;
 }
 
 .profile-tab {
@@ -1350,14 +1350,14 @@ body {
 
 .match-gauge-bg {
     fill: none;
-    stroke: #F1F5F9;
-    stroke-width: 10;
+    stroke: #F8FAFC;
+    stroke-width: 6;
 }
 
 .match-gauge-fill {
     fill: none;
     stroke: var(--primary);
-    stroke-width: 10;
+    stroke-width: 6;
     stroke-linecap: round;
     transition: stroke-dashoffset 1s ease-in-out;
 }
