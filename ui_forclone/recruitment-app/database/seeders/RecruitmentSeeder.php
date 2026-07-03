@@ -7,6 +7,8 @@ use App\Models\AcademicYear;
 use App\Models\Department;
 use App\Models\Position;
 use App\Models\JobOpening;
+use App\Models\Applicant;
+use App\Models\Application;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
@@ -63,10 +65,41 @@ class RecruitmentSeeder extends Seeder
                 );
 
                 // 6. Job Opening
-                JobOpening::firstOrCreate(
+                $opening = JobOpening::firstOrCreate(
                     ['position_id' => $pos->id, 'academic_year_id' => $currentYear->id],
                     ['vacancies' => 2, 'status' => 'open', 'closing_date' => '2026-08-15']
                 );
+
+                // 7. Mock Applicants
+                $applicantsData = [
+                    ['first' => 'John', 'last' => 'Doe', 'email' => 'john.doe@example.com', 'type' => 'new'],
+                    ['first' => 'Jane', 'last' => 'Smith', 'email' => 'jane.smith@cmfischool.online', 'type' => 'current_teacher', 'staff' => 'CMFI-T-001'],
+                    ['first' => 'Michael', 'last' => 'Johnson', 'email' => 'm.johnson@example.com', 'type' => 'new'],
+                ];
+
+                foreach ($applicantsData as $data) {
+                    $applicant = Applicant::create([
+                        'first_name' => $data['first'],
+                        'last_name' => $data['last'],
+                        'email' => $data['email'],
+                        'phone' => '080' . rand(11111111, 99999999),
+                        'applicant_type' => $data['type'],
+                        'staff_id' => $data['staff'] ?? null,
+                    ]);
+
+                    $app = Application::create([
+                        'applicant_id' => $applicant->id,
+                        'job_opening_id' => $opening->id,
+                        'reference_number' => 'APP-' . strtoupper(\Illuminate\Support\Str::random(8)),
+                        'current_stage' => 'Application Received',
+                        'submitted_at' => now(),
+                    ]);
+
+                    $app->notes()->create([
+                        'user_id' => $admin->id,
+                        'content' => 'Initial review pending. Appears to have required certifications.',
+                    ]);
+                }
             }
         }
     }

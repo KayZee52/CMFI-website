@@ -43,17 +43,23 @@
                             </a>
                         </li>
                         <li class="nav-item {{ request()->routeIs('applicants.*') ? 'active' : '' }}">
-                            <i data-lucide="users"></i>
-                            <span>Applicants</span>
-                            <span class="badge">0</span>
+                            <a href="{{ route('applicants.index') }}" style="display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; width: 100%;">
+                                <i data-lucide="users"></i>
+                                <span>Applicants</span>
+                                <span class="badge">{{ \App\Models\Applicant::count() }}</span>
+                            </a>
                         </li>
                         <li class="nav-item {{ request()->routeIs('interviews.*') ? 'active' : '' }}">
-                            <i data-lucide="calendar"></i>
-                            <span>Interviews</span>
+                            <a href="#" style="display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; width: 100%;">
+                                <i data-lucide="calendar"></i>
+                                <span>Interviews</span>
+                            </a>
                         </li>
                         <li class="nav-item {{ request()->routeIs('positions.*') ? 'active' : '' }}">
-                            <i data-lucide="briefcase"></i>
-                            <span>Positions</span>
+                            <a href="#" style="display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; width: 100%;">
+                                <i data-lucide="briefcase"></i>
+                                <span>Positions</span>
+                            </a>
                         </li>
                     </ul>
                 </div>

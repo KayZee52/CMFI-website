@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicApplicationController;
+use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\JobOpeningController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -11,9 +13,14 @@ Route::get('/', function () {
 Route::get('/apply', [PublicApplicationController::class, 'index'])->name('apply');
 Route::post('/apply', [PublicApplicationController::class, 'store'])->name('apply.store');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::resource('applicants', ApplicantController::class)->only(['index', 'show']);
+    Route::resource('job-openings', JobOpeningController::class);
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

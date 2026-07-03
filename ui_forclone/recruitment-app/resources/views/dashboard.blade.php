@@ -20,9 +20,9 @@
                 <span>Total Applicants</span>
                 <div class="arrow-icon"><i data-lucide="arrow-up-right"></i></div>
             </div>
-            <div class="stat-value">0</div>
+            <div class="stat-value">{{ \App\Models\Applicant::count() }}</div>
             <div class="stat-footer">
-                <div class="growth-tag">0</div> from last month
+                <div class="growth-tag">{{ \App\Models\Applicant::where('created_at', '>=', now()->subMonth())->count() }}</div> from last month
             </div>
         </div>
         <div class="stat-card">
@@ -30,9 +30,9 @@
                 <span>Shortlisted</span>
                 <div class="arrow-icon"><i data-lucide="arrow-up-right"></i></div>
             </div>
-            <div class="stat-value">0</div>
+            <div class="stat-value">{{ \App\Models\Application::where('decision_status', 'Shortlisted')->count() }}</div>
             <div class="stat-footer">
-                <div class="growth-tag secondary">0</div> in review
+                <div class="growth-tag secondary">{{ \App\Models\Application::where('current_stage', 'In Review')->count() }}</div> in review
             </div>
         </div>
         <div class="stat-card">
@@ -40,7 +40,7 @@
                 <span>Hired</span>
                 <div class="arrow-icon"><i data-lucide="arrow-up-right"></i></div>
             </div>
-            <div class="stat-value">0</div>
+            <div class="stat-value">{{ \App\Models\Application::where('decision_status', 'Hired')->count() }}</div>
             <div class="stat-footer">
                 Current academic year
             </div>
@@ -50,7 +50,7 @@
                 <span>Open Positions</span>
                 <div class="arrow-icon"><i data-lucide="arrow-up-right"></i></div>
             </div>
-            <div class="stat-value">0</div>
+            <div class="stat-value">{{ \App\Models\JobOpening::where('status', 'open')->count() }}</div>
             <div class="stat-footer">
                 Across all departments
             </div>
@@ -108,7 +108,23 @@
                 <button class="btn-add-small"><i data-lucide="external-link"></i> View All</button>
             </div>
             <div class="projects">
-                <p style="color: var(--text-muted); font-size: 14px; text-align: center; padding: 20px 0;">No recent applications.</p>
+                @php $recentApplicants = \App\Models\Applicant::with('applications.jobOpening.position')->latest()->take(3)->get(); @endphp
+                @forelse($recentApplicants as $applicant)
+                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #F9F9F9;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px;">
+                                {{ substr($applicant->first_name, 0, 1) }}{{ substr($applicant->last_name, 0, 1) }}
+                            </div>
+                            <div>
+                                <div style="font-weight: 600; font-size: 13px;">{{ $applicant->full_name }}</div>
+                                <div style="font-size: 11px; color: var(--text-muted);">{{ $applicant->applications->first()->jobOpening->position->title ?? 'N/A' }}</div>
+                            </div>
+                        </div>
+                        <a href="{{ route('applicants.show', $applicant->id) }}" class="icon-btn-small"><i data-lucide="chevron-right"></i></a>
+                    </div>
+                @empty
+                    <p style="color: var(--text-muted); font-size: 14px; text-align: center; padding: 20px 0;">No recent applications.</p>
+                @endforelse
             </div>
         </section>
 
