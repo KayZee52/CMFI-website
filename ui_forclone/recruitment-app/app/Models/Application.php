@@ -46,4 +46,13 @@ class Application extends Model
     {
         return $this->hasMany(ApplicationNote::class);
     }
+
+    public function logActivity($content, $userId = null)
+    {
+        return $this->notes()->create([
+            'content' => $content,
+            'type' => 'system',
+            'user_id' => $userId ?? auth()->id(),
+        ]);
+    }
 }

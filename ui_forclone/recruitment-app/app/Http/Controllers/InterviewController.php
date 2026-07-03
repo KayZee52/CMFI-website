@@ -47,8 +47,11 @@ class InterviewController extends Controller
         ]);
 
         Interview::create($validated);
+        
+        $application = Application::find($validated['application_id']);
+        $application->logActivity("Scheduled " . ucfirst($validated['type']) . " interview for " . $validated['scheduled_at']);
 
-        return redirect()->route('applicants.show', Application::find($validated['application_id'])->applicant_id)
+        return redirect()->route('applicants.show', $application->applicant_id)
             ->with('success', 'Interview scheduled successfully.');
     }
 
@@ -95,6 +98,8 @@ class InterviewController extends Controller
             $scorecard->update(['total_score' => $total / count($validated['scores'])]);
             
             $interview->update(['status' => 'Completed']);
+            
+            $interview->application->logActivity("Submitted scorecard for " . ucfirst($interview->type) . " interview. Result: " . $validated['recommendation']);
 
             return redirect()->route('applicants.show', $interview->application->applicant_id)
                 ->with('success', 'Scorecard submitted successfully.');

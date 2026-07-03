@@ -12,10 +12,17 @@ class ApplicantController extends Controller
      */
     public function index()
     {
-        $applicants = Applicant::with(['applications.jobOpening.position.department'])
-            ->latest()
-            ->paginate(15);
+        $user = auth()->user();
+        $query = Applicant::with(['applications.jobOpening.position']);
 
+        if ($user->hasRole(['department_head', 'principal'])) {
+            $deptId = $user->department_id;
+            $query->whereHas('applications.jobOpening', function($q) use ($deptId) {
+                $q->where('department_id', $deptId);
+            });
+        }
+
+        $applicants = $query->latest()->paginate(15);
         return view('admin.applicants.index', compact('applicants'));
     }
 

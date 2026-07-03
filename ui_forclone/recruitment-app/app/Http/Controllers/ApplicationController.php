@@ -17,6 +17,8 @@ class ApplicationController extends Controller
         ]);
 
         $application->update($validated);
+        
+        $application->logActivity("Moved to stage: " . $validated['current_stage']);
 
         return redirect()->back()->with('success', 'Application stage updated to: ' . $validated['current_stage']);
     }
@@ -39,6 +41,8 @@ class ApplicationController extends Controller
         } elseif ($validated['decision_status'] === 'Rejected') {
             $application->update(['current_stage' => 'Rejected']);
         }
+        
+        $application->logActivity("Hiring decision recorded: " . $validated['decision_status']);
 
         return redirect()->back()->with('success', 'Decision recorded: ' . $validated['decision_status']);
     }

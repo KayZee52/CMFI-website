@@ -7,6 +7,7 @@ use App\Http\Controllers\JobOpeningController;
 use App\Http\Controllers\RecruitmentSettingController;
 use App\Http\Controllers\InterviewController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,9 +18,7 @@ Route::get('/apply', [PublicApplicationController::class, 'index'])->name('apply
 Route::post('/apply', [PublicApplicationController::class, 'store'])->name('apply.store');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('applicants', ApplicantController::class)->only(['index', 'show']);
     Route::post('/applications/{application}/update-stage', [ApplicationController::class, 'updateStage'])->name('applications.update-stage');
