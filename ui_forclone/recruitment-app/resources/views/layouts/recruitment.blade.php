@@ -98,7 +98,7 @@
                     <!-- User Profile Dropdown -->
                     <div x-data="{ open: false }" @click.away="open = false" style="position: relative;">
                         <button @click="open = !open" class="user-profile" style="background: none; border: none; padding: 0; cursor: pointer; display: flex; align-items: center; gap: 12px;">
-                            <img src="{{ asset('images/avatars/admin.png') }}" alt="User Profile" style="width: 40px; height: 40px; border-radius: 12px; object-fit: cover; border: 1px solid var(--border-color);">
+                            <img src="{{ Auth::user()->avatar ? asset('storage/' . Auth::user()->avatar) : asset('images/avatars/admin.png') }}" alt="User Profile" style="width: 40px; height: 40px; border-radius: 12px; object-fit: cover; border: 1px solid var(--border-color);">
                             <div class="user-info" style="text-align: left;">
                                 <span class="user-name" style="display: block; font-weight: 700; color: #0F172A; font-size: 14px;">{{ Auth::user()->name }}</span>
                                 <span class="user-email" style="display: block; font-size: 12px; color: #64748B;">{{ Auth::user()->email }}</span>
