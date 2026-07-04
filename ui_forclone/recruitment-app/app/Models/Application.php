@@ -40,11 +40,18 @@ class Application extends Model
         'challenges',
         'why_continue',
         'other_commitments',
+        'secondary_employment',
+        'teaching_history_detailed',
+        'subject_specialty',
+        'other_position',
+        'digital_signature',
     ];
 
     protected $casts = [
         'submitted_at' => 'datetime',
         'reference_data' => 'array',
+        'secondary_employment' => 'array',
+        'teaching_history_detailed' => 'array',
     ];
 
     public function applicant(): BelongsTo

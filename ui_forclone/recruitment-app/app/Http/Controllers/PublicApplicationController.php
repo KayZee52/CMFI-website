@@ -37,6 +37,7 @@ class PublicApplicationController extends Controller
             // Section 2: Position
             'applicant_type' => 'required|in:new,current_teacher',
             'position_applying_for' => 'required|string',
+            'other_position' => 'nullable|string',
             'subjects_can_teach' => 'required|string',
             'grades_preferred' => 'nullable|string',
             
@@ -71,6 +72,9 @@ class PublicApplicationController extends Controller
             'convicted' => 'required|string',
             'abide_policies' => 'required|string',
             
+            // Section: Secondary History
+            'secondary_employment' => 'nullable|array',
+            
             // Section 8: References
             'references' => 'nullable|array',
             
@@ -80,7 +84,8 @@ class PublicApplicationController extends Controller
             'other_commitments' => 'nullable|string',
             
             // Section 10: Final
-            'personal_statement' => 'nullable|string',
+            'personal_statement' => 'required|string',
+            'digital_signature' => 'required|string',
             
             // Files
             'cv' => 'required|file|mimes:pdf,doc,docx|max:5120',
@@ -158,6 +163,9 @@ class PublicApplicationController extends Controller
                 'available_start_date' => $validated['available_start_date'],
                 'commitment_type' => $validated['commitment_type'],
                 'other_commitments' => $validated['other_commitments'] ?? null,
+                'secondary_employment' => $validated['secondary_employment'] ?? [],
+                'other_position' => $validated['other_position'] ?? null,
+                'digital_signature' => $validated['digital_signature'] ?? null,
                 'reference_data' => $validated['references'] ?? [],
                 'personal_statement' => $validated['personal_statement'] ?? null,
                 'reference_number' => 'APP-' . strtoupper(Str::random(8)),

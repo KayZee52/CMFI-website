@@ -46,7 +46,12 @@
                         <div style="position: absolute; bottom: 8px; right: 8px; width: 24px; height: 24px; background: {{ $applicant->applicant_type === 'current_teacher' ? '#3B82F6' : '#10B981' }}; border: 4px solid white; border-radius: 50%;" title="{{ $applicant->applicant_type === 'current_teacher' ? 'Current Staff' : 'New Applicant' }}"></div>
                     </div>
                     <h2 style="font-size: 24px; font-weight: 800; color: #0F172A; margin: 0; letter-spacing: -0.02em;">{{ $applicant->full_name }}</h2>
-                    <p style="font-size: 15px; color: #3B82F6; font-weight: 700; margin: 8px 0 24px;">{{ $applicant->applications->first()->jobOpening->position->title ?? 'Teacher' }}</p>
+                    <p style="font-size: 15px; color: #3B82F6; font-weight: 700; margin: 8px 0 24px;">
+                        {{ $applicant->applications->first()->position_applying_for === 'Other' ? $applicant->applications->first()->other_position : ($applicant->applications->first()->jobOpening->position->title ?? 'Teacher') }}
+                        @if($applicant->applications->first()->position_applying_for === 'Subject Specialist' && $applicant->applications->first()->other_position)
+                            ({{ $applicant->applications->first()->other_position }})
+                        @endif
+                    </p>
                     
                     <div style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
                         <span style="background: #F1F5F9; color: #64748B; padding: 6px 14px; border-radius: 10px; font-weight: 600; font-size: 13px;">Ref: #{{ $applicant->applications->first()->reference_number }}</span>
@@ -229,6 +234,20 @@
                                     <p style="font-size: 12px; color: #94A3B8; margin: 2px 0 0;">{{ $applicant->applications->first()->prev_period_2 }}</p>
                                 </div>
                                 @endif
+
+                                <!-- Secondary Employment -->
+                                @php $secondary = $applicant->applications->first()->secondary_employment ?? []; @endphp
+                                @foreach($secondary as $index => $job)
+                                    @if(!empty($job['company']))
+                                    <div style="padding: 16px; background: #FDFCFB; border-radius: 16px; border: 1px solid #FEF3C7;">
+                                        <p style="font-size: 11px; font-weight: 700; color: #D97706; margin: 0; text-transform: uppercase;">Secondary Employment ({{ $index + 1 }})</p>
+                                        <p style="font-size: 14px; font-weight: 700; color: #0F172A; margin: 4px 0 0;">{{ $job['company'] }}</p>
+                                        <p style="font-size: 13px; font-weight: 600; color: #475569; margin: 2px 0 0;">{{ $job['position'] }}</p>
+                                        <p style="font-size: 12px; color: #94A3B8; margin: 2px 0 0;">{{ $job['dates'] }}</p>
+                                        <p style="font-size: 12px; color: #64748B; margin: 8px 0 0; line-height: 1.4;">{{ $job['nature'] }}</p>
+                                    </div>
+                                    @endif
+                                @endforeach
                             </div>
                         </div>
 
@@ -281,16 +300,22 @@
                                         'google_workspace' => 'Google Workspace',
                                         'online_teaching' => 'Online Platforms'
                                     ];
+                                    // Add any other skills that might be in the data but not in labels
+                                    foreach($skills as $key => $val) {
+                                        if(!isset($labels[$key])) $labels[$key] = str_replace('_', ' ', ucfirst($key));
+                                    }
                                 @endphp
                                 @foreach($labels as $key => $label)
-                                <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: #F8FAFC; border-radius: 12px;">
-                                    <span style="font-size: 13px; font-weight: 700; color: #475569;">{{ $label }}</span>
-                                    <div style="display: flex; gap: 4px;">
-                                        @for($i = 1; $i <= 5; $i++)
-                                        <div style="width: 8px; height: 8px; border-radius: 50%; background: {{ ($skills[$key] ?? 0) >= $i ? '#0F172A' : '#E2E8F0' }};"></div>
-                                        @endfor
+                                    @if(isset($skills[$key]))
+                                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: #F8FAFC; border-radius: 12px;">
+                                        <span style="font-size: 13px; font-weight: 700; color: #475569;">{{ $label }}</span>
+                                        <div style="display: flex; gap: 4px;">
+                                            @for($i = 1; $i <= 5; $i++)
+                                            <div style="width: 8px; height: 8px; border-radius: 50%; background: {{ ($skills[$key] ?? 0) >= $i ? '#0F172A' : '#E2E8F0' }};"></div>
+                                            @endfor
+                                        </div>
                                     </div>
-                                </div>
+                                    @endif
                                 @endforeach
                             </div>
                             @endif
@@ -328,6 +353,14 @@
                 <div class="profile-card" style="padding: 32px; background: white; border-radius: 24px; border: 1px solid #F1F5F9;">
                     <h4 style="font-size: 16px; font-weight: 800; color: #0F172A; margin: 0 0 16px;">Teaching Philosophy & Statement</h4>
                     <p style="font-size: 15px; line-height: 1.8; color: #475569; margin: 0; white-space: pre-line;">{{ $applicant->applications->first()->personal_statement ?? 'No statement provided.' }}</p>
+                    
+                    @if($applicant->applications->first()->digital_signature)
+                    <div style="margin-top: 32px; padding-top: 24px; border-top: 1px dashed #E2E8F0;">
+                        <p style="font-size: 11px; font-weight: 700; color: #94A3B8; margin: 0; text-transform: uppercase; letter-spacing: 0.1em;">Digital Signature</p>
+                        <p style="font-family: cursive; font-style: italic; font-size: 24px; color: #0F172A; margin: 8px 0 0;">{{ $applicant->applications->first()->digital_signature }}</p>
+                        <p style="font-size: 12px; color: #64748B; margin: 4px 0 0;">Certified on {{ $applicant->applications->first()->submitted_at->format('M d, Y') }}</p>
+                    </div>
+                    @endif
                 </div>
 
                 <!-- Documents Collection -->

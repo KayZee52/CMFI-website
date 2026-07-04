@@ -19,6 +19,28 @@
 
 <body class="min-h-screen bg-[#fafafa] font-body text-slate-800 antialiased">
 
+    <!-- Session Message -->
+    @if(session('success'))
+        <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-md flex items-center justify-center z-[100] p-6 animate-fadeIn">
+            <div class="bg-white rounded-[2rem] max-w-lg w-full p-10 text-center space-y-8 shadow-2xl">
+                <div class="flex justify-center">
+                    <div class="h-24 w-24 bg-emerald-50 rounded-full flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                            stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <h2 class="font-headline text-3xl font-extrabold text-slate-900">Submitted!</h2>
+                    <p class="text-slate-500 leading-relaxed text-lg">{{ session('success') }}</p>
+                </div>
+                <a href="{{ route('apply') }}" class="btn-primary w-full py-5 text-xl">Continue</a>
+            </div>
+        </div>
+    @endif
+
     <div x-data="applicationForm()" x-init="init()" x-cloak>
         <!-- Header -->
         <header class="w-full border-b border-slate-100 bg-white py-5 sticky top-0 z-40">
@@ -42,6 +64,25 @@
                         faculty for the 2026/2027 Academic Year. We are looking for passionate educators to join our
                         mission.</p>
                 </div>
+
+                <!-- Validation Errors -->
+                @if($errors->any())
+                    <div class="bg-red-50 border border-red-200 text-red-700 px-8 py-6 rounded-[2rem] shadow-sm animate-fadeIn">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <span class="font-bold text-lg">Please check the following:</span>
+                        </div>
+                        <ul class="list-disc list-inside text-base space-y-2 ml-2">
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
                 <!-- Progress Bar -->
                 <div class="space-y-4">
@@ -191,18 +232,22 @@
                                 <div class="sm:col-span-2">
                                     <label class="form-label">Position Applying For <span
                                             class="text-red-500">*</span></label>
-                                    <input type="text" name="position_applying_for" list="positions-list" class="input-class" required 
-                                        placeholder="e.g. Nursery Teacher, Biology Teacher, etc.">
-                                    <datalist id="positions-list">
-                                        @foreach ($openings as $opening)
-                                            <option value="{{ $opening->position->title }}">
-                                        @endforeach
-                                        <option value="Nursery Teacher">
-                                        <option value="Elementary Teacher">
-                                        <option value="Junior High Teacher">
-                                        <option value="Senior High Teacher">
-                                        <option value="Subject Specialist">
-                                    </datalist>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <select name="position_applying_for" class="input-class" required x-model="selectedPosition">
+                                            <option value="">Select Position...</option>
+                                            @foreach ($openings as $opening)
+                                                <option value="{{ $opening->position->title }}">{{ $opening->position->title }}</option>
+                                            @endforeach
+                                            <option value="Nursery Teacher">Nursery Teacher</option>
+                                            <option value="Elementary Teacher">Elementary Teacher</option>
+                                            <option value="Junior High Teacher">Junior High Teacher</option>
+                                            <option value="Senior High Teacher">Senior High Teacher</option>
+                                            <option value="Subject Specialist">Subject Specialist</option>
+                                            <option value="Other">Other (Specify below)</option>
+                                        </select>
+                                        <input type="text" name="other_position" class="input-class" x-show="selectedPosition === 'Other' || selectedPosition === 'Subject Specialist'" 
+                                            placeholder="Specify Subject or Role" :required="selectedPosition === 'Other' || selectedPosition === 'Subject Specialist'">
+                                    </div>
                                 </div>
                                 <div class="sm:col-span-2">
                                     <label class="form-label">Subjects You Can Teach <span
@@ -309,60 +354,92 @@
                         <div x-show="currentStep === 4" class="space-y-8 animate-fadeIn">
                             <div class="space-y-2">
                                 <h2 class="text-2xl font-bold text-slate-900 font-headline">Teaching Experience</h2>
-                                <p class="text-sm text-slate-500">Provide details of your professional journey.</p>
+                                <p class="text-sm text-slate-500">Document your teaching journey over the last 5 years.</p>
                             </div>
 
-                            <div class="space-y-10">
+                            <div class="space-y-6">
                                 <div>
-                                    <label class="form-label">Total Years of Experience <span
-                                            class="text-red-500">*</span></label>
+                                    <label class="form-label">Total Years of Teaching Experience <span class="text-red-500">*</span></label>
                                     <input type="number" name="years_experience" class="input-class w-32" required>
                                 </div>
 
-                                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 space-y-6">
-                                    <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider">Most Recent
-                                        Employer</h3>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                        <div class="sm:col-span-2">
-                                            <label class="form-label">School / Organization</label>
-                                            <input type="text" name="previous_school" class="input-class">
-                                        </div>
-                                        <div>
-                                            <label class="form-label">Position Held</label>
-                                            <input type="text" name="prev_position" class="input-class">
-                                        </div>
-                                        <div>
-                                            <label class="form-label">Employment Period</label>
-                                            <input type="text" name="prev_period" class="input-class"
-                                                placeholder="e.g. 2020 - 2023">
+                                <div class="space-y-8">
+                                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 space-y-6">
+                                        <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider">Most Recent Institution</h3>
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                            <div class="sm:col-span-2">
+                                                <label class="form-label">Name of School/Institution <span class="text-red-500">*</span></label>
+                                                <input type="text" name="previous_school" class="input-class" required>
+                                            </div>
+                                            <div>
+                                                <label class="form-label">Position Held <span class="text-red-500">*</span></label>
+                                                <input type="text" name="prev_position" class="input-class" required>
+                                            </div>
+                                            <div>
+                                                <label class="form-label">Employment Period <span class="text-red-500">*</span></label>
+                                                <input type="text" name="prev_period" class="input-class" required placeholder="e.g. 2021 - 2024">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 space-y-6">
-                                    <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider">Secondary
-                                        Employer</h3>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                        <div class="sm:col-span-2">
-                                            <label class="form-label">School / Organization</label>
-                                            <input type="text" name="prev_school_2" class="input-class">
-                                        </div>
-                                        <div>
-                                            <label class="form-label">Position Held</label>
-                                            <input type="text" name="prev_position_2" class="input-class">
-                                        </div>
-                                        <div>
-                                            <label class="form-label">Employment Period</label>
-                                            <input type="text" name="prev_period_2" class="input-class"
-                                                placeholder="e.g. 2018 - 2020">
+                                    <div class="p-6 rounded-2xl bg-white border border-slate-100 space-y-6">
+                                        <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider">Previous Institution (2)</h3>
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                            <div class="sm:col-span-2">
+                                                <label class="form-label">Name of School/Institution</label>
+                                                <input type="text" name="prev_school_2" class="input-class">
+                                            </div>
+                                            <div>
+                                                <label class="form-label">Position Held</label>
+                                                <input type="text" name="prev_position_2" class="input-class">
+                                            </div>
+                                            <div>
+                                                <label class="form-label">Employment Period</label>
+                                                <input type="text" name="prev_period_2" class="input-class" placeholder="e.g. 2018 - 2020">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Step 5: For Current Teachers -->
+                        <!-- Step 5: Secondary Employment History -->
                         <div x-show="currentStep === 5" class="space-y-8 animate-fadeIn">
+                            <div class="space-y-2">
+                                <h2 class="text-2xl font-bold text-slate-900 font-headline">Secondary Employment History</h2>
+                                <p class="text-sm text-slate-500">Provide details for non-teaching roles or other employment.</p>
+                            </div>
+
+                            <div class="space-y-8">
+                                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 space-y-6">
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                        <div class="sm:col-span-2">
+                                            <label class="form-label">Company Name</label>
+                                            <input type="text" name="secondary_employment[0][company]" class="input-class">
+                                        </div>
+                                        <div>
+                                            <label class="form-label">Position Held</label>
+                                            <input type="text" name="secondary_employment[0][position]" class="input-class">
+                                        </div>
+                                        <div>
+                                            <label class="form-label">Dates of Employment</label>
+                                            <input type="text" name="secondary_employment[0][dates]" class="input-class" placeholder="e.g. Jan 2015 - Dec 2017">
+                                        </div>
+                                        <div class="sm:col-span-2">
+                                            <label class="form-label">Nature of Work</label>
+                                            <textarea name="secondary_employment[0][nature]" class="input-class" rows="2"></textarea>
+                                        </div>
+                                        <div class="sm:col-span-2">
+                                            <label class="form-label">Reason for Leaving</label>
+                                            <textarea name="secondary_employment[0][reason]" class="input-class" rows="2"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 6: For Current Teachers -->
+                        <div x-show="currentStep === 6" class="space-y-8 animate-fadeIn">
                             <div class="space-y-2">
                                 <h2 class="text-2xl font-bold text-slate-900 font-headline">Staff Reapplication</h2>
                                 <p class="text-sm text-slate-500">For our valued returning faculty members.</p>
@@ -392,8 +469,8 @@
                             </div>
                         </div>
 
-                        <!-- Step 6: Skills Proficiency -->
-                        <div x-show="currentStep === 6" class="space-y-8 animate-fadeIn">
+                        <!-- Step 7: Skills Proficiency -->
+                        <div x-show="currentStep === 7" class="space-y-8 animate-fadeIn">
                             <div class="space-y-2">
                                 <h2 class="text-2xl font-bold text-slate-900 font-headline">Skills & Competencies</h2>
                                 <p class="text-sm text-slate-500">Rate your proficiency (1 = Beginner, 5 = Expert).</p>
@@ -416,8 +493,8 @@
                             </div>
                         </div>
 
-                        <!-- Step 7: Character & Conduct -->
-                        <div x-show="currentStep === 7" class="space-y-8 animate-fadeIn">
+                        <!-- Step 8: Character & Conduct -->
+                        <div x-show="currentStep === 8" class="space-y-8 animate-fadeIn">
                             <div class="space-y-2">
                                 <h2 class="text-2xl font-bold text-slate-900 font-headline">Character & Conduct</h2>
                                 <p class="text-sm text-slate-500">Verification of standards and ethics.</p>
@@ -468,8 +545,8 @@
                             </div>
                         </div>
 
-                        <!-- Step 8: References -->
-                        <div x-show="currentStep === 8" class="space-y-8 animate-fadeIn">
+                        <!-- Step 9: References -->
+                        <div x-show="currentStep === 9" class="space-y-8 animate-fadeIn">
                             <div class="space-y-2">
                                 <h2 class="text-2xl font-bold text-slate-900 font-headline">Professional References</h2>
                                 <p class="text-sm text-slate-500">Provide details of two people who can vouch for you.</p>
@@ -530,11 +607,11 @@
                             </div>
                         </div>
 
-                        <!-- Step 9: Personal Statement & Final -->
-                        <div x-show="currentStep === 9" class="space-y-8 animate-fadeIn">
+                        <!-- Step 10: Personal Statement & Declaration -->
+                        <div x-show="currentStep === 10" class="space-y-8 animate-fadeIn">
                             <div class="space-y-2">
-                                <h2 class="text-2xl font-bold text-slate-900 font-headline">Personal Statement</h2>
-                                <p class="text-sm text-slate-500">Tell us more about your teaching philosophy.</p>
+                                <h2 class="text-2xl font-bold text-slate-900 font-headline">Final Submission</h2>
+                                <p class="text-sm text-slate-500">Provide your statement and certify your application.</p>
                             </div>
 
                             <div class="space-y-6">
@@ -550,12 +627,17 @@
                                         placeholder="Any other jobs or studies that may affect your schedule?"></textarea>
                                 </div>
 
-                                <div class="p-6 rounded-2xl bg-amber-50 border border-amber-100">
+                                <div class="p-6 rounded-2xl bg-amber-50 border border-amber-100 space-y-6">
                                     <div class="flex gap-4">
                                         <input type="checkbox" name="declaration" id="declaration" required class="w-5 h-5 mt-1 text-slate-900 border-slate-300 rounded">
                                         <label for="declaration" class="text-sm text-amber-900 leading-relaxed">
                                             <strong>Declaration:</strong> I hereby certify that the information provided in this application is true and complete to the best of my knowledge. I understand that any false information may result in the rejection of my application or termination of employment.
                                         </label>
+                                    </div>
+                                    <div class="pt-4 border-t border-amber-200">
+                                        <label class="form-label text-amber-900">Digital Signature (Full Name) <span class="text-red-500">*</span></label>
+                                        <input type="text" name="digital_signature" class="input-class border-amber-200" required placeholder="Type your full name here">
+                                        <p class="text-[10px] text-amber-700 mt-2 uppercase tracking-widest font-bold">I understand that typing my name above constitutes a legal signature.</p>
                                     </div>
                                 </div>
                             </div>
@@ -572,7 +654,7 @@
                                 Back
                             </button>
                             <div class="flex-grow order-1 sm:order-2"></div>
-                            <button type="button" x-show="currentStep < 9" @click="handleNext()"
+                            <button type="button" x-show="currentStep < 10" @click="handleNext()"
                                 class="btn-primary w-full sm:w-auto order-1 sm:order-3">
                                 Next Step
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -580,7 +662,7 @@
                                         d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                 </svg>
                             </button>
-                            <button type="submit" x-show="currentStep === 9" :disabled="isPending"
+                            <button type="submit" x-show="currentStep === 10" :disabled="isPending"
                                 class="btn-primary w-full sm:w-auto order-1 sm:order-3">
                                 <span x-show="!isPending">Submit Application</span>
                                 <span x-show="isPending" class="flex items-center gap-2">
@@ -605,37 +687,15 @@
                 </p>
             </div>
         </footer>
-
-        <!-- Session Message -->
-        @if(session('success'))
-            <div
-                class="fixed inset-0 bg-slate-900/40 backdrop-blur-md flex items-center justify-center z-50 p-6 animate-fadeIn">
-                <div class="bg-white rounded-[2rem] max-w-lg w-full p-10 text-center space-y-8 shadow-2xl">
-                    <div class="flex justify-center">
-                        <div class="h-24 w-24 bg-emerald-50 rounded-full flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
-                                stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                                <polyline points="22 4 12 14.01 9 11.01" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="space-y-3">
-                        <h2 class="font-headline text-3xl font-extrabold text-slate-900">Submitted!</h2>
-                        <p class="text-slate-500 leading-relaxed text-lg">{{ session('success') }}</p>
-                    </div>
-                    <a href="{{ route('apply') }}" class="btn-primary w-full py-5 text-xl">Continue</a>
-                </div>
-            </div>
-        @endif
     </div>
 
     <script>
         function applicationForm() {
             return {
                 currentStep: 0,
-                applicantType: 'new',
+                applicantType: '',
                 isPending: false,
+                selectedPosition: '',
                 skills: [
                     { id: 'classroom_management', label: 'Classroom Management' },
                     { id: 'lesson_planning', label: 'Lesson Planning' },
@@ -653,20 +713,21 @@
                     'Position Information',
                     'Educational Background',
                     'Teaching Experience',
+                    'Secondary Employment History',
                     'Staff Reapplication',
                     'Skills & Competencies',
                     'Character & Conduct',
                     'Professional References',
-                    'Personal Statement'
+                    'Personal Statement & Declaration'
                 ],
 
                 totalActiveSteps() {
-                    // For "new" applicants, we skip step 5 (Reapplication)
-                    return this.applicantType === 'current_teacher' ? 10 : 9;
+                    // For "new" applicants, we skip step 6 (Reapplication)
+                    return this.applicantType === 'current_teacher' ? 11 : 10;
                 },
 
                 getActiveStepIndex() {
-                    if (this.applicantType === 'new' && this.currentStep > 5) {
+                    if (this.applicantType === 'new' && this.currentStep > 6) {
                         return this.currentStep;
                     }
                     return this.currentStep + 1;
@@ -701,10 +762,10 @@
                         if (!isValid) return;
                     }
 
-                    if (this.currentStep < 9) {
-                        // If it's a new applicant, skip Step 5 (Staff Reapplication)
-                        if (this.applicantType === 'new' && this.currentStep === 4) {
-                            this.currentStep = 6;
+                    if (this.currentStep < 10) {
+                        // If it's a new applicant, skip Step 6 (Staff Reapplication)
+                        if (this.applicantType === 'new' && this.currentStep === 5) {
+                            this.currentStep = 7;
                         } else {
                             this.currentStep++;
                         }
@@ -714,9 +775,9 @@
 
                 handleBack() {
                     if (this.currentStep > 0) {
-                        // If it's a new applicant, skip back from 6 to 4
-                        if (this.applicantType === 'new' && this.currentStep === 6) {
-                            this.currentStep = 4;
+                        // If it's a new applicant, skip back from 7 to 5
+                        if (this.applicantType === 'new' && this.currentStep === 7) {
+                            this.currentStep = 5;
                         } else {
                             this.currentStep--;
                         }
