@@ -198,7 +198,16 @@ class PublicApplicationController extends Controller
             // 4. Log Activity
             $application->logActivity('Application submitted via public portal.', null);
 
-            return redirect()->route('apply')->with('success', 'Your application for the 2026/2027 Academic Year has been successfully submitted! Our team will review it and contact you via email.');
+            return $application;
         });
+
+        // 5. Send Confirmation Email
+        try {
+            \Illuminate\Support\Facades\Mail::to($applicant->email)->send(new \App\Mail\ApplicationConfirmation($application));
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Failed to send application confirmation email: " . $e->getMessage());
+        }
+
+        return redirect()->route('apply')->with('success', 'Your application for the 2026/2027 Academic Year has been successfully submitted! Our team will review it and contact you via email.');
     }
 }
