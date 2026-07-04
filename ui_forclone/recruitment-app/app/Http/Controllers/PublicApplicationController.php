@@ -201,12 +201,16 @@ class PublicApplicationController extends Controller
             return $application;
         });
 
-        // 5. Send Confirmation Email
-        try {
-            \Illuminate\Support\Facades\Mail::to($applicant->email)->send(new \App\Mail\ApplicationConfirmation($application));
-        } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error("Failed to send application confirmation email: " . $e->getMessage());
-        }
+        // 5. Send Confirmation Email (After Response)
+        // This handles background sending automatically on Shared Hosting
+        // without needing a separate worker or Cron job.
+        dispatch(function () use ($applicant, $application) {
+            try {
+                \Illuminate\Support\Facades\Mail::to($applicant->email)->send(new \App\Mail\ApplicationConfirmation($application));
+            } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::error("Failed to send application confirmation email: " . $e->getMessage());
+            }
+        })->afterResponse();
 
         return redirect()->route('apply')->with('success', 'Your application for the 2026/2027 Academic Year has been successfully submitted! Our team will review it and contact you via email.');
     }
