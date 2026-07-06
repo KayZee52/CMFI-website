@@ -134,7 +134,7 @@
                                  style="width: 32px; height: 32px; border-radius: 8px; object-fit: cover;">
                             <div>
                                 <div style="font-weight: 600; font-size: 13px;">{{ $applicant->full_name }}</div>
-                                <div style="font-size: 11px; color: var(--text-muted);">{{ $applicant->applications->first()->jobOpening->position->title ?? 'N/A' }}</div>
+                                <div style="font-size: 11px; color: var(--text-muted);">{{ $applicant->applications->first()?->jobOpening?->position?->title ?? 'N/A' }}</div>
                             </div>
                         </div>
                         <a href="{{ route('applicants.show', $applicant->id) }}" class="icon-btn-small" style="color: var(--text-light);">
@@ -199,7 +199,7 @@
                                 <x-icon name="dashboard" class="w-4 h-4" />
                             </div>
                             <div>
-                                <p style="margin: 0; font-weight: 500;">{{ $activity->application->applicant->full_name }}</p>
+                                <p style="margin: 0; font-weight: 500;">{{ $activity->application->applicant->full_name ?? 'System' }}</p>
                                 <p style="margin: 0; font-size: 12px; opacity: 0.8;">{{ $activity->content }}</p>
                                 <span style="font-size: 10px; opacity: 0.6;">{{ $activity->created_at->diffForHumans() }}</span>
                             </div>
