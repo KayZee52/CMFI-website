@@ -128,7 +128,7 @@
                             @endif
                         </td>
                         <td>
-                            <span class="status-tag {{ Str::contains($latestApp->current_stage ?? '', 'Interview') ? 'in-progress' : ($latestApp->decision_status === 'Hired' ? 'completed' : 'pending') }}" style="padding: 4px 10px; font-size: 11px; border-radius: 6px;">
+                            <span class="status-tag {{ Str::contains($latestApp->current_stage ?? '', 'Interview') ? 'in-progress' : (($latestApp->decision_status ?? '') === 'Hired' ? 'completed' : 'pending') }}" style="padding: 4px 10px; font-size: 11px; border-radius: 6px;">
                                 {{ $latestApp->current_stage ?? 'Pending' }}
                             </span>
                         </td>
