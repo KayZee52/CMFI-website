@@ -59,7 +59,8 @@ class ApplicantController extends Controller
         $user = auth()->user();
         $query = Applicant::with(['applications.jobOpening.position']);
 
-        if ($user->hasRole(['department_head', 'principal'])) {
+        // Only filter by department if they are a head/principal AND NOT a super_admin/hr_admin
+        if (!$user->hasRole(['super_admin', 'hr_admin']) && $user->hasRole(['department_head', 'principal'])) {
             $deptId = $user->department_id;
             $query->whereHas('applications.jobOpening', function($q) use ($deptId) {
                 $q->where('department_id', $deptId);
