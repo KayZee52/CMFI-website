@@ -81,7 +81,8 @@ class ApplicantController extends Controller
         $pipeline = [];
         foreach ($stages as $stage) {
             $pipeline[$stage] = $allApplicants->filter(function($applicant) use ($stage) {
-                return $applicant->applications->first()->current_stage === $stage;
+                $firstApp = $applicant->applications->first();
+                return $firstApp && $firstApp->current_stage === $stage;
             });
         }
 
