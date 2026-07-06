@@ -46,16 +46,21 @@
                         <div style="position: absolute; bottom: 8px; right: 8px; width: 24px; height: 24px; background: {{ $applicant->applicant_type === 'current_teacher' ? '#3B82F6' : '#10B981' }}; border: 4px solid white; border-radius: 50%;" title="{{ $applicant->applicant_type === 'current_teacher' ? 'Current Staff' : 'New Applicant' }}"></div>
                     </div>
                     <h2 style="font-size: 24px; font-weight: 800; color: #0F172A; margin: 0; letter-spacing: -0.02em;">{{ $applicant->full_name }}</h2>
+                    @php $firstApp = $applicant->applications->first(); @endphp
                     <p style="font-size: 15px; color: #3B82F6; font-weight: 700; margin: 8px 0 24px;">
-                        {{ $applicant->applications->first()->position_applying_for === 'Other' ? $applicant->applications->first()->other_position : ($applicant->applications->first()->jobOpening->position->title ?? 'Teacher') }}
-                        @if($applicant->applications->first()->position_applying_for === 'Subject Specialist' && $applicant->applications->first()->other_position)
-                            ({{ $applicant->applications->first()->other_position }})
+                        @if($firstApp)
+                            {{ $firstApp->position_applying_for === 'Other' ? $firstApp->other_position : ($firstApp->jobOpening->position->title ?? 'Teacher') }}
+                            @if($firstApp->position_applying_for === 'Subject Specialist' && $firstApp->other_position)
+                                ({{ $firstApp->other_position }})
+                            @endif
+                        @else
+                            N/A
                         @endif
                     </p>
                     
                     <div style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
-                        <span style="background: #F1F5F9; color: #64748B; padding: 6px 14px; border-radius: 10px; font-weight: 600; font-size: 13px;">Ref: #{{ $applicant->applications->first()->reference_number }}</span>
-                        <span style="background: #EFF6FF; color: #3B82F6; padding: 6px 14px; border-radius: 10px; font-weight: 700; font-size: 13px;">{{ $applicant->applications->first()->current_stage }}</span>
+                        <span style="background: #F1F5F9; color: #64748B; padding: 6px 14px; border-radius: 10px; font-weight: 600; font-size: 13px;">Ref: #{{ $firstApp->reference_number ?? 'N/A' }}</span>
+                        <span style="background: #EFF6FF; color: #3B82F6; padding: 6px 14px; border-radius: 10px; font-weight: 700; font-size: 13px;">{{ $firstApp->current_stage ?? 'Pending' }}</span>
                     </div>
                 </div>
 
