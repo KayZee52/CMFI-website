@@ -39,9 +39,9 @@ class RecruitmentSeeder extends Seeder
 
         // 3. Admin User
         $admin = User::firstOrCreate(
-            ['email' => 'admin@cmfischool.online'],
+            ['email' => 'simeonojong@cmfischool.online'],
             [
-                'name' => 'HR Admin',
+                'name' => 'Simeon Ojong',
                 'password' => Hash::make('password'),
             ]
         );

@@ -79,7 +79,7 @@
     <div class="table-container" style="margin-top: 32px; box-shadow: var(--shadow-md);">
         <div class="list-header">
             <h2>All Applicants List</h2>
-            <div class="search-bar" style="width: 380px; background: white; border-radius: 10px; padding: 8px 16px; border: 1px solid #E2E8F0;">
+            <div class="search-bar" style="max-width: 380px; width: 100%; background: white; border-radius: 10px; padding: 8px 16px; border: 1px solid #E2E8F0;">
                 <x-icon name="search" class="w-4 h-4" style="color: #64748B;" />
                 <input type="text" placeholder="Search by name, position or email..." style="font-size: 13px; color: #1E293B;">
                 <div style="background: #F1F5F9; border: 1px solid #E2E8F0; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 700; color: #64748B;">⌘K</div>

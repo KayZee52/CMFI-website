@@ -15,24 +15,24 @@
     }" class="profile-hub">
         
         <!-- Top Navigation -->
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px;">
-            <div style="display: flex; align-items: center; gap: 16px;">
-                <a href="{{ route('applicants.index') }}" style="color: #64748B;"><x-icon name="arrow-left" class="w-6 h-6" /></a>
-                <h1 style="font-size: 32px; font-weight: 800; margin: 0; letter-spacing: -0.03em; color: #0F172A;">Candidate Profile</h1>
+        <div class="profile-header">
+            <div class="header-title">
+                <a href="{{ route('applicants.index') }}" class="back-link"><x-icon name="arrow-left" class="w-6 h-6" /></a>
+                <h1 class="page-title">Candidate Profile</h1>
             </div>
-            <div style="display: flex; gap: 12px;">
-                <button class="btn btn-secondary" style="height: 44px; padding: 0 20px; border-radius: 12px; font-weight: 700; display: flex; align-items: center; gap: 8px; border: 1.5px solid #E2E8F0; background: #fff;">
+            <div class="header-actions">
+                <button class="btn btn-secondary action-btn">
                     <x-icon name="mail" class="w-5 h-5" /> Message
                 </button>
                 <div class="dropdown">
-                    <button class="btn btn-primary" style="height: 44px; padding: 0 20px; border-radius: 12px; font-weight: 700; display: flex; align-items: center; gap: 8px; background: #0F172A; color: white; border: none;">
+                    <button class="btn btn-primary action-btn">
                         Update Status <x-icon name="arrow-left" class="w-4 h-4 rotate-270" />
                     </button>
                 </div>
             </div>
         </div>
 
-        <div class="dashboard-grid" style="display: grid; grid-template-columns: 360px 1fr; gap: 32px; align-items: start;">
+        <div class="profile-grid">
             
             <!-- Left Pane: Hero & Quick Info -->
             <div style="display: flex; flex-direction: column; gap: 32px;">
@@ -129,8 +129,8 @@
             <div style="display: flex; flex-direction: column; gap: 32px;">
                 
                 <!-- Main Details Card -->
-                <div class="profile-card" style="padding: 32px; background: white; border-radius: 24px; border: 1px solid #F1F5F9;">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px;">
+                <div class="profile-card main-details">
+                    <div class="details-grid">
                         
                         <!-- Personal Details -->
                         <div>
@@ -196,7 +196,7 @@
                     <div style="height: 1px; background: #F1F5F9; margin: 32px 0;"></div>
 
                     <!-- Professional Experience -->
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px;">
+                    <div class="details-grid experience-grid">
                         <div>
                             <h4 style="font-size: 16px; font-weight: 800; color: #0F172A; margin: 0 0 24px; display: flex; align-items: center; gap: 8px;">
                                 <div style="width: 8px; height: 8px; background: #F59E0B; border-radius: 2px;"></div>
@@ -329,7 +329,7 @@
                 </div>
 
                 <!-- References & Commitments Card -->
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
+                <div class="details-grid side-grid">
                     <div class="profile-card" style="padding: 32px; background: white; border-radius: 24px; border: 1px solid #F1F5F9;">
                         <h4 style="font-size: 16px; font-weight: 800; color: #0F172A; margin: 0 0 24px;">Professional References</h4>
                         <div style="display: flex; flex-direction: column; gap: 24px;">
@@ -409,11 +409,11 @@
              x-transition:leave="transition ease-in duration-200" 
              x-transition:leave-start="opacity-100" 
              x-transition:leave-end="opacity-0" 
-             style="position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(12px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 32px;"
+             class="preview-modal-overlay"
              @keydown.escape.window="previewOpen = false">
             
             <div @click.away="previewOpen = false" 
-                 style="background: white; width: 100%; max-width: 1100px; height: 100%; border-radius: 32px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);">
+                 class="preview-modal-content">
                 
                 <!-- Modal Header -->
                 <div style="padding: 24px 32px; border-bottom: 1px solid #F1F5F9; display: flex; justify-content: space-between; align-items: center; background: #F8FAFC;">

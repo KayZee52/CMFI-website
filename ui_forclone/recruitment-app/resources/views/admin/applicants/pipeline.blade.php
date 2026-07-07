@@ -4,26 +4,26 @@
 <div class="page-content" style="padding: 0; display: flex; flex-direction: column;">
     
     <!-- Pipeline Header -->
-    <div style="padding: 32px 40px; background: white; border-bottom: 1px solid #F1F5F9; display: flex; justify-content: space-between; align-items: center;">
-        <div>
-            <h1 style="font-size: 32px; font-weight: 800; margin: 0; letter-spacing: -0.03em; color: #0F172A;">Hiring Pipeline</h1>
-            <p style="font-size: 14px; color: #64748B; font-weight: 600; margin-top: 4px;">Visual funnel management for active candidates</p>
+    <div class="pipeline-header">
+        <div class="header-info">
+            <h1 class="page-title">Hiring Pipeline</h1>
+            <p class="page-subtitle">Visual funnel management for active candidates</p>
         </div>
-        <div style="display: flex; gap: 12px;">
-            <div style="display: flex; background: #F1F5F9; padding: 4px; border-radius: 12px;">
-                <button style="padding: 8px 16px; border-radius: 8px; border: none; background: white; color: #0F172A; font-weight: 700; font-size: 13px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">Board View</button>
-                <button style="padding: 8px 16px; border-radius: 8px; border: none; background: transparent; color: #64748B; font-weight: 600; font-size: 13px;">List View</button>
+        <div class="header-actions">
+            <div class="view-toggle">
+                <button class="toggle-btn active">Board View</button>
+                <button class="toggle-btn">List View</button>
             </div>
-            <button class="btn btn-primary" style="height: 44px; padding: 0 20px; border-radius: 12px; font-weight: 700; background: #0F172A; color: white; border: none; display: flex; align-items: center; gap: 8px;">
+            <button class="btn btn-primary add-btn">
                 <x-icon name="users" class="w-5 h-5" /> Add Candidate
             </button>
         </div>
     </div>
 
     <!-- Kanban Board -->
-    <div style="flex: 1; overflow-x: auto; padding: 32px 40px; display: flex; gap: 24px; background: #F8FAFC;" id="pipeline-board">
+    <div class="kanban-board-container" id="pipeline-board">
         @foreach($stages as $stage)
-            <div style="min-width: 320px; width: 320px; display: flex; flex-direction: column; gap: 16px;">
+            <div class="kanban-column-wrapper">
                 <!-- Column Header -->
                 <div style="display: flex; align-items: center; justify-content: space-between; padding: 0 4px;">
                     <div style="display: flex; align-items: center; gap: 10px;">

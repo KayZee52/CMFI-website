@@ -16,17 +16,51 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
-    <div class="app-container">
+    <div x-data="{ sidebarOpen: false }" class="app-container">
+        <!-- Mobile Header -->
+        <header class="mobile-header">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <button @click="sidebarOpen = true" class="menu-btn">
+                    <x-icon name="menu" />
+                </button>
+                <div class="logo-wrapper" style="display: flex; align-items: center; gap: 8px;">
+                    <img src="{{ asset('images/logo.png') }}" alt="CMFI Logo" style="height: 32px; width: auto;">
+                    <span style="font-weight: 800; font-size: 18px; color: #0F172A;">Careers</span>
+                </div>
+            </div>
+            
+            <div class="mobile-header-actions">
+                <img src="{{ Auth::user()->avatar ? asset('storage/' . Auth::user()->avatar) : asset('images/avatars/admin.png') }}" alt="User Profile" style="width: 32px; height: 32px; border-radius: 10px; object-fit: cover;">
+            </div>
+        </header>
+
+        <!-- Sidebar Overlay -->
+        <div x-show="sidebarOpen" 
+             @click="sidebarOpen = false" 
+             class="sidebar-overlay"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="transition ease-in duration-300"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0"
+             style="display: none;">
+        </div>
+
         <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="logo">
-                <div class="logo-wrapper" style="display: flex; align-items: center; gap: 16px;">
-                    <img src="{{ asset('images/logo.png') }}" alt="CMFI Logo" style="height: 48px; width: auto;">
-                    <div style="display: flex; flex-direction: column;">
-                        <span class="logo-text" style="font-weight: 800; font-size: 24px; letter-spacing: -0.5px; line-height: 1; color: #0F172A;">Careers</span>
-                        <span style="font-size: 14px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em;">at CMFI</span>
+        <aside class="sidebar" :class="{ 'open': sidebarOpen }">
+            <div class="sidebar-header">
+                <div class="logo-wrapper" style="display: flex; align-items: center; gap: 12px; min-width: 0;">
+                    <img src="{{ asset('images/logo.png') }}" alt="CMFI Logo" style="height: 40px; width: auto; flex-shrink: 0;">
+                    <div style="display: flex; flex-direction: column; min-width: 0; overflow: hidden;">
+                        <span class="logo-text" style="font-weight: 800; font-size: 20px; letter-spacing: -0.5px; line-height: 1; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Careers</span>
+                        <span style="font-size: 12px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">at CMFI</span>
                     </div>
                 </div>
+                
+                <button @click="sidebarOpen = false" class="mobile-close-btn">
+                    <x-icon name="close" />
+                </button>
             </div>
 
             <nav class="sidebar-nav">
@@ -89,9 +123,14 @@
         <div style="flex: 1; display: flex; flex-direction: column; min-width: 0; height: 100vh;">
             <!-- Top Header -->
             <header class="top-header" style="background: white; border-bottom: 1px solid #F1F5F9; padding: 20px 48px; margin-bottom: 0;">
-                <div class="search-bar">
-                    <x-icon name="search" class="w-5 h-5" style="color: #9A9FA5;" />
-                    <input type="text" placeholder="Search applicant...">
+                <div class="search-container">
+                    <button class="icon-btn mobile-search-btn">
+                        <x-icon name="search" />
+                    </button>
+                    <div class="search-bar desktop-search-bar">
+                        <x-icon name="search" class="w-5 h-5" style="color: #9A9FA5;" />
+                        <input type="text" placeholder="Search applicant...">
+                    </div>
                 </div>
                 <div class="header-actions">
                     <button class="icon-btn">
@@ -163,11 +202,11 @@
                     <div x-data="{ open: false }" @click.away="open = false" style="position: relative;">
                         <button @click="open = !open" class="user-profile" style="background: none; border: none; padding: 0; cursor: pointer; display: flex; align-items: center; gap: 12px;">
                             <img src="{{ Auth::user()->avatar ? asset('storage/' . Auth::user()->avatar) : asset('images/avatars/admin.png') }}" alt="User Profile" style="width: 40px; height: 40px; border-radius: 12px; object-fit: cover; border: 1px solid var(--border-color);">
-                            <div class="user-info" style="text-align: left;">
+                            <div class="user-info desktop-only" style="text-align: left;">
                                 <span class="user-name" style="display: block; font-weight: 700; color: #0F172A; font-size: 14px;">{{ Auth::user()->name }}</span>
                                 <span class="user-email" style="display: block; font-size: 12px; color: #64748B;">{{ Auth::user()->email }}</span>
                             </div>
-                            <x-icon name="chevron-down" style="width: 16px; height: 16px; color: #94A3B8; transition: transform 0.2s;" ::style="open ? 'transform: rotate(180deg)' : ''" />
+                            <x-icon name="chevron-down" class="desktop-only" style="width: 16px; height: 16px; color: #94A3B8; transition: transform 0.2s;" ::style="open ? 'transform: rotate(180deg)' : ''" />
                         </button>
 
                         <!-- Dropdown Menu (Pops Down) -->
