@@ -103,11 +103,14 @@
                     <tr>
                         <td>
                             <div style="display: flex; align-items: center; gap: 12px;">
-                                <img src="{{ asset('images/avatars/avatar_' . (strtolower($applicant->gender) == 'male' ? 'male' : (strtolower($applicant->gender) == 'female' ? 'female' : 'neutral')) . '.png') }}" 
-                                     alt="Avatar" 
-                                     style="width: 38px; height: 38px; border-radius: 10px; object-fit: cover; border: 1px solid #E2E8F0;">
+                                <a href="{{ route('applicants.show', $applicant->id) }}" style="flex-shrink: 0; display: block;">
+                                    <img src="{{ $applicant->photo_path ? asset('storage/' . $applicant->photo_path) : asset('images/avatars/avatar_' . (strtolower($applicant->gender) == 'male' ? 'male' : (strtolower($applicant->gender) == 'female' ? 'female' : 'neutral')) . '.png') }}" 
+                                         alt="{{ $applicant->full_name }}" 
+                                         style="width: 38px; height: 38px; border-radius: 10px; object-fit: cover; border: 1px solid #E2E8F0; transition: opacity 0.15s ease;"
+                                         onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+                                </a>
                                 <div>
-                                    <div style="font-weight: 600; font-size: 14px; color: #0F172A;">{{ $applicant->full_name }}</div>
+                                    <a href="{{ route('applicants.show', $applicant->id) }}" style="font-weight: 600; font-size: 14px; color: #0F172A; text-decoration: none; hover: underline;" onmouseover="this.style.color='#3B82F6'" onmouseout="this.style.color='#0F172A'">{{ $applicant->full_name }}</a>
                                     <div style="font-size: 12px; color: #64748B;">{{ $applicant->email }}</div>
                                 </div>
                             </div>

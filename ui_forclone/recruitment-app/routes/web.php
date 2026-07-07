@@ -33,6 +33,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     Route::get('/settings', [RecruitmentSettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [RecruitmentSettingController::class, 'update'])->name('settings.update');
+    Route::post('/settings/clear-cache', [RecruitmentSettingController::class, 'clearCache'])->name('settings.clear-cache');
 });
 
 Route::middleware('auth')->group(function () {

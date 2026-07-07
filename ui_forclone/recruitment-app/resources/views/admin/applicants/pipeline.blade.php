@@ -44,11 +44,13 @@
                                      onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.02)'; this.style.borderColor='#F1F5F9'">
                                     
                                     <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px;">
-                                        <img src="{{ asset('images/avatars/avatar_' . (strtolower($applicant->gender) == 'male' ? 'male' : (strtolower($applicant->gender) == 'female' ? 'female' : 'neutral')) . '.png') }}" 
-                                             style="width: 44px; height: 44px; border-radius: 12px; object-fit: cover; background: #F8FAFC;" alt="Avatar">
+                                        <img src="{{ $applicant->photo_path ? asset('storage/' . $applicant->photo_path) : asset('images/avatars/avatar_' . (strtolower($applicant->gender) == 'male' ? 'male' : (strtolower($applicant->gender) == 'female' ? 'female' : 'neutral')) . '.png') }}" 
+                                             style="width: 44px; height: 44px; border-radius: 12px; object-fit: cover; background: #F8FAFC; border: 1px solid #E2E8F0;" alt="{{ $applicant->full_name }}">
                                         <div style="flex: 1;">
                                             <h4 style="font-size: 15px; font-weight: 700; color: #0F172A; margin: 0; line-height: 1.3;">{{ $applicant->full_name }}</h4>
-                                            <p style="font-size: 12px; color: #64748B; margin: 2px 0 0; font-weight: 500;">{{ $application->jobOpening->position->title }}</p>
+                                            <p style="font-size: 12px; color: #64748B; margin: 2px 0 0; font-weight: 500;">
+                                                {{ $application->jobOpening?->position?->title ?? $application->position_applying_for ?? 'N/A' }}
+                                            </p>
                                         </div>
                                     </div>
 

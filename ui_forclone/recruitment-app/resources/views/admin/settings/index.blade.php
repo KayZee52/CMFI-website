@@ -62,5 +62,21 @@
                 <button type="submit" class="btn btn-primary" style="padding: 14px 40px;">Save All Settings</button>
             </div>
         </form>
+
+        <!-- System Maintenance & Cache Busting -->
+        <div style="border-top: 1px solid #EFEFEF; padding-top: 40px; margin-top: 40px;">
+            <h2 style="font-size: 18px; margin-bottom: 8px; color: #EF4444; display: flex; align-items: center; gap: 10px;">
+                <i data-lucide="trash-2"></i> System Cache Maintenance
+            </h2>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">
+                If you recently uploaded new files, stylesheets, or code updates via cPanel/FTP, the web server's PHP OPCache and Laravel's internal file caches may serve old files. Use the button below to purge all cached pages, configurations, and compiled code files instantly.
+            </p>
+            <form action="{{ route('settings.clear-cache') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn" style="padding: 12px 24px; background: #FEF2F2; color: #EF4444; border: 1.5px solid #FEE2E2; border-radius: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;" onmouseover="this.style.background='#FEE2E2'" onmouseout="this.style.background='#FEF2F2'">
+                    <i data-lucide="refresh-cw" style="width: 16px; height: 16px;"></i> Purge System & PHP OPCache
+                </button>
+            </form>
+        </div>
     </section>
 @endsection

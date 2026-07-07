@@ -49,7 +49,7 @@
                     @php $firstApp = $applicant->applications->first(); @endphp
                     <p style="font-size: 15px; color: #3B82F6; font-weight: 700; margin: 8px 0 24px;">
                         @if($firstApp)
-                            {{ $firstApp->position_applying_for === 'Other' ? $firstApp->other_position : ($firstApp->jobOpening->position->title ?? 'Teacher') }}
+                            {{ $firstApp->position_applying_for === 'Other' ? $firstApp->other_position : ($firstApp->jobOpening?->position?->title ?? 'Teacher') }}
                             @if($firstApp->position_applying_for === 'Subject Specialist' && $firstApp->other_position)
                                 ({{ $firstApp->other_position }})
                             @endif

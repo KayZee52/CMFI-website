@@ -96,12 +96,12 @@
                     <tr>
                         <td>
                             <div style="display: flex; align-items: center; gap: 12px;">
-                                <img src="{{ asset('images/avatars/avatar_' . (strtolower($interview->application->applicant->gender) == 'male' ? 'male' : (strtolower($interview->application->applicant->gender) == 'female' ? 'female' : 'neutral')) . '.png') }}" 
+                                <img src="{{ asset('images/avatars/avatar_' . (strtolower($interview->application?->applicant?->gender ?? 'neutral') == 'male' ? 'male' : (strtolower($interview->application?->applicant?->gender ?? 'neutral') == 'female' ? 'female' : 'neutral')) . '.png') }}" 
                                      alt="Avatar" 
                                      style="width: 36px; height: 36px; border-radius: 10px; object-fit: cover; border: 1px solid #E2E8F0;">
                                 <div>
-                                    <div style="font-weight: 600; font-size: 14px; color: #0F172A;">{{ $interview->application->applicant->full_name }}</div>
-                                    <div style="font-size: 12px; color: #64748B;">{{ $interview->application->jobOpening->position->title }}</div>
+                                    <div style="font-weight: 600; font-size: 14px; color: #0F172A;">{{ $interview->application?->applicant?->full_name ?? 'Unknown Applicant' }}</div>
+                                    <div style="font-size: 12px; color: #64748B;">{{ $interview->application?->jobOpening?->position?->title ?? $interview->application?->position_applying_for ?? 'N/A' }}</div>
                                 </div>
                             </div>
                         </td>

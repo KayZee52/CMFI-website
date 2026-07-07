@@ -7,7 +7,7 @@
     <title>Teacher Application | CMFI Bilingual High School</title>
 
     <!-- Local Styles & Fonts -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}?v={{ filemtime(public_path('css/style.css')) }}">
     
     <!-- Local Compiled Assets (Tailwind & Alpine) -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
