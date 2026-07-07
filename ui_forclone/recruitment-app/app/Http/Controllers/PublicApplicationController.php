@@ -211,9 +211,13 @@ class PublicApplicationController extends Controller
         
         dispatch(function () use ($applicant, $application) {
             try {
+                // Send Confirmation to Applicant
                 \Illuminate\Support\Facades\Mail::to($applicant->email)->send(new \App\Mail\ApplicationConfirmation($application));
+                
+                // Send Notification to Admin
+                \Illuminate\Support\Facades\Mail::to('admin@cmfischool.online')->send(new \App\Mail\AdminApplicationNotification($application));
             } catch (\Exception $e) {
-                \Illuminate\Support\Facades\Log::error("Failed to send application confirmation email: " . $e->getMessage());
+                \Illuminate\Support\Facades\Log::error("Failed to send application emails: " . $e->getMessage());
             }
         })->afterResponse();
 
