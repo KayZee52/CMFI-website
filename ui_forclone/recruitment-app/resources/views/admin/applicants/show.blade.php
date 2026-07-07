@@ -6,10 +6,10 @@
         previewTitle: '', 
         previewUrl: '', 
         previewType: '',
-        openPreview(title, url) {
+        openPreview(title, url, ext) {
             this.previewTitle = title;
             this.previewUrl = url;
-            this.previewType = url.toLowerCase().endsWith('.pdf') ? 'pdf' : 'image';
+            this.previewType = (ext === 'pdf') ? 'pdf' : (['jpg', 'jpeg', 'png', 'webp'].includes(ext) ? 'image' : 'other');
             this.previewOpen = true;
         }
     }" class="profile-hub">
@@ -378,7 +378,7 @@
                     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
                         @if($firstApp && $firstApp->documents->count() > 0)
                             @foreach($firstApp->documents as $doc)
-                                <div @click="openPreview('{{ $doc->document_type }}', '{{ route('documents.serve', $doc->id) }}')" 
+                                <div @click="openPreview('{{ $doc->document_type }}', '{{ route('documents.serve', $doc->id) }}', '{{ strtolower(pathinfo($doc->original_filename, PATHINFO_EXTENSION)) }}')" 
                                      style="background: #F8FAFC; border-radius: 16px; padding: 20px; border: 1.5px solid #F1F5F9; cursor: pointer; transition: all 0.2s; position: relative;" 
                                      class="doc-item"
                                      onmouseover="this.style.borderColor='#3B82F6'; this.style.transform='translateY(-2px)'" 
@@ -444,6 +444,16 @@
                     <template x-if="previewType === 'image'">
                         <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 40px; overflow: auto;">
                             <img :src="previewUrl" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);">
+                        </div>
+                    </template>
+                    <template x-if="previewType === 'other'">
+                        <div style="text-align: center; color: white; padding: 40px;">
+                            <x-icon name="file-text" style="width: 64px; height: 64px; margin: 0 auto 24px; opacity: 0.5;" />
+                            <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 12px;">No Browser Preview Available</h3>
+                            <p style="font-size: 16px; opacity: 0.8; max-width: 400px; margin: 0 auto 32px;">This file type ({{ strtoupper(pathinfo($doc->original_filename ?? '', PATHINFO_EXTENSION)) }}) cannot be previewed directly in the browser. Please download it to view the content.</p>
+                            <a :href="previewUrl" download style="display: inline-flex; align-items: center; gap: 12px; background: white; color: #0F172A; padding: 16px 32px; border-radius: 16px; font-weight: 800; text-decoration: none; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                <x-icon name="download" style="width: 20px; height: 20px;" /> Download Now
+                            </a>
                         </div>
                     </template>
                 </div>

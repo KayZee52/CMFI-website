@@ -505,7 +505,7 @@
                                             <template x-for="n in 5">
                                                 <label class="cursor-pointer">
                                                     <input type="radio" :name="'skills_proficiency[' + skill.id + ']'" :value="n" 
-                                                        :checked="{{ json_encode(old('skills_proficiency')) }}[skill.id] == n"
+                                                        :checked="({{ json_encode(old('skills_proficiency', (object)[])) }})[skill.id] == n"
                                                         class="hidden peer">
                                                     <div class="w-10 h-10 rounded-xl bg-white border-2 border-slate-100 flex items-center justify-center text-slate-400 font-bold peer-checked:bg-slate-900 peer-checked:border-slate-900 peer-checked:text-white transition-all hover:border-slate-300" x-text="n"></div>
                                                 </label>
@@ -725,6 +725,7 @@
                                 @elseif($errors->hasAny(['skills_proficiency'])) 7
                                 @elseif($errors->hasAny(['dismissed', 'convicted', 'abide_policies'])) 8
                                 @elseif($errors->hasAny(['references'])) 9
+                                @elseif($errors->hasAny(['cv', 'photo', 'transcripts', 'academic_certificates', 'professional_certificates', 'identification_card', 'police_clearance', 'recommendation_letters', 'personal_statement', 'digital_signature'])) 10
                                 @else 10
                                 @endif
                              @else 0 @endif,

@@ -98,7 +98,8 @@ class PublicApplicationController extends Controller
             'recommendation_letters' => 'nullable|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:10240',
         ]);
 
-        $application = DB::transaction(function () use ($request, $validated) {
+        try {
+            $application = DB::transaction(function () use ($request, $validated) {
             // Split full name
             $names = explode(' ', $validated['full_name'], 2);
             $firstName = $names[0];
@@ -198,8 +199,12 @@ class PublicApplicationController extends Controller
             // 4. Log Activity
             $application->logActivity('Application submitted via public portal.', null);
 
-            return $application;
-        });
+                return $application;
+            });
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Application submission failed: " . $e->getMessage());
+            return back()->withInput()->withErrors(['error' => 'An unexpected error occurred while saving your application. Please try again. (' . $e->getMessage() . ')']);
+        }
 
         // 5. Send Confirmation Email (After Response)
         $applicant = $application->applicant;
