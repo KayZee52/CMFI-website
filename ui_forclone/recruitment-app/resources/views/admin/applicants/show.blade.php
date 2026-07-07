@@ -59,8 +59,8 @@
                     </p>
                     
                     <div style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
-                        <span style="background: #F1F5F9; color: #64748B; padding: 6px 14px; border-radius: 10px; font-weight: 600; font-size: 13px;">Ref: #{{ $firstApp->reference_number ?? 'N/A' }}</span>
-                        <span style="background: #EFF6FF; color: #3B82F6; padding: 6px 14px; border-radius: 10px; font-weight: 700; font-size: 13px;">{{ $firstApp->current_stage ?? 'Pending' }}</span>
+                        <span style="background: #F1F5F9; color: #64748B; padding: 6px 14px; border-radius: 10px; font-weight: 600; font-size: 13px;">Ref: #{{ $firstApp?->reference_number ?? 'N/A' }}</span>
+                        <span style="background: #EFF6FF; color: #3B82F6; padding: 6px 14px; border-radius: 10px; font-weight: 700; font-size: 13px;">{{ $firstApp?->current_stage ?? 'Pending' }}</span>
                     </div>
                 </div>
 
@@ -210,19 +210,19 @@
                                     </div>
                                     <div>
                                         <p style="font-size: 11px; font-weight: 700; color: #94A3B8; margin: 0; text-transform: uppercase;">Availability</p>
-                                        <p style="font-size: 15px; font-weight: 700; color: #0F172A; margin: 4px 0 0;">{{ ($firstApp && $firstApp->available_start_date) ? \Carbon\Carbon::parse($firstApp->available_start_date)->format('M d, Y') : 'Immediate' }}</p>
+                                        <p style="font-size: 15px; font-weight: 700; color: #0F172A; margin: 4px 0 0;">{{ ($firstApp?->available_start_date) ? \Carbon\Carbon::parse($firstApp->available_start_date)->format('M d, Y') : 'Immediate' }}</p>
                                     </div>
                                 </div>
                                 <div>
                                     <p style="font-size: 11px; font-weight: 700; color: #94A3B8; margin: 0; text-transform: uppercase;">Preferred Subjects & Grades</p>
                                     <p style="font-size: 14px; font-weight: 600; color: #475569; margin: 4px 0 0;">
-                                        {{ $firstApp->subjects_can_teach ?? 'Not Specified' }} <br>
-                                        <span style="color: #94A3B8; font-size: 12px;">Preferred: {{ $firstApp->grades_preferred ?? 'N/A' }}</span>
+                                        {{ $firstApp?->subjects_can_teach ?? 'Not Specified' }} <br>
+                                        <span style="color: #94A3B8; font-size: 12px;">Preferred: {{ $firstApp?->grades_preferred ?? 'N/A' }}</span>
                                     </p>
                                 </div>
                                 
-                                <!-- Work History Blocks -->
-                                @if($firstApp && $firstApp->previous_school)
+                                 <!-- Work History Blocks -->
+                                @if($firstApp?->previous_school)
                                 <div style="padding: 16px; background: #F8FAFC; border-radius: 16px; border: 1px solid #F1F5F9;">
                                     <p style="font-size: 11px; font-weight: 700; color: #64748B; margin: 0; text-transform: uppercase;">Employer 1 (Recent)</p>
                                     <p style="font-size: 14px; font-weight: 700; color: #0F172A; margin: 4px 0 0;">{{ $firstApp->previous_school }}</p>
@@ -231,7 +231,7 @@
                                 </div>
                                 @endif
 
-                                @if($firstApp && $firstApp->prev_school_2)
+                                @if($firstApp?->prev_school_2)
                                 <div style="padding: 16px; background: #F8FAFC; border-radius: 16px; border: 1px solid #F1F5F9;">
                                     <p style="font-size: 11px; font-weight: 700; color: #64748B; margin: 0; text-transform: uppercase;">Employer 2</p>
                                     <p style="font-size: 14px; font-weight: 700; color: #0F172A; margin: 4px 0 0;">{{ $firstApp->prev_school_2 }}</p>
@@ -241,7 +241,7 @@
                                 @endif
 
                                 <!-- Secondary Employment -->
-                                @php $secondary = $firstApp->secondary_employment ?? []; @endphp
+                                @php $secondary = $firstApp?->secondary_employment ?? []; @endphp
                                 @foreach($secondary as $index => $job)
                                     @if(!empty($job['company']))
                                     <div style="padding: 16px; background: #FDFCFB; border-radius: 16px; border: 1px solid #FEF3C7;">
@@ -267,24 +267,24 @@
                                 <div style="display: flex; gap: 32px;">
                                     <div>
                                         <p style="font-size: 11px; font-weight: 700; color: #94A3B8; margin: 0; text-transform: uppercase;">Department</p>
-                                        <p style="font-size: 15px; font-weight: 700; color: #0F172A; margin: 4px 0 0;">{{ $firstApp->current_dept ?? 'N/A' }}</p>
+                                        <p style="font-size: 15px; font-weight: 700; color: #0F172A; margin: 4px 0 0;">{{ $firstApp?->current_dept ?? 'N/A' }}</p>
                                     </div>
                                     <div>
                                         <p style="font-size: 11px; font-weight: 700; color: #94A3B8; margin: 0; text-transform: uppercase;">Years Served</p>
-                                        <p style="font-size: 15px; font-weight: 700; color: #0F172A; margin: 4px 0 0;">{{ $firstApp->years_served ?? 'N/A' }}</p>
+                                        <p style="font-size: 15px; font-weight: 700; color: #0F172A; margin: 4px 0 0;">{{ $firstApp?->years_served ?? 'N/A' }}</p>
                                     </div>
                                 </div>
                                 <div>
                                     <p style="font-size: 11px; font-weight: 700; color: #94A3B8; margin: 0; text-transform: uppercase;">Achievements</p>
-                                    <p style="font-size: 14px; font-weight: 600; color: #475569; margin: 4px 0 0; line-height: 1.6;">{{ $firstApp->achievements ?? 'None documented.' }}</p>
+                                    <p style="font-size: 14px; font-weight: 600; color: #475569; margin: 4px 0 0; line-height: 1.6;">{{ $firstApp?->achievements ?? 'None documented.' }}</p>
                                 </div>
                                 <div>
                                     <p style="font-size: 11px; font-weight: 700; color: #94A3B8; margin: 0; text-transform: uppercase;">Challenges Faced</p>
-                                    <p style="font-size: 14px; font-weight: 600; color: #475569; margin: 4px 0 0; line-height: 1.6;">{{ $firstApp->challenges ?? 'None documented.' }}</p>
+                                    <p style="font-size: 14px; font-weight: 600; color: #475569; margin: 4px 0 0; line-height: 1.6;">{{ $firstApp?->challenges ?? 'None documented.' }}</p>
                                 </div>
                                 <div>
                                     <p style="font-size: 11px; font-weight: 700; color: #94A3B8; margin: 0; text-transform: uppercase;">Why continue?</p>
-                                    <p style="font-size: 14px; font-weight: 600; color: #475569; margin: 4px 0 0; line-height: 1.6;">{{ $firstApp->why_continue ?? 'No statement provided.' }}</p>
+                                    <p style="font-size: 14px; font-weight: 600; color: #475569; margin: 4px 0 0; line-height: 1.6;">{{ $firstApp?->why_continue ?? 'No statement provided.' }}</p>
                                 </div>
                             </div>
                             @else
@@ -333,7 +333,7 @@
                     <div class="profile-card" style="padding: 32px; background: white; border-radius: 24px; border: 1px solid #F1F5F9;">
                         <h4 style="font-size: 16px; font-weight: 800; color: #0F172A; margin: 0 0 24px;">Professional References</h4>
                         <div style="display: flex; flex-direction: column; gap: 24px;">
-                            @php $refs = $firstApp->reference_data ?? []; @endphp
+                            @php $refs = $firstApp?->reference_data ?? []; @endphp
                             @forelse($refs as $ref)
                             <div>
                                 <p style="font-size: 14px; font-weight: 700; color: #0F172A; margin: 0;">{{ $ref['name'] ?? 'N/A' }}</p>
@@ -348,8 +348,8 @@
                     <div class="profile-card" style="padding: 32px; background: white; border-radius: 24px; border: 1px solid #F1F5F9;">
                         <h4 style="font-size: 16px; font-weight: 800; color: #0F172A; margin: 0 0 16px;">Additional Commitments</h4>
                         <p style="font-size: 14px; line-height: 1.6; color: #475569; margin: 0;">
-                            <strong>Type:</strong> {{ $firstApp->commitment_type ?? 'Full-Time' }} <br><br>
-                            {{ $firstApp->other_commitments ?? 'No other commitments disclosed.' }}
+                            <strong>Type:</strong> {{ $firstApp?->commitment_type ?? 'Full-Time' }} <br><br>
+                            {{ $firstApp?->other_commitments ?? 'No other commitments disclosed.' }}
                         </p>
                     </div>
                 </div>
@@ -357,9 +357,9 @@
                 <!-- Personal Statement Card -->
                 <div class="profile-card" style="padding: 32px; background: white; border-radius: 24px; border: 1px solid #F1F5F9;">
                     <h4 style="font-size: 16px; font-weight: 800; color: #0F172A; margin: 0 0 16px;">Teaching Philosophy & Statement</h4>
-                    <p style="font-size: 15px; line-height: 1.8; color: #475569; margin: 0; white-space: pre-line;">{{ $firstApp->personal_statement ?? 'No statement provided.' }}</p>
+                    <p style="font-size: 15px; line-height: 1.8; color: #475569; margin: 0; white-space: pre-line;">{{ $firstApp?->personal_statement ?? 'No statement provided.' }}</p>
                     
-                    @if($firstApp && $firstApp->digital_signature)
+                    @if($firstApp?->digital_signature)
                     <div style="margin-top: 32px; padding-top: 24px; border-top: 1px dashed #E2E8F0;">
                         <p style="font-size: 11px; font-weight: 700; color: #94A3B8; margin: 0; text-transform: uppercase; letter-spacing: 0.1em;">Digital Signature</p>
                         <p style="font-family: cursive; font-style: italic; font-size: 24px; color: #0F172A; margin: 8px 0 0;">{{ $firstApp->digital_signature }}</p>

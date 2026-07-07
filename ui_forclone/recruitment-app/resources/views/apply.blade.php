@@ -185,42 +185,42 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 <div class="sm:col-span-2">
                                     <label class="form-label">Full Name <span class="text-red-500">*</span></label>
-                                    <input type="text" name="full_name" class="input-class" required>
+                                    <input type="text" name="full_name" class="input-class" value="{{ old('full_name') }}" required>
                                 </div>
                                 <div>
                                     <label class="form-label">Gender <span class="text-red-500">*</span></label>
                                     <select name="gender" class="input-class" required>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
+                                        <option value="Male" @selected(old('gender') == 'Male')>Male</option>
+                                        <option value="Female" @selected(old('gender') == 'Female')>Female</option>
                                     </select>
                                 </div>
                                 <div>
                                     <label class="form-label">Date of Birth <span class="text-red-500">*</span></label>
-                                    <input type="date" name="date_of_birth" class="input-class" required>
+                                    <input type="date" name="date_of_birth" class="input-class" value="{{ old('date_of_birth') }}" required>
                                 </div>
                                 <div>
                                     <label class="form-label">Nationality <span class="text-red-500">*</span></label>
-                                    <input type="text" name="nationality" class="input-class" required>
+                                    <input type="text" name="nationality" class="input-class" value="{{ old('nationality') }}" required>
                                 </div>
                                 <div>
                                     <label class="form-label">City of Residence <span class="text-red-500">*</span></label>
-                                    <input type="text" name="city_of_residence" class="input-class" required>
+                                    <input type="text" name="city_of_residence" class="input-class" value="{{ old('city_of_residence') }}" required>
                                 </div>
                                 <div>
                                     <label class="form-label">Mobile Number <span class="text-red-500">*</span></label>
-                                    <input type="tel" name="phone" class="input-class" required>
+                                    <input type="tel" name="phone" class="input-class" value="{{ old('phone') }}" required>
                                 </div>
                                 <div>
                                     <label class="form-label">WhatsApp Number <span class="text-red-500">*</span></label>
-                                    <input type="tel" name="whatsapp_number" class="input-class" required>
+                                    <input type="tel" name="whatsapp_number" class="input-class" value="{{ old('whatsapp_number') }}" required>
                                 </div>
                                 <div class="sm:col-span-2">
                                     <label class="form-label">Email Address <span class="text-red-500">*</span></label>
-                                    <input type="email" name="email" class="input-class" required>
+                                    <input type="email" name="email" class="input-class" value="{{ old('email') }}" required>
                                 </div>
                                 <div class="sm:col-span-2">
                                     <label class="form-label">Home Address <span class="text-red-500">*</span></label>
-                                    <textarea name="home_address" class="input-class" rows="2" required></textarea>
+                                    <textarea name="home_address" class="input-class" rows="2" required>{{ old('home_address') }}</textarea>
                                 </div>
 
                                 <div class="sm:col-span-2 pt-4 border-t border-slate-100">
@@ -230,12 +230,12 @@
                                         <div>
                                             <label class="form-label">Contact Name <span
                                                     class="text-red-500">*</span></label>
-                                            <input type="text" name="emergency_name" class="input-class" required>
+                                            <input type="text" name="emergency_name" class="input-class" value="{{ old('emergency_name') }}" required>
                                         </div>
                                         <div>
                                             <label class="form-label">Contact Number <span
                                                     class="text-red-500">*</span></label>
-                                            <input type="tel" name="emergency_number" class="input-class" required>
+                                            <input type="tel" name="emergency_number" class="input-class" value="{{ old('emergency_number') }}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -257,42 +257,42 @@
                                         <select name="position_applying_for" class="input-class" required x-model="selectedPosition">
                                             <option value="">Select Position...</option>
                                             @foreach ($openings as $opening)
-                                                <option value="{{ $opening->position->title }}">{{ $opening->position->title }}</option>
+                                                <option value="{{ $opening->position->title }}" @selected(old('position_applying_for') == $opening->position->title)>{{ $opening->position->title }}</option>
                                             @endforeach
-                                            <option value="Nursery Teacher">Nursery Teacher</option>
-                                            <option value="Elementary Teacher">Elementary Teacher</option>
-                                            <option value="Junior High Teacher">Junior High Teacher</option>
-                                            <option value="Senior High Teacher">Senior High Teacher</option>
-                                            <option value="Subject Specialist">Subject Specialist</option>
-                                            <option value="Other">Other (Specify below)</option>
+                                            <option value="Nursery Teacher" @selected(old('position_applying_for') == 'Nursery Teacher')>Nursery Teacher</option>
+                                            <option value="Elementary Teacher" @selected(old('position_applying_for') == 'Elementary Teacher')>Elementary Teacher</option>
+                                            <option value="Junior High Teacher" @selected(old('position_applying_for') == 'Junior High Teacher')>Junior High Teacher</option>
+                                            <option value="Senior High Teacher" @selected(old('position_applying_for') == 'Senior High Teacher')>Senior High Teacher</option>
+                                            <option value="Subject Specialist" @selected(old('position_applying_for') == 'Subject Specialist')>Subject Specialist</option>
+                                            <option value="Other" @selected(old('position_applying_for') == 'Other')>Other (Specify below)</option>
                                         </select>
                                         <input type="text" name="other_position" class="input-class" x-show="selectedPosition === 'Other' || selectedPosition === 'Subject Specialist'" 
-                                            placeholder="Specify Subject or Role" :required="selectedPosition === 'Other' || selectedPosition === 'Subject Specialist'">
+                                            value="{{ old('other_position') }}" placeholder="Specify Subject or Role" :required="selectedPosition === 'Other' || selectedPosition === 'Subject Specialist'">
                                     </div>
                                 </div>
                                 <div class="sm:col-span-2">
                                     <label class="form-label">Subjects You Can Teach <span
                                             class="text-red-500">*</span></label>
                                     <input type="text" name="subjects_can_teach" class="input-class"
-                                        placeholder="e.g. Mathematics, Physics" required>
+                                        value="{{ old('subjects_can_teach') }}" placeholder="e.g. Mathematics, Physics" required>
                                 </div>
                                 <div class="sm:col-span-2">
                                     <label class="form-label">Grade Level(s) Preferred <span
                                             class="text-red-500">*</span></label>
                                     <input type="text" name="grades_preferred" class="input-class"
-                                        placeholder="e.g. Grade 7, Grade 8" required>
+                                        value="{{ old('grades_preferred') }}" placeholder="e.g. Grade 7, Grade 8" required>
                                 </div>
                                 <div>
                                     <label class="form-label">Employment Type <span class="text-red-500">*</span></label>
                                     <select name="commitment_type" class="input-class" required>
-                                        <option value="Full-Time">Full-Time</option>
-                                        <option value="Part-Time">Part-Time</option>
+                                        <option value="Full-Time" @selected(old('commitment_type') == 'Full-Time')>Full-Time</option>
+                                        <option value="Part-Time" @selected(old('commitment_type') == 'Part-Time')>Part-Time</option>
                                     </select>
                                 </div>
                                 <div>
                                     <label class="form-label">Available Start Date <span
                                             class="text-red-500">*</span></label>
-                                    <input type="date" name="available_start_date" class="input-class" required>
+                                    <input type="date" name="available_start_date" class="input-class" value="{{ old('available_start_date') }}" required>
                                 </div>
                             </div>
                         </div>
@@ -310,27 +310,27 @@
                                     <label class="form-label">Highest Qualification <span
                                             class="text-red-500">*</span></label>
                                     <select name="highest_qualification" class="input-class" required>
-                                        <option value="Bachelor's Degree">Bachelor's Degree</option>
-                                        <option value="Master's Degree">Master's Degree</option>
-                                        <option value="Doctorate">Doctorate</option>
-                                        <option value="Other">Other</option>
+                                        <option value="Bachelor's Degree" @selected(old('highest_qualification') == "Bachelor's Degree")>Bachelor's Degree</option>
+                                        <option value="Master's Degree" @selected(old('highest_qualification') == "Master's Degree")>Master's Degree</option>
+                                        <option value="Doctorate" @selected(old('highest_qualification') == "Doctorate")>Doctorate</option>
+                                        <option value="Other" @selected(old('highest_qualification') == "Other")>Other</option>
                                     </select>
                                 </div>
                                 <div>
                                     <label class="form-label">Institution <span class="text-red-500">*</span></label>
-                                    <input type="text" name="institution" class="input-class" required>
+                                    <input type="text" name="institution" class="input-class" value="{{ old('institution') }}" required>
                                 </div>
                                 <div>
                                     <label class="form-label">Graduation Year <span class="text-red-500">*</span></label>
-                                    <input type="number" name="graduation_year" class="input-class" required>
+                                    <input type="number" name="graduation_year" class="input-class" value="{{ old('graduation_year') }}" required>
                                 </div>
                                 <div>
                                     <label class="form-label">Major / Area of Study</label>
-                                    <input type="text" name="major" class="input-class">
+                                    <input type="text" name="major" class="input-class" value="{{ old('major') }}">
                                 </div>
                                 <div class="sm:col-span-2">
                                     <label class="form-label">Professional Certifications</label>
-                                    <input type="text" name="certifications" class="input-class"
+                                    <input type="text" name="certifications" class="input-class" value="{{ old('certifications') }}"
                                         placeholder="List any certifications (comma separated)">
                                 </div>
 
@@ -381,7 +381,7 @@
                             <div class="space-y-6">
                                 <div>
                                     <label class="form-label">Total Years of Teaching Experience <span class="text-red-500">*</span></label>
-                                    <input type="number" name="years_experience" class="input-class w-32" required>
+                                    <input type="number" name="years_experience" class="input-class w-32" value="{{ old('years_experience') }}" required>
                                 </div>
 
                                 <div class="space-y-8">
@@ -390,15 +390,15 @@
                                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                             <div class="sm:col-span-2">
                                                 <label class="form-label">Name of School/Institution <span class="text-red-500">*</span></label>
-                                                <input type="text" name="previous_school" class="input-class" required>
+                                                <input type="text" name="previous_school" class="input-class" value="{{ old('previous_school') }}" required>
                                             </div>
                                             <div>
                                                 <label class="form-label">Position Held <span class="text-red-500">*</span></label>
-                                                <input type="text" name="prev_position" class="input-class" required>
+                                                <input type="text" name="prev_position" class="input-class" value="{{ old('prev_position') }}" required>
                                             </div>
                                             <div>
                                                 <label class="form-label">Employment Period <span class="text-red-500">*</span></label>
-                                                <input type="text" name="prev_period" class="input-class" required placeholder="e.g. 2021 - 2024">
+                                                <input type="text" name="prev_period" class="input-class" value="{{ old('prev_period') }}" required placeholder="e.g. 2021 - 2024">
                                             </div>
                                         </div>
                                     </div>
@@ -408,15 +408,15 @@
                                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                             <div class="sm:col-span-2">
                                                 <label class="form-label">Name of School/Institution</label>
-                                                <input type="text" name="prev_school_2" class="input-class">
+                                                <input type="text" name="prev_school_2" class="input-class" value="{{ old('prev_school_2') }}">
                                             </div>
                                             <div>
                                                 <label class="form-label">Position Held</label>
-                                                <input type="text" name="prev_position_2" class="input-class">
+                                                <input type="text" name="prev_position_2" class="input-class" value="{{ old('prev_position_2') }}">
                                             </div>
                                             <div>
                                                 <label class="form-label">Employment Period</label>
-                                                <input type="text" name="prev_period_2" class="input-class" placeholder="e.g. 2018 - 2020">
+                                                <input type="text" name="prev_period_2" class="input-class" value="{{ old('prev_period_2') }}" placeholder="e.g. 2018 - 2020">
                                             </div>
                                         </div>
                                     </div>
@@ -436,23 +436,23 @@
                                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                         <div class="sm:col-span-2">
                                             <label class="form-label">Company Name</label>
-                                            <input type="text" name="secondary_employment[0][company]" class="input-class">
+                                            <input type="text" name="secondary_employment[0][company]" class="input-class" value="{{ old('secondary_employment.0.company') }}">
                                         </div>
                                         <div>
                                             <label class="form-label">Position Held</label>
-                                            <input type="text" name="secondary_employment[0][position]" class="input-class">
+                                            <input type="text" name="secondary_employment[0][position]" class="input-class" value="{{ old('secondary_employment.0.position') }}">
                                         </div>
                                         <div>
                                             <label class="form-label">Dates of Employment</label>
-                                            <input type="text" name="secondary_employment[0][dates]" class="input-class" placeholder="e.g. Jan 2015 - Dec 2017">
+                                            <input type="text" name="secondary_employment[0][dates]" class="input-class" value="{{ old('secondary_employment.0.dates') }}" placeholder="e.g. Jan 2015 - Dec 2017">
                                         </div>
                                         <div class="sm:col-span-2">
                                             <label class="form-label">Nature of Work</label>
-                                            <textarea name="secondary_employment[0][nature]" class="input-class" rows="2"></textarea>
+                                            <textarea name="secondary_employment[0][nature]" class="input-class" rows="2">{{ old('secondary_employment.0.nature') }}</textarea>
                                         </div>
                                         <div class="sm:col-span-2">
                                             <label class="form-label">Reason for Leaving</label>
-                                            <textarea name="secondary_employment[0][reason]" class="input-class" rows="2"></textarea>
+                                            <textarea name="secondary_employment[0][reason]" class="input-class" rows="2">{{ old('secondary_employment.0.reason') }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -469,23 +469,23 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 <div>
                                     <label class="form-label">Current Dept / Grade</label>
-                                    <input type="text" name="current_dept" class="input-class">
+                                    <input type="text" name="current_dept" class="input-class" value="{{ old('current_dept') }}">
                                 </div>
                                 <div>
                                     <label class="form-label">Years Served at CMFI</label>
-                                    <input type="number" name="years_served" class="input-class">
+                                    <input type="number" name="years_served" class="input-class" value="{{ old('years_served') }}">
                                 </div>
                                 <div class="sm:col-span-2">
                                     <label class="form-label">Major Achievements During Service</label>
-                                    <textarea name="achievements" class="input-class" rows="3"></textarea>
+                                    <textarea name="achievements" class="input-class" rows="3">{{ old('achievements') }}</textarea>
                                 </div>
                                 <div class="sm:col-span-2">
                                     <label class="form-label">Challenges Faced Last Year</label>
-                                    <textarea name="challenges" class="input-class" rows="3"></textarea>
+                                    <textarea name="challenges" class="input-class" rows="3">{{ old('challenges') }}</textarea>
                                 </div>
                                 <div class="sm:col-span-2">
                                     <label class="form-label">Why would you like to continue?</label>
-                                    <textarea name="why_continue" class="input-class" rows="3"></textarea>
+                                    <textarea name="why_continue" class="input-class" rows="3">{{ old('why_continue') }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -504,7 +504,9 @@
                                         <div class="flex gap-2">
                                             <template x-for="n in 5">
                                                 <label class="cursor-pointer">
-                                                    <input type="radio" :name="'skills_proficiency[' + skill.id + ']'" :value="n" class="hidden peer">
+                                                    <input type="radio" :name="'skills_proficiency[' + skill.id + ']'" :value="n" 
+                                                        :checked="{{ json_encode(old('skills_proficiency')) }}[skill.id] == n"
+                                                        class="hidden peer">
                                                     <div class="w-10 h-10 rounded-xl bg-white border-2 border-slate-100 flex items-center justify-center text-slate-400 font-bold peer-checked:bg-slate-900 peer-checked:border-slate-900 peer-checked:text-white transition-all hover:border-slate-300" x-text="n"></div>
                                                 </label>
                                             </template>
@@ -526,11 +528,11 @@
                                     <p class="font-bold text-slate-900">Have you ever been dismissed from a previous job?</p>
                                     <div class="flex gap-4">
                                         <label class="flex items-center gap-2 cursor-pointer">
-                                            <input type="radio" name="dismissed" value="No" checked class="w-4 h-4 text-slate-900">
+                                            <input type="radio" name="dismissed" value="No" @checked(old('dismissed', 'No') == 'No') class="w-4 h-4 text-slate-900">
                                             <span class="text-slate-700">No</span>
                                         </label>
                                         <label class="flex items-center gap-2 cursor-pointer">
-                                            <input type="radio" name="dismissed" value="Yes" class="w-4 h-4 text-slate-900">
+                                            <input type="radio" name="dismissed" value="Yes" @checked(old('dismissed') == 'Yes') class="w-4 h-4 text-slate-900">
                                             <span class="text-slate-700">Yes</span>
                                         </label>
                                     </div>
@@ -540,11 +542,11 @@
                                     <p class="font-bold text-slate-900">Have you ever been convicted of a criminal offense?</p>
                                     <div class="flex gap-4">
                                         <label class="flex items-center gap-2 cursor-pointer">
-                                            <input type="radio" name="convicted" value="No" checked class="w-4 h-4 text-slate-900">
+                                            <input type="radio" name="convicted" value="No" @checked(old('convicted', 'No') == 'No') class="w-4 h-4 text-slate-900">
                                             <span class="text-slate-700">No</span>
                                         </label>
                                         <label class="flex items-center gap-2 cursor-pointer">
-                                            <input type="radio" name="convicted" value="Yes" class="w-4 h-4 text-slate-900">
+                                            <input type="radio" name="convicted" value="Yes" @checked(old('convicted') == 'Yes') class="w-4 h-4 text-slate-900">
                                             <span class="text-slate-700">Yes</span>
                                         </label>
                                     </div>
@@ -554,11 +556,11 @@
                                     <p class="font-bold text-slate-900">Are you willing to abide by all school policies and regulations?</p>
                                     <div class="flex gap-4">
                                         <label class="flex items-center gap-2 cursor-pointer">
-                                            <input type="radio" name="abide_policies" value="Yes" checked class="w-4 h-4 text-slate-900">
+                                            <input type="radio" name="abide_policies" value="Yes" @checked(old('abide_policies', 'Yes') == 'Yes') class="w-4 h-4 text-slate-900">
                                             <span class="text-slate-700">Yes, I agree</span>
                                         </label>
                                         <label class="flex items-center gap-2 cursor-pointer">
-                                            <input type="radio" name="abide_policies" value="No" class="w-4 h-4 text-slate-900">
+                                            <input type="radio" name="abide_policies" value="No" @checked(old('abide_policies') == 'No') class="w-4 h-4 text-slate-900">
                                             <span class="text-slate-700">No</span>
                                         </label>
                                     </div>
@@ -579,23 +581,23 @@
                                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                         <div class="sm:col-span-2">
                                             <label class="form-label">Full Name</label>
-                                            <input type="text" name="references[0][name]" class="input-class">
+                                            <input type="text" name="references[0][name]" class="input-class" value="{{ old('references.0.name') }}">
                                         </div>
                                         <div>
                                             <label class="form-label">Position</label>
-                                            <input type="text" name="references[0][position]" class="input-class">
+                                            <input type="text" name="references[0][position]" class="input-class" value="{{ old('references.0.position') }}">
                                         </div>
                                         <div>
                                             <label class="form-label">Organization</label>
-                                            <input type="text" name="references[0][org]" class="input-class">
+                                            <input type="text" name="references[0][org]" class="input-class" value="{{ old('references.0.org') }}">
                                         </div>
                                         <div>
                                             <label class="form-label">Phone Number</label>
-                                            <input type="tel" name="references[0][phone]" class="input-class">
+                                            <input type="tel" name="references[0][phone]" class="input-class" value="{{ old('references.0.phone') }}">
                                         </div>
                                         <div>
                                             <label class="form-label">Email Address</label>
-                                            <input type="email" name="references[0][email]" class="input-class">
+                                            <input type="email" name="references[0][email]" class="input-class" value="{{ old('references.0.email') }}">
                                         </div>
                                     </div>
                                 </div>
@@ -605,23 +607,23 @@
                                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                         <div class="sm:col-span-2">
                                             <label class="form-label">Full Name</label>
-                                            <input type="text" name="references[1][name]" class="input-class">
+                                            <input type="text" name="references[1][name]" class="input-class" value="{{ old('references.1.name') }}">
                                         </div>
                                         <div>
                                             <label class="form-label">Position</label>
-                                            <input type="text" name="references[1][position]" class="input-class">
+                                            <input type="text" name="references[1][position]" class="input-class" value="{{ old('references.1.position') }}">
                                         </div>
                                         <div>
                                             <label class="form-label">Organization</label>
-                                            <input type="text" name="references[1][org]" class="input-class">
+                                            <input type="text" name="references[1][org]" class="input-class" value="{{ old('references.1.org') }}">
                                         </div>
                                         <div>
                                             <label class="form-label">Phone Number</label>
-                                            <input type="tel" name="references[1][phone]" class="input-class">
+                                            <input type="tel" name="references[1][phone]" class="input-class" value="{{ old('references.1.phone') }}">
                                         </div>
                                         <div>
                                             <label class="form-label">Email Address</label>
-                                            <input type="email" name="references[1][email]" class="input-class">
+                                            <input type="email" name="references[1][email]" class="input-class" value="{{ old('references.1.email') }}">
                                         </div>
                                     </div>
                                 </div>
@@ -637,15 +639,15 @@
 
                             <div class="space-y-6">
                                 <div>
-                                    <label class="form-label">Statement (200-500 words) <span class="text-red-500">*</span></label>
+                                    <label class="form-label">Personal Statement <span class="text-red-500">*</span></label>
                                     <textarea name="personal_statement" class="input-class" rows="8" required
-                                        placeholder="Why you want to teach here, the value you bring, and your philosophy..."></textarea>
+                                        placeholder="Why you want to teach here, the value you bring, and your philosophy...">{{ old('personal_statement') }}</textarea>
                                 </div>
                                 
                                 <div class="sm:col-span-2">
                                     <label class="form-label">Other Commitments</label>
                                     <textarea name="other_commitments" class="input-class" rows="2" 
-                                        placeholder="Any other jobs or studies that may affect your schedule?"></textarea>
+                                        placeholder="Any other jobs or studies that may affect your schedule?">{{ old('other_commitments') }}</textarea>
                                 </div>
 
                                 <div class="p-6 rounded-2xl bg-amber-50 border border-amber-100 space-y-6">
@@ -657,7 +659,7 @@
                                     </div>
                                     <div class="pt-4 border-t border-amber-200">
                                         <label class="form-label text-amber-900">Digital Signature (Full Name) <span class="text-red-500">*</span></label>
-                                        <input type="text" name="digital_signature" class="input-class border-amber-200" required placeholder="Type your full name here">
+                                        <input type="text" name="digital_signature" class="input-class border-amber-200" value="{{ old('digital_signature') }}" required placeholder="Type your full name here">
                                         <p class="text-[10px] text-amber-700 mt-2 uppercase tracking-widest font-bold">I understand that typing my name above constitutes a legal signature.</p>
                                     </div>
                                 </div>
@@ -713,10 +715,22 @@
     <script>
         function applicationForm() {
             return {
-                currentStep: 0,
-                applicantType: '',
+                currentStep: @if($errors->any())
+                                @if($errors->hasAny(['full_name', 'gender', 'date_of_birth', 'nationality', 'city_of_residence', 'phone', 'whatsapp_number', 'email', 'home_address', 'emergency_name', 'emergency_number'])) 1
+                                @elseif($errors->hasAny(['applicant_type', 'position_applying_for', 'other_position', 'subjects_can_teach', 'grades_preferred'])) 2
+                                @elseif($errors->hasAny(['highest_qualification', 'institution', 'graduation_year', 'major', 'certifications'])) 3
+                                @elseif($errors->hasAny(['years_experience', 'previous_school', 'prev_position', 'prev_period'])) 4
+                                @elseif($errors->hasAny(['secondary_employment'])) 5
+                                @elseif($errors->hasAny(['current_dept', 'years_served', 'achievements', 'challenges', 'why_continue'])) 6
+                                @elseif($errors->hasAny(['skills_proficiency'])) 7
+                                @elseif($errors->hasAny(['dismissed', 'convicted', 'abide_policies'])) 8
+                                @elseif($errors->hasAny(['references'])) 9
+                                @else 10
+                                @endif
+                             @else 0 @endif,
+                applicantType: '{{ old('applicant_type', '') }}',
                 isPending: false,
-                selectedPosition: '',
+                selectedPosition: '{{ old('position_applying_for', '') }}',
                 skills: [
                     { id: 'classroom_management', label: 'Classroom Management' },
                     { id: 'lesson_planning', label: 'Lesson Planning' },

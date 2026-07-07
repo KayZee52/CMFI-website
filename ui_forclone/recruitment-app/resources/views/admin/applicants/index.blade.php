@@ -113,8 +113,8 @@
                             </div>
                         </td>
                         <td>
-                            <div style="font-weight: 500; font-size: 14px; color: #1E293B;">{{ $latestApp->jobOpening->position->title ?? 'N/A' }}</div>
-                            <div style="font-size: 12px; color: #94A3B8;">{{ $latestApp->jobOpening->position->department->name ?? 'General' }}</div>
+                            <div style="font-weight: 500; font-size: 14px; color: #1E293B;">{{ $latestApp?->jobOpening?->position?->title ?? 'N/A' }}</div>
+                            <div style="font-size: 12px; color: #94A3B8;">{{ $latestApp?->jobOpening?->position?->department?->name ?? 'General' }}</div>
                         </td>
                         <td>
                             @if($applicant->applicant_type === 'current_teacher')
@@ -128,8 +128,8 @@
                             @endif
                         </td>
                         <td>
-                            <span class="status-tag {{ Str::contains($latestApp->current_stage ?? '', 'Interview') ? 'in-progress' : (($latestApp->decision_status ?? '') === 'Hired' ? 'completed' : 'pending') }}" style="padding: 4px 10px; font-size: 11px; border-radius: 6px;">
-                                {{ $latestApp->current_stage ?? 'Pending' }}
+                            <span class="status-tag {{ Str::contains($latestApp?->current_stage ?? '', 'Interview') ? 'in-progress' : (($latestApp?->decision_status ?? '') === 'Hired' ? 'completed' : 'pending') }}" style="padding: 4px 10px; font-size: 11px; border-radius: 6px;">
+                                {{ $latestApp?->current_stage ?? 'Pending' }}
                             </span>
                         </td>
                         <td style="font-size: 13px; color: #64748B;">

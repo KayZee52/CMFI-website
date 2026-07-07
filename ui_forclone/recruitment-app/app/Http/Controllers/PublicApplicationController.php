@@ -88,17 +88,17 @@ class PublicApplicationController extends Controller
             'digital_signature' => 'required|string',
             
             // Files
-            'cv' => 'required|file|mimes:pdf,doc,docx|max:5120',
-            'photo' => 'nullable|file|mimes:jpg,jpeg,png|max:5120',
-            'transcripts' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
-            'academic_certificates' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
-            'professional_certificates' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
-            'identification_card' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
-            'police_clearance' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
-            'recommendation_letters' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'cv' => 'required|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:10240',
+            'photo' => 'nullable|file|mimes:jpg,jpeg,png|max:10240',
+            'transcripts' => 'nullable|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:10240',
+            'academic_certificates' => 'nullable|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:10240',
+            'professional_certificates' => 'nullable|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:10240',
+            'identification_card' => 'nullable|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:10240',
+            'police_clearance' => 'nullable|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:10240',
+            'recommendation_letters' => 'nullable|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:10240',
         ]);
 
-        return DB::transaction(function () use ($request, $validated) {
+        $application = DB::transaction(function () use ($request, $validated) {
             // Split full name
             $names = explode(' ', $validated['full_name'], 2);
             $firstName = $names[0];
@@ -202,8 +202,8 @@ class PublicApplicationController extends Controller
         });
 
         // 5. Send Confirmation Email (After Response)
-        // This handles background sending automatically on Shared Hosting
-        // without needing a separate worker or Cron job.
+        $applicant = $application->applicant;
+        
         dispatch(function () use ($applicant, $application) {
             try {
                 \Illuminate\Support\Facades\Mail::to($applicant->email)->send(new \App\Mail\ApplicationConfirmation($application));
